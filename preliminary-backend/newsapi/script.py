@@ -79,12 +79,17 @@ def aggregate_eliminate_dups(responses, user_pref=None):
     seen_urls = set()
     general_articles = []
     preferred_articles = []
+    id = 0
 
     # Add articles from user preferences (news dashboard and search)
     if user_pref and "articles" in user_pref:
         for article in user_pref["articles"]:
             article_url = article.get("url")
             if article_url and article_url not in seen_urls:
+                if (article.get("name") == "[Removed]"):
+                    continue
+                article["id"] = id
+                id += 1
                 article["user_pref"] = True
                 seen_urls.add(article_url)
                 preferred_articles.append(article)
@@ -95,14 +100,18 @@ def aggregate_eliminate_dups(responses, user_pref=None):
             for article in response["articles"]:
                 article_url = article.get("url")
 
+                if (article.get("name") == "[Removed]"):
+                    continue
+
                 # Skip duplicates
                 if not article_url or article_url in seen_urls:
                     continue
 
-
                 # Mark URL as seen and add the article to the list
                 seen_urls.add(article_url)
                 article["user_pref"] = False
+                article["id"] = id
+                id += 1
                 general_articles.append(article)
 
     return general_articles + preferred_articles
@@ -179,8 +188,8 @@ Should we exclude certain sources like reddit - should we do this after
 '''
 
 ### Testing
-question = "Donald Trump"
-user_search(question, "outputs/test_search_trump.json")
+# question = "Donald Trump"
+# user_search(question, "outputs/test_search_trump.json")
 # daily_news('test_daily_data.json')
 
 
