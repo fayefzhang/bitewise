@@ -3,6 +3,7 @@
 import Header from "../components/header";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 const DashboardPage: React.FC = () => {
   const router = useRouter();
@@ -14,13 +15,14 @@ const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen text-black">
+    <div className="bg-gray-100 min-h-screen p-4 md:p-8 text-black">
       <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-md">
         <Header onSearch={handleSearch} placeholder="Search topic..." />
 
         {/* Main Content */}
         <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-          <div className="flex-col">
+          {/* Main Section */}
+          <div className="flex-1 flex-col">
             <h1 className="text-2xl font-bold">Good evening, USER.</h1>
             <p className="text-lg mb-4">
               We're covering Trump's victory, a Republican Senate and America's
@@ -55,10 +57,12 @@ const DashboardPage: React.FC = () => {
                     key={index}
                     className="bg-white p-4 rounded-md shadow w-1/3"
                   >
-                    <img
+                    <Image
                       src="/bitewise_logo.png"
                       alt="Harris concedes"
-                      className="w-full h-32 object-cover rounded-md mb-2"
+                      width={160}
+                      height={50}
+                      className="object-cover rounded-lg mb-2"
                     />
                     <p className="text-sm font-bold">Harris concedes</p>
                     <p className="text-xs">AP News</p>
