@@ -76,7 +76,7 @@ def summarize_article():
 
 # For summarizing multiple articles into one summary
 @app.route('/summarize-articles', methods=['POST'])
-def summarize_article():
+def summarize_articles():
     data = request.get_json()
     articles = data.get('articles') # to clarify @Sanya is this expecting all article text concatenated into one string?
     user_preferences = data.get('user_preferences')
