@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import json
 import datetime
 import re
+from query_processing import parse_query
 
 # API key and global vars
 api_key =  "e1f28be4691a45cf9ac878f1615b522e"
@@ -131,6 +132,7 @@ def user_search(question, user_preferences, filename):
 
     domains = user_preferences.get("domains", None)
     exclude_domains = user_preferences.get("domains", None)
+    question = parse_query(question)
 
     # step 3: make API requests
     response_popularity = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", exclude_domains=exclude_domains)
