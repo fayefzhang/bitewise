@@ -157,6 +157,7 @@ def get_sources(filename):
     response_sources = fetch_sources(country='us')
     with open(filename, 'w') as json_file:
                 json.dump(response_sources, json_file, indent=4)
+    return response_sources
 
 ### DAILY NEWS DASHBOARD ###
 # unfortunately top headlines doesn't return that many results, so we'll have to do extra API calls for now

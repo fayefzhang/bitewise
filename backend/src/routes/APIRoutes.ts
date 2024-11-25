@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const router = express.Router();
 
-// @route POST api/search
+// @route POST /search
 // @description Processes a news search query
 router.post('/search', async (req: Request, res: Response) => {
     try {
@@ -14,8 +14,29 @@ router.post('/search', async (req: Request, res: Response) => {
         if (!query) {
             return res.status(400).json({ message: 'Query is required' });
         }
+        if (!user_preferences) {
+            return res.status(400).json({ message: 'User preferences are required' });
+        }
 
         const response = await axios.post('http://localhost:5000/search', { query, user_preferences });
+        res.json(response.data);
+    } catch (error) {
+        console.error("error processing search request", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// @route POST /dailynews
+// @description refreshes daily news
+router.post('/dailynews', async (req: Request, res: Response) => {
+    try {
+        const { user_preferences } = req.body;
+
+        if (!user_preferences) {
+            return res.status(400).json({ message: 'User preferences are required' });
+        }
+
+        const response = await axios.post('http://localhost:5000/daily-news', { user_preferences });
         res.json(response.data);
     } catch (error) {
         console.error("error processing search request", error);
