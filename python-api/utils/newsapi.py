@@ -1,7 +1,8 @@
 import requests
 from datetime import datetime, timedelta
 import json
-import urllib.parse
+import datetime
+import re
 
 # API key and global vars
 api_key =  "e1f28be4691a45cf9ac878f1615b522e"
@@ -120,15 +121,16 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 ### SEARCH PROCEDURE ###
 
 # get user params
-def user_search(question, filename):
+def user_search(question, user_preferences, filename):
     # step 1: parse question. @TODO for QUINN
 
     # step 2: set API args
     # for now, setting default variables
-    from_date = cutoff_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d') # results in past week
-    language = "en" # get from user prefs? or default en
-    domains = None # get from user prefs
-    exclude_domains = None # get from user prefs
+    from_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d') # results in past week
+    language = "en" # defaulting english
+
+    domains = user_preferences.get("domains", None)
+    exclude_domains = user_preferences.get("domains", None)
 
     # step 3: make API requests
     response_popularity = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", exclude_domains=exclude_domains)
@@ -147,26 +149,28 @@ def user_search(question, filename):
     except Exception as e:
         print(f"Error writing to file: {e}")
 
+    return aggregated_results
+
 ### GET SOURCES ###
-# these correspond to top headlines (in English) but we can also use these for filt/pref in search page
+# these correspond to top headlines (in US) but we can probably use them too for filt/pref in search page
 def get_sources(filename):
-    response_sources = fetch_sources(language='en')
+    response_sources = fetch_sources(country='us')
     with open(filename, 'w') as json_file:
                 json.dump(response_sources, json_file, indent=4)
 
 ### DAILY NEWS DASHBOARD ###
-# unfortunately top headlines doesn't return that many results, so we'll have to do extra API calls
-def daily_news(filename, question=None):
-    sources = None # read from user preferences
+# unfortunately top headlines doesn't return that many results, so we'll have to do extra API calls for now
+def daily_news(user_preferences, filename, question=None):
+    sources = user_preferences.get("sources", None)
     country='us' # defaulting this because need to set at least one param
     categories = ['general', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'] 
     # the problem with this is that we want mostly politics/curr events- most categories not very "breaking news"
 
     responses = []
     for category in categories:
-        # add to responses list
         responses.append(fetch_top_headlines(category=category, country=country))
     response_sources = None
+
     if sources:
         response_sources = fetch_top_headlines(query=question, sources=sources)
 
@@ -178,31 +182,17 @@ def daily_news(filename, question=None):
     except Exception as e:
         print(f"Error writing to file: {e}")
 
+    return aggregated_results
 
+def generate_filename(question):
+    sanitized_question = re.sub(r'[^a-zA-Z0-9]', '_', question.lower()).strip('_')
+    time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    return f"{sanitized_question}_{time}.json"
 
-
+    
 ''' Running questions
 How to sort results- what if we did two queries - one by relevancy and one by popularity and then aggregated results
 Is there any way to use time of upload for breaking news - how would we categorize breaking news -> should look into this
 Should we exclude certain sources like reddit - should we do this after
+How to get good daily news- top headlines api isn't too great
 '''
-
-### Testing
-# question = "Donald Trump"
-# user_search(question, "outputs/test_search_trump.json")
-# daily_news('test_daily_data.json')
-
-
-# past 24 hours
-# from_date = (datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d')
-# q = "trump"
-# encoded_q = urllib.parse.quote(q)
-
-# test_response = fetch_search_results(query=encoded_q, language='en', sort_by='publishedAt')
-# with open('test_search_new.json', 'w') as json_file:
-#     json.dump(test_response, json_file, indent=4)
-
-
-# test_response = fetch_top_headlines(category='general')
-# with open('test_headlines_by_category.json', 'w') as json_file:
-#     json.dump(test_response, json_file, indent=4)

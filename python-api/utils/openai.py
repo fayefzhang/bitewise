@@ -109,6 +109,8 @@ def generate_summary_collection(input_text, user_preferences):
     if (not user_preferences.get('jargon_allowed', True)):
       prompt += " Use clear, simple language and avoid complicated jargon."
     prompt += f":\n\n{input_text}"
+    # @ Sanya it may be clear to the GPT but I think we should have some sort of marker that divides articles (like some char/sequence) so GPT can easily distinguish between them
+    # and if we implement this, we should mention it in prompt
 
     if (user_preferences['length'] == 'medium'):
         max_tokens = 250

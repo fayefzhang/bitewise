@@ -8,13 +8,14 @@ const router = express.Router();
 // @description Processes a news search query
 router.post('/search', async (req: Request, res: Response) => {
     try {
-        const { query } = req.body;
+        const { query, user_preferences } = req.body;
+
         // we could also make this not required and just default to something
         if (!query) {
             return res.status(400).json({ message: 'Query is required' });
         }
 
-        const response = await axios.post('http://localhost:5000/process-news', { query });
+        const response = await axios.post('http://localhost:5000/search', { query, user_preferences });
         res.json(response.data);
     } catch (error) {
         console.error("error processing search request", error);
