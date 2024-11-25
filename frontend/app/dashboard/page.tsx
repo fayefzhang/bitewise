@@ -1,50 +1,28 @@
-/* eslint-disable @next/next/no-img-element */
-// app/dashboard/page.tsx
+"use client";
 
-"use client"; // Allows use of React hooks
-
+import Header from "../components/header";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
-export default function Dashboard() {
+const DashboardPage: React.FC = () => {
+  const router = useRouter();
+
+  const handleSearch = (term: string) => {
+    if (term) {
+      router.push(`/search?query=${encodeURIComponent(term)}`);
+    }
+  };
+
   return (
-    <div className="p-4 bg-gray-100 min-h-screen text-black">
+    <div className="bg-gray-100 min-h-screen p-4 md:p-8 text-black">
       <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-md">
-        {/* Header */}
-        <header className="bg-blue-600 p-4 rounded-t-lg flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white p-2 rounded-full">
-              {/* Icon Placeholder */}
-              <span
-                role="img"
-                aria-label="radio"
-                className="text-blue-600 text-lg"
-              >
-                📻
-              </span>
-            </div>
-            <input
-              type="text"
-              placeholder="BiteWise"
-              className="p-2 rounded-md w-full md:w-80"
-            />
-          </div>
-          <div className="flex space-x-4">
-            <button className="p-2 rounded-full bg-white">
-              <span role="img" aria-label="settings">
-                ⚙️
-              </span>
-            </button>
-            <button className="p-2 rounded-full bg-white">
-              <span role="img" aria-label="user">
-                👤
-              </span>
-            </button>
-          </div>
-        </header>
+        <Header onSearch={handleSearch} placeholder="Search topic..." />
 
         {/* Main Content */}
         <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-          <div className="flex-col">
+          {/* Main Section */}
+          <div className="flex-1 flex-col">
             <h1 className="text-2xl font-bold">Good evening, USER.</h1>
             <p className="text-lg mb-4">
               We're covering Trump's victory, a Republican Senate and America's
@@ -79,10 +57,12 @@ export default function Dashboard() {
                     key={index}
                     className="bg-white p-4 rounded-md shadow w-1/3"
                   >
-                    <img
-                      src="/placeholder.png"
+                    <Image
+                      src="/bitewise_logo.png"
                       alt="Harris concedes"
-                      className="w-full h-32 object-cover rounded-md mb-2"
+                      width={160}
+                      height={50}
+                      className="object-cover rounded-lg mb-2"
                     />
                     <p className="text-sm font-bold">Harris concedes</p>
                     <p className="text-xs">AP News</p>
@@ -140,4 +120,6 @@ export default function Dashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default DashboardPage;
