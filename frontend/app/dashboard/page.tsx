@@ -1,46 +1,22 @@
-/* eslint-disable @next/next/no-img-element */
-// app/dashboard/page.tsx
+"use client";
 
-"use client"; // Allows use of React hooks
-
+import Header from "../components/header";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function Dashboard() {
+const DashboardPage: React.FC = () => {
+  const router = useRouter();
+
+  const handleSearch = (term: string) => {
+    if (term) {
+      router.push(`/search?query=${encodeURIComponent(term)}`);
+    }
+  };
+
   return (
     <div className="p-4 bg-gray-100 min-h-screen text-black">
       <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-md">
-        {/* Header */}
-        <header className="bg-blue-600 p-4 rounded-t-lg flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white p-2 rounded-full">
-              {/* Icon Placeholder */}
-              <span
-                role="img"
-                aria-label="radio"
-                className="text-blue-600 text-lg"
-              >
-                📻
-              </span>
-            </div>
-            <input
-              type="text"
-              placeholder="BiteWise"
-              className="p-2 rounded-md w-full md:w-80"
-            />
-          </div>
-          <div className="flex space-x-4">
-            <button className="p-2 rounded-full bg-white">
-              <span role="img" aria-label="settings">
-                ⚙️
-              </span>
-            </button>
-            <button className="p-2 rounded-full bg-white">
-              <span role="img" aria-label="user">
-                👤
-              </span>
-            </button>
-          </div>
-        </header>
+        <Header onSearch={handleSearch} placeholder="Search topic..." />
 
         {/* Main Content */}
         <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
@@ -80,7 +56,7 @@ export default function Dashboard() {
                     className="bg-white p-4 rounded-md shadow w-1/3"
                   >
                     <img
-                      src="/placeholder.png"
+                      src="/bitewise_logo.png"
                       alt="Harris concedes"
                       className="w-full h-32 object-cover rounded-md mb-2"
                     />
@@ -140,4 +116,6 @@ export default function Dashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default DashboardPage;

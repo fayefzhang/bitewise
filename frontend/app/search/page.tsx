@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "../components/header";
 import Image from "next/image";
 import { Key, useState, useEffect } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
@@ -102,28 +103,7 @@ const SearchPage: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen p-4 md:p-8 text-black">
       <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-        {/* Header */}
-        <header className="bg-blue-600 p-4 rounded-t-lg flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white p-2 rounded-full">
-              <Image
-                src="/bitewise_logo.png"
-                alt="logo"
-                width={40}
-                height={30}
-                className="rounded-lg"
-              />
-            </div>
-            <input
-              type="text"
-              placeholder="Search for articles..."
-              className="p-2 rounded-md w-full md:w-80"
-              onChange={(e) => {
-                handleSearch(e.target.value);
-              }}
-            />
-          </div>
-        </header>
+        <Header onSearch={handleSearch} placeholder="Search topic..." />
 
         {/* Main Content */}
         <main className="p-4 md:p-8">
@@ -169,59 +149,56 @@ const SearchPage: React.FC = () => {
           </section>
 
           {/* Sliding Panel */}
-          <aside className={`aside-panel ${isPanelOpen ? "open" : ""} w-full md:w-64 bg-blue-50 p-4 rounded-lg`}>
-              <button
-                onClick={closePanel}
-                className="p-2 bg-gray-200 rounded-md"
-              >
-                Close
-              </button>
-              {selectedArticle && (
-                <>
-                  <h2 className="font-bold">{selectedArticle.title}</h2>
-                  <p className="text-gray-500">
-                    {selectedArticle.source} • {selectedArticle.time}
-                  </p>
-                  <audio controls className="mt-2 w-full">
-                    <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
-                    {/* Replace with actual audio file */}
-                    Your browser does not support the audio element.
-                  </audio>
-                  <ul className="mt-4 list-disc list-inside space-y-2">
-                    {selectedArticle.details.map((detail, index) => (
-                      <li key={index} className="text-gray-700 text-sm">
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                  {/* Related Articles */}
-                  <h3 className="mt-6 font-bold">Related Articles</h3>
-                  <p className="text-sm text-gray-500">
-                    Explore a more conservative viewpoint.
-                  </p>
-                  <div className="mt-2 grid grid-cols-1 gap-2">
-                    {selectedArticle.relatedSources.map((source) => (
-                      <div
-                        key={source.id}
-                        className="rounded-lg p-2 shadow-md  w-full h-full text-center bg-white"
-                      >
-                        <div className="flex-wrap items-center">
-                          <p className="text-xs text-gray-500">
-                            {source.title}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {source.source}
-                          </p>
-                          <p className="text-xs text-gray-500">{source.time}</p>
-                          <p className="text-xs font-bold text-blue-600">
-                            {source.bias}
-                          </p>
-                        </div>
+          <aside
+            className={`aside-panel ${
+              isPanelOpen ? "open" : ""
+            } w-full md:w-64 bg-blue-50 p-4 rounded-lg`}
+          >
+            <button onClick={closePanel} className="p-2 bg-gray-200 rounded-md">
+              Close
+            </button>
+            {selectedArticle && (
+              <>
+                <h2 className="font-bold">{selectedArticle.title}</h2>
+                <p className="text-gray-500">
+                  {selectedArticle.source} • {selectedArticle.time}
+                </p>
+                <audio controls className="mt-2 w-full">
+                  <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
+                  {/* Replace with actual audio file */}
+                  Your browser does not support the audio element.
+                </audio>
+                <ul className="mt-4 list-disc list-inside space-y-2">
+                  {selectedArticle.details.map((detail, index) => (
+                    <li key={index} className="text-gray-700 text-sm">
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+                {/* Related Articles */}
+                <h3 className="mt-6 font-bold">Related Articles</h3>
+                <p className="text-sm text-gray-500">
+                  Explore a more conservative viewpoint.
+                </p>
+                <div className="mt-2 grid grid-cols-1 gap-2">
+                  {selectedArticle.relatedSources.map((source) => (
+                    <div
+                      key={source.id}
+                      className="rounded-lg p-2 shadow-md  w-full h-full text-center bg-white"
+                    >
+                      <div className="flex-wrap items-center">
+                        <p className="text-xs text-gray-500">{source.title}</p>
+                        <p className="text-xs text-gray-500">{source.source}</p>
+                        <p className="text-xs text-gray-500">{source.time}</p>
+                        <p className="text-xs font-bold text-blue-600">
+                          {source.bias}
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                </>
-              )}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </aside>
         </main>
       </div>
