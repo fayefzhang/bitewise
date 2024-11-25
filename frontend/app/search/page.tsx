@@ -79,14 +79,13 @@ const SearchPage: React.FC = () => {
         <header className="bg-blue-600 p-4 rounded-t-lg flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <div className="bg-white p-2 rounded-full">
-              {/* Icon Placeholder */}
-              <span
-                role="img"
-                aria-label="radio"
-                className="text-blue-600 text-lg"
-              >
-                📻
-              </span>
+              <Image
+                    src="/bitewise_logo.png" // Replace with actual image path
+                    alt="article thumbnail"
+                    width={40}
+                    height={30}
+                    className="rounded-lg"
+                  />
             </div>
             <input
               type="text"
@@ -119,7 +118,7 @@ const SearchPage: React.FC = () => {
               <div key={article.id} className="mt-6">
                 <div className="flex items-center space-x-4">
                   <Image
-                    src="/placeholder.png" // Replace with actual image path
+                    src="/bitewise_logo.png" // Replace with actual image path
                     alt="article thumbnail"
                     width={80}
                     height={50}
@@ -165,7 +164,7 @@ const SearchPage: React.FC = () => {
               {articles[0].relatedSources.map((source) => (
                 <div
                   key={source.id}
-                  className="rounded-lg p-2 shadow-md  w-full h-full text-center bg-[url(/placeholder.png)]"
+                  className="rounded-lg p-2 shadow-md  w-full h-full text-center bg-white"
                 >
                   <div className="flex-wrap items-center">
                     <p className="text-xs text-gray-500">{source.title}</p>
