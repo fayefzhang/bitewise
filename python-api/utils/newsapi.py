@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import json
 import datetime
 import re
-from query_processing import parse_query
+from . import query_processing
 
 # API key and global vars
 api_key =  "e1f28be4691a45cf9ac878f1615b522e"

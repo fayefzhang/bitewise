@@ -1,39 +1,39 @@
-import express from "express";
-import { Request, Response } from "express";
+import express, { Router, Request, Response, RequestHandler } from "express";
 import axios from 'axios';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // @route POST /search
 // @description Processes a news search query
-router.post('/search', async (req: Request, res: Response) => {
+router.post("/search", async (req: Request, res: Response): Promise<void> => {
     try {
         const { query, user_preferences } = req.body;
 
-        // we could also make this not required and just default to something
         if (!query) {
-            return res.status(400).json({ message: 'Query is required' });
+            res.status(400).json({ message: "Query is required" });
+            return;
         }
         if (!user_preferences) {
-            return res.status(400).json({ message: 'User preferences are required' });
+            res.status(400).json({ message: "User preferences are required" });
+            return;
         }
 
-        const response = await axios.post('http://localhost:5000/search', { query, user_preferences });
+        const response = await axios.post("http://localhost:5000/search", { query, user_preferences });
         res.json(response.data);
     } catch (error) {
-        console.error("error processing search request", error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error("Error processing search request", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 
 // @route POST /dailynews
 // @description refreshes daily news
-router.post('/dailynews', async (req: Request, res: Response) => {
+router.post('/dailynews', async (req: Request, res: Response): Promise<void> => {
     try {
         const { user_preferences } = req.body;
 
         if (!user_preferences) {
-            return res.status(400).json({ message: 'User preferences are required' });
+            res.status(400).json({ message: 'User preferences are required' });
         }
 
         const response = await axios.post('http://localhost:5000/daily-news', { user_preferences });
@@ -46,14 +46,15 @@ router.post('/dailynews', async (req: Request, res: Response) => {
 
 // @route POST summarize/article
 // @description Summarizes a single article based on user preferences using OpenAI
-router.post('/summarize/article', async (req: Request, res: Response) => {
+
+router.post('/summarize/article', async (req: Request, res: Response): Promise<void> => {
     try {
         const { article, user_preferences } = req.body; 
         if (!article) {
-            return res.status(400).json({ message: 'Article is required' });
+            res.status(400).json({ message: 'Article is required' });
         }
         if (!user_preferences) {
-            return res.status(400).json({ message: 'User preferences are required' });
+            res.status(400).json({ message: 'User preferences are required' });
         }
 
         // send article and user prefs to the Python backend
@@ -71,14 +72,14 @@ router.post('/summarize/article', async (req: Request, res: Response) => {
 
 // @route POST summarize/articles
 // @description Summarizes multiple articles and provides an overview based on user preferences using OpenAI
-router.post('/summarize/articles', async (req: Request, res: Response) => {
+router.post('/summarize/articles', async (req: Request, res: Response): Promise<void> => {
     try {
         const { articles, user_preferences } = req.body; 
         if (!articles) {
-            return res.status(400).json({ message: 'Articles are required' });
+            res.status(400).json({ message: 'Articles are required' });
         }
         if (!user_preferences) {
-            return res.status(400).json({ message: 'User preferences are required' });
+            res.status(400).json({ message: 'User preferences are required' });
         }
 
         // send articles and user prefs to the Python backend
@@ -93,7 +94,6 @@ router.post('/summarize/articles', async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
 
 
 export default router;
