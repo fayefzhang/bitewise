@@ -5,6 +5,7 @@ const router: Router = express.Router();
 
 // @route POST /search
 // @description Processes a news search query
+// @returns list of articles
 router.post("/search", async (req: Request, res: Response): Promise<void> => {
     try {
         const { query, user_preferences } = req.body;
@@ -28,6 +29,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
 // @route POST /dailynews
 // @description refreshes daily news
+// @returns list of articles
 router.post('/dailynews', async (req: Request, res: Response): Promise<void> => {
     try {
         const { user_preferences } = req.body;
