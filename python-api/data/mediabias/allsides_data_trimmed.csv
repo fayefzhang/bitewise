@@ -1,0 +1,548 @@
+news_source,rating,rating_num,type,agree,disagree,perc_agree,editorial_review,blind_survey,third_party_analysis,independent_research,confidence_level
+AARP,center,3.0,Think Tank / Policy Group,1404,2343,0.3746997598078462,0,0,0,0,
+ABC News,left-center,2.0,News Media,13793,9409,0.5944746142573916,0,1,1,1,High
+Abridge News,allsides,,News Media,31,17,0.6458333333333334,0,0,0,1,High
+Accuracy in Media,right,5.0,Think Tank / Policy Group,743,444,0.6259477674810446,0,0,0,1,Medium
+ACLU,left-center,2.0,Think Tank / Policy Group,1272,1697,0.4284270798248568,0,0,0,0,
+AJ+,left,1.0,News Media,13,5,0.7222222222222222,0,0,0,1,Low or Initial Rating
+Al Cardenas,right,5.0,Author,353,238,0.5972927241962775,0,0,0,0,
+Al Jazeera,left-center,2.0,News Media,3707,6138,0.376536312849162,0,0,1,1,Low or Initial Rating
+AllSides,allsides,,News Media,3301,1308,0.7162074202646995,0,0,0,0,High
+AllSides Community,allsides,,News Media,2142,1273,0.6272327964860908,0,0,0,0,High
+Allysia Finley (Wall Street Journal),right,5.0,Author,410,474,0.4638009049773756,checked,0,0,0,
+AlterNet,left,1.0,News Media,3357,862,0.7956861815596112,0,0,0,1,High
+American Conservative Union,right,5.0,Think Tank / Policy Group,608,336,0.6440677966101694,0,0,0,0,
+American Enterprise Institute,right-center,4.0,Think Tank / Policy Group,1526,788,0.6594641313742438,0,0,0,1,Low or Initial Rating
+American Greatness,right,5.0,News Media,44,9,0.8301886792452831,0,0,0,1,Low or Initial Rating
+American Spectator,right,5.0,News Media,7031,2838,0.7124328706049246,0,0,0,1,Medium
+American Thinker,right,5.0,News Media,1368,754,0.644674835061263,0,0,0,0,Medium
+Americans for Democratic Action,left,1.0,Think Tank / Policy Group,491,216,0.6944837340876945,0,0,0,0,
+Americans for Tax Reform,right,5.0,Think Tank / Policy Group,523,376,0.5817575083426029,0,0,0,0,
+Andrew Napolitano,right,5.0,Author,621,503,0.552491103202847,0,0,0,0,
+Andrew Sullivan,right-center,4.0,Author,37,37,0.5,0,0,0,1,
+Andy Ngo,center,3.0,Author,88,77,0.5333333333333333,0,0,0,1,Low or Initial Rating
+Ann Coulter,right,5.0,Author,1141,277,0.8046544428772919,0,0,0,1,Medium
+Annafi Wahed,left-center,2.0,Author,221,212,0.5103926096997691,0,0,0,1,Low or Initial Rating
+AP,center,3.0,Author,868,704,0.5521628498727735,0,0,0,1,Low or Initial Rating
+Aquinas College Saint,left,1.0,News Media,769,476,0.6176706827309237,0,0,0,0,
+Arkadi Gerney,left-center,2.0,Author,193,167,0.5361111111111111,checked,0,0,0,Low or Initial Rating
+Arkansas Democrat-Gazette,left,1.0,News Media,818,619,0.5692414752957551,0,0,0,0,Low or Initial Rating
+Associated Press,center,3.0,News Media,8112,5817,0.5823820805513676,1,0,0,0,Medium
+Association for Psychological Science,center,3.0,Think Tank / Policy Group,652,526,0.5534804753820034,0,0,0,1,Low or Initial Rating
+Atlanta Journal-Constitution,left-center,2.0,News Media,749,690,0.5205003474635164,0,0,0,0,Low or Initial Rating
+Atlas Network,right,5.0,Think Tank / Policy Group,267,178,0.6,0,0,0,1,Medium
+AtlasOne,right-center,4.0,Think Tank / Policy Group,208,241,0.4632516703786191,0,0,0,1,Medium
+Austin American-Statesman,left-center,2.0,News Media,659,498,0.5695764909248056,0,0,0,1,Low or Initial Rating
+Axios,center,3.0,News Media,1356,1565,0.4642245806230743,0,1,0,1,Low or Initial Rating
+AZ Central,center,3.0,News Media,9,25,0.2647058823529412,0,0,0,0,
+Barnstable Patriot,center,3.0,News Media,431,502,0.4619506966773847,0,0,0,0,Low or Initial Rating
+BBC News,center,3.0,News Media,11212,10996,0.5048631123919308,0,0,0,1,Medium
+Bearing Drift,right,5.0,News Media,527,453,0.5377551020408163,0,0,0,1,High
+Ben Sargent (cartoonist),left,1.0,Author,174,199,0.4664879356568364,checked,0,0,0,
+Ben Shapiro,right,5.0,Author,1123,682,0.6221606648199446,0,0,0,1,
+Ben Stein,right-center,4.0,Author,507,373,0.5761363636363637,checked,0,0,0,
+Beth Ballentine,center,3.0,Author,315,368,0.4612005856515373,0,0,0,1,Low or Initial Rating
+Better Angels,allsides,,News Media,0,0,,0,0,0,0,Low or Initial Rating
+Billy Binion,center,3.0,Author,214,164,0.5661375661375662,0,0,0,1,Medium
+Bloomberg,center,3.0,News Media,6430,7570,0.4592857142857143,0,1,0,1,Medium
+Blue Virginia,left,1.0,News Media,635,456,0.5820348304307974,checked,0,0,0,
+Bob Gorrell (cartoonist),right,5.0,Author,217,170,0.5607235142118863,checked,0,0,0,
+Boing Boing,left,1.0,News Media,763,490,0.6089385474860335,0,0,0,0,Low or Initial Rating
+Boston Herald,right-center,4.0,News Media,290,256,0.5311355311355311,0,0,0,1,Low or Initial Rating
+Boston Herald Editorial,right-center,4.0,News Media,155,142,0.5218855218855218,1,0,0,1,Low or Initial Rating
+Bowling Green Daily News,left-center,2.0,News Media,499,543,0.4788867562380038,0,0,0,1,Low or Initial Rating
+Breitbart News,right,5.0,News Media,17019,8114,0.6771575219830501,0,1,0,1,High
+Brent Bozell,right,5.0,Author,251,222,0.5306553911205074,0,0,0,1,High
+Bret Stephens,right-center,4.0,Author,215,270,0.4432989690721649,0,0,0,0,
+Brookings Institution,center,3.0,Think Tank / Policy Group,2222,1459,0.6036403151317576,0,0,0,0,
+Business Insider,center,3.0,News Media,1886,2155,0.4667161593664934,0,0,0,0,
+Bustle,left-center,2.0,News Media,675,691,0.4941434846266471,0,0,0,1,Low or Initial Rating
+BuzzFeed News,left,1.0,News Media,6106,6551,0.4824207948170972,1,0,1,1,Medium
+C-SPAN,center,3.0,News Media,2719,810,0.7704732218758855,0,0,0,1,Medium
+CalMatters,center,3.0,News Media,575,455,0.558252427184466,0,0,0,0,Low or Initial Rating
+CalWatchdog,center,3.0,News Media,446,471,0.4863685932388222,0,0,0,1,Medium
+Care 2,left,1.0,News Media,491,525,0.483267716535433,0,0,0,1,
+Carnegie Endowment for International Peace,center,3.0,Think Tank / Policy Group,385,303,0.559593023255814,0,0,1,0,
+Carrie Lukas,right,5.0,Author,193,153,0.5578034682080925,checked,0,0,0,
+Cathy Young,right-center,4.0,Author,11,17,0.3928571428571428,0,0,0,1,Low or Initial Rating
+Cato Institute (blog),right-center,4.0,Think Tank / Policy Group,899,1367,0.3967343336275375,0,0,0,0,
+CBN,right,5.0,News Media,6333,3314,0.656473515082409,0,0,0,1,Medium
+CBS News,left-center,2.0,News Media,6905,5391,0.5615647364996746,0,1,0,1,Low or Initial Rating
+Center - Major Media Sources,center,3.0,News Media,564,477,0.5417867435158501,checked,0,0,0,
+Center For American Progress,left-center,2.0,Think Tank / Policy Group,879,1294,0.4045098941555453,0,0,0,0,
+Center for Media & Democracy PR Watch,left-center,2.0,Think Tank / Policy Group,217,214,0.5034802784222738,0,0,0,0,
+Center for Public Integrity,left-center,2.0,News Media,577,648,0.4710204081632653,checked,0,0,0,
+Center for Strategic and Budgetary Assessments,right-center,4.0,Think Tank / Policy Group,344,418,0.4514435695538057,0,0,0,0,
+Center on Budget and Policy Priorities,left,1.0,Think Tank / Policy Group,685,607,0.5301857585139319,0,0,0,0,
+Centre View,left-center,2.0,News Media,460,524,0.4674796747967479,checked,0,0,0,
+Chan Lowe (cartoonist),left,1.0,Author,152,180,0.4578313253012048,checked,0,0,0,
+Charles Blow,left-center,2.0,Author,206,211,0.4940047961630695,0,0,0,1,Low or Initial Rating
+Charles Krauthammer,right-center,4.0,Author,549,516,0.5154929577464789,0,0,0,1,
+Charlie Kirk,right,5.0,Author,32,15,0.6808510638297872,0,0,0,1,Low or Initial Rating
+Chicago Sun-Times,left-center,2.0,News Media,632,627,0.5019857029388404,0,0,0,1,Medium
+Chicago Tribune,center,3.0,News Media,1753,3167,0.3563008130081301,0,0,0,1,Low or Initial Rating
+Children’s Defense Fund,left,1.0,Think Tank / Policy Group,195,214,0.4767726161369193,0,0,0,0,
+Chip Bok (cartoonist),right,5.0,Author,156,145,0.5182724252491694,checked,0,0,0,
+Chris Britt (cartoonist),center,3.0,Author,148,84,0.6379310344827587,checked,0,0,0,
+Chris Ruddy,right,5.0,Author,147,213,0.4083333333333333,0,0,0,1,Low or Initial Rating
+Christian Science Monitor,center,3.0,News Media,9130,12033,0.4314133156924821,0,0,0,1,High
+Christiane Amanpour,left-center,2.0,Author,317,409,0.4366391184573003,0,0,0,1,Low or Initial Rating
+Christopher Buskirk,right-center,4.0,Author,60,55,0.5217391304347826,0,0,0,1,Low or Initial Rating
+Chuck Asay (cartoonist),right,5.0,Author,181,151,0.5451807228915663,checked,0,0,0,
+City Journal,right,5.0,News Media,236,187,0.557919621749409,0,0,0,0,Low or Initial Rating
+CivilPolitics.org,center,3.0,Think Tank / Policy Group,211,210,0.501187648456057,0,0,0,1,
+Clay Bennett (cartoonist),left,1.0,Author,125,93,0.573394495412844,checked,0,0,0,
+CNBC,center,3.0,News Media,1564,3975,0.2823614370825059,0,0,0,1,Low or Initial Rating
+CNET,center,3.0,News Media,154,136,0.5310344827586206,0,0,0,0,
+CNN (Web News),left-center,2.0,News Media,27746,28952,0.4893647042223711,1,1,1,1,High
+CNN - Editorial,left,1.0,News Media,8433,2395,0.7788141854451422,1,0,0,1,Medium
+CNS News,right,5.0,News Media,829,686,0.5471947194719472,0,0,0,0,Low or Initial Rating
+CNSNews.com,right,5.0,News Media,749,639,0.5396253602305475,0,0,0,1,Low or Initial Rating
+Columbia Journalism Review,center,3.0,News Media,102,210,0.3269230769230769,0,0,0,1,Low or Initial Rating
+Commentary Magazine,right,5.0,News Media,128,132,0.4923076923076923,0,0,0,1,Low or Initial Rating
+Conor Friedersdorf,center,3.0,Author,12,16,0.4285714285714285,0,0,0,1,Low or Initial Rating
+Conservative HQ,right,5.0,News Media,740,327,0.6935332708528584,0,0,0,1,Low or Initial Rating
+Cook Report,center,3.0,News Media,811,490,0.6233666410453498,0,0,0,0,Low or Initial Rating
+Council on Foreign Relations,left,1.0,Think Tank / Policy Group,111,156,0.4157303370786517,0,0,0,0,Low or Initial Rating
+Countable,center,3.0,News Media,23,25,0.4791666666666667,0,0,0,1,High
+Counter Currents,left-center,2.0,News Media,289,200,0.591002044989775,0,0,0,1,Low or Initial Rating
+Counterpointing,allsides,,News Media,328,313,0.5117004680187207,0,0,0,0,Low or Initial Rating
+CrowdPAC,center,3.0,News Media,341,356,0.4892395982783357,0,0,0,1,Low or Initial Rating
+CU Independent,center,3.0,News Media,278,342,0.4483870967741935,0,0,0,1,Low or Initial Rating
+Current Affairs,left,1.0,News Media,206,79,0.7228070175438597,0,0,0,1,Low or Initial Rating
+Daily Beast,left,1.0,News Media,7713,4241,0.6452233561987619,1,1,0,0,
+Daily Cardinal,center,3.0,News Media,339,362,0.4835948644793152,0,0,0,1,Low or Initial Rating
+Daily Kos,left,1.0,News Media,5243,1937,0.7302228412256268,0,0,0,0,Low or Initial Rating
+Daily Mail,right,5.0,News Media,2470,1841,0.572952911157504,0,0,0,1,Medium
+Daily Northwestern,left-center,2.0,News Media,307,320,0.4896331738437001,0,0,0,0,Low or Initial Rating
+Daily Press,right-center,4.0,News Media,287,385,0.4270833333333333,0,0,0,1,Low or Initial Rating
+Daily Progress,center,3.0,News Media,352,341,0.5079365079365079,checked,0,0,0,
+Daily Targum,left-center,2.0,News Media,195,335,0.3679245283018867,0,0,0,1,Low or Initial Rating
+Damon Linker,left-center,2.0,Author,221,237,0.482532751091703,0,0,0,1,Medium
+Dan Lucas,right,5.0,Author,69,51,0.575,0,0,0,0,
+Dan Wasserman (cartoonist),left,1.0,Author,52,22,0.7027027027027027,checked,0,0,0,
+Dana Milbank,center,3.0,Author,166,265,0.3851508120649652,checked,0,0,0,
+Dana Summers (cartoonist),right-center,4.0,Author,85,86,0.4970760233918128,checked,0,0,0,
+David Brooks,right-center,4.0,Author,249,314,0.4422735346358792,0,0,0,1,Medium
+David Holmes,left-center,2.0,Author,63,52,0.5478260869565217,0,0,0,1,Low or Initial Rating
+David Ignatius,center,3.0,Author,111,142,0.4387351778656126,0,0,0,1,Low or Initial Rating
+David Leonhardt,left-center,2.0,Author,70,57,0.5511811023622047,0,0,0,0,
+Debra Saunders,right,5.0,Author,128,107,0.5446808510638298,checked,0,0,0,
+Defense One,center,3.0,News Media,156,147,0.5148514851485149,0,0,0,1,Low or Initial Rating
+Democracy Now,left,1.0,News Media,5405,1833,0.7467532467532467,0,0,0,1,Low or Initial Rating
+Deseret News,right-center,4.0,News Media,1037,1685,0.3809698750918442,0,0,0,1,Low or Initial Rating
+Dick Locher (cartoonist),right,5.0,Author,19,44,0.3015873015873015,checked,0,0,0,
+Dick Morris,right-center,4.0,Author,149,204,0.4220963172804532,checked,0,0,0,
+Diplomatic Courier,center,3.0,News Media,283,218,0.564870259481038,0,0,0,1,Medium
+Drew Litton (cartoonist),center,3.0,Author,30,72,0.2941176470588235,checked,0,0,0,
+Drew Sheneman (cartoonist),left,1.0,Author,57,47,0.5480769230769231,checked,0,0,0,
+Drudge Report,right-center,4.0,News Media,1894,1203,0.6115595737810785,0,0,1,1,Medium
+Duke Chronicle,center,3.0,News Media,328,319,0.5069551777434312,0,0,0,1,Low or Initial Rating
+E J Dionne,left,1.0,Author,474,379,0.5556858147713951,0,0,0,0,Low or Initial Rating
+Economic Policy Institute,left,1.0,Think Tank / Policy Group,138,152,0.4758620689655172,0,0,0,0,
+Ed Rogers,right,5.0,Author,108,64,0.627906976744186,0,0,0,0,
+EdVotes.org,left,1.0,Think Tank / Policy Group,87,37,0.7016129032258065,0,0,0,0,
+Edward Morrissey,right,5.0,Author,125,123,0.5040322580645161,checked,0,0,0,
+Eli Parser,left,1.0,Author,13,9,0.5909090909090909,0,0,0,0,Low or Initial Rating
+Environmental Defense Fund,left-center,2.0,Think Tank / Policy Group,242,161,0.6004962779156328,0,0,0,0,
+Eric Allie (cartoonist),right,5.0,Author,99,87,0.532258064516129,checked,0,0,0,
+Erik Wemple,center,3.0,Author,167,221,0.4304123711340206,0,0,0,1,Low or Initial Rating
+Esquire,left,1.0,News Media,841,460,0.6464258262874711,0,0,0,1,Low or Initial Rating
+Estes Park Trail Gazette,center,3.0,News Media,187,258,0.4202247191011236,0,0,0,0,
+Eugene Robinson,left,1.0,Author,177,125,0.5860927152317881,checked,0,0,0,
+Eurek Alert,center,3.0,News Media,278,309,0.4735945485519591,0,0,0,0,Low or Initial Rating
+Ezra Klein,left,1.0,Author,264,197,0.5726681127982647,0,0,0,0,Low or Initial Rating
+Fact Checker Blog,center,3.0,News Media,667,550,0.5480690221857025,0,0,0,1,Low or Initial Rating
+FactCheck.org,center,3.0,News Media,5490,4018,0.5774084981068573,0,0,0,0,Low or Initial Rating
+FAIR,left-center,2.0,Think Tank / Policy Group,88,112,0.44,0,0,0,0,
+Fair.org,center,3.0,News Media,420,425,0.4970414201183432,0,0,0,1,Low or Initial Rating
+Falls Church News - Press,left,1.0,News Media,327,404,0.4473324213406293,checked,0,0,0,
+Family Research Council,right-center,4.0,Think Tank / Policy Group,277,468,0.3718120805369127,0,0,0,0,
+Fareed Zakaria,center,3.0,Author,190,377,0.3350970017636684,0,0,0,1,Low or Initial Rating
+Federation of American Scientists,left-center,2.0,Think Tank / Policy Group,179,206,0.4649350649350649,0,0,0,0,Low or Initial Rating
+Financial Times,center,3.0,News Media,340,216,0.6115107913669064,1,0,0,1,Low or Initial Rating
+Fiscal Times,right-center,4.0,News Media,653,525,0.5543293718166383,0,0,0,1,Low or Initial Rating
+FiveThirtyEight,center,3.0,News Media,3326,2019,0.6222637979420018,0,0,0,1,Low or Initial Rating
+Food Democracy Now,left-center,2.0,Think Tank / Policy Group,111,105,0.5138888888888888,0,0,0,0,
+Forbes,center,3.0,News Media,3972,2443,0.6191738113795792,0,0,0,0,
+Foreign Affairs,center,3.0,News Media,771,427,0.6435726210350584,0,0,0,1,Low or Initial Rating
+Fox News Latino,right,5.0,News Media,1587,841,0.6536243822075782,checked,0,0,0,Low or Initial Rating
+Fox News Opinion,right,5.0,News Media,6195,1550,0.7998708844415752,1,0,0,0,Low or Initial Rating
+Fox Online News,right-center,4.0,News Media,22692,32082,0.4142841494139555,1,1,0,1,High
+Frank Bruni,left-center,2.0,Author,64,90,0.4155844155844156,0,0,0,1,Low or Initial Rating
+Frank Miniter,right,5.0,Author,276,272,0.5036496350364964,0,0,0,0,Low or Initial Rating
+Freakonomics,center,3.0,Think Tank / Policy Group,295,200,0.5959595959595959,0,0,0,0,
+Freedom House,right-center,4.0,Think Tank / Policy Group,92,131,0.4125560538116592,0,0,0,1,Low or Initial Rating
+Froma Harrop,left-center,2.0,Author,61,51,0.5446428571428571,checked,0,0,0,
+FrontPage Magazine,right,5.0,News Media,443,344,0.5628970775095299,checked,0,0,0,Medium
+Gary Markstein (cartoonist),center,3.0,Author,36,65,0.3564356435643564,checked,0,0,0,
+Gary Varvel (cartoonist),right,5.0,Author,36,14,0.72,checked,0,0,0,
+Gell,allsides,,Think Tank / Policy Group,27,13,0.675,0,0,0,1,Medium
+George Will,right,5.0,Author,403,556,0.4202294056308654,0,0,0,1,
+Glenn Beck,right,5.0,Author,510,183,0.7359307359307359,0,0,0,1,Low or Initial Rating
+Glenn McCoy (cartoonist),right,5.0,Author,24,18,0.5714285714285714,checked,0,0,0,
+Google News,left-center,2.0,News Media,167,85,0.6626984126984127,1,0,0,1,Medium
+GOP.gov,right,5.0,Think Tank / Policy Group,375,189,0.6648936170212766,0,0,0,0,
+Grist,left-center,2.0,News Media,409,461,0.4701149425287356,checked,0,0,0,
+Grover Norquist,right,5.0,Author,237,63,0.79,0,0,0,0,
+Guest Writer - Center,center,3.0,Author,2,4,0.3333333333333333,0,0,0,0,High
+Guest Writer - Left,left-center,2.0,Author,144,247,0.3682864450127877,0,0,0,0,Medium
+Guest Writer - Right,right-center,4.0,Author,200,307,0.3944773175542406,0,0,0,0,Medium
+Hampton Roads Messanger,center,3.0,News Media,332,331,0.5007541478129713,checked,0,0,0,
+Harvard Business School,left-center,2.0,News Media,612,708,0.4636363636363636,0,0,0,1,Low or Initial Rating
+Healthcare.gov,left-center,2.0,Think Tank / Policy Group,177,339,0.3430232558139535,0,0,0,0,
+Heather Mac Donald,right,5.0,Author,44,80,0.3548387096774194,0,0,0,1,Medium
+Henry A. Brechter,center,3.0,Author,11,7,0.6111111111111112,1,0,0,1,Medium
+Henry Payne (cartoonist),right,5.0,Author,56,79,0.4148148148148148,checked,0,0,0,
+Herald Democrat,left,1.0,News Media,398,304,0.5669515669515669,0,0,0,1,Low or Initial Rating
+Hirsh Joshi,left-center,2.0,Author,0,0,,0,0,0,0,
+Honolulu Civil Beat,center,3.0,News Media,270,371,0.4212168486739469,0,0,0,0,Low or Initial Rating
+HotAir,right-center,4.0,News Media,941,840,0.5283548568220101,0,0,0,1,Low or Initial Rating
+How Do We Fix It?,center,3.0,News Media,554,548,0.5027223230490018,0,0,0,1,Medium
+Howard Kurtz,center,3.0,News Media,24,22,0.5217391304347826,0,0,0,0,Low or Initial Rating
+Howard Kurtz,center,3.0,Author,372,286,0.5653495440729484,0,0,0,1,Low or Initial Rating
+HuffPost,left,1.0,News Media,20470,19857,0.5076003669997768,1,1,1,1,High
+Inacow,right,5.0,News Media,330,221,0.5989110707803993,0,0,0,1,Low or Initial Rating
+Independent Institute,right-center,4.0,Think Tank / Policy Group,164,200,0.4505494505494505,0,0,0,1,Medium
+Independent Journal Review,right-center,4.0,News Media,1143,1045,0.5223948811700183,0,0,0,1,Medium
+Indiana Daily Student,center,3.0,News Media,233,310,0.429097605893186,0,0,0,1,Low or Initial Rating
+Indy Online,center,3.0,News Media,225,252,0.4716981132075472,0,0,0,0,Low or Initial Rating
+Indy Week,left-center,2.0,News Media,255,300,0.4594594594594595,0,0,0,1,Low or Initial Rating
+InfoWars,right,5.0,News Media,4079,931,0.8141716566866267,0,0,0,1,Medium
+Inside Philanthropy,center,3.0,News Media,256,272,0.4848484848484848,0,0,0,0,
+Intellectual Conservative,right-center,4.0,News Media,317,327,0.4922360248447205,0,0,0,0,
+International Business Times,center,3.0,News Media,945,705,0.5727272727272728,checked,0,0,0,
+Investor's Business Daily,right-center,4.0,News Media,1067,850,0.5565988523735003,0,0,0,1,Low or Initial Rating
+IVN,center,3.0,News Media,371,359,0.5082191780821917,0,0,0,1,Medium
+Jack Ohman (cartoonist),left,1.0,Author,38,26,0.59375,checked,0,0,0,
+Jack Welch,right-center,4.0,Author,78,58,0.5735294117647058,checked,0,0,0,
+Jacobin,left,1.0,News Media,461,74,0.8616822429906542,0,0,0,1,Low or Initial Rating
+James Hohmann,right-center,4.0,Author,27,37,0.421875,checked,0,0,0,
+James Pethokoukis,right-center,4.0,Author,59,67,0.4682539682539682,0,0,0,1,Low or Initial Rating
+James Poulos,right,5.0,Author,47,27,0.6351351351351351,0,0,0,1,Low or Initial Rating
+Jeff Danziger (cartoonist),left,1.0,Author,39,39,0.5,checked,0,0,0,
+Jeff Jacoby,right,5.0,Author,69,48,0.5897435897435898,0,0,0,1,Low or Initial Rating
+Jeff Stahler (cartoonist),left,1.0,Author,51,32,0.6144578313253012,checked,0,0,0,
+Jen Sorensen (cartoonist),left,1.0,Author,47,29,0.618421052631579,checked,0,0,0,
+Jennifer Rubin,left-center,2.0,Author,111,189,0.37,0,0,0,0,
+Jeremy E Sherman,left-center,2.0,Author,11,11,0.5,0,0,0,1,Low or Initial Rating
+Jerry Bowyer,right,5.0,Author,123,217,0.3617647058823529,checked,0,0,0,Low or Initial Rating
+Jerry Holbert (cartoonist),right,5.0,Author,41,36,0.5324675324675324,checked,0,0,0,
+Jesse Jackson,left,1.0,Author,312,54,0.8524590163934426,0,0,0,1,Medium
+Jezebel,left,1.0,News Media,63,21,0.75,0,0,0,1,Low or Initial Rating
+Jim Morin (cartoonist),left,1.0,Author,26,9,0.7428571428571429,checked,0,0,0,
+Jim Rutenberg,left-center,2.0,Author,48,43,0.5274725274725275,0,0,0,0,
+Joan Blades,left,1.0,Author,41,74,0.3565217391304348,0,0,0,1,Low or Initial Rating
+Joe Scarborough,right-center,4.0,Author,131,548,0.1929307805596465,0,0,0,0,
+Joel Pett (cartoonist),left,1.0,Author,46,42,0.5227272727272727,checked,0,0,0,
+John Boehner,right,5.0,Author,153,235,0.3943298969072165,0,0,0,0,Low or Initial Rating
+John Deering (cartoonist),center,3.0,Author,34,41,0.4533333333333333,checked,0,0,0,
+John Fund,right-center,4.0,Author,79,97,0.4488636363636363,0,0,0,1,Low or Initial Rating
+"John Gable, AllSides Founder",right-center,4.0,Author,103,133,0.4364406779661017,1,0,0,1,Medium
+John K. Herr,right-center,4.0,Author,37,32,0.5362318840579711,checked,0,0,0,
+John Pudner,right,5.0,Author,50,74,0.4032258064516129,0,0,0,1,Medium
+John Stossel,right-center,4.0,Author,454,373,0.5489721886336155,0,0,0,1,Medium
+Jon Terbush,left-center,2.0,Author,89,126,0.413953488372093,0,0,0,1,Low or Initial Rating
+Jonah Goldberg,right,5.0,Author,15,22,0.4054054054054054,0,0,0,1,Low or Initial Rating
+Jonathan Chait,left,1.0,Author,79,72,0.5231788079470199,0,0,0,1,Medium
+Jonathan Miller,left,1.0,Author,53,57,0.4818181818181818,0,0,0,1,Medium
+Journalist's Resource,center,3.0,News Media,218,253,0.4628450106157112,0,0,0,1,Low or Initial Rating
+Juan Williams,left-center,2.0,Author,293,270,0.5204262877442274,0,0,0,0,
+Jubilee Media,center,3.0,News Media,108,82,0.5684210526315789,0,0,0,1,
+Judicial Watch,right-center,4.0,News Media,969,1100,0.4683421942967617,0,0,0,1,Low or Initial Rating
+Julian Zelizer,left-center,2.0,Author,109,138,0.4412955465587044,checked,0,0,0,Low or Initial Rating
+Kathleen Parker,right-center,4.0,Author,161,100,0.6168582375478927,checked,0,0,0,
+KATU,center,3.0,News Media,7,10,0.4117647058823529,0,0,0,0,Low or Initial Rating
+Ken Catalino (cartoonist),right,5.0,Author,13,18,0.4193548387096774,checked,0,0,0,
+Kevin Kallaugher (cartoonist),left-center,2.0,Author,16,13,0.5517241379310345,0,0,0,0,Low or Initial Rating
+Kimberley A. Strassel,right,5.0,Author,128,87,0.5953488372093023,checked,0,0,0,
+Kirsten Powers,left-center,2.0,Author,57,39,0.59375,0,0,0,1,Low or Initial Rating
+KQED,center,3.0,News Media,396,330,0.5454545454545454,0,0,0,0,Low or Initial Rating
+KSL,right,5.0,News Media,804,603,0.5714285714285714,0,0,0,1,Low or Initial Rating
+Lalo Alcaraz (cartoonist),left,1.0,Author,17,11,0.6071428571428571,checked,0,0,0,
+Lanhee Chen,right,5.0,Author,45,66,0.4054054054054054,0,0,0,1,Low or Initial Rating
+Las Vegas Sun,left-center,2.0,News Media,225,234,0.4901960784313725,0,0,0,1,Low or Initial Rating
+Laura Rose Junco,center,3.0,Author,1,4,0.2,0,0,0,0,Low or Initial Rating
+Lauren Duca,left,1.0,Author,58,31,0.651685393258427,0,0,0,1,Low or Initial Rating
+Leesburg Today,right-center,4.0,News Media,164,137,0.5448504983388704,0,0,0,1,Low or Initial Rating
+Left - Major Media Sources,left,1.0,News Media,513,380,0.574468085106383,checked,0,0,0,
+Left Guest Commentaries,left,1.0,Author,86,96,0.4725274725274725,checked,0,0,0,
+Leonard Pitts Jr,left,1.0,Author,68,59,0.5354330708661418,0,0,0,1,Low or Initial Rating
+Lifehacker,center,3.0,News Media,253,248,0.5049900199600799,0,0,0,1,Low or Initial Rating
+Lisa Benson (cartoonist),right,5.0,Author,43,42,0.5058823529411764,checked,0,0,0,
+Lisa Gable,right,5.0,Author,20,17,0.5405405405405406,0,0,0,1,Low or Initial Rating
+Listen First Project,allsides,,News Media,82,61,0.5734265734265734,0,0,0,1,High
+Live Action News,right-center,4.0,News Media,217,139,0.6095505617977528,0,0,0,1,Low or Initial Rating
+Living Room Conversations,allsides,,News Media,1031,1327,0.4372349448685326,0,0,0,1,High
+Longmont Times-Call,left-center,2.0,News Media,123,131,0.484251968503937,0,0,0,0,
+Los Angeles Times,left-center,2.0,News Media,4030,2974,0.5753854940034266,0,0,0,1,Low or Initial Rating
+Louisville Courier-Journal,left-center,2.0,News Media,155,146,0.5149501661129569,0,0,0,0,Low or Initial Rating
+Manhattan Institute,right-center,4.0,Think Tank / Policy Group,147,235,0.3848167539267015,0,0,0,0,
+Marc A. Thiessen,right,5.0,Author,210,169,0.554089709762533,0,0,0,0,
+Mark Gerzon,center,3.0,Author,18,22,0.45,0,0,0,0,Low or Initial Rating
+Mark Mix,right,5.0,Author,87,59,0.5958904109589042,0,0,0,0,
+Mark Morford,left,1.0,Author,22,13,0.6285714285714286,checked,0,0,0,
+MarketWatch,right-center,4.0,News Media,29,48,0.3766233766233766,0,0,0,1,Low or Initial Rating
+Marshall Ramsey (cartoonist),center,3.0,Author,52,41,0.5591397849462365,checked,0,0,0,
+Mary O'Grady,right,5.0,Author,27,37,0.421875,0,0,0,0,
+Mashable,left,1.0,News Media,342,120,0.7402597402597403,0,0,0,1,Low or Initial Rating
+Matt Bors (cartoonist),left,1.0,Author,30,10,0.75,checked,0,0,0,
+Matt Davies (cartoonist),left,1.0,Author,70,35,0.6666666666666666,checked,0,0,0,
+Matt Drudge,right,5.0,Author,205,156,0.5678670360110804,0,0,0,0,Medium
+Matt Towery,right-center,4.0,Author,45,41,0.5232558139534884,checked,0,0,0,
+Matt Welch,right-center,4.0,Author,49,107,0.3141025641025641,0,0,0,0,Low or Initial Rating
+Matt Wuerker (cartoonist),left,1.0,Author,58,34,0.6304347826086957,checked,0,0,0,
+Maureen Dowd,center,3.0,Author,95,261,0.2668539325842696,0,0,0,1,Low or Initial Rating
+McClatchyDC,center,3.0,News Media,9,10,0.4736842105263157,0,0,0,1,Low or Initial Rating
+Media Matters,left,1.0,News Media,2368,1494,0.61315380631797,0,0,0,0,
+Media Research Center,right,5.0,News Media,1238,1526,0.4479015918958032,0,0,0,0,
+Mediaite,left-center,2.0,News Media,615,631,0.4935794542536115,0,0,0,1,Low or Initial Rating
+Miami Herald,left-center,2.0,News Media,231,255,0.4753086419753086,0,0,0,1,Low or Initial Rating
+Michael Barone,right-center,4.0,Author,106,83,0.5608465608465608,checked,0,0,0,
+Michael Brendan Dougherty,right-center,4.0,Author,72,78,0.48,0,0,0,0,Low or Initial Rating
+Michael Gerson,right-center,4.0,Author,123,106,0.537117903930131,checked,0,0,0,
+Michael Goodwin,right,5.0,Author,44,29,0.6027397260273972,0,0,0,1,Low or Initial Rating
+Michael Graham,right,5.0,Author,8,14,0.3636363636363636,0,0,0,1,Low or Initial Rating
+Michael Kinsley,left,1.0,Author,71,55,0.5634920634920635,0,0,0,1,Medium
+Michael Medved,right,5.0,Author,88,103,0.4607329842931937,0,0,0,1,Low or Initial Rating
+Michael Ramirez (cartoonist),right,5.0,Author,41,51,0.4456521739130434,checked,0,0,0,
+Michelle Alexander,left-center,2.0,Author,20,20,0.5,0,0,0,1,Low or Initial Rating
+Michelle Malkin,right,5.0,Author,332,179,0.649706457925636,0,0,0,0,
+MichelleMalkin.com,right,5.0,News Media,491,234,0.6772413793103448,0,0,0,1,
+Michigan Daily,left-center,2.0,News Media,187,164,0.5327635327635327,0,0,0,0,Low or Initial Rating
+Mike Lester (cartoonist),right,5.0,Author,14,7,0.6666666666666666,checked,0,0,0,
+Mike Luckovich (cartoonist),left,1.0,Author,72,59,0.549618320610687,checked,0,0,0,
+Mike Thompson (cartoonist),center,3.0,Author,40,55,0.4210526315789473,checked,0,0,0,
+Mismatch.org,allsides,,News Media,38,54,0.4130434782608695,0,0,0,1,High
+MIT News,center,3.0,News Media,180,145,0.5538461538461539,0,0,0,1,Low or Initial Rating
+Morgan Jacobsen,center,3.0,Author,56,78,0.417910447761194,0,0,0,0,
+Mother Jones,left,1.0,News Media,5412,1010,0.8427281220803488,0,0,0,0,
+MSNBC,left,1.0,News Media,5681,1923,0.7471067859021567,0,0,1,1,Medium
+MTV News Online,left-center,2.0,News Media,29,37,0.4393939393939394,0,0,0,1,
+National Committee to Preserve Social Security and Medicare,left,1.0,Think Tank / Policy Group,184,187,0.4959568733153638,0,0,0,0,
+National Interest,center,3.0,Think Tank / Policy Group,127,165,0.4349315068493151,0,0,0,1,Low or Initial Rating
+National Journal,center,3.0,News Media,899,647,0.5815006468305304,0,0,0,0,
+National Review,right,5.0,News Media,9338,4448,0.6773538372261715,0,0,0,1,Medium
+NBC Today Show,left-center,2.0,News Media,1026,1172,0.4667879890809827,checked,0,0,0,
+NBCNews.com,left-center,2.0,News Media,4221,5408,0.4383632775989199,0,0,1,1,Medium
+Neil J. Young,left-center,2.0,Author,6,12,0.3333333333333333,0,0,0,1,Low or Initial Rating
+New Economy Working Group,left-center,2.0,Think Tank / Policy Group,98,67,0.593939393939394,0,0,0,0,
+New Republic,left,1.0,News Media,1254,673,0.6507524649714582,0,0,0,1,Low or Initial Rating
+New York Daily News,left,1.0,News Media,1015,450,0.6928327645051194,0,0,0,1,Low or Initial Rating
+New York Magazine,left,1.0,News Media,1711,785,0.6854967948717948,0,0,0,1,Low or Initial Rating
+New York Post,right,5.0,News Media,3669,2522,0.5926344693910516,0,0,0,1,Low or Initial Rating
+New York Times - News,left-center,2.0,News Media,15675,25234,0.3831675181500403,1,1,1,1,High
+New York Times - Opinion,left,1.0,News Media,2716,840,0.7637795275590551,1,0,0,1,High
+NewsBusters,right,5.0,Think Tank / Policy Group,288,162,0.64,0,0,0,0,
+Newsmax,right,5.0,News Media,6840,8978,0.4324187634340624,0,1,0,1,Medium
+Newsweek,left-center,2.0,News Media,2037,2470,0.451963612158864,0,0,0,0,Medium
+Newt Gingrich,right,5.0,Author,429,181,0.7032786885245902,0,0,0,0,
+Nicholas Kristof,left,1.0,Author,153,148,0.5083056478405316,0,0,0,1,Low or Initial Rating
+Nick Anderson (cartoonist),center,3.0,Author,30,46,0.3947368421052631,checked,0,0,0,
+NMPolitics.net,center,3.0,News Media,140,196,0.4166666666666667,0,0,0,1,Low or Initial Rating
+No Labels,center,3.0,Think Tank / Policy Group,90,66,0.5769230769230769,0,0,0,0,
+Noah Rothman,right-center,4.0,Author,22,16,0.5789473684210527,0,0,0,1,Low or Initial Rating
+NPR Editorial,left-center,2.0,News Media,1859,1966,0.4860130718954248,1,0,0,1,Low or Initial Rating
+NPR Online News,center,3.0,News Media,19422,14510,0.5723800542260993,1,1,1,1,Medium
+One America News Network,right-center,4.0,News Media,408,416,0.4951456310679611,1,0,0,1,Low or Initial Rating
+OpenSecrets.org,center,3.0,Think Tank / Policy Group,398,325,0.5504840940525588,0,0,0,1,Low or Initial Rating
+Orange County Register,right-center,4.0,News Media,197,163,0.5472222222222223,0,0,0,1,Low or Initial Rating
+Pacific Research Institute,right,5.0,Think Tank / Policy Group,128,145,0.4688644688644688,0,0,0,1,Low or Initial Rating
+Pacific Standard,left-center,2.0,News Media,336,294,0.5333333333333333,0,0,0,1,Low or Initial Rating
+Pat Oliphant (cartoonist),center,3.0,Author,42,49,0.4615384615384615,checked,0,0,0,
+Paul Krugman,left,1.0,Author,307,193,0.614,0,0,0,1,High
+Paul Szep (cartoonist),center,3.0,Author,50,44,0.5319148936170213,checked,0,0,0,
+PBS NewsHour,center,3.0,News Media,2039,1494,0.5771299179167846,0,0,0,0,Low or Initial Rating
+Peacock Panache,left,1.0,News Media,145,75,0.6590909090909091,0,0,0,0,Low or Initial Rating
+Peggy Noonan,right,5.0,Author,239,322,0.4260249554367201,0,0,0,1,
+People for the American Way,left,1.0,Think Tank / Policy Group,175,112,0.6097560975609756,0,0,0,0,
+Peter Roff,right-center,4.0,Author,176,113,0.6089965397923875,0,0,0,1,Medium
+Peter Thiel,right-center,4.0,Author,10,20,0.3333333333333333,0,0,0,1,Low or Initial Rating
+Physicians for a National Health Program,left,1.0,Think Tank / Policy Group,125,90,0.5813953488372093,0,0,0,1,Low or Initial Rating
+Piers Morgan,left-center,2.0,Author,184,349,0.3452157598499062,0,0,0,1,Low or Initial Rating
+Pittsburgh Post-Gazette,right-center,4.0,News Media,186,221,0.457002457002457,0,0,0,1,Low or Initial Rating
+PJ Media,right-center,4.0,News Media,95,79,0.5459770114942529,0,0,0,1,Low or Initial Rating
+PJ Media,right,5.0,News Media,163,88,0.649402390438247,0,0,0,0,Low or Initial Rating
+Politico,left-center,2.0,News Media,13776,21465,0.3909083170171107,1,1,1,1,Medium
+PoliticusUSA,left,1.0,News Media,786,254,0.7557692307692307,0,0,0,0,Low or Initial Rating
+PolitiFact,left-center,2.0,News Media,1520,2138,0.4155276107162384,0,0,0,1,Low or Initial Rating
+Portland Press Herald,center,3.0,News Media,161,245,0.396551724137931,0,0,0,1,Medium
+Prager University,right,5.0,Think Tank / Policy Group,1616,423,0.7925453653751839,0,0,0,1,High
+PRI (Public Radio International),center,3.0,News Media,610,346,0.6380753138075314,0,0,0,0,Low or Initial Rating
+ProCon.org,allsides,,News Media,2862,1673,0.6310915104740904,0,0,0,0,Low or Initial Rating
+Progressive Voices of Iowa,left,1.0,News Media,145,80,0.6444444444444445,0,0,0,1,Low or Initial Rating
+Project Veritas,right-center,4.0,News Media,31,46,0.4025974025974026,0,0,0,1,Low or Initial Rating
+ProPublica,center,3.0,News Media,839,531,0.6124087591240875,0,0,0,0,
+PXW News,center,3.0,News Media,126,132,0.4883720930232558,0,0,0,1,Low or Initial Rating
+Quartz,center,3.0,News Media,473,424,0.5273132664437012,0,0,0,1,Low or Initial Rating
+Quillette,right-center,4.0,News Media,282,482,0.369109947643979,1,0,0,1,Low or Initial Rating
+Rachel Eckhardt,left-center,2.0,Author,26,42,0.3823529411764705,0,0,0,1,Medium
+Rahm Emanuel,left-center,2.0,Author,9,34,0.2093023255813953,0,0,0,0,
+Ralph Benko,right,5.0,Author,43,69,0.3839285714285714,0,0,0,1,Medium
+Ramesh Ponnuru,right,5.0,Author,107,74,0.5911602209944752,0,0,0,1,
+RAND Corporation,left-center,2.0,Think Tank / Policy Group,389,495,0.4400452488687782,0,0,0,0,
+Rand Paul,right-center,4.0,Author,363,309,0.5401785714285714,checked,0,0,0,
+Rasmussen Reports,center,3.0,News Media,451,656,0.4074074074074074,0,0,0,0,
+Raw Story,left,1.0,News Media,491,297,0.6230964467005076,checked,0,0,0,
+RealClearPolitics,center,3.0,News Media,2787,2415,0.5357554786620531,0,0,0,0,
+Reason,right-center,4.0,News Media,5258,3529,0.5983839763286674,0,0,0,1,Low or Initial Rating
+Reason Foundation,right-center,4.0,Think Tank / Policy Group,115,121,0.4872881355932203,0,0,0,0,Low or Initial Rating
+Record Journal,center,3.0,News Media,102,117,0.4657534246575342,0,0,0,1,Low or Initial Rating
+Red State,right,5.0,News Media,601,199,0.75125,0,0,0,0,Low or Initial Rating
+redefinED,center,3.0,Think Tank / Policy Group,127,66,0.6580310880829016,0,0,0,1,Low or Initial Rating
+Rem Reider,center,3.0,Author,70,90,0.4375,0,0,0,0,Low or Initial Rating
+Reuters,center,3.0,News Media,6834,4515,0.6021675918583135,0,0,0,1,Low or Initial Rating
+Rich Lowry,right,5.0,Author,187,173,0.5194444444444445,checked,0,0,0,
+Rich Tafel,center,3.0,Author,67,62,0.5193798449612403,0,0,0,1,Low or Initial Rating
+Rich Zeoli,right-center,4.0,Author,62,56,0.5254237288135594,0,0,0,1,Low or Initial Rating
+Richard A. Lowry,right,5.0,Author,73,52,0.584,checked,0,0,0,
+Richard M. Cohen,left-center,2.0,Author,30,15,0.6666666666666666,0,0,0,1,Low or Initial Rating
+Richmond Times Dispatch,right-center,4.0,News Media,205,153,0.5726256983240223,0,0,0,0,Low or Initial Rating
+Rick Ungar,left-center,2.0,Author,128,124,0.5079365079365079,0,0,0,1,
+Right - Major Media Sources,right,5.0,News Media,261,252,0.5087719298245614,checked,0,0,0,
+Right Guest Commentaries,right,5.0,Author,54,46,0.54,checked,0,0,0,
+Right Side News,right,5.0,News Media,406,197,0.6733001658374793,checked,0,0,0,Low or Initial Rating
+Right Wing News,right,5.0,News Media,352,153,0.697029702970297,0,0,0,1,High
+Rob Rogers (cartoonist),left,1.0,Author,67,13,0.8375,checked,0,0,0,
+Robert Ariail (cartoonist),center,3.0,Author,52,58,0.4727272727272727,checked,0,0,0,
+Robert Samuelson,center,3.0,Author,103,113,0.4768518518518518,checked,0,0,0,
+Roll Call,center,3.0,News Media,71,69,0.5071428571428571,0,0,0,1,Low or Initial Rating
+RollingStone.com,left,1.0,News Media,1344,364,0.7868852459016393,0,0,0,0,
+Ross Douthat,right-center,4.0,Author,116,76,0.6041666666666666,checked,0,0,0,
+Ruth Marcus,left-center,2.0,Author,125,132,0.4863813229571984,0,0,0,0,
+Ryan Cooper,left,1.0,Author,258,69,0.7889908256880734,0,0,0,1,Low or Initial Rating
+Ryan Cooper,left,1.0,Author,71,42,0.6283185840707964,0,0,0,0,Low or Initial Rating
+Sally Pipes,right,5.0,Author,206,89,0.6983050847457627,checked,0,0,0,
+Salon,left,1.0,News Media,10912,4980,0.6866347847973824,0,0,0,1,Medium
+San Francisco Chronicle,left,1.0,News Media,843,278,0.752007136485281,0,0,0,0,Low or Initial Rating
+San Jose Mercury News,left-center,2.0,News Media,333,362,0.479136690647482,0,0,0,0,Low or Initial Rating
+SBG,center,3.0,Author,50,45,0.5263157894736842,0,0,0,1,Low or Initial Rating
+Science Daily,center,3.0,News Media,396,242,0.6206896551724138,0,0,0,1,Low or Initial Rating
+Scientific American,center,3.0,News Media,947,453,0.6764285714285714,0,0,0,0,Low or Initial Rating
+Scott Adams,center,3.0,Author,15,17,0.46875,0,0,0,1,Low or Initial Rating
+Scott Stantis (cartoonist),right,5.0,Author,36,54,0.4,checked,0,0,0,
+SF Weekly,center,3.0,News Media,209,282,0.4256619144602851,checked,0,0,0,
+SFGate,left-center,2.0,News Media,385,433,0.4706601466992665,0,0,0,0,
+Signe Wilkinson (cartoonist),left,1.0,Author,25,17,0.5952380952380952,checked,0,0,0,
+Sky-Hi Daily News,left-center,2.0,News Media,114,96,0.5428571428571428,0,0,0,0,
+Slate,left,1.0,News Media,3325,2384,0.5824137327027501,1,0,1,1,Low or Initial Rating
+Small World (cartoonist),left,1.0,Author,14,25,0.358974358974359,checked,0,0,0,
+Smerconish,center,3.0,News Media,94,140,0.4017094017094017,0,0,0,0,Low or Initial Rating
+Socialist Alternative,left,1.0,News Media,387,168,0.6972972972972973,0,0,0,1,Low or Initial Rating
+Socialist Project/The Bullet,left,1.0,News Media,336,146,0.6970954356846473,0,0,0,0,Low or Initial Rating
+Splinter,left,1.0,News Media,157,41,0.7929292929292929,0,0,0,1,Low or Initial Rating
+Spokesman Review,left-center,2.0,News Media,164,181,0.4753623188405797,0,0,0,1,Low or Initial Rating
+State Journal,left-center,2.0,News Media,137,194,0.4138972809667673,0,0,0,0,Low or Initial Rating
+Steve Benson (cartoonist),left,1.0,Author,51,47,0.5204081632653061,checked,0,0,0,
+Steve Breen (cartoonist),center,3.0,Author,51,40,0.5604395604395604,checked,0,0,0,
+Steve Kelley (cartoonist),right,5.0,Author,28,30,0.4827586206896552,checked,0,0,0,
+Steve Sack (cartoonist),left,1.0,Author,41,22,0.6507936507936508,checked,0,0,0,
+StoryCorps,allsides,,News Media,11,11,0.5,0,0,0,1,Low or Initial Rating
+Stuart Carlson (cartoonist),left,1.0,Author,22,31,0.4150943396226415,checked,0,0,0,
+Subverse,center,3.0,News Media,10,0,1.0,0,0,0,1,Low or Initial Rating
+Suspend Belief Podcast,allsides,,News Media,117,144,0.4482758620689655,0,0,0,0,Low or Initial Rating
+Tallahassee Democrat,center,3.0,News Media,194,185,0.5118733509234829,0,0,0,1,Low or Initial Rating
+TechCrunch,center,3.0,News Media,329,199,0.6231060606060606,0,0,0,0,Low or Initial Rating
+Ted Rall (cartoonist),left,1.0,Author,37,25,0.5967741935483871,checked,0,0,0,
+Teen Vogue,left-center,2.0,News Media,269,404,0.399702823179792,0,0,0,1,Low or Initial Rating
+Test Source,center,3.0,News Media,112,123,0.4765957446808511,checked,0,0,0,
+The Advocate-Messenger,left-center,2.0,News Media,129,166,0.4372881355932203,0,0,0,0,Low or Initial Rating
+The American Conservative,right-center,4.0,News Media,137,160,0.4612794612794613,0,0,0,0,Low or Initial Rating
+The Atlantic,left-center,2.0,News Media,4533,2681,0.6283615192680898,0,0,0,0,
+The Boston Globe,left-center,2.0,News Media,1428,1090,0.5671167593328038,0,0,0,1,High
+The Cadiz Record,left-center,2.0,News Media,143,151,0.4863945578231292,0,0,0,0,Low or Initial Rating
+The Canyon County Zephyr,left,1.0,News Media,138,109,0.5587044534412956,0,0,0,1,High
+The College Fix,right,5.0,News Media,106,87,0.5492227979274611,0,0,0,1,Low or Initial Rating
+The Commercial Appeal,left-center,2.0,News Media,118,171,0.4083044982698962,0,0,0,1,Low or Initial Rating
+The Courier-Journal,left-center,2.0,News Media,88,184,0.3235294117647059,0,0,0,0,Low or Initial Rating
+The Daily Caller,right,5.0,News Media,4658,2549,0.6463160815873457,1,0,0,1,Medium
+The Daily Show (humor),left-center,2.0,News Media,838,1105,0.431291816778178,checked,0,0,0,
+The Daily Signal,right,5.0,News Media,241,73,0.767515923566879,0,0,0,1,Low or Initial Rating
+The Daily Wire,right,5.0,News Media,2719,1344,0.6692099433915826,0,0,0,1,Medium
+The Dallas Morning News,center,3.0,News Media,74,51,0.592,0,0,0,1,Low or Initial Rating
+The Delaware County Daily Times,left-center,2.0,News Media,144,163,0.4690553745928338,0,0,0,1,Low or Initial Rating
+The Economist,left-center,2.0,News Media,1612,3004,0.3492201039861352,0,0,1,1,
+The Epoch Times,right,5.0,News Media,731,352,0.6749769159741459,1,0,0,1,Medium
+The Federalist,right,5.0,News Media,2459,1211,0.6700272479564032,0,0,0,0,Low or Initial Rating
+The Flip Side,allsides,,News Media,226,183,0.5525672371638142,0,0,0,1,High
+The Fulcrum,center,3.0,News Media,8,13,0.3809523809523809,0,0,0,0,Low or Initial Rating
+The Gateway Pundit,right,5.0,News Media,458,335,0.5775535939470365,0,0,0,1,Low or Initial Rating
+The Guardian,left-center,2.0,News Media,6067,3885,0.6096262057877814,0,0,0,1,Medium
+The Heritage Foundation,right-center,4.0,Think Tank / Policy Group,2327,1336,0.6352716352716353,0,0,0,0,
+The Hill,center,3.0,News Media,7444,9180,0.447786333012512,0,0,0,1,Low or Initial Rating
+The Independent,left-center,2.0,News Media,74,74,0.5,0,0,0,0,
+The Intercept,left,1.0,News Media,1213,633,0.6570964247020585,0,0,0,1,Low or Initial Rating
+The Jerusalem Post,center,3.0,News Media,97,98,0.4974358974358974,0,0,0,0,
+The Justice,left-center,2.0,News Media,104,116,0.4727272727272727,0,0,0,1,Low or Initial Rating
+The Korea Herald,center,3.0,News Media,135,76,0.6398104265402843,0,0,0,1,Low or Initial Rating
+The Libertarian Republic,right-center,4.0,News Media,771,626,0.5518969219756621,0,0,0,1,Low or Initial Rating
+The Nation,left,1.0,News Media,977,310,0.7591297591297591,0,0,0,0,
+The New Yorker,left,1.0,News Media,2435,762,0.7616515483265561,0,0,0,1,Low or Initial Rating
+The Observer (New York),center,3.0,News Media,170,314,0.3512396694214876,0,0,0,1,Low or Initial Rating
+The Oracle,center,3.0,News Media,49,88,0.3576642335766423,0,0,0,1,Low or Initial Rating
+The Philadelphia Inquirer,left-center,2.0,News Media,53,76,0.4108527131782946,0,0,0,1,Low or Initial Rating
+The Post Millennial,right-center,4.0,News Media,38,21,0.6440677966101694,0,0,0,1,Low or Initial Rating
+The Red and Black,center,3.0,News Media,113,80,0.5854922279792746,0,0,0,1,Low or Initial Rating
+The Reliable Bias,center,3.0,News Media,62,102,0.3780487804878049,0,0,0,0,
+The Republican,center,3.0,News Media,145,359,0.2876984126984127,0,0,0,1,Low or Initial Rating
+The Resurgent,right,5.0,News Media,26,16,0.6190476190476191,0,0,0,1,Low or Initial Rating
+The Root,left-center,2.0,News Media,216,295,0.4227005870841487,0,0,0,0,Low or Initial Rating
+The Sacramento Bee,left-center,2.0,News Media,228,234,0.4935064935064935,0,0,0,1,Low or Initial Rating
+The Saturday Evening Post,center,3.0,News Media,112,72,0.6086956521739131,0,0,0,1,Low or Initial Rating
+The Telegraph - UK,right-center,4.0,News Media,597,349,0.63107822410148,0,0,0,1,Low or Initial Rating
+The Texas Observer,left-center,2.0,News Media,11,12,0.4782608695652174,0,0,0,0,
+The Verge,left-center,2.0,News Media,438,276,0.6134453781512605,0,0,0,1,Low or Initial Rating
+The Week - News,center,3.0,News Media,3017,2266,0.5710770395608555,0,0,0,1,Low or Initial Rating
+The Weekly Standard,right,5.0,News Media,1253,732,0.6312342569269521,0,0,0,1,High
+TheBlaze.com,right,5.0,News Media,29759,23159,0.5623606334328584,0,0,1,1,Medium
+ThinkProgress,left,1.0,News Media,2557,798,0.7621460506706408,0,0,0,1,Low or Initial Rating
+Thomas Frank,left-center,2.0,Author,117,131,0.4717741935483871,0,0,0,1,Low or Initial Rating
+Thomas Sowell,right-center,4.0,Author,261,190,0.5787139689578714,0,0,0,0,
+Tim Groseclose,right-center,4.0,Author,74,39,0.6548672566371682,checked,0,0,0,
+Tim Pool,center,3.0,Author,117,56,0.6763005780346821,0,0,0,1,Medium
+Time Magazine,left-center,2.0,News Media,4191,3477,0.5465571205007824,0,0,0,1,Low or Initial Rating
+Tom Cole,right,5.0,Author,129,72,0.6417910447761194,checked,0,0,0,
+Tom Nichols,right-center,4.0,Author,1,6,0.1428571428571428,0,0,0,1,Low or Initial Rating
+Tom Toles (cartoonist),left,1.0,Author,50,39,0.5617977528089888,checked,0,0,0,
+Tony Auth (cartoonist),left,1.0,Author,42,38,0.525,checked,0,0,0,
+Townhall,right,5.0,News Media,8940,13747,0.3940582712566668,0,0,0,1,Medium
+Truth or Fiction,center,3.0,News Media,210,170,0.5526315789473685,0,0,0,1,Low or Initial Rating
+Truthdig,left,1.0,News Media,14,3,0.8235294117647058,0,0,0,1,Low or Initial Rating
+TruthOut,left-center,2.0,News Media,280,299,0.4835924006908463,checked,0,0,0,
+Tucker Carlson,right,5.0,Author,81,55,0.5955882352941176,0,0,0,1,Medium
+U.S. News & World Report,left-center,2.0,News Media,1448,1628,0.47074122236671,0,0,0,0,Low or Initial Rating
+Univision,left-center,2.0,News Media,290,361,0.445468509984639,0,0,0,1,Low or Initial Rating
+Upworthy,left,1.0,News Media,386,262,0.595679012345679,0,0,0,1,Low or Initial Rating
+USA TODAY,center,3.0,News Media,12275,9878,0.5541010246919154,0,1,1,1,High
+Vanity Fair,left-center,2.0,News Media,3331,2146,0.6081796603980281,0,0,0,1,Low or Initial Rating
+Vice,left,1.0,News Media,1043,312,0.7697416974169742,0,0,0,0,Low or Initial Rating
+Victor Hanson,right-center,4.0,Author,135,147,0.4787234042553192,0,0,0,0,
+Volante,center,3.0,News Media,108,118,0.4778761061946903,0,0,0,1,Low or Initial Rating
+Vote Smart,center,3.0,Think Tank / Policy Group,189,204,0.4809160305343511,0,0,0,0,
+Vox,left,1.0,News Media,12519,12386,0.5026701465569163,0,0,0,1,High
+VT Digger,left-center,2.0,News Media,117,150,0.4382022471910112,0,0,0,1,Low or Initial Rating
+Wake Up to Politics,center,3.0,News Media,21,16,0.5675675675675675,0,0,0,1,Low or Initial Rating
+Wall Street Journal - Editorial,right-center,4.0,News Media,5061,3729,0.5757679180887372,0,0,0,1,High
+Wall Street Journal - News,center,3.0,News Media,12470,17840,0.4114153744638733,0,1,1,1,High
+Walt Handelsman (cartoonist),left,1.0,Author,67,77,0.4652777777777778,checked,0,0,0,
+WANDTV,center,3.0,News Media,0,0,,0,0,0,0,Low or Initial Rating
+Washington Examiner,right-center,4.0,News Media,5011,2681,0.6514560582423297,0,0,0,1,Medium
+Washington Free Beacon,right,5.0,News Media,437,443,0.4965909090909091,0,0,0,1,Low or Initial Rating
+Washington Monthly,left-center,2.0,News Media,167,149,0.5284810126582279,0,0,0,1,Low or Initial Rating
+Washington Post,left-center,2.0,News Media,24245,15197,0.6147000659195782,0,1,1,1,High
+Washington Times,right-center,4.0,News Media,21112,10655,0.6645890389397803,0,1,0,1,Medium
+Watchdog.org,right-center,4.0,News Media,477,512,0.4823053589484327,0,0,0,1,Low or Initial Rating
+Western Journalism,right,5.0,News Media,818,354,0.6979522184300341,0,0,0,1,Medium
+WFAE,center,3.0,News Media,116,139,0.4549019607843137,0,0,0,0,Low or Initial Rating
+WGBH,center,3.0,News Media,289,238,0.5483870967741935,0,0,0,1,Low or Initial Rating
+WGN,center,3.0,News Media,1,2,0.3333333333333333,0,0,0,0,Low or Initial Rating
+Whatfinger News,right,5.0,News Media,65,47,0.5803571428571429,0,0,0,1,Low or Initial Rating
+Whitehouse.gov,right-center,4.0,Think Tank / Policy Group,405,476,0.4597048808172531,0,0,0,0,Low or Initial Rating
+Willam A. Galston,left-center,2.0,Author,79,77,0.5064102564102564,0,0,0,1,Low or Initial Rating
+William Bennett,right,5.0,Author,95,132,0.4185022026431718,checked,0,0,0,
+William McGurn,right,5.0,Author,75,35,0.6818181818181818,0,0,0,0,
+Wisconsin Gazette,left-center,2.0,News Media,168,149,0.5299684542586751,0,0,0,0,
+WND.com,right,5.0,News Media,439,178,0.7115072933549432,0,0,0,1,High
+Yahoo! News,left-center,2.0,News Media,1740,1393,0.5553782317267795,1,0,1,0,Medium
+Yahoo! The 360,allsides,,News Media,6,4,0.6,1,0,0,1,Medium
+Yes! Magazine,left,1.0,News Media,354,166,0.6807692307692308,checked,0,0,0,

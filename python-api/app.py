@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import os
 from utils.openai import generate_summary_individual, generate_summary_collection
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources
+from utils.exa import get_contents
 
 app = Flask(__name__)
 
@@ -64,6 +65,8 @@ def headline_sources():
 def summarize_article():
     data = request.get_json()
     article = data.get('article')
+    # assuming article = the url of the article
+    article = get_contents([article])
     user_preferences = data.get('user_preferences')
 
     if not article:
@@ -71,7 +74,7 @@ def summarize_article():
     if not user_preferences:
         return jsonify({"error": "User preferences are required"}), 400
 
-    summary = generate_summary_individual(article, user_preferences)
+    summary = generate_summary_individual(article[0].text, user_preferences)
     return jsonify({"summary": summary}), 200
 
 # For summarizing multiple articles into one summary
@@ -79,14 +82,17 @@ def summarize_article():
 def summarize_articles():
     data = request.get_json()
     articles = data.get('articles') # to clarify @Sanya is this expecting all article text concatenated into one string?
+    # I'm assuming that it's a dictionary of the form: ["title" : "url"], can also be just a list of URLs - q
+    articles = get_contents(articles)
+    # articles is now a [Result]. Result is the return type from the exa function call. - q 
+    articles_text = ", ".join([result.text for result in articles])
     user_preferences = data.get('user_preferences')
-
     if not articles:
         return jsonify({"error": "Articles are required"}), 400
     if not user_preferences:
         return jsonify({"error": "User preferences are required"}), 400
 
-    summary = generate_summary_collection(articles, user_preferences)
+    summary = generate_summary_collection(articles_text, user_preferences)
     return jsonify({"summary": summary}), 200
 
 if __name__ == '__main__':
