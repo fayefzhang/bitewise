@@ -85,7 +85,9 @@ def summarize_articles():
     # I'm assuming that it's a dictionary of the form: ["title" : "url"], can also be just a list of URLs - q
     articles = get_contents(articles)
     # articles is now a [Result]. Result is the return type from the exa function call. - q 
-    articles_text = ", ".join([result.text for result in articles])
+    
+    articles_text = "\n\n".join([f"### Article {i+1} ###\n{result.text.strip()}" for i, result in enumerate(articles)])
+
     user_preferences = data.get('user_preferences')
     if not articles:
         return jsonify({"error": "Articles are required"}), 400
