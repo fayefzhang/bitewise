@@ -66,7 +66,7 @@ def summarize_article():
     data = request.get_json()
     article = data.get('article')
     # assuming article = the url of the article
-    article = get_contents([article])
+    article = get_contents(article)
     user_preferences = data.get('user_preferences')
 
     if not article:

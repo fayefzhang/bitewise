@@ -1,9 +1,9 @@
 import requests
 from datetime import datetime, timedelta
 import json
-import datetime
 import re
 from . import query_processing
+from .query_processing import parse_query
 
 # API key and global vars
 api_key =  "e1f28be4691a45cf9ac878f1615b522e"
@@ -189,7 +189,7 @@ def daily_news(user_preferences, filename, question=None):
 
 def generate_filename(question):
     sanitized_question = re.sub(r'[^a-zA-Z0-9]', '_', question.lower()).strip('_')
-    time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    time = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{sanitized_question}_{time}.json"
 
     

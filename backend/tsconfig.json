@@ -1,5 +1,3 @@
-// might need to revisit these
-
 {
     "compilerOptions": {
       "target": "ES6",
@@ -10,6 +8,6 @@
       "esModuleInterop": true,
       "resolveJsonModule": true
     },
-    "include": ["src/**/*", "../frontend/api/api.ts"],
+    "include": ["src/**/*"],   //, "../frontend/api/api.ts"],
     "exclude": ["node_modules", "dist"]
 }

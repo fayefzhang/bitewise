@@ -3,13 +3,6 @@ import axios from 'axios';
 
 const router: Router = express.Router();
 
-
-// router.get("/", (req: Request, res: Response): void => {
-//     res.send("API is working");
-// }
-// );
-
-
 // @route POST /search
 // @description Processes a news search query
 // @returns list of articles

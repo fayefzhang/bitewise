@@ -7,8 +7,11 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 interface Article {
   id: Key | null | undefined;
+  url: string;
+  imageUrl: string;
   title: string;
   source: string;
+  content: string;
   time: string;
   bias: string;
   readTime: string;
@@ -36,8 +39,16 @@ const SearchPage: React.FC = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
+
+  const BASE_URL: string = "http://localhost:3000";
+
+  const userPreferences = {  // default for now
+    length: "short",  // options: {"short", "medium", "long"}
+    tone: "formal",  // options: {"formal", "conversational", "technical", "analytical"}
+    format: "highlights",  // options: {"highlights", "bullets", "analysis", "quotes"} 
+    jargon_allowed: true,  // options: {True, False}
+
+  };
 
   useEffect(() => {
     const query = searchParams.get("query");
@@ -53,9 +64,12 @@ const SearchPage: React.FC = () => {
 
       const sampleArticle = {
         id: 1,
+        url: "https://www.cnbc.com/2022/12/07/germanys-ruling-coalition-collapses-as-chancellor-scholz-fires-finance-minister.html",
+        imageUrl: "/article-thumbnail.jpg",
         title:
           "Germany’s ruling coalition collapses as Chancellor Scholz fires finance minister",
         source: "CNBC",
+        content: "Germany’s ruling coalition collapsed on Wednesday...",
         time: "5 hours ago",
         bias: "NEUTRAL",
         readTime: "5 MIN READ",
@@ -81,14 +95,110 @@ const SearchPage: React.FC = () => {
     }
   }, [searchParams]);
 
-  function handleSearch(term: string) {
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
+  useEffect(() => {
+    // Get article summary if not already done
+    const fetchArticleSummary = async () => {
+      if (selectedArticle?.details.length === 0) {
+        const articleBody = {
+          article: Object.fromEntries([
+            [selectedArticle.title, selectedArticle.url]
+          ]),          
+          user_preferences: userPreferences
+        }
+
+        try {
+          const response = await fetch(`${BASE_URL}/api/summarize/article`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(articleBody),
+          });
+          const data = await response.json();
+
+          setSelectedArticle((prevArticle) => {
+            if (!prevArticle) return null;
+            return {
+              ...prevArticle,
+              details: [...prevArticle.details, data.summary]
+            };
+          });
+
+        } catch(error) {
+          console.error("Error processing article summary request", error);
+        }
+      }
+    };
+
+    fetchArticleSummary();
+  }, [selectedArticle]);
+
+  async function handleSearch(term: string) {
+    const requestBody = {
+      query: term,
+      user_preferences: userPreferences
     }
-    replace(`${pathname}?${params.toString()}`);
+    try {
+      // Send search request to backend
+      const response = await fetch(`${BASE_URL}/api/search`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      const data = await response.json();
+      
+      // Process search results
+      const articlesData = data.results
+        .filter((entry: any) => entry.title !== "[Removed]")
+        .map((entry: any) => ({
+          id: entry.id,
+          url: entry.url,
+          imageUrl: entry.urlToImage,
+          title: entry.title,
+          source: entry.source.name,
+          content: entry.content,
+          time: new Date(entry.publishedAt).toLocaleTimeString(),
+          bias: "BIAS UNKNOWN", // TODO
+          readTime: "READ TIME UNKNOWN", // TODO
+          relatedSources: [], // TODO
+          details: [],  // TODO: summary
+        }));
+
+      setArticles(articlesData);
+
+      // Get summary of search topic
+      const filteredArticles = articlesData.filter((article: Article) => {
+        const termWords = term.toLowerCase().split(" ");
+        return termWords.some((word) => article.title.toLowerCase().includes(word));
+      });
+
+      const summaryBody = {
+        // Generate summary from first 5 relevant articles
+        articles: Object.fromEntries(
+          articlesData.slice(0, 5).map((article: Article) => [article.title, article.url])
+        ),
+        user_preferences: userPreferences
+      }
+
+      const summaryResponse = await fetch(`${BASE_URL}/api/summarize/articles`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(summaryBody),
+      });
+      const summaryData = await summaryResponse.json();
+
+      setSummary({
+        title: term,
+        summary: summaryData.summary,
+      });
+
+    } catch (error) {
+      console.error("Error processing search request", error);
+    }
   }
 
   function handleArticleClick(article: Article) {
@@ -176,27 +286,31 @@ const SearchPage: React.FC = () => {
                   ))}
                 </ul>
                 {/* Related Articles */}
-                <h3 className="mt-6 font-bold">Related Articles</h3>
-                <p className="text-sm text-gray-500">
-                  Explore a more conservative viewpoint.
-                </p>
-                <div className="mt-2 grid grid-cols-1 gap-2">
-                  {selectedArticle.relatedSources.map((source) => (
-                    <div
-                      key={source.id}
-                      className="rounded-lg p-2 shadow-md  w-full h-full text-center bg-white"
-                    >
-                      <div className="flex-wrap items-center">
-                        <p className="text-xs text-gray-500">{source.title}</p>
-                        <p className="text-xs text-gray-500">{source.source}</p>
-                        <p className="text-xs text-gray-500">{source.time}</p>
-                        <p className="text-xs font-bold text-blue-600">
-                          {source.bias}
-                        </p>
-                      </div>
+                {selectedArticle.relatedSources.length > 0 && (
+                  <>
+                    <h3 className="mt-6 font-bold">Related Articles</h3>
+                    <p className="text-sm text-gray-500">
+                      Explore a more conservative viewpoint.
+                    </p>
+                    <div className="mt-2 grid grid-cols-1 gap-2">
+                      {selectedArticle.relatedSources.map((source) => (
+                        <div
+                          key={source.id}
+                          className="rounded-lg p-2 shadow-md  w-full h-full text-center bg-white"
+                        >
+                          <div className="flex-wrap items-center">
+                            <p className="text-xs text-gray-500">{source.title}</p>
+                            <p className="text-xs text-gray-500">{source.source}</p>
+                            <p className="text-xs text-gray-500">{source.time}</p>
+                            <p className="text-xs font-bold text-blue-600">
+                              {source.bias}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
               </>
             )}
           </aside>
