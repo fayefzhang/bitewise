@@ -123,16 +123,15 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 
 # get user params
 def user_search(question, user_preferences, filename):
-    # step 1: parse question. @TODO for QUINN
+    # step 1: parse question
+    question = parse_query(question)
 
     # step 2: set API args
     # for now, setting default variables
-    from_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d') # results in past week
+    from_date = user_preferences.get("from_date", (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d')) # results in past week
     language = "en" # defaulting english
-
     domains = user_preferences.get("domains", None)
-    exclude_domains = user_preferences.get("domains", None)
-    question = parse_query(question)
+    exclude_domains = user_preferences.get("exclude_domains", None)
 
     # step 3: make API requests
     response_popularity = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", exclude_domains=exclude_domains)

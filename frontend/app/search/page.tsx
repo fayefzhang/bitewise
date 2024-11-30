@@ -17,6 +17,7 @@ interface Article {
   readTime: string;
   relatedSources: RelatedSource[];
   details: string[];
+  fullContent: string;
 }
 
 interface RelatedSource {
@@ -42,12 +43,21 @@ const SearchPage: React.FC = () => {
 
   const BASE_URL: string = "http://localhost:3000";
 
-  const userPreferences = {  // default for now
+  // default AI and search preferences
+  const AIPreferences = {
     length: "short",  // options: {"short", "medium", "long"}
     tone: "formal",  // options: {"formal", "conversational", "technical", "analytical"}
     format: "highlights",  // options: {"highlights", "bullets", "analysis", "quotes"} 
     jargon_allowed: true,  // options: {True, False}
+  };
 
+  const searchPreferences = {
+    sources: null, // for daily news
+    domains: null, // theoretically same as sources, will add in code later to go from one to another so we only need one
+    exclude_domains: null,
+    from_date: null, // this defaults to past 7 days in newsapi code
+    read_time: null,
+    bias: null
   };
 
   useEffect(() => {
@@ -81,6 +91,7 @@ const SearchPage: React.FC = () => {
           "Political shake-up could benefit populist movements such as AfD",
           "Scholz to ask opposition conservatives for support",
         ],
+        fullContent: "",
       };
 
       setArticles([sampleArticle]);
@@ -101,9 +112,9 @@ const SearchPage: React.FC = () => {
       if (selectedArticle?.details.length === 0) {
         const articleBody = {
           article: Object.fromEntries([
-            [selectedArticle.title, selectedArticle.url]
+            [selectedArticle.title, selectedArticle.fullContent, selectedArticle.url]
           ]),          
-          user_preferences: userPreferences
+          user_preferences: AIPreferences
         }
 
         try {
@@ -136,8 +147,10 @@ const SearchPage: React.FC = () => {
   async function handleSearch(term: string) {
     const requestBody = {
       query: term,
-      user_preferences: userPreferences
+      user_preferences: searchPreferences,
+      ai_preferences: AIPreferences
     }
+
     try {
       // Send search request to backend
       const response = await fetch(`${BASE_URL}/api/search`, {
@@ -150,8 +163,7 @@ const SearchPage: React.FC = () => {
       const data = await response.json();
       
       // Process search results
-      const articlesData = data.results
-        .filter((entry: any) => entry.title !== "[Removed]")
+      const articlesData = data.articles
         .map((entry: any) => ({
           id: entry.id,
           url: entry.url,
@@ -159,41 +171,18 @@ const SearchPage: React.FC = () => {
           title: entry.title,
           source: entry.source.name,
           content: entry.content,
-          time: new Date(entry.publishedAt).toLocaleTimeString(),
-          bias: "BIAS UNKNOWN", // TODO
-          readTime: "READ TIME UNKNOWN", // TODO
-          relatedSources: [], // TODO
-          details: [],  // TODO: summary
+          time: entry.time,
+          bias: entry.bias,
+          readTime: entry.readTime,
+          relatedSources: entry.relatedSources,
+          details: entry.details,
+          fullContent: entry.fullContent,
         }));
 
       setArticles(articlesData);
-
-      // Get summary of search topic
-      const filteredArticles = articlesData.filter((article: Article) => {
-        const termWords = term.toLowerCase().split(" ");
-        return termWords.some((word) => article.title.toLowerCase().includes(word));
-      });
-
-      const summaryBody = {
-        // Generate summary from first 5 relevant articles
-        articles: Object.fromEntries(
-          articlesData.slice(0, 5).map((article: Article) => [article.title, article.url])
-        ),
-        user_preferences: userPreferences
-      }
-
-      const summaryResponse = await fetch(`${BASE_URL}/api/summarize/articles`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(summaryBody),
-      });
-      const summaryData = await summaryResponse.json();
-
       setSummary({
         title: term,
-        summary: summaryData.summary,
+        summary: data.summary,
       });
 
     } catch (error) {

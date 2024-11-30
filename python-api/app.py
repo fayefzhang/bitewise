@@ -65,37 +65,56 @@ def headline_sources():
 def summarize_article():
     data = request.get_json()
     article = data.get('article')
-    # assuming article = the url of the article
-    article = get_contents(article)
-    user_preferences = data.get('user_preferences')
-
     if not article:
         return jsonify({"error": "Article is required"}), 400
+    
+    full_content = article.get("fullContent")
+    title = article.get("title")
+    url = article.get("url")
+
+    # only retrieve full content if we didn't already get it
+    if not full_content:
+        fetched_data = get_contents({title: url})
+        full_content = fetched_data[url].text.strip()
+
+    # generate summary
+    user_preferences = data.get('user_preferences')
     if not user_preferences:
         return jsonify({"error": "User preferences are required"}), 400
 
-    summary = generate_summary_individual(article[0].text, user_preferences)
+    summary = generate_summary_individual(full_content[0].text, user_preferences)
     return jsonify({"summary": summary}), 200
 
 # For summarizing multiple articles into one summary
 @app.route('/summarize-articles', methods=['POST'])
 def summarize_articles():
     data = request.get_json()
-    articles = data.get('articles') # to clarify @Sanya is this expecting all article text concatenated into one string?
-    # I'm assuming that it's a dictionary of the form: ["title" : "url"], can also be just a list of URLs - q
-    articles = get_contents(articles)
-    # articles is now a [Result]. Result is the return type from the exa function call. - q 
-    
-    articles_text = "\n\n".join([f"### Article {i+1} ###\n{result.text.strip()}" for i, result in enumerate(articles)])
-
+    articles = data.get('articles')
     user_preferences = data.get('user_preferences')
+
+    if not user_preferences:
+        return jsonify({"error": "User preferences are required"}), 400
     if not articles:
         return jsonify({"error": "Articles are required"}), 400
     if not user_preferences:
         return jsonify({"error": "User preferences are required"}), 400
+    
+    # dict mapping urls to summary
+    contents_mapping = get_contents(articles)
+    enriched_articles = []
+    for title, url in articles.items():
+        article_result = contents_mapping.get(url, None)
+        enriched_articles.append({
+            "title": title,
+            "url": url,
+            "content": article_result.text.strip() if article_result else "",
+    })
 
+    articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])
     summary = generate_summary_collection(articles_text, user_preferences)
-    return jsonify({"summary": summary}), 200
-
+    return jsonify({
+        "summary": summary,
+        "enriched_articles": enriched_articles,
+    }), 200
 if __name__ == '__main__':
     app.run(port=5000)
