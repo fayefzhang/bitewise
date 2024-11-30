@@ -30,6 +30,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         const cache = readCache();
         if (query === EXAMPLE_SEARCH_QUERY) {
             if (cache[query]) {
+                console.log("search: using cached response for example query");
                 res.json(cache[query]);
                 return;
             }
@@ -47,30 +48,39 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             source: entry.source.name,
             content: entry.content,
             time: new Date(entry.publishedAt).toLocaleTimeString(),
-            bias: "BIAS UNKNOWN", // TODO
-            readTime: "READ TIME UNKNOWN", // TODO
+            bias: entry.biasRating,
+            readTime: entry.readTime,
             relatedSources: [], // TODO
-            details: [], // TODO: summary
+            details: [], // TODO: summary 
+            // ^^ @karen unsure what this means? -jared
             fullContent: null
         }));
+
+        console.log("search step 1, found articles:", articlesData);
 
         // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
         const summaryRequestBody = {
             articles: Object.fromEntries(
-                articlesData.slice(0, 5).map((article: any) => [article.title, article.url])
+                articlesData.slice(0, 5).map((article: any) => [
+                    article.url,
+                    { title: article.title, fullContent: article.fullContent }
+                ])
             ),
             ai_preferences,
         };
 
         const summaryResponse = await axios.post("http://localhost:5000/summarize-articles", summaryRequestBody);
-        const { summaryData, enriched_articles } = summaryResponse.data;
+        const { summary, enriched_articles } = summaryResponse.data;
+
+        console.log("Summary:", summary);
+        console.log("Enriched Articles:", enriched_articles);
 
         // step 4: update articles with content (for caching)
         const enrichedArticlesData = articlesData.map((article: any) => {
             const enrichedArticle = enriched_articles.find((ea: any) => ea.url === article.url);
             return {
                 ...article,
-                fullContent: enrichedArticle?.content || "",
+                fullContent: enrichedArticle?.content || null,
             };
         });
 
@@ -79,12 +89,13 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             articles: enrichedArticlesData,
             summary: {
                 title: query,
-                summary: summaryData.summary,
+                summary: summary,
             },
         };
 
         // Step 5: cache response if it matches example query (see step 4 format)
         if (query === EXAMPLE_SEARCH_QUERY) {
+            console.log("search: caching response for example query");
             cache[query] = result;
             writeCache(cache);
         }
@@ -101,13 +112,13 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 // @returns list of articles
 router.post('/dailynews', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { user_preferences } = req.body;
+        const { search_preferences } = req.body;
 
-        if (!user_preferences) {
+        if (!search_preferences) {
             res.status(400).json({ message: 'User preferences are required' });
         }
 
-        const response = await axios.post('http://localhost:5000/daily-news', { user_preferences });
+        const response = await axios.post('http://localhost:5000/daily-news', { search_preferences });
         res.json(response.data);
     } catch (error) {
         console.error("error processing search request", error);
@@ -119,18 +130,18 @@ router.post('/dailynews', async (req: Request, res: Response): Promise<void> => 
 // @description Summarizes a single article based on user preferences using OpenAI
 router.post('/summarize/article', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { article, user_preferences } = req.body; 
+        const { article, ai_preferences } = req.body; 
         if (!article) {
             res.status(400).json({ message: 'Article is required' });
         }
-        if (!user_preferences) {
-            res.status(400).json({ message: 'User preferences are required' });
+        if (!ai_preferences) {
+            res.status(400).json({ message: 'AI preferences are required' });
         }
 
         // send article and user prefs to the Python backend
         const response = await axios.post('http://localhost:5000/summarize-article', { 
             article, 
-            user_preferences 
+            ai_preferences 
         });
 
         res.json(response.data); 
@@ -145,18 +156,18 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 // this would only be called by frontend for REFRESHING summary such as updating params
 router.post('/summarize/articles', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { articles, user_preferences } = req.body; 
+        const { articles, ai_preferences } = req.body; 
         if (!articles) {
             res.status(400).json({ message: 'Articles are required' });
         }
-        if (!user_preferences) {
-            res.status(400).json({ message: 'User preferences are required' });
+        if (!ai_preferences) {
+            res.status(400).json({ message: 'AI preferences are required' });
         }
 
         // send articles and user prefs to the Python backend
         const response = await axios.post('http://localhost:5000/summarize-articles', { 
             articles, 
-            user_preferences 
+            ai_preferences 
         });
 
         res.json(response.data); 

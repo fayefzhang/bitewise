@@ -2,20 +2,33 @@ from exa_py import Exa
 from typing import Dict, List
 from . import config
 
-# articles: ["title", "url"]
-def get_contents(articles: Dict[str, str]) -> List[any]:
+# articles: {"url": { "title": "string", "fullContent": "string" }}
+def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str]]:
     exa = Exa(api_key=config.EXA_API_KEY)
     url_list = []
-    for url in articles.values():
-        url_list.append(url)
-    results_data = exa.get_contents(
-      url_list,
-      # MAX_CHARACTERS IS 1000 RN FOR TESTING, can change later
-      text={
-        "max_characters": 1000,
-        "include_html_tags": False
-      }
-    )
     
-    # results_data example can be found in the /data/exa/example_api_response
-    return {result.url: result for result in results_data.results}
+    # only calls exa if we haven't already scraped content
+    for url, article_data in articles.items():
+      if not article_data.get("fullContent"):
+        url_list.append(url)
+        print(f"url: {url}")
+
+    if len(url_list) == 0:
+      results_data = exa.get_contents(
+        url_list,
+        # MAX_CHARACTERS IS 1000 RN FOR TESTING, can change later
+        text={
+          # "max_characters": 1000,
+          "include_html_tags": False
+        }
+      )
+      fetched_results = {result.url: result for result in results_data.results}
+    else:
+        fetched_results = {}
+
+    # modify articles with content of fetched results
+    for url, article_data in articles.items():
+      if url in fetched_results:
+        article_data["fullContent"] = fetched_results[url].text.strip()
+
+    return articles

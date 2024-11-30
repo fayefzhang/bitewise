@@ -2,3 +2,5 @@
 /backend/package-lock.json
 /venv
 /python-api/utils/config.py
+*.pyc
+__pycache__/

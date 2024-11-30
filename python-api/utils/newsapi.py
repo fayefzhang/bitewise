@@ -2,12 +2,18 @@ import requests
 from datetime import datetime, timedelta
 import json
 import re
-from . import query_processing
 from .query_processing import parse_query
+import pandas as pd
+from . import config 
+
 
 # API key and global vars
-api_key =  "e1f28be4691a45cf9ac878f1615b522e"
+api_key =  config.NEWSAPI_API_KEY
 BASE_URL = "https://newsapi.org/v2"
+bias_data_path = "data/mediabias/bias.csv"
+bias_data = pd.read_csv(bias_data_path)
+bias_lookup = bias_data.set_index("news_source")["rating"].to_dict()
+
 
 # DEFINE FUNCTIONS TO CREATE API REQUESTS
 def fetch_search_results(query=None, from_date=None, to_date=None, language=None, sort_by=None, page_size=100, page=1, domains=None, exclude_domains=None):
@@ -73,7 +79,29 @@ def make_request(url, params):
         print(f"Request failed: {e}")
         return None
 
-# used for search queries
+def char_length(content):
+    if not content:
+        return None
+    match = re.search(r"\[\+(\d+)\s+chars\]", content)
+    additional_chars = 0
+    if match:
+        additional_chars = int(match.group(1))
+    intro_text_length = len(content.split("[+")[0].strip())
+    total_character_count = intro_text_length + additional_chars
+    return total_character_count
+
+def estimate_reading_time(char_length):
+    if not char_length:
+        return None
+    word_count = char_length / 5 # approximate
+    mins = word_count / 250  # 250 words per minute
+    if mins < 2:
+        return "<2 min"
+    elif 2 <= mins <= 7:
+        return "2-7 min"
+    else:
+        return ">7 min"
+
 def aggregate_eliminate_dups(responses, user_pref=None):
     """
     Aggregate results from multiple API responses, separating articles in preferred user domains
@@ -90,9 +118,22 @@ def aggregate_eliminate_dups(responses, user_pref=None):
             if article_url and article_url not in seen_urls:
                 if (article.get("name") == "[Removed]"):
                     continue
+
+                # unique ID
                 article["id"] = id
                 id += 1
-                article["user_pref"] = True
+
+                article["userPref"] = True
+
+                # bias rating
+                source_name = article.get("source", {}).get("name", None)
+                article["biasRating"] = bias_lookup.get(source_name, "Unknown")
+
+                # add char length and read time
+                chars = char_length(article.get("content", None))
+                article["charLength"] = chars
+                article["readTime"] = estimate_reading_time(chars)
+
                 seen_urls.add(article_url)
                 preferred_articles.append(article)
 
@@ -111,9 +152,20 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 
                 # Mark URL as seen and add the article to the list
                 seen_urls.add(article_url)
-                article["user_pref"] = False
+                article["userPref"] = False
+                
+                # unique ID
                 article["id"] = id
                 id += 1
+
+                # bias rating
+                source_name = article.get("source", {}).get("name", None)
+                article["biasRating"] = bias_lookup.get(source_name, "Unknown")
+
+                # add char length and read time
+                chars = char_length(article.get("content", None))
+                article["charLength"] = chars
+                article["readTime"] = estimate_reading_time(chars)
                 general_articles.append(article)
 
     return general_articles + preferred_articles
@@ -144,11 +196,11 @@ def user_search(question, user_preferences, filename):
     aggregated_results = aggregate_eliminate_dups(responses, response_domains)
 
     # step 5: write jsons to file for test data
-    try:
-        with open(filename, 'w') as json_file:
-            json.dump(aggregated_results, json_file, indent=4)
-    except Exception as e:
-        print(f"Error writing to file: {e}")
+    # try:
+    #     with open(filename, 'w') as json_file:
+    #         json.dump(aggregated_results, json_file, indent=4)
+    # except Exception as e:
+    #     print(f"Error writing to file: {e}")
 
     return aggregated_results
 
@@ -156,8 +208,8 @@ def user_search(question, user_preferences, filename):
 # these correspond to top headlines (in US) but we can probably use them too for filt/pref in search page
 def get_sources(filename):
     response_sources = fetch_sources(country='us')
-    with open(filename, 'w') as json_file:
-                json.dump(response_sources, json_file, indent=4)
+    # with open(filename, 'w') as json_file:
+    #     json.dump(response_sources, json_file, indent=4)
     return response_sources
 
 ### DAILY NEWS DASHBOARD ###
@@ -178,11 +230,11 @@ def daily_news(user_preferences, filename, question=None):
 
     aggregated_results = aggregate_eliminate_dups(responses, response_sources)
     
-    try:
-        with open(filename, 'w') as json_file:
-            json.dump(aggregated_results, json_file, indent=4)
-    except Exception as e:
-        print(f"Error writing to file: {e}")
+    # try:
+    #     with open(filename, 'w') as json_file:
+    #         json.dump(aggregated_results, json_file, indent=4)
+    # except Exception as e:
+    #     print(f"Error writing to file: {e}")
 
     return aggregated_results
 

@@ -69,7 +69,7 @@ const SearchPage: React.FC = () => {
         title: "Chancellor Scholz...",
         source: "Reuters",
         time: "1 hr ago",
-        bias: "LEAN RIGHT",
+        bias: "right-center",
       };
 
       const sampleArticle = {
@@ -81,7 +81,7 @@ const SearchPage: React.FC = () => {
         source: "CNBC",
         content: "Germany’s ruling coalition collapsed on Wednesday...",
         time: "5 hours ago",
-        bias: "NEUTRAL",
+        bias: "center",
         readTime: "5 MIN READ",
         relatedSources: [sampleRelatedSource],
         details: [
@@ -111,11 +111,13 @@ const SearchPage: React.FC = () => {
     const fetchArticleSummary = async () => {
       if (selectedArticle?.details.length === 0) {
         const articleBody = {
-          article: Object.fromEntries([
-            [selectedArticle.title, selectedArticle.fullContent, selectedArticle.url]
-          ]),          
-          user_preferences: AIPreferences
-        }
+          article: {
+            title: selectedArticle.title,
+            fullContent: selectedArticle.fullContent,
+            url: selectedArticle.url,
+          },
+          ai_preferences: AIPreferences,
+        };
 
         try {
           const response = await fetch(`${BASE_URL}/api/summarize/article`, {
@@ -147,7 +149,7 @@ const SearchPage: React.FC = () => {
   async function handleSearch(term: string) {
     const requestBody = {
       query: term,
-      user_preferences: searchPreferences,
+      search_preferences: searchPreferences,
       ai_preferences: AIPreferences
     }
 
@@ -182,7 +184,7 @@ const SearchPage: React.FC = () => {
       setArticles(articlesData);
       setSummary({
         title: term,
-        summary: data.summary,
+        summary: data.summary.summary,
       });
 
     } catch (error) {
