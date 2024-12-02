@@ -20,25 +20,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* SEARCH ASIDE PANEL ANIMATIONS */
-.aside-panel {
-  position: fixed;
-  top: 0;
-  right: -100%; /* Initially off-screen */
-  height: 100%;
-  background-color: #eff6ff; /* Matches bg-blue-50 */
-  padding: 1rem; /* Matches p-4 */
-  border-radius: 0.5rem; /* Matches rounded-lg */
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: right 0.3s ease-in-out;
-  overflow-y: auto;
-  width: 100%;
-}
-
-.aside-panel.md {
-  width: 16rem; /* Matches md:w-64 */
-}
-
-.aside-panel.open {
-  right: 0;
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
 }
