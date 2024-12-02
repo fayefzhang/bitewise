@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
+    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
         <Link href="/dashboard">
           <div className="bg-white p-2 rounded-full cursor-pointer">

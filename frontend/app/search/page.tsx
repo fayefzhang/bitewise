@@ -155,6 +155,13 @@ const SearchPage: React.FC = () => {
       ai_preferences: AIPreferences,
     };
 
+    // Clear existing content
+    setArticles([]); // Clear articles
+    setSummary(null); // Clear summary
+
+    // Close article details sidebar
+    closePanel();
+
     try {
       // Send search request to backend
       const response = await fetch(`${BASE_URL}/api/search`, {
@@ -339,7 +346,7 @@ const SearchPage: React.FC = () => {
                     ))}
                   </div>
                 </>
-              )}              
+              )}
             </>
           )}
         </aside>
