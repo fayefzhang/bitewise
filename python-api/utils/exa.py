@@ -13,7 +13,7 @@ def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str
         url_list.append(url)
         print(f"url: {url}")
 
-    if len(url_list) == 0:
+    if len(url_list) != 0:
       results_data = exa.get_contents(
         url_list,
         # MAX_CHARACTERS IS 1000 RN FOR TESTING, can change later
