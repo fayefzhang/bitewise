@@ -10,7 +10,7 @@ import { readCache, writeCache } from "../utils/cache";
 // @returns list of articles
 router.post("/search", async (req: Request, res: Response): Promise<void> => {
     try {
-        const { query, search_preferences, ai_preferences } = req.body;
+        const { query, search_preferences, ai_preferences, cluster } = req.body;
 
         if (!query) {
             res.status(400).json({ message: "Query is required" });
@@ -26,6 +26,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
+
         // read cache
         const cache = readCache();
         if (query === EXAMPLE_SEARCH_QUERY) {
@@ -37,8 +38,10 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // Step 1: fetch articles
-        const articlesResponse = await axios.post("http://localhost:5000/search", { query, search_preferences });
-        const articlesData = articlesResponse.data.results
+        const articlesResponse = await axios.post("http://localhost:5000/search", { query, search_preferences, cluster });
+
+        
+        const filteredResults = articlesResponse.data.results
         .filter((entry: any) => entry.title !== "[Removed]")
         .map((entry: any) => ({
             id: entry.id,
@@ -55,6 +58,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             // ^^ @karen unsure what this means? -jared
             fullContent: null
         }));
+
+        const { clusters } = articlesResponse.data;
+        const articlesData = filteredResults;
 
         console.log("search step 1, found articles:", articlesData);
 
@@ -85,13 +91,25 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         });
 
         // Step 4: Combine articles and summaries into a single response
-        const result = {
+        const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
             articles: enrichedArticlesData,
             summary: {
                 title: query,
                 summary: summary,
             },
         };
+
+        // Add clusters to the response if clustering was requested
+        if (cluster && clusters) {
+            result.clusters = clusters.map((cluster: any) => ({
+                cluster_id: cluster.cluster_id,
+                articles: cluster.articles.map((article: any) => ({
+                    title: article.title,
+                    description: article.description,
+                    url: article.url,
+                })),
+            }));
+        }
 
         // Step 5: cache response if it matches example query (see step 4 format)
         if (query === EXAMPLE_SEARCH_QUERY) {

@@ -15,6 +15,7 @@ def search():
         app.logger.info(f"Received data: {data}")
         query = data.get("query", "")
         search_preferences = data.get("search_preferences", {})
+        cluster = data.get("cluster", False)
 
         if not query:
             return jsonify({"error": "Query is required"}), 400
@@ -30,6 +31,10 @@ def search():
             "results": search_results,
             "filename": filename
         }
+
+        # add clustering results if requested
+        if cluster and search_results:
+            response["clusters"] = cluster_articles(search_results)
 
         return jsonify(response), 200
     except Exception as e:
