@@ -1,0 +1,2724 @@
+{
+    "articles": [
+        {
+            "id": 1,
+            "url": "https://www.wired.com/story/donald-trump-online-campaign-era/",
+            "imageUrl": "https://media.wired.com/photos/672b9ff59840d0f0f2959a32/191:100/w_1280,c_limit/trump-online-pol.jpg",
+            "title": "Donald Trump's Win Cements a New Era for Campaigning Online",
+            "source": "Wired",
+            "content": "While Trump dominated conservative news outlets, his influencer operation was nearly nonexistent, putting the campaign at a disadvantage. But over the course of this past year, the campaign and the R… [+3456 chars]",
+            "time": "4:06:21 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 2,
+            "url": "https://www.wired.com/story/trump-tech-policy/",
+            "imageUrl": "https://media.wired.com/photos/672bcd1062c380013856bb0f/191:100/w_1280,c_limit/Business_bigtech_GettyImages-697900116.jpg",
+            "title": "What Donald Trump's Win Will Mean for Big Tech",
+            "source": "Wired",
+            "content": "The most raucous cheers of the night were prompted by Trumps promise to fire Gary Gensler, chairman of the Securities and Exchange Commission, a regulatory agency that has brought a volley of lawsuit… [+2787 chars]",
+            "time": "3:00:17 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 3,
+            "url": "https://www.wired.com/story/donald-trump-far-right-supporters-violent-memes/",
+            "imageUrl": "https://media.wired.com/photos/672b8bb68ee7b09c0ff3f692/191:100/w_1280,c_limit/maga-supporters-pol.jpg",
+            "title": "Far-Right Donald Trump Supporters Celebrate His Victory with Violent Memes and Calls for Executions",
+            "source": "Wired",
+            "content": "Similar remarks were shared in response to former Trump strategist Steve Bannons victory remarks, broadcast live from the rooftop of the Willard Hotel in Washington DC on election night.\r\nYou stole t… [+3144 chars]",
+            "time": "1:26:10 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 4,
+            "url": "https://www.wired.com/story/trump-crypto-support/",
+            "imageUrl": "https://media.wired.com/photos/672bda0a90a94384370310f4/191:100/w_1280,c_limit/business_crypto_faithful_trump.jpg",
+            "title": "As Trump Takes a Victory Lap, the Crypto Faithful Kiss the Ring",
+            "source": "Wired",
+            "content": "On the campaign trail, Trump went out of his way to court their favor. In July, speaking to thousands of bitcoiners at a conference in Nashville, Tennessee, Trump duly sang from the bitcoin hymn shee… [+2014 chars]",
+            "time": "4:11:39 PM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 5,
+            "url": "https://www.wired.com/story/ice-surveillance-contracts-isap/",
+            "imageUrl": "https://media.wired.com/photos/6733a1802d34679fa5571df1/191:100/w_1280,c_limit/Security_ICE_GettyImages.jpg",
+            "title": "ICE Started Ramping Up Its Surveillance Arsenal Immediately After Donald Trump Won",
+            "source": "Wired",
+            "content": "Compared to its recent November notice, ICE was more detailed about its 2025 plans in a different notice released last year. This earlier notice shows that ICE was preparing for a more intense immigr… [+2023 chars]",
+            "time": "7:00:00 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 6,
+            "url": "https://www.wired.com/story/intel-great-american-microchip-mobilization/",
+            "imageUrl": "https://media.wired.com/photos/67329e6ef0b163d7e81ffb79/191:100/w_1280,c_limit/Intel_Ohio_DSC09351.jpg",
+            "title": "The Great American Microchip Mobilization",
+            "source": "Wired",
+            "content": "It took nearly two years of planning to get here. This is one of about two dozen superloadspieces of highway cargo that weigh more than 120,000 poundsthat will be lumbering across Ohio for Intel. Tod… [+2622 chars]",
+            "time": "6:00:00 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 7,
+            "url": "https://www.wired.com/story/trump-administration-cybersecurity-policy-reversals/",
+            "imageUrl": "https://media.wired.com/photos/6735e10f310e865b05b94244/191:100/w_1280,c_limit/Security_Animation_GettyImages.jpg",
+            "title": "More Spyware, Fewer Rules: What Trump’s Return Means for US Cybersecurity",
+            "source": "Wired",
+            "content": "Trump is also unlikely to continue the Biden administrations campaign to limit the proliferation of commercial spyware technologies, which authoritarian governments have used to harass journalists, c… [+2985 chars]",
+            "time": "5:30:00 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 8,
+            "url": "https://www.wired.com/story/the-best-black-friday-deals-for-maga-conspiracists-and-extremists/",
+            "imageUrl": "https://media.wired.com/photos/674999d19d36d659c59fe90c/191:100/w_1280,c_limit/GettyImages-1238072133.jpg",
+            "title": "The Best Black Friday Deals for MAGA, Conspiracists, and Extremists",
+            "source": "Wired",
+            "content": "Black Friday is not just about cheap TVs, cut price gaming consoles, and saving money on laptops; its also about getting a bargain on Faraday cages to stop 5G from melting your brain, grabbing a grea… [+2289 chars]",
+            "time": "8:19:44 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 9,
+            "url": "https://www.wired.com/story/elon-musk-america-pac-class-action-lawsuit/",
+            "imageUrl": "https://media.wired.com/photos/67254293a3ba4283003d2bc9/191:100/w_1280,c_limit/musk-pac-abuse-pol-2178881341.jpg",
+            "title": "Elon Musk’s America PAC Hit With Class Action Lawsuit",
+            "source": "Wired",
+            "content": "Elon Musks America PAC and several other defendants, including the reelection campaign for Representative Michelle Steel, a Republican from California, are accused of violating California labor law i… [+3309 chars]",
+            "time": "6:01:08 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 10,
+            "url": "https://www.wired.com/story/donald-trump-win-seven-states-vote-abortion-rights/",
+            "imageUrl": "https://media.wired.com/photos/672baf64f50f41209e70c74c/191:100/w_1280,c_limit/Science_Reb_Abortion_GettyImages.jpg",
+            "title": "States’ Abortion Rights Wins May Be Short-Lived Under a Second Trump Term",
+            "source": "Wired",
+            "content": "When the US Supreme Court overturned Roe v. Wade in June 2022, it ended the constitutional right to have an abortion and returned the ability to regulate the procedure to the states. Now, amid a heat… [+2219 chars]",
+            "time": "2:32:16 PM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 11,
+            "url": "https://www.wired.com/story/the-internets-future-under-donald-trump/",
+            "imageUrl": "https://media.wired.com/photos/67328cfe8b3c4eb2afd88938/191:100/w_1280,c_limit/Politics-Lab-Umbrella-of-Election-Politics-2182522891.jpg",
+            "title": "We Break Down the Internet’s Future Under Trump 2.0",
+            "source": "Wired",
+            "content": "Leah Feiger: Enough trillions that don't actually currently exist in that budget.\r\nKatie Drummond: Exactly. So thinking about that very messy, very human business and Elon Musk and Donald Trump in a … [+5020 chars]",
+            "time": "1:58:19 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 12,
+            "url": "https://www.wired.com/story/afrotech-2024-red-elephant-in-the-room/",
+            "imageUrl": "https://media.wired.com/photos/673d1aef902059d462488522/191:100/w_1280,c_limit/Afrotech-Red-Elephant-in-the-Room-Culture-2184363872.jpg",
+            "title": "The Red Elephant in the Room at AfroTech",
+            "source": "Wired",
+            "content": "Inside a nondescript brick warehouse on Preston Street in Houston, a crowd gathered with their hopes cast on the future. Assembled among the 60-person flock were Byron Spruell, president of league op… [+3814 chars]",
+            "time": "12:34:11 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 13,
+            "url": "https://www.wired.com/story/election-week-brace-yourselves/",
+            "imageUrl": "https://media.wired.com/photos/672576b54b6e1a375fd563a2/191:100/w_1280,c_limit/EIC-election-letter-final-pol.jpg",
+            "title": "It’s Election Week. Brace Yourselves",
+            "source": "Wired",
+            "content": "When WIRED launched a politics vertical in January of this year, our decision wasnt without critics. WIRED is best known, after all, as a technology publication, a place that can help you understand … [+4107 chars]",
+            "time": "7:00:00 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 14,
+            "url": "https://www.wired.com/story/fossil-fuels-conversation-needs-a-hard-reset/",
+            "imageUrl": "https://media.wired.com/photos/673f2ba1dee6c58c6e00a97b/191:100/w_1280,c_limit/WW25-Environment-GG-Takahashi-Ayumi.jpg",
+            "title": "The Fossil Fuels Conversation Needs a Hard Reset",
+            "source": "Wired",
+            "content": "In 2025, we will see a fundamental transformation in the language of climate politics. Were going to hear a lot less about reducing emissions from scientists and policymakers and a lot more about pha… [+5275 chars]",
+            "time": "4:40:00 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 15,
+            "url": "https://www.wired.com/story/border-militias-immigrants-trump/",
+            "imageUrl": "https://media.wired.com/photos/6737a9509c00e2fc408eb278/191:100/w_1280,c_limit/border-militia-pol-623401180.jpg",
+            "title": "Border Militias Prepare to Assist With Donald Trump’s Mass Deportation Plans",
+            "source": "Wired",
+            "content": "Border militias under the first Trump administration flourished, emboldened by surging anti-immigrant and nativist rhetoric. The Oath Keepers, which was one of the biggest militias until its founder … [+2939 chars]",
+            "time": "8:30:06 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 16,
+            "url": "https://www.wired.com/story/silk-road-creator-ross-ulbricht-is-waiting-for-trump-to-keep-his-word-and-set-him-free/",
+            "imageUrl": "https://media.wired.com/photos/6732936b55dc59cb160aa89c/191:100/w_1280,c_limit/Ross-Ulbricht-Release-Business-2154663034.jpg",
+            "title": "Silk Road Creator Ross Ulbricht Is Waiting for Trump to Keep His Word—and Set Him Free",
+            "source": "Wired",
+            "content": "At sentencing, the judge was also permitted to take under consideration the murder-for-hire allegations, despite them never having been charged at trial. Until the Supreme Court rules otherwise, rele… [+2348 chars]",
+            "time": "3:12:02 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 17,
+            "url": "https://www.wired.com/story/im-going-to-bluesky-is-the-new-im-moving-to-canada/",
+            "imageUrl": "https://media.wired.com/photos/67368c2f42e45bb4956a0b43/191:100/w_1280,c_limit/Monitor-Bluesky-over-X-Culture.jpg",
+            "title": "‘I'm Going to Bluesky’ Is the New ‘I’m Moving to Canada’",
+            "source": "Wired",
+            "content": "The Swifties were the canaries in the coal mine. Last week, as the fallout from the US presidential election ricocheted across the internet, Taylor Swift fans took a stand. In droves, they left X and… [+2406 chars]",
+            "time": "7:00:00 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 18,
+            "url": "https://www.wired.com/story/tom-homan-trump-border-czar-child-separation-policies/",
+            "imageUrl": "https://media.wired.com/photos/6733853e37ae6322180a24f6/191:100/w_1280,c_limit/Politics_Tom_GettyImages-2162460358.jpg",
+            "title": "Donald Trump's New 'Border Czar' Defended Child Separation at Festival Held by Gun-Worshipping Sect",
+            "source": "Wired",
+            "content": "Joe Biden and Kamala Harris are the first administration in the history of this nation who unsecured a border on purpose, Homan said. This isn't an accident, this isnt incompetence, this is by design… [+2395 chars]",
+            "time": "12:42:48 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 19,
+            "url": "https://www.wired.com/story/trump-won-what-happens-to-electric-vehicles-now/",
+            "imageUrl": "https://media.wired.com/photos/672bbc1ddb8d7c705ec6a2f2/191:100/w_1280,c_limit/Gear_Trump_Tesla_GettyImages-2182210030.jpg",
+            "title": "Trump Won. What Will Happen to Electric Vehicles?",
+            "source": "Wired",
+            "content": "Donald Trump picked up 15 electoral votes when he won Michigan on Election Day, another big win that helped to hand the Republican candidate his second presidential term. Both he and the Democratic n… [+3407 chars]",
+            "time": "5:19:49 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 20,
+            "url": "https://www.wired.com/story/kari-lake-campaign-claims-election-fraud/",
+            "imageUrl": "https://media.wired.com/photos/672a250ef314a4484ad6cf6f/191:100/w_1280,c_limit/JLTAZ_34.jpg",
+            "title": "Arizona's Kari Lake Is Already Claiming Election Fraud",
+            "source": "Wired",
+            "content": "This year, Lake has also pushed conspiracy theories about mail-in ballots and early voting, demanding a single day of in-person voting. Her support for early and mail-in voting on the eve of the elec… [+1814 chars]",
+            "time": "10:27:00 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 21,
+            "url": "https://www.wired.com/story/russia-election-disinformation-2024-election-day/",
+            "imageUrl": "https://media.wired.com/photos/672a7169889c531778153f5c/191:100/w_1280,c_limit/russia-election-disinfo-%201152460187.jpg",
+            "title": "Russia Is Going All Out on Election Day Interference",
+            "source": "Wired",
+            "content": "As the 2024 US presidential election comes to a close, and with Donald Trump on the ballot once again, Russian actors are spreading disinformation with unprecedented and alarming intensityand US offi… [+3512 chars]",
+            "time": "4:04:35 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 22,
+            "url": "https://www.wired.com/story/forget-screen-time-we-need-to-talk-about-screen-real-estate/",
+            "imageUrl": "https://media.wired.com/photos/672d5a3c442253502d2f68ed/191:100/w_1280,c_limit/Monitor-Election-Screens-Culture-2183228816.jpg",
+            "title": "Forget Screen Time. We Need to Talk About Screen Real Estate",
+            "source": "Wired",
+            "content": "For those of you who want Election Night to feel even more unhinged, I highly recommend elections.omg.lol. That's WIRED senior editor Andrew Couts talking about a single-serving site with a three-by-… [+2224 chars]",
+            "time": "11:00:00 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 23,
+            "url": "https://www.wired.com/story/plaintext-bluesky-says-it-wont-screw-things-up/",
+            "imageUrl": "https://media.wired.com/photos/673e7e48847c1c1d34d3e0f5/191:100/w_1280,c_limit/Plaintext-Bluesky-Business-2184674680.jpg",
+            "title": "Bluesky Says It Won’t Screw Things Up",
+            "source": "Wired",
+            "content": "Like the conflicted cowboy in Brokeback Mountain, journalists, pundits and people who eschew MAGA merch have looked at the service formerly known as Twitter and lamented, I dont know how to quit you.… [+3471 chars]",
+            "time": "10:00:00 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 24,
+            "url": "https://www.theverge.com/2024/11/20/24301975/elon-musk-vivek-ramaswamy-doge-plan",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/UbSDTQAhqdwOjFrtYgVczW6auE4=/0x0:2040x1360/1200x628/filters:focal(994x813:995x814)/cdn.vox-cdn.com/uploads/chorus_asset/file/24090220/STK171_VRG_Illo_2_Normand_ElonMusk_02.jpg",
+            "title": "Elon Musk and Vivek Ramaswamy have spelled out their plans for DOGE",
+            "source": "The Verge",
+            "content": "Elon Musk and Vivek Ramaswamy have spelled out their plans for DOGE\r\nElon Musk and Vivek Ramaswamy have spelled out their plans for DOGE\r\n / Their approach includes recommending executive actions tha… [+3422 chars]",
+            "time": "7:55:39 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 25,
+            "url": "https://www.theverge.com/2024/11/7/24289945/jeff-bezos-donald-trump-election-amazon-climate-change-fund",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/j201CoYChCZRjGk42Rs46tqmbZ4=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23951505/VRG_Illo_STK173_L_Normand_JeffBezos_Positive.jpg",
+            "title": "Jeff Bezos says he’s a climate guy — why is he kissing the ring?",
+            "source": "The Verge",
+            "content": "Image: Laura Normand / The Verge\r\n\n \n\n Jeff Bezos might just be the biggest climate philanthropist out there, which is what makes his swift embrace of Donald Trump as the next US president particular… [+5213 chars]",
+            "time": "1:15:05 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 26,
+            "url": "https://www.theverge.com/2024/11/25/24305487/california-is-ready-to-pick-a-fight-with-trump-if-he-kills-the-federal-ev-tax-credit",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/K2zc6tW4ygDcjvQHN8ocEp4C-_I=/0x0:4867x3317/1200x628/filters:focal(2434x1659:2435x1660)/cdn.vox-cdn.com/uploads/chorus_asset/file/25755281/2181413178.jpg",
+            "title": "California is ready to pick a fight with Trump if he kills the federal EV tax credit",
+            "source": "The Verge",
+            "content": "California is ready to pick a fight with Trump if he kills the federal EV tax credit\r\nCalifornia is ready to pick a fight with Trump if he kills the federal EV tax credit\r\n / Governor Gavin Newsom sa… [+3089 chars]",
+            "time": "10:21:05 AM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 27,
+            "url": "https://www.theverge.com/2024/11/5/24288777/election-results-apple-news-lock-screen",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/ClkCB_h7ezkPo-bmQ9twzhBOHc4=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/25697390/STK071_APPLE_H.jpg",
+            "title": "Apple News will let you watch election results from your lockscreen",
+            "source": "The Verge",
+            "content": "Image: Cath Virginia / The Verge\r\n\n \n\n For anyone obsessively watching election results in the US, Apple News will bring live updates to iPhone and iPad users’ lockscreens. And if you’ve got a recent… [+950 chars]",
+            "time": "11:34:12 AM",
+            "bias": "left-center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 28,
+            "url": "https://www.theverge.com/2024/11/26/24306402/rivian-doe-atvm-loan-georgia-ev-factory-trump",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/CkT_aKL7aG3NNm3T3IxovJRds90=/0x0:1600x1052/1200x628/filters:focal(800x526:801x527)/cdn.vox-cdn.com/uploads/chorus_asset/file/25758299/2023738908.jpg",
+            "title": "Rivian gets $6.6 billion government loan to build its EV factory in Georgia",
+            "source": "The Verge",
+            "content": "Rivian gets $6.6 billion government loan to build its EV factory in Georgia\r\nRivian gets $6.6 billion government loan to build its EV factory in Georgia\r\n / The conditional approval comes as Democrat… [+3753 chars]",
+            "time": "9:41:28 AM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 29,
+            "url": "https://www.theverge.com/24305982/black-friday-2024-best-deals-tariffs-trump-save-ideas-cyber-monday",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/-1KPbDGO21RXkuP_R5neTea9IIY=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/25762139/STKS488_TARIFFS_CVirginia_D.jpg",
+            "title": "The best Black Friday deals you may want to get before Trump’s tariffs",
+            "source": "The Verge",
+            "content": "The best Black Friday deals you may want to get before Trumps tariffs\r\nThe best Black Friday deals you may want to get before Trumps tariffs\r\n / Some pricey tech may get pricier in the new year. Here… [+7319 chars]",
+            "time": "4:08:42 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 30,
+            "url": "https://www.theverge.com/2024/11/8/24291466/fcc-fbi-racist-text-messages-post-election",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/j-SppgEFjR_UCa9rs1Gxs2EX_7s=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/25532279/Phone_Cracking_FBI.jpg",
+            "title": "Feds investigate racist texts sent across the country post-election",
+            "source": "The Verge",
+            "content": "Feds investigate racist texts sent across the country post-election\r\nFeds investigate racist texts sent across the country post-election\r\n / Black people in several states reported receiving the alar… [+1837 chars]",
+            "time": "1:56:06 PM",
+            "bias": "left-center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 31,
+            "url": "https://www.theverge.com/2024/11/22/24302735/elon-musk-doge-vivek-ramaswamy-rage-curtis-yarvin",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/5wQhNIXDgBc3OoBJcBQL2u9sa_M=/0x0:2040x1334/1200x628/filters:focal(1020x667:1021x668)/cdn.vox-cdn.com/uploads/chorus_asset/file/25489921/STK022_ELON_MUSK_CVIRGINIA_E.jpg",
+            "title": "Elon Musk’s new DOGE plans are actually old ideas about mass deregulation",
+            "source": "The Verge",
+            "content": "Elon Musks new DOGE plans are actually old ideas about mass deregulation\r\nElon Musks new DOGE plans are actually old ideas about mass deregulation\r\n / Behind DOGEs memey name is a plot to dismantle t… [+4731 chars]",
+            "time": "10:45:00 AM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 32,
+            "url": "https://www.theverge.com/2024/11/7/24290785/rivian-r2-battery-lg-energy-manufacture",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/KK792ngyoj3h8sWq-r5w1hklcEs=/0x0:3000x2001/1200x628/filters:focal(1500x1001:1501x1002)/cdn.vox-cdn.com/uploads/chorus_asset/file/25323424/12_Rivian_R2.jpg",
+            "title": "The Rivian R2’s next-gen batteries will be made in the US by LG Energy",
+            "source": "The Verge",
+            "content": "The Rivian R2s next-gen batteries will be made in the US by LG Energy\r\nThe Rivian R2s next-gen batteries will be made in the US by LG Energy\r\n / The company is shifting cell production from South Kor… [+2618 chars]",
+            "time": "5:04:24 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 33,
+            "url": "https://www.theverge.com/2024/11/13/24295735/threads-ads-rumor-2025",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/ShVt6a8OjlOdcAa_ibl15flPkT0=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/24774107/STK156_Instagram_threads_4.jpg",
+            "title": "Threads might get ads early next year",
+            "source": "The Verge",
+            "content": "Threads might get ads early next year\r\nThreads might get ads early next year\r\n / A small number of advertisers could get access create and publish ads on Meta's X competitor in January 2025, accordin… [+2001 chars]",
+            "time": "2:33:31 PM",
+            "bias": "left-center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 34,
+            "url": "https://www.theverge.com/2024/11/18/24299941/state-ag-letter-congress-pass-child-safety-kosa-deadline",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/4PO01s2FBE2YAOjuEmCHslk_OVE=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/25262997/STK461_INTERNET_CHILD_SAFETY_E_Stock_CVirginia.jpg",
+            "title": "Dozens of states ask Congress to un-doom the Kids Online Safety Act",
+            "source": "The Verge",
+            "content": "Dozens of states ask Congress to un-doom the Kids Online Safety Act\r\nDozens of states ask Congress to un-doom the Kids Online Safety Act\r\n / A letter from over 30 state attorneys general asks Congres… [+2544 chars]",
+            "time": "6:00:00 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 35,
+            "url": "https://www.theverge.com/2024/11/8/24291309/2024-hottest-year-heat-record-climate-change-goals",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/Op5qhysj8kfBCprKGk8IbJc6JpI=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/24533950/STK438_global_warming_climate_change_fire.jpg",
+            "title": "2024 is going to smash heat records",
+            "source": "The Verge",
+            "content": "2024 is going to smash heat records\r\n2024 is going to smash heat records\r\n / Its on track to be the hottest year on record, with little wiggle room left to achieve global climate coals. \r\nIts virtual… [+2883 chars]",
+            "time": "1:47:25 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 36,
+            "url": "https://www.theverge.com/2024/11/20/24301740/hyundai-ioniq-9-three-row-electric-suv-laas",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/m8f9olQgK9BL7P9F8d19AmJmVhU=/0x0:8192x5464/1200x628/filters:focal(4096x2732:4097x2733)/cdn.vox-cdn.com/uploads/chorus_asset/file/25745026/IONIQ_9_C_Studio_NA_01.jpg",
+            "title": "The Hyundai Ioniq 9 is a three-row electric SUV with room to grow",
+            "source": "The Verge",
+            "content": "The SEL trim of the Hyundai Ioniq 9. | Image: Hyundai\r\n\n \n\n\n The South Korean automaker unveiled its newest EV ahead of the LA Auto Show. Ahead of the LA Auto Show this week, Hyundai showed off its b… [+5956 chars]",
+            "time": "8:00:00 PM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 37,
+            "url": "https://www.theverge.com/2024/11/12/24293786/cadillac-vistiq-ev-suv-price-range-specs-gm",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/_rroHT1rPhAp0IoHCZV1_pYmbJ4=/0x0:8192x5464/1200x628/filters:focal(4096x2732:4097x2733)/cdn.vox-cdn.com/uploads/chorus_asset/file/25726934/MY26_Cadillac_Vistiq_LUX_1AP_2861_noTalent_v02.jpg",
+            "title": "Cadillac officially debuts three-row Vistiq electric SUV with 300 miles of range",
+            "source": "The Verge",
+            "content": "Cadillac officially debuts three-row Vistiq electric SUV with 300 miles of range\r\nCadillac officially debuts three-row Vistiq electric SUV with 300 miles of range\r\n / The new EV will go into producti… [+4809 chars]",
+            "time": "8:00:00 AM",
+            "bias": "left-center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 38,
+            "url": "https://www.theverge.com/2024/11/18/24299787/elon-musk-openai-lawsuit-sam-altman-xai-google-deepmind",
+            "imageUrl": "https://cdn.vox-cdn.com/thumbor/mZ3GKmElWQ4w3UDqSJwMGCyBNJU=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/25739950/247386_Elon_Musk_Open_AI_CVirginia.jpg",
+            "title": "Inside Elon Musk’s messy breakup with OpenAI",
+            "source": "The Verge",
+            "content": "Image: Cath Virginia / The Verge, Getty Images\r\n\n \n\n\n Emails in Musk’s lawsuit against OpenAI expose the startup’s rocky origins. As OpenAI was ironing out a new deal with Microsoft in 2016 — one tha… [+13685 chars]",
+            "time": "3:43:07 PM",
+            "bias": "left-center",
+            "readTime": ">7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 39,
+            "url": "https://gizmodo.com/black-americans-receive-threatening-texts-about-return-of-slavery-2000522121",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/trump-election-night-getty.jpg",
+            "title": "Black Americans Receive Threatening Texts About Return of Slavery",
+            "source": "Gizmodo.com",
+            "content": "The messages tell people they’re going to pick cotton and should be prepared to do that soon, though there are slightly different wording variations on that same theme. One reads: “Greeting, You have… [+2751 chars]",
+            "time": "3:35:01 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 40,
+            "url": "https://gizmodo.com/the-worst-people-in-the-world-are-making-a-ton-of-money-after-trumps-victory-2000521095",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/TrumpStocks.jpg",
+            "title": "The Worst People in the World Are Making a Ton of Money After Trump’s Victory",
+            "source": "Gizmodo.com",
+            "content": "Donald Trump has won the presidency and businesses connected with him and his allies are soaring. According to early financial reports, winners include banks, crypto-related stocks, and private priso… [+2287 chars]",
+            "time": "10:15:36 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 41,
+            "url": "https://gizmodo.com/trump-promises-to-let-rfk-jr-make-america-healthy-again-in-victory-speech-2000521085",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/RFK-Trump.jpg",
+            "title": "Trump Promises to Let RFK Jr. ‘Make America Healthy Again’ in Victory Speech",
+            "source": "Gizmodo.com",
+            "content": "Donald Trump will once again become president of the United States, and Robert F. Kennedy Jr. is along for the ride. During Trump’s victory speech late last night, the president-elect thanked RFK Jr.… [+3097 chars]",
+            "time": "11:11:53 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 42,
+            "url": "https://gizmodo.com/trump-guitars-slapped-with-cease-and-desist-for-copying-gibson-design-report-2000529891",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/trump-guitars.jpg",
+            "title": "Trump Guitars Slapped With Cease and Desist for Copying Gibson Design: Report",
+            "source": "Gizmodo.com",
+            "content": "Donald Trump started hawking new Trump-branded electric guitars last week, billed as “the ONLY guitars endorsed by President Donald J. Trump!” The guitars look like they’re in the style of Gibson-bra… [+2812 chars]",
+            "time": "8:55:20 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 43,
+            "url": "https://gizmodo.com/trump-media-execs-dumped-millions-in-stock-after-the-election-2000524557",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/trump-biden-oval-office.jpg",
+            "title": "Trump Media Execs Dumped Millions in Stock After the Election",
+            "source": "Gizmodo.com",
+            "content": "The CFO of Trump Media and two other executives sold a combined $16 million in stock after the presidential election, according to SEC filings and a report from CNBC. The news comes as social media u… [+3523 chars]",
+            "time": "12:10:09 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 44,
+            "url": "https://gizmodo.com/trump-reportedly-set-to-attend-sixth-spacex-starship-launch-today-2000526481",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/Trump-and-Musk-at-the-UFC-Fight.jpg",
+            "title": "Trump Reportedly Set to Attend Sixth SpaceX Starship Launch Today",
+            "source": "Gizmodo.com",
+            "content": "Donald Trump is reportedly attending the highly-anticipated sixth test launch of SpaceX’s Starship rocket, as the president elect gets more chummy with rocket billionaire Elon Musk.\r\nStarship is gett… [+2734 chars]",
+            "time": "2:05:15 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 45,
+            "url": "https://gizmodo.com/what-trumps-re-election-means-for-our-warming-planet-2000521203",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/Hurricane-Milton-Florida.jpg",
+            "title": "What Trump’s Re-Election Means for Our Warming Planet",
+            "source": "Gizmodo.com",
+            "content": "Donald J. Trump will once again be president of the United States.\r\nThe Associated Press called the race for Trump early Wednesday morning, ending one of the costliest and most turbulent campaign cyc… [+8410 chars]",
+            "time": "2:25:55 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 46,
+            "url": "https://gizmodo.com/rfk-jr-wants-the-internet-to-pick-trumps-top-health-and-tech-experts-2000522398",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/rfk-trump-getty.jpg",
+            "title": "RFK Jr. Wants the Internet to Pick Trump’s Top Health and Tech Experts",
+            "source": "Gizmodo.com",
+            "content": "Robert F. Kennedy Jr. worked hard to help re-elect Donald Trump, a man who will be stepping back into the White House on Jan. 25, 2025. And while we still don’t know exactly what role Kennedy will pl… [+2927 chars]",
+            "time": "12:00:28 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 47,
+            "url": "https://gizmodo.com/peanut-the-squirrel-and-the-rights-very-weird-extremely-online-weekend-before-the-election-2000520131",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/PNutMeme.jpg",
+            "title": "Peanut the Squirrel Becomes Right-Wing Martyr in Final Election Push From the Extremely Online",
+            "source": "Gizmodo.com",
+            "content": "Last week a squirrel died in New York. Over the weekend, the squirrel became a symbol and martyr on the right. As people line up to vote, ballots are cast, and undecided voters make their final decis… [+5048 chars]",
+            "time": "11:15:03 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 48,
+            "url": "https://gizmodo.com/elon-musk-can-keep-handing-out-1-million-to-voters-pennsylvania-court-says-2000520492",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/elon-musk-win.jpg",
+            "title": "Elon Musk Can Keep Handing Out $1 Million to Voters, Pennsylvania Court Says",
+            "source": "Gizmodo.com",
+            "content": "Elon Musk is allowed to continue giving away $1 million each day in a voter “sweepstakes” that’s not really a sweepstakes, according to a ruling from a Pennsylvania judge on Monday. The case was brou… [+2941 chars]",
+            "time": "5:55:00 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 49,
+            "url": "https://gizmodo.com/palantir-adds-an-ai-company-to-its-arsenal-for-military-and-spy-work-2000521508",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/palantir-anthropic-claude.jpg",
+            "title": "Palantir Adds an AI Company to Its Arsenal for Military and Spy Work",
+            "source": "Gizmodo.com",
+            "content": "Further entrenching its position as spooks’ and soldiers’ go-to supplier for artificial intelligence, Palantir on Thursday announced that it will be adding Anthropic’s Claude models to the suite of t… [+2757 chars]",
+            "time": "11:20:30 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 50,
+            "url": "https://gizmodo.com/supreme-court-to-determine-whether-trump-voters-should-have-cheap-internet-or-not-2000529738",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/The-Supreme-Court-at-President-Bidens-State-of-the-Union-Address.jpg",
+            "title": "Supreme Court to Determine Whether Trump Voters Should Have Cheap Internet or Not",
+            "source": "Gizmodo.com",
+            "content": "Do rural, low-income communities have a right to federally subsidized internet access? Or should they be thrown offline if they can’t afford to pay their utility bills? This is the question that our … [+3729 chars]",
+            "time": "5:00:49 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 51,
+            "url": "https://gizmodo.com/elon-musk-and-vivek-ramaswamy-promise-new-podcast-to-discuss-destruction-of-u-s-government-2000527794",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/elon-musk-donald-trump-nov.-19-2024-spacex-launch.jpg",
+            "title": "Elon Musk and Vivek Ramaswamy Promise New Podcast to Discuss Destruction of U.S. Government",
+            "source": "Gizmodo.com",
+            "content": "Elon Musk and Vivek Ramaswamy will soon lead a new non-governmental agency that President-elect Donald Trump has tasked with stripping billions of dollars from the U.S. government. And these U.S. oli… [+5514 chars]",
+            "time": "2:05:43 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 52,
+            "url": "https://gizmodo.com/tiktok-announces-plan-to-block-some-beauty-filters-for-minors-2000531082",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/tiktok-sign-culver-city-getty.jpg",
+            "title": "TikTok Announces Plan to Block Some Beauty Filters for Minors",
+            "source": "Gizmodo.com",
+            "content": "TikTok will soon block anyone under 18 years old from using filters on the social media platform that dramatically alter their facial features, according to a press release. Filters that alter a pers… [+2628 chars]",
+            "time": "3:10:54 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 53,
+            "url": "https://gizmodo.com/hacker-steals-file-with-testimony-from-accusers-of-matt-gaetz-report-2000526414",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/matt-gaetz-getty-july-25-2024.jpg",
+            "title": "Hacker Steals File With Testimony From Accusers of Matt Gaetz: Report",
+            "source": "Gizmodo.com",
+            "content": "An unknown hacker has obtained a copy of testimony from a woman who was 17 years old when she allegedly had sex with Matt Gaetz in 2017, according to a shocking new report from the New York Times. Th… [+3484 chars]",
+            "time": "12:15:02 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 54,
+            "url": "https://gizmodo.com/that-tech-guy-who-used-his-son-as-a-blood-boy-is-hawking-supplements-now-2000523126",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/bryan-johnson-heart-breaker.jpg",
+            "title": "That Tech Guy Who Used His Son as a Blood Boy Is Hawking Supplements Now",
+            "source": "Gizmodo.com",
+            "content": "Do you remember Bryan Johnson, the 47-year-old venture capitalist who wants to say as young as possible for as long as possible? The guy who uses his son’s blood in that effort? Well, he’s got a line… [+3112 chars]",
+            "time": "2:30:16 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 55,
+            "url": "https://gizmodo.com/vape-the-vote-every-state-voting-on-legal-weed-today-2000520781",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/key-west-florida-marijuana.jpg",
+            "title": "Vape the Vote: Every State Voting on Legal Weed Today",
+            "source": "Gizmodo.com",
+            "content": "Americans are rushing into voting booths across the country today to raise their hand for either Donald Trump (the fascist piece of shit who wants to do bad things) or Kamala Harris (the moderate Dem… [+8275 chars]",
+            "time": "3:35:17 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 56,
+            "url": "https://gizmodo.com/now-canada-is-doing-its-own-extremely-weird-tiktok-ban-2000521585",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/TikTokCanada.jpg",
+            "title": "Canada Is Doing Its Own Extremely Weird TikTok Ban",
+            "source": "Gizmodo.com",
+            "content": "The government of Canada ordered TikTok Technology Canada to dissolve on Wednesday, citing national security concerns. TikTok Technology Canada is the business arm of the Chinese company ByteDance in… [+3901 chars]",
+            "time": "10:50:05 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 57,
+            "url": "https://gizmodo.com/elon-musk-says-he-owns-everyones-twitter-account-in-bizarre-alex-jones-court-filing-2000530503",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/elon-musk-donald-trump-spacex-starship-nov.-19-2024.jpg",
+            "title": "Elon Musk Says He Owns Everyone’s Twitter Account in Bizarre Alex Jones Court Filing",
+            "source": "Gizmodo.com",
+            "content": "Does it feel like your X account belongs to you and you can do whatever you want with it? That’s not true, according to a new court filing from the social media company formerly known as Twitter. It’… [+4205 chars]",
+            "time": "4:50:54 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 58,
+            "url": "https://gizmodo.com/swedens-government-issued-pamphlet-for-surviving-war-has-a-long-history-2000528093",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/sweden-if-war-comes-2024-pamphlet.jpg",
+            "title": "Sweden’s Government-Issued Pamphlet for Surviving War Has a Long History",
+            "source": "Gizmodo.com",
+            "content": "Sweden released a new pamphlet for citizens this week with survival tips in case the country ever goes to war. The government-issued publication covers topics like how to stop bleeding, the differenc… [+5418 chars]",
+            "time": "11:00:37 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 59,
+            "url": "https://gizmodo.com/crypto-trolls-hijacked-nycs-dog-mayor-competition-2000524643",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/Eric-Adams-hanging-out-with-a-bulldog.jpg",
+            "title": "Crypto Trolls Hijacked NYC’s Dog Mayor Competition",
+            "source": "Gizmodo.com",
+            "content": "The cryptocurrency industry can claim another magnanimous accomplishment to its name: transforming a wholesome New York City dog contest into little more than an online pump and dump scheme.\r\nThe Hon… [+4902 chars]",
+            "time": "5:00:44 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 60,
+            "url": "https://gizmodo.com/lauren-boebert-abruptly-quits-controversial-cameo-account-2000530357",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/Lauren-Boebert-speaking-to-reporters.jpg",
+            "title": "Lauren Boebert Abruptly Quits Controversial Cameo Account",
+            "source": "Gizmodo.com",
+            "content": "For years, U.S. Representative (R-Colorado) Lauren Boebert has practiced a certain brand of politicking that involves heavy doses of social media. Her tweets are notable for their ability to consiste… [+3943 chars]",
+            "time": "4:30:26 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 61,
+            "url": "https://gizmodo.com/spacex-sets-ambitious-goal-25-starship-flights-in-2025-2000524527",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/10/Starship-Test-Flight-5.jpeg",
+            "title": "Buckle Up: SpaceX Aims for Rapid-Fire Starship Launches in 2025",
+            "source": "Gizmodo.com",
+            "content": "SpaceX has big plans for its Starship rocket. After a groundbreaking test flight, in which the landing tower caught the booster, the company’s founder and CEO Elon Musk wants to see the megarocket fl… [+3772 chars]",
+            "time": "12:40:51 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 62,
+            "url": "https://gizmodo.com/two-data-cables-are-cut-in-the-baltic-sea-germany-calls-it-sabotage-2000526367",
+            "imageUrl": "https://gizmodo.com/app/uploads/2024/11/BalticSea.jpg",
+            "title": "Two Data Cables Are Cut in the Baltic Sea, Germany Calls It Sabotage",
+            "source": "Gizmodo.com",
+            "content": "On Monday, an undersea data cable connecting Germany and Finland was cut. On Tuesday, German Defense Minister Boris Pistorius said the damage was no accident. We have to conclude, without knowing exa… [+3875 chars]",
+            "time": "10:50:22 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 63,
+            "url": "https://www.bbc.com/news/videos/cvg7dgmglvpo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/e604/live/8328a160-9ba2-11ef-82c3-45a801b7330b.jpg",
+            "title": "Watch: Donald Trump casts his vote with wife Melania",
+            "source": "BBC News",
+            "content": "Republican candidate Donald Trump said he felt \"very confident\" in his campaign after casting his ballot alongside his wife, Melania, on Tuesday.\r\n\"It looks like Republicans have shown up in force\", … [+179 chars]",
+            "time": "1:56:42 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 64,
+            "url": "https://www.bbc.com/news/articles/cj0jr5ypqedo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/dc1a/live/3021ba70-9633-11ef-8f47-aff76844c2a3.jpg",
+            "title": "Trump has won the election. What happens to his legal cases?",
+            "source": "BBC News",
+            "content": "Trump is the first person with a felony conviction to serve as president\r\nDonald Trump will be the first president to take office while several criminal cases against him are still pending.\r\nHis asce… [+3910 chars]",
+            "time": "11:26:47 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 65,
+            "url": "https://www.bbc.com/news/articles/c5yxzrlge59o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/8af2/live/11d0eb20-a8eb-11ef-bf4f-33b3bf22f30d.jpg",
+            "title": "'I'm the UK's number one Trump impersonator'",
+            "source": "BBC News",
+            "content": "A Donald Trump impressionist has said his phone did not stop ringing after the result of the 2024 US presidential election.\r\nMike Osman, a comedian from Southampton, was almost ready to retire his bl… [+1666 chars]",
+            "time": "2:30:35 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 66,
+            "url": "https://www.bbc.com/sport/golf/articles/cwyxq53jx5no",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_sport/7739/live/bfe7c080-9c39-11ef-836c-7b4b61dd190c.jpg",
+            "title": "Trump and Musk can bring peace to golf - McIlroy",
+            "source": "BBC News",
+            "content": "Rory McIlroy believes Donald Trumps return to the White House could bring peace between the PGA Tour and the Saudi Arabia funded breakaway LIV circuit and has speculated that Elon Musk could play a k… [+4229 chars]",
+            "time": "7:30:05 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 67,
+            "url": "https://www.bbc.com/sport/articles/c170n9qy2qvo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_sport/c5e8/live/cc452b90-9da3-11ef-b624-c9360d632bd9.jpg",
+            "title": "What impact could Trump's return have on sport?",
+            "source": "BBC News",
+            "content": "Trump has vowed to ban all transgender women from female competition in sports, and has regularly focused on the issue during his election campaign, including in TV adverts that criticised transgende… [+1565 chars]",
+            "time": "6:52:51 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 68,
+            "url": "https://www.bbc.com/news/articles/ce8dz0n8xldo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/4a9c/live/2a913580-9ff8-11ef-8538-e1655f5a8342.jpg",
+            "title": "Starmer to join Macron for Armistice Day events in Paris",
+            "source": "BBC News",
+            "content": "Prime Minister Sir Keir Starmer will join French President Emmanuel Macron for Armistice Day events in Paris on Monday morning, with the two men set to hold talks on European security and the likely … [+1932 chars]",
+            "time": "1:58:37 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 69,
+            "url": "https://www.bbc.com/news/articles/czr72m57e1jo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/86a7/live/aa477120-a6a8-11ef-85d5-057731dda299.jpg",
+            "title": "Prosecutors back delaying Trump sentence until he leaves White House",
+            "source": "BBC News",
+            "content": "New York prosecutors have vowed to oppose President-elect Donald Trumps effort to overturn his criminal conviction, but they expressed a willingness to wait to sentence him until he completes his upc… [+3967 chars]",
+            "time": "2:01:03 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 70,
+            "url": "https://www.bbc.com/news/videos/c30pzd3znqmo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/4783/live/31dbde70-9d42-11ef-82c3-45a801b7330b.jpg",
+            "title": "Watch: Putin congratulates 'courageous' Trump on election win",
+            "source": "BBC News",
+            "content": "Russian President Vladimir Putin has congratulated Donald Trump on his victory in the US presidential election. \r\nCalling him \"courageous\", Putin said he was impressed by Trump's reaction to the firs… [+148 chars]",
+            "time": "2:58:39 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 71,
+            "url": "https://www.bbc.com/news/articles/cq6lm62vm7zo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/7385/live/3f013a40-9d34-11ef-8538-e1655f5a8342.jpg",
+            "title": "No guarantees Trump will give Netanyahu all he wants",
+            "source": "BBC News",
+            "content": "The bar facing the US consulate in Jerusalem is called Deja Bu - a witty reference to something youve drunk before.\r\nAnd outside the gates of the US compound, Israel is eager for a second round of Do… [+4748 chars]",
+            "time": "12:55:31 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 72,
+            "url": "https://www.bbc.com/news/articles/c4gpd2487e5o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/832b/live/eca34380-9c64-11ef-8538-e1655f5a8342.png",
+            "title": "The view from countries where Trump's win really matters",
+            "source": "BBC News",
+            "content": "News of Donald Trump's return to power in the White House has made global headlines.\r\nHis so-called 'America First' foreign policy could see a withdrawal of US involvement in areas of conflict around… [+7056 chars]",
+            "time": "10:13:36 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 73,
+            "url": "https://www.bbc.com/news/articles/cm2z1zm1pk3o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/87b6/live/f43ee890-9d51-11ef-9850-61b70bbc107f.jpg",
+            "title": "Lammy dismisses past criticism of Trump as 'old news'",
+            "source": "BBC News",
+            "content": "The foreign secretary has dismissed his previous criticism of Donald Trump as \"old news\" and insisted he would be able to find \"common ground\" with the president-elect. \r\nWhen he was a backbench MP i… [+2428 chars]",
+            "time": "4:58:24 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 74,
+            "url": "https://www.bbc.com/news/articles/c2k0zd2z53xo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/9f5a/live/fa62f580-9e01-11ef-9260-19e6a950e830.jpg",
+            "title": "Climate talks to open in shadow of Trump victory",
+            "source": "BBC News",
+            "content": "Global leaders will meet at COP29 in Baku, Azerbaijan from November 11-22, 2024, to address climate change challenges\r\nWorld leaders are set to arrive at a big annual UN climate meeting hoping to rei… [+7625 chars]",
+            "time": "1:44:18 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 75,
+            "url": "https://www.bbc.com/news/videos/cz9x2nk1jyvo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/81ea/live/5b911700-a6c8-11ef-bdf5-b7cb2fa86e10.jpg",
+            "title": "Watch: Trump joins Musk to watch Starship test launch",
+            "source": "BBC News",
+            "content": "President-elect Donald Trump joined Elon Musk in Brownsville, Texas to watch the sixth test launch of a SpaceX Starship spacecraft. \r\nSpaceX was reattempting an operation where the rocket booster is … [+495 chars]",
+            "time": "5:48:48 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 76,
+            "url": "https://www.bbc.com/news/articles/c9vnd17v2vmo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/cb41/live/8dbdf7c0-9dea-11ef-8538-e1655f5a8342.png",
+            "title": "Return of unpredictable president puts UK defence spending top of agenda",
+            "source": "BBC News",
+            "content": "Youre probably used to politicians telling you were living in the most dangerous times for decades.\r\nBut whos going to pay for our protection?\r\nDonald Trump is a lot less willing than the current pre… [+7597 chars]",
+            "time": "10:38:55 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 77,
+            "url": "https://www.bbc.com/news/articles/c5ygplyg09ro",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/1065/live/f7d70cb0-9c4f-11ef-93ac-57886715ae8d.jpg",
+            "title": "Trump victory 'major setback' to climate action",
+            "source": "BBC News",
+            "content": "Donald Trump's return to the White House will have a hugely negative effect on climate change action in the short-term but the longer term impact is less certain, experts say.\r\nWith world leaders mee… [+5102 chars]",
+            "time": "10:11:16 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 78,
+            "url": "https://www.bbc.com/news/articles/czxreenxvw5o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/aa61/live/0eb286d0-9c37-11ef-82c3-45a801b7330b.jpg",
+            "title": "Jubilation in the room as Trump declared victory",
+            "source": "BBC News",
+            "content": "The words in Donald Trump's victory speech were nothing out of the ordinary - but the moment itself was truly extraordinary.\r\nFlanked by family and key supporters such as the world's richest man, Elo… [+2511 chars]",
+            "time": "5:51:55 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 79,
+            "url": "https://www.bbc.com/news/articles/cvgev9lwlxro",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/9480/live/5aa04c90-9d3f-11ef-8873-138706cde561.jpg",
+            "title": "Trump's New York sentencing still could happen even after election victory",
+            "source": "BBC News",
+            "content": "Donald Trumps return to the White House effectively slammed the door on the two cases involving federal criminal charges against him. \r\nA state case against him for allegedly conspiring to interfere … [+4619 chars]",
+            "time": "6:42:52 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 80,
+            "url": "https://www.bbc.com/news/articles/cev90d7wkk0o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/7315/live/9dfb3de0-9c5b-11ef-82c3-45a801b7330b.jpg",
+            "title": "Seven things Trump says he will do as president",
+            "source": "BBC News",
+            "content": "Watch: Trump promises to \"help our country heal\"\r\nDonald Trump is set to return to the White House, having promised action on issues including immigration, the economy and the war in Ukraine.\r\nHe loo… [+5427 chars]",
+            "time": "12:25:09 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 81,
+            "url": "https://www.bbc.com/news/articles/c2069w5lxw5o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/d4b4/live/f76622b0-9e21-11ef-8538-e1655f5a8342.jpg",
+            "title": "Divided Arizona contends with Trump's sweeping border plan",
+            "source": "BBC News",
+            "content": "Donald Trump has offered a sweeping immigration pitch that he has promised to begin on the first day of his presidency, including mass deportations and a major crackdown on illegal border crossings. … [+5149 chars]",
+            "time": "5:38:29 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 82,
+            "url": "https://www.bbc.com/news/articles/clyg856px7eo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/a225/live/a409b9c0-9bc8-11ef-8538-e1655f5a8342.jpg",
+            "title": "All eyes on early vote results in key swing state of Georgia",
+            "source": "BBC News",
+            "content": "Early results could be released soon in the key swing state of Georgia as polls begin closing in the race to see whether Donald Trump or Kamala Harris will be the next US president.\r\nAs expected, Tru… [+4208 chars]",
+            "time": "7:45:44 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 83,
+            "url": "https://www.bbc.com/news/articles/cvg4yxmmg1zo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/cf68/live/cd6052f0-aab1-11ef-a4fe-a3e9a6c5d640.jpg",
+            "title": "Trump picks Covid lockdown critic to lead top health agency",
+            "source": "BBC News",
+            "content": "US President-elect Donald Trump has picked a leading Covid lockdown sceptic Jay Bhattacharya to be the next director of a key US public health agency.\r\nTrump said he had selected the Stanford Univers… [+2740 chars]",
+            "time": "8:44:08 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 84,
+            "url": "https://www.bbc.com/news/articles/cde7ng85jwgo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/197f/live/4b9cc7f0-9718-11ef-a41c-dd1648bd8502.png",
+            "title": "When will we know whether Harris or Trump won?",
+            "source": "BBC News",
+            "content": "Americans are voting for their next president in a general election that culminates on Tuesday 5 November.\r\nOnce polls close, depending on how close the contest is, it is possible a winner will not b… [+7919 chars]",
+            "time": "12:29:31 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 85,
+            "url": "https://www.bbc.com/news/articles/cj0jq134y91o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/bbc0/live/df4986f0-9961-11ef-8852-37a09f26d9e6.jpg",
+            "title": "Ten reasons why either Trump or Harris might win",
+            "source": "BBC News",
+            "content": "Ten reasons why either Trump or Harris might win\r\nWith just one day to go, the race for the White House is deadlocked - both at the national level and in the all-important battleground states.\r\nThe p… [+6608 chars]",
+            "time": "2:35:16 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 86,
+            "url": "https://www.bbc.com/news/articles/c0endd8qj01o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/0d72/live/1cd4f310-a286-11ef-a4fe-a3e9a6c5d640.jpg",
+            "title": "Trump's pick of Huckabee and Witkoff a clue to Middle East policy",
+            "source": "BBC News",
+            "content": "Donald Trump said Mike Huckabee would \"work tirelessly to bring about peace in the Middle East\r\nFor now, Mike Huckabee seems to be keeping his cards close to his chest.\r\nShortly after being announced… [+6008 chars]",
+            "time": "6:58:54 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 87,
+            "url": "https://www.bbc.com/news/articles/c9vnx8zn440o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/b459/live/acba4070-a277-11ef-aa19-39e0adebaf4e.png",
+            "title": "Who is Trump intelligence pick Tulsi Gabbard, accused of repeating Russian talking points?",
+            "source": "BBC News",
+            "content": "Tulsi Gabbard - a former Democratic congresswoman who joined the Republican Party to back Donald Trump - is the president-elect's pick for director of national intelligence. \r\nThe wide-ranging role w… [+4083 chars]",
+            "time": "10:39:01 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 88,
+            "url": "https://www.bbc.com/news/articles/crr91nn9n79o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/e1d5/live/24626320-a5eb-11ef-8ab9-9192db313061.jpg",
+            "title": "Russia's response to US missiles will be 'appropriate and tangible'",
+            "source": "BBC News",
+            "content": "Russia has recently intensified attacks against Ukrainian cities\r\nRussia says the use of US long-range missiles by Ukraine will lead to \"an appropriate and tangible\" response.\r\nSuch an attack inside … [+3201 chars]",
+            "time": "4:02:59 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 89,
+            "url": "https://www.bbc.com/news/articles/c7v3r046pzzo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/040e/live/c6e857f0-9c7f-11ef-96e2-db5db6e4e4db.jpg",
+            "title": "German coalition on brink of collapse after Scholz fires key minister",
+            "source": "BBC News",
+            "content": "Germany's governing coalition is in crisis after Chancellor Olaf Scholz fired a key minister and said he would call a vote of confidence in his government early next year.\r\nScholz said he had no trus… [+2592 chars]",
+            "time": "4:26:29 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 90,
+            "url": "https://www.bbc.com/news/articles/c8jyvv1l99wo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/ebb5/live/54e0cd20-a76c-11ef-a4fe-a3e9a6c5d640.jpg",
+            "title": "Russia and US battle for advantage in Ukraine war ahead of Trump's return",
+            "source": "BBC News",
+            "content": "Russia has resumed large-scale missile strikes on Ukraine as it seeks to maximise its military advantage\r\nIn a matter of days US President Joe Biden's administration and Russia have made separate - b… [+6698 chars]",
+            "time": "3:41:44 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 91,
+            "url": "https://www.bbc.com/news/articles/c774d4p2mx6o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/c351/live/3d563f80-9e8b-11ef-b34f-830980f166f6.jpg",
+            "title": "US 'won’t accept Hamas presence in Qatar'",
+            "source": "BBC News",
+            "content": "Small but influential Qatar is a key US ally and hosts a major air base\r\nSenior US officials have reportedly said Washington will no longer accept the presence of Hamas representatives in Qatar, accu… [+5636 chars]",
+            "time": "6:07:09 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 92,
+            "url": "https://www.bbc.com/news/articles/cdxvdqg8214o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/5847/live/45f66150-a5d0-11ef-a4fe-a3e9a6c5d640.png",
+            "title": "Trump and Xi Jinping’s ‘rollercoaster’ relationship has soured - can they rebuild it?",
+            "source": "BBC News",
+            "content": "Donald Trump once declared that he and Chinese President Xi Jinping love each other\r\nIn a sports park next to the red walls and glossy blue tiles which surround Beijings Temple of Heaven, a group of … [+12915 chars]",
+            "time": "10:35:01 PM",
+            "bias": "center",
+            "readTime": ">7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 93,
+            "url": "https://www.bbc.com/news/articles/c04lvv6ee3lo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/99df/live/aae49750-a1cd-11ef-bb35-5d21e680a10f.jpg",
+            "title": "Who is Pete Hegseth - the Fox News host who will be defence secretary?",
+            "source": "BBC News",
+            "content": "Hegseth has limited previous political experience, having once unsuccessfully run for a Senate seat\r\nPete Hegseth has spent the past eight years on the couch of a Fox News morning show defending Pres… [+7869 chars]",
+            "time": "7:47:05 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 94,
+            "url": "https://www.bbc.com/news/articles/c04ld19vlg6o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/34d0/live/e4c412a0-9c70-11ef-8ce5-0327952362b0.jpg",
+            "title": "Who will win the House? The outstanding races to watch",
+            "source": "BBC News",
+            "content": "The party that will control the US House of Representatives for the next two years is currently unknown. \r\nAll 435 seats in the lower chamber of Congress were up for votes this year, and it may take … [+3248 chars]",
+            "time": "4:22:02 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 95,
+            "url": "https://www.bbc.com/news/articles/c20nep2rw22o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/6b4b/live/e31c7570-a047-11ef-8ab9-9192db313061.jpg",
+            "title": "Climate fight 'bigger than one election', says Biden’s top envoy",
+            "source": "BBC News",
+            "content": "The US will still continue fighting climate change and curbing its emissions of planet-warming gases despite the election of Donald Trump, the US special envoy told the COP29 conference on its openin… [+5189 chars]",
+            "time": "12:46:40 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 96,
+            "url": "https://www.bbc.com/news/articles/cd0gx4przejo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/07c2/live/aba50970-a9d6-11ef-892c-57ecd0604425.jpg",
+            "title": "Landmark $300bn for poorer nations in COP29 climate deal",
+            "source": "BBC News",
+            "content": "New funding could help vulnerable countries prepare for the worst impacts of climate change\r\nRicher countries have pledged to give a record $300bn (£238bn) to the developing world to help them prepar… [+5285 chars]",
+            "time": "8:01:17 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 97,
+            "url": "https://www.bbc.com/news/articles/cpqd1rzw9r4o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/14ff/live/df45e960-a0f4-11ef-99df-c9ce88d27eae.jpg",
+            "title": "Oil and gas are a 'gift of god', says COP29 host",
+            "source": "BBC News",
+            "content": "The president of COP29s host country has told the UN climate conference that oil and gas are a \"gift of god\".\r\nAzerbaijan's President Ilham Aliyev criticised \"Western fake news\" about the country's e… [+4294 chars]",
+            "time": "11:14:03 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 98,
+            "url": "https://www.bbc.com/news/articles/cpwrlkwz9x9o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/c542/live/6848e060-ab4e-11ef-bdf5-b7cb2fa86e10.jpg",
+            "title": "'We were ready to leave climate summit' - negotiator tells BBC",
+            "source": "BBC News",
+            "content": "A key negotiator for the group of small island nations who walked out of the UN climate talks on Saturday, pushing them close to collapse, has told BBC News that the group was ready to leave the summ… [+4060 chars]",
+            "time": "12:04:42 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 99,
+            "url": "https://www.bbc.com/news/articles/c789x0y91vvo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/3c09/live/a76053b0-a51c-11ef-8901-a18a6eb097bd.png",
+            "title": "Biden allows Ukraine to strike inside Russia with missiles",
+            "source": "BBC News",
+            "content": "US President Joe Biden has given the green light for Ukraine to use long-range missiles supplied by the US to strike Russia. \r\nA US official has confirmed the move, a major change of US policy, to th… [+3918 chars]",
+            "time": "5:57:30 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 100,
+            "url": "https://www.bbc.com/news/articles/cq52zj466l7o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/b64e/live/2e9b75b0-98fe-11ef-9260-19e6a950e830.jpg",
+            "title": "How Donald Trump came back from the political abyss",
+            "source": "BBC News",
+            "content": "When Donald Trump lost to Joe Biden in 2020, it seemed to be the death knell of his political career.\r\nHis first term in office ended in chaos and condemnation - even from members of his own party.\r\n… [+18875 chars]",
+            "time": "3:48:58 AM",
+            "bias": "center",
+            "readTime": ">7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 101,
+            "url": "https://www.bbc.com/news/articles/c7484kwl55qo",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/a101/live/157cd190-9a44-11ef-82c3-45a801b7330b.png",
+            "title": "Our undecided US voters have (mostly) made up their minds. Who are they backing?",
+            "source": "BBC News",
+            "content": "Vice-President Kamala Harris and former President Donald Trump are locked in an extraordinarily tight race for the White House. They are courting each and every vote - with so-called \"persuadable\" Am… [+6671 chars]",
+            "time": "5:53:40 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 102,
+            "url": "https://www.bbc.com/news/articles/cn4v7vwgqj0o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/3cbb/live/564a27f0-9d36-11ef-99db-7d863651e78d.jpg",
+            "title": "US cuts interest rates as Trump election raises uncertainty",
+            "source": "BBC News",
+            "content": "The US central bank has cut its key interest rate again as Donald Trump's election as president raises new uncertainty about the future for borrowing costs.\r\nThe cut puts the Federal Reserve's lendin… [+1455 chars]",
+            "time": "2:15:29 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 103,
+            "url": "https://www.npr.org/2024/11/10/g-s1-33609/donald-trump-wins-arizona",
+            "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4894x2753+0+255/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ff7%2F06%2Fe109c48449f3807ea7f05731c48b%2Fgettyimages-2182509436.jpg",
+            "title": "Donald Trump wins Arizona",
+            "source": "NPR",
+            "content": "President-elect Donald Trump has won Arizona, the final state to be called in the 2024 presidential election, according to a race call by the Associated Press.\r\nThe Arizona win marks a full Trump swe… [+1146 chars]",
+            "time": "12:42:09 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 104,
+            "url": "https://www.businessinsider.com/joe-rogan-endorses-donald-trump-on-eve-of-election-2024-11",
+            "imageUrl": "https://i.insider.com/67297fdd192f52589856093b?width=1200&format=jpeg",
+            "title": "Joe Rogan endorsed Donald Trump, saying Elon Musk made a 'compelling case' for the former president",
+            "source": "Business Insider",
+            "content": "Joe Rogan endorsed Donald Trump ahead of the election.Getty Images\r\n<ul><li>Podcaster Joe Rogan endorsed Donald Trump in a Monday evening post.</li><li>Rogan cited Elon Musk, saying the billionaire m… [+2133 chars]",
+            "time": "9:52:54 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 105,
+            "url": "https://www.bbc.com/news/videos/c8ek95kw8w4o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/bdf1/live/e6185260-a1de-11ef-a4fe-a3e9a6c5d640.jpg",
+            "title": "‘Welcome back’ - Watch moment Biden congratulates Trump",
+            "source": "BBC News",
+            "content": "US President Joe Biden and President-elect Donald Trump have met at the White House. \r\nBiden invited Trump to meet with him as part of a long-standing tradition signifying the transfer of power as th… [+272 chars]",
+            "time": "11:32:08 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 106,
+            "url": "https://www.businessinsider.com/pete-hegseth-trump-fox-twitter-elon-musk-influence-2024-11",
+            "imageUrl": "https://i.insider.com/6734e38a192f525898582dbc?width=1200&format=jpeg",
+            "title": "Did you need another reminder that Donald Trump watches TV? Here you go.",
+            "source": "Business Insider",
+            "content": "Earlier this week, I wondered how much Twitter was going to influence the next Trump administration and how much influence we'd see from TV, which was tremendously important the first time around.\r\nH… [+3102 chars]",
+            "time": "12:49:21 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 107,
+            "url": "https://www.bbc.com/news/articles/cy9j8r8gg0do",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/f45b/live/6861d690-9e1c-11ef-9790-03afb4c599e1.jpg",
+            "title": "How US election fraud claims changed as Trump won",
+            "source": "BBC News",
+            "content": "In the build-up to Tuesdays US election, claims of voter fraud flooded social media - but as Donald Trumps victory crystallised, the chatter largely subsided.\r\nThe claims didnt stop entirely, however… [+6651 chars]",
+            "time": "7:26:15 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 108,
+            "url": "https://www.businessinsider.com/trump-praises-elon-musk-a-star-is-born-2024-11",
+            "imageUrl": "https://i.insider.com/672b214f5ec9bfa3d63c08be?width=1200&format=jpeg",
+            "title": "Trump praises Elon Musk in election night speech: 'A star is born'",
+            "source": "Business Insider",
+            "content": "Former President Donald Trump basked in the near inevitability of his return to the White House.Chip Somodevilla/Getty Images\r\n<ul><li>Donald Trump proclaimed that Elon Musk is \"a new star.\"</li><li>… [+1795 chars]",
+            "time": "3:05:03 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 109,
+            "url": "https://www.businessinsider.com/elon-musk-donald-trump-photos-bromance-doge-2024-11",
+            "imageUrl": "https://i.insider.com/673cd2f4ede4eeae39286e27?width=1200&format=jpeg",
+            "title": "Photos show Donald Trump and Elon Musk's post-election bromance",
+            "source": "Business Insider",
+            "content": "President-elect Donald Trump and Tesla CEO Elon Musk have been nearly inseparable since the election, going to social and political events together.Chris Unger/Zuffa LLC\r\n<ul><li>In the two weeks sin… [+3811 chars]",
+            "time": "4:16:04 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 110,
+            "url": "https://markets.businessinsider.com/news/stocks/tesla-stock-price-trump-win-elon-musk-election-tsla-2024-11",
+            "imageUrl": "https://i.insider.com/672b91f05ec9bfa3d63c18b8?width=1156&format=jpeg",
+            "title": "Tesla surges 13% as market sees Donald Trump's presidency benefiting key ally Elon Musk",
+            "source": "Business Insider",
+            "content": "Tesla investors are cheering the victory of Donald Trump over Kamala Harris on Wednesday, as Elon Musk and his companies could stand to benefit from a second Trump term. \r\nTesla stock soared as much … [+1659 chars]",
+            "time": "11:29:17 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 111,
+            "url": "https://www.businessinsider.com/donald-trump-wins-presidential-election-race-2024-11",
+            "imageUrl": "https://i.insider.com/672b406288cea3ba1c1e9d86?width=1200&format=jpeg",
+            "title": "Trump wins the 2024 presidential election",
+            "source": "Business Insider",
+            "content": "Donald Trump, now the 2024 president-elect, never really stopped running for office after losing the 2020 election.AP Photo/Evan Vucci\r\n<ul><li>Former President Donald Trump bested Vice President Kam… [+3091 chars]",
+            "time": "5:32:19 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 112,
+            "url": "https://www.businessinsider.com/kamala-harris-donald-trump-swing-state-polls-photo-finish-2024-11",
+            "imageUrl": "https://i.insider.com/6727d4875ec9bfa3d63b6faa?width=1200&format=jpeg",
+            "title": "Final polls show Harris and Trump headed for a photo finish",
+            "source": "Business Insider",
+            "content": "Getty Images; Jenny Chang-Rodriguez/BI\r\n<ul><li>The final polls of the 2024 presidential election season are out.</li><li>They show that neither Harris nor Trump have broken out in the swing states.<… [+4260 chars]",
+            "time": "5:02:01 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 113,
+            "url": "https://www.businessinsider.com/trump-can-use-new-status-president-elect-to-delay-sentencing-2024-11",
+            "imageUrl": "https://i.insider.com/672b93075ec9bfa3d63c190a?width=1024&format=jpeg",
+            "title": "'Adjourn, adjourn, adjourn' — Trump is expected to use new status as president-elect to delay hush-money sentencing",
+            "source": "Business Insider",
+            "content": "President-elect Donald Trump speaks at an election night event at the Palm Beach Convention Center on November 06, 2024Chip Somodevilla/Getty Images\r\n<ul><li>Trump will try to use his new status as p… [+6616 chars]",
+            "time": "4:03:52 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 114,
+            "url": "https://www.businessinsider.com/donald-trump-election-criminal-cases-presidency-2024-11",
+            "imageUrl": "https://i.insider.com/672a8300192f5258985642be?width=1200&format=jpeg",
+            "title": "Trump still has 4 criminal indictments waiting for him — here's what happens if he wins or loses",
+            "source": "Business Insider",
+            "content": "Not only is the presidency on the line for Donald Trump in the 2024 election, but so are his four criminal indictments.\r\nWinning would largely free the former president for the foreseeable future fro… [+7399 chars]",
+            "time": "5:00:29 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 115,
+            "url": "https://www.businessinsider.com/business-leaders-react-donald-trump-winning-election-silicon-valley-2024-11",
+            "imageUrl": "https://i.insider.com/672b405f192f5258985661fa?width=1200&format=jpeg",
+            "title": "Trump 'won fair and square': Business leaders from Mark Cuban to David Sacks react to election result",
+            "source": "Business Insider",
+            "content": "The business world was divided in the run-up to the election.Anna Moneymaker/Getty Images\r\n<ul><li>Business leaders have been reacting to Donald Trump's presidential election victory.</li><li>Silicon… [+8169 chars]",
+            "time": "6:29:35 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 116,
+            "url": "https://www.businessinsider.com/kamala-harris-addresses-nation-following-donald-trump-big-win-election-2024-11",
+            "imageUrl": "https://i.insider.com/672be1e45ec9bfa3d63c3b44?width=1024&format=jpeg",
+            "title": "Harris concedes election, saying she promised Trump a peaceful transfer of power",
+            "source": "Business Insider",
+            "content": "Vice President Kamala Harris delivers a concession speech for the 2024 presidential election on the campus of Howard University in Washington, Wednesday, Nov. 6, 2024.AP Photo/J. Scott Applewhite\r\n<u… [+3904 chars]",
+            "time": "4:50:05 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 117,
+            "url": "https://www.businessinsider.com/federal-reserve-cuts-interest-rates-quarter-point-powell-inflation-election-2024-11",
+            "imageUrl": "https://i.insider.com/66c8bcc743b5e59d16b4bbbb?width=1200&format=jpeg",
+            "title": "The Federal Reserve gives Americans another interest rate cut",
+            "source": "Business Insider",
+            "content": "Federal Reserve chair Jerome Powell announced another interest rate cut.MANDEL NGAN/AFP via Getty Images; Chelsea Jia Feng/BI\r\n<ul><li>The Federal Reserve cut interest rates by 25 basis points on Thu… [+2827 chars]",
+            "time": "2:05:58 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 118,
+            "url": "https://www.bbc.com/news/articles/c079y0r1j8po",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/6224/live/d53d4530-a8c9-11ef-b8a6-4917edb5ec9d.jpg",
+            "title": "Who is Pam Bondi, Trump's nominee for attorney general?",
+            "source": "BBC News",
+            "content": "US President-elect Donald Trump has named Pam Bondi as his nominee for attorney general, hours after Matt Gaetz, his first choice, withdrew from consideration.\r\nIf confirmed by the Senate, the role m… [+3482 chars]",
+            "time": "8:34:10 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 119,
+            "url": "https://www.businessinsider.com/election-day-executives-speak-trump-harris-starbucks-meta-musk-2024-11",
+            "imageUrl": "https://i.insider.com/672a54c1192f5258985629c6?width=1200&format=jpeg",
+            "title": "Company executives are speaking out on Election Day: Starbucks' Howard Schultz calls for a peaceful transition of power",
+            "source": "Business Insider",
+            "content": "Election Day has finally come, and executives at some of the biggest companies are speaking out with former Starbucks CEO Howard Schultz urging a peaceful transition of power and Elon Musk reiteratin… [+8192 chars]",
+            "time": "5:01:56 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 120,
+            "url": "https://www.businessinsider.com/polymarket-whale-banked-85-million-profit-trump-president-election-win-2024-11",
+            "imageUrl": "https://i.insider.com/672d10ac5ec9bfa3d63c6add?width=1200&format=jpeg",
+            "title": "The Polymarket 'whale' actually made $85 million, far more than originally thought",
+            "source": "Business Insider",
+            "content": "A Polymarket trader who bet tens of millions on Donald Trump's presidential win appears to have raked in a much larger profit than previously known.\r\nA new estimate now places that figure at more tha… [+1029 chars]",
+            "time": "4:01:39 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 121,
+            "url": "https://www.businessinsider.com/election-betting-markets-kamala-harris-gains-donald-trump-2024-11",
+            "imageUrl": "https://i.insider.com/672787355ec9bfa3d63b6e4d?width=1200&format=jpeg",
+            "title": "Election betting odds tighten as polls show Harris has momentum",
+            "source": "Business Insider",
+            "content": "Vice President Kamala Harris' betting odds jumped overnight after a new poll showed she held a surprise lead over former President Donald Trump in Iowa a state he won easily in both 2016 and 2020.\r\nA… [+1284 chars]",
+            "time": "11:27:18 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 122,
+            "url": "https://www.businessinsider.com/powell-wont-resign-federal-reserve-step-down-trump-election-2024-11",
+            "imageUrl": "https://i.insider.com/672d241788cea3ba1c1f0774?width=1200&format=jpeg",
+            "title": "Fed Chair Powell stands firm amid questioning about whether Trump will push him out",
+            "source": "Business Insider",
+            "content": "Federal Reserve chair Jerome Powell has no plans to leave the central bank prematurely under President-elect Donald Trump.\r\nOn Thursday, the Federal Open Market Committee announced a 25-basis-point i… [+2171 chars]",
+            "time": "3:59:49 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 123,
+            "url": "https://www.bbc.com/news/articles/cx2l0vqdg92o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/fd5b/live/e535a2d0-a729-11ef-b084-fbb99ebdbb21.jpg",
+            "title": "Fate of Gaetz ethics report uncertain after congressional panel deadlocked",
+            "source": "BBC News",
+            "content": "Pressure has mounted on the ethics committee to release its findings into Gaetz\r\nA congressional ethics committee has failed to reach an agreement over whether to release a report on alleged sexual m… [+4915 chars]",
+            "time": "6:23:41 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 124,
+            "url": "https://www.businessinsider.com/putin-kremlin-allies-celebrate-donald-trump-election-victory-russia-reaction-2024-11",
+            "imageUrl": "https://i.insider.com/672b4ac7192f525898566306?width=1024&format=jpeg",
+            "title": "Putin's allies celebrated as Trump closed in on victory",
+            "source": "Business Insider",
+            "content": "Russian President Vladimir Putin at the Grand Kremlin Palace on November 5 2024, in Moscow.Contributor/Getty Images\r\n<ul><li>Kremlin officials and allies welcomed Donald Trump's 2024 election win.</l… [+4658 chars]",
+            "time": "7:43:47 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 125,
+            "url": "https://www.npr.org/2024/11/06/nx-s1-5180057/donald-trump-wins-2024-election",
+            "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3986x2242+0+0/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F92%2Feb%2Fab4afcbf40ebbcb926df4ce56b3d%2Fgettyimages-2182314706.jpg",
+            "title": "Donald Trump has won the presidential election and will return to the White House",
+            "source": "NPR",
+            "content": "WEST PALM BEACH, Fla. Former President Donald Trump will return to the White House, according to a race call by the Associated Press.\r\nTrump won the key states of Wisconsin and Pennsylvania, with a c… [+2095 chars]",
+            "time": "5:42:08 AM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 126,
+            "url": "https://www.businessinsider.com/trump-return-power-saudi-ruler-mbs-complicated-relationship-middle-east-2024-11",
+            "imageUrl": "https://i.insider.com/673488d288cea3ba1c205429?width=1024&format=jpeg",
+            "title": "Saudi Arabia's ruler used to be one of Trump's biggest fans. This time it's complicated.",
+            "source": "Business Insider",
+            "content": "Donald Trump's first trip as US president to Saudi Arabia in 2017 was a lavish spectacle.\r\nHe joined a traditional sword dance, had his image projected onto the Ritz Carlton in Riyadh, and signed a m… [+5338 chars]",
+            "time": "11:58:13 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 127,
+            "url": "https://www.bbc.com/news/articles/c3e8z53qyd5o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/d61e/live/27ccea90-9d75-11ef-a9c1-6b797473b8f1.jpg",
+            "title": "Democrats had bet on women showing up in force. They didn’t",
+            "source": "BBC News",
+            "content": "At least one thing was taken for granted before voting day - women across the US were going to turn out for Kamala Harris.\r\nJust as months of relentless polling showed Harris in a virtual tie with Do… [+4363 chars]",
+            "time": "9:19:13 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 128,
+            "url": "https://www.fastcompany.com/91228113/how-long-will-elon-musk-and-donald-trumps-lovefest-last",
+            "imageUrl": "https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit,w_1024,h_1024/wp-cms-2/2024/11/p-91228113-how-long-with-donald-trump-elon-musk-love-affair-last.jpg",
+            "title": "How long will Elon Musk and Donald Trump’s lovefest last?",
+            "source": "Fast Company",
+            "content": "The bromance between Donald Trump and Elon Musk is one of the strangest outcomes of the 2024 presidential election cycle, with Musk stumping for Trump on the latters successful presidential campaign,… [+2447 chars]",
+            "time": "1:45:00 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 129,
+            "url": "https://www.bbc.com/news/articles/cjr4g50wxp2o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/a0a0/live/69623f10-a86e-11ef-ab70-1d7a67706cf0.jpg",
+            "title": "Trump picks Pam Bondi as attorney general after Matt Gaetz withdraws",
+            "source": "BBC News",
+            "content": "President-elect Donald Trump has nominated long-time ally and veteran prosecutor Pam Bondi as his new pick for attorney general, hours after Matt Gaetz withdrew his name from consideration. \r\nBondi h… [+2703 chars]",
+            "time": "8:50:30 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 130,
+            "url": "https://www.npr.org/2024/11/09/g-s1-33601/fema-worker-hurricane-trump-signs-florida",
+            "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4000x2250+0+208/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F2b%2F8e%2Fea88b55d42df851c74cff38cc3ee%2Fap24314777279508.jpg",
+            "title": "FEMA worker fired for telling hurricane responders to avoid homes with pro-Trump signs",
+            "source": "NPR",
+            "content": "A Federal Emergency Management Agency worker has been fired after she told a team responding to hurricane survivors to not go to homes with yard signs showing support for President-elect Donald Trump… [+1607 chars]",
+            "time": "9:12:35 PM",
+            "bias": "Unknown",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 131,
+            "url": "https://www.businessinsider.com/doge-silicon-valley-leaders-elon-musk-donald-trump-vivek-ramaswamy-2024-11",
+            "imageUrl": "https://i.insider.com/67479178fa0140cdd5660672?width=1200&format=jpeg",
+            "title": "From Marc Andreessen to Sriram Krishnan, these are all the Silicon Valley leaders linked with Elon Musk's DOGE",
+            "source": "Business Insider",
+            "content": "Elon Musk is set to lead the Department of Government Efficiency.ANGELA WEISS / AFP via Getty Images\r\n<ul><li>Donald Trump has tapped Elon Musk and Vivek Ramaswamy to lead the Department of Governmen… [+3788 chars]",
+            "time": "10:14:45 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 132,
+            "url": "https://www.npr.org/2024/11/04/nx-s1-5178714/pennsylvania-mail-ballot-voter-challenges-trump",
+            "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/5472x3078+0+164/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F66%2F52%2F6c92f7844500ad5119aa4a4d0c42%2Fgettyimages-2175014852.jpg",
+            "title": "Thousands of Pennsylvania voters have had their mail ballot applications challenged",
+            "source": "NPR",
+            "content": "PHILADELPHIA Thousands of last-minute challenges to voters mail ballot applications, along with baseless claims by former President Donald Trump about an investigation into suspicious voter registrat… [+6587 chars]",
+            "time": "3:58:56 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 133,
+            "url": "https://www.businessinsider.com/georgia-presidential-election-results-2024-11",
+            "imageUrl": "https://i.insider.com/672a8ddd88cea3ba1c1e89ff?width=1200&format=jpeg",
+            "title": "Trump wins Georgia, a key victory in the hotly contested purple state",
+            "source": "Business Insider",
+            "content": "Getty Images; Jenny Chang-Rodriguez/BI\r\n<ul><li>Trump has won the state of Georgia.</li><li>Georgia, one of the most heavily contested states this year, has 16 electoral votes.</li><li>Donald Trump w… [+1838 chars]",
+            "time": "12:37:27 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 134,
+            "url": "https://www.businessinsider.com/wall-street-election-predictions-professional-investor-survey-2024-11",
+            "imageUrl": "https://i.insider.com/67251ab99b3250dbbcebbb76?width=1200&format=jpeg",
+            "title": "Who Wall Street thinks will win the election",
+            "source": "Business Insider",
+            "content": "(Photo by Mario Tama/Getty Images)\r\n<ul><li>A survey of 119 investors found that 53% think former president Donald Trump will defeat Kamala Harris.</li><li>Investors believe fossil fuel and industria… [+2839 chars]",
+            "time": "5:51:02 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 135,
+            "url": "https://www.businessinsider.com/donald-trump-victory-wall-street-reaction-economy-inflation-public-spending-2024-11",
+            "imageUrl": "https://i.insider.com/670f5459a70318649282ad0f?width=1200&format=jpeg",
+            "title": "Volatility, higher rates, and surging bitcoin. Here's what analysts are saying about Trump's victory.",
+            "source": "Business Insider",
+            "content": "Analysts say Donald Trump's victory ushers in a new era for US economic policy.Justin Sullivan/Getty Images\r\n<ul><li>Donald Trump won a second term in Tuesday's presidential election.</li><li>Analyst… [+2919 chars]",
+            "time": "7:12:26 AM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 136,
+            "url": "https://www.businessinsider.com/handmaids-tale-book-sales-rise-melania-after-trump-win-election-2024-11",
+            "imageUrl": "https://i.insider.com/672e636588cea3ba1c1f4d58?width=1200&format=jpeg",
+            "title": "Sales of 'The Handmaid's Tale' rose nearly 7,000% this week on Amazon — but 'Melania' takes the No. 1 bestseller spot",
+            "source": "Business Insider",
+            "content": "Since Donald Trump was declared the winner of the 2024 election, Margaret Atwood's 1985 dystopian novel \"The Handmaid's Tale\" has surged from No. 209 to No. 2 on the Amazon Best Sellers list.\r\nBy Thu… [+2064 chars]",
+            "time": "4:20:56 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 137,
+            "url": "https://time.com/7177280/donald-trump-cabinet-mitch-mcconnell/",
+            "imageUrl": "https://api.time.com/wp-content/uploads/2024/11/GettyImages-2173582295.jpg?quality=85&w=1024&h=628&crop=1",
+            "title": "Once Again, Donald Trump Misreads the Senate",
+            "source": "Time",
+            "content": "This article is part of The D.C. Brief, TIMEs politics newsletter. Sign up here to get stories like this sent to your inbox.\r\nInside Donald Trumps hermetically sealed bubble of supporters, its become… [+6389 chars]",
+            "time": "4:28:38 PM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 138,
+            "url": "https://www.businessinsider.com/kamala-harris-mocks-donald-trump-surprise-saturday-night-live-cameo-2024-11",
+            "imageUrl": "https://i.insider.com/67277087192f52589855c1d6?width=1200&format=jpeg",
+            "title": "Kamala Harris mocks Donald Trump as she joins long list of politicians to cameo on 'Saturday Night Live'",
+            "source": "Business Insider",
+            "content": "Vice President Kamala Harris joined actor Maya Rudolph on \"Saturday Night Live.\"Charly Triballeau/AFP via Getty Images\r\n<ul><li>Kamala Harris appeared on \"Saturday Night Live\" for a cameo ahead of th… [+2923 chars]",
+            "time": "12:19:43 PM",
+            "bias": "center",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 139,
+            "url": "https://www.npr.org/2024/11/06/g-s1-32961/up-first-newsletter-donald-trump-second-term-senate-gop-control-reproductive-rights",
+            "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4349x2446+0+0/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ffc%2Faf%2F4e8a57cc4663ac96dca34328e3b0%2Fgettyimages-2182935548.jpg",
+            "title": "Trump wins a second term. And, Republicans reclaim Senate control",
+            "source": "NPR",
+            "content": "Good morning. You're reading the Up First newsletter. Subscribe here to get it delivered to your inbox, and listen to the Up First podcast for all the news you need to start your day.\r\nToday's top st… [+5449 chars]",
+            "time": "7:56:41 AM",
+            "bias": "Unknown",
+            "readTime": "2-7 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 140,
+            "url": "https://markets.businessinsider.com/news/currencies/dogecoin-price-elon-musk-doge-department-trump-crypto-president-election-2024-11",
+            "imageUrl": "https://i.insider.com/6734cc575ec9bfa3d63dce35?width=1024&format=jpeg",
+            "title": "Dogecoin spikes another 15% after Musk appointed to lead DOGE department for Trump",
+            "source": "Business Insider",
+            "content": "Dogecoin has gotten a big boost since Donald Trump won the presidential election last week amid a market-wide surge for cryptos of all types.\r\nThe dog-themed crypto had surged roughly 140% since Nove… [+1451 chars]",
+            "time": "11:42:21 AM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        },
+        {
+            "id": 141,
+            "url": "https://www.bbc.com/news/articles/cvg7y52n411o",
+            "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/8984/live/11f28e00-ab8a-11ef-a160-1d706b91919f.jpg",
+            "title": "Trump threatens China, Mexico and Canada with new tariffs",
+            "source": "BBC News",
+            "content": "Donald Trump says he will hit China, Mexico and Canada with new tariffs on day one of his presidency, in an effort to crack down on drug and people smuggling into the US.\r\nThe president-elect said th… [+1885 chars]",
+            "time": "8:09:12 PM",
+            "bias": "center",
+            "readTime": "<2 min",
+            "relatedSources": [],
+            "details": [],
+            "fullContent": null
+        }
+    ],
+    "summary": {
+        "title": "donald trump",
+        "summary": "**Highlight Summary:**\n\nThe recent political landscape has been significantly shaped by Donald Trump's victory, marking a transformative era in online campaigning and engagement. This shift has implications for big tech companies, as they navigate the challenges of moderating content amidst rising far-right sentiments that celebrate aggressive and violent rhetoric. Supporters of Trump have increasingly utilized social media to propagate extremist views, often resorting to memes that glorify violence. Additionally, the intersection of politics and cryptocurrency has emerged, with Trump's win galvanizing crypto enthusiasts"
+    },
+    "clusters": [
+        {
+            "cluster_id": -1,
+            "articles": [
+                {
+                    "title": "[Removed]",
+                    "description": "[Removed]",
+                    "url": "https://removed.com"
+                },
+                {
+                    "title": "What Donald Trump's Win Will Mean for Big Tech",
+                    "description": "Donald Trump's approach to Big Tech has oscillated between calls for stricter regulations for some players and a hands-off approach for others. Here's how he might steer tech policy in a second term.",
+                    "url": "https://www.wired.com/story/trump-tech-policy/"
+                },
+                {
+                    "title": "Far-Right Donald Trump Supporters Celebrate His Victory with Violent Memes and Calls for Executions",
+                    "description": "“Many many many executions are warranted,” one Trump supporter wrote on Truth Social. “These traitors are a terminal cancer that MUST BE completely eradicated to make America healthy again.”",
+                    "url": "https://www.wired.com/story/donald-trump-far-right-supporters-violent-memes/"
+                },
+                {
+                    "title": "ICE Started Ramping Up Its Surveillance Arsenal Immediately After Donald Trump Won",
+                    "description": "US Immigration and Customs Enforcement put out a fresh call for contracts for surveillance technologies before an anticipated surge in the number of people it monitors ahead of deportation hearings.",
+                    "url": "https://www.wired.com/story/ice-surveillance-contracts-isap/"
+                },
+                {
+                    "title": "The Great American Microchip Mobilization",
+                    "description": "Under Donald Trump and Joe Biden alike, the US has been determined to “reshore” chipmaking. Now money and colossal infrastructure are flowing to a vast Intel site in Ohio—just as the company may be falling apart.",
+                    "url": "https://www.wired.com/story/intel-great-american-microchip-mobilization/"
+                },
+                {
+                    "title": "More Spyware, Fewer Rules: What Trump’s Return Means for US Cybersecurity",
+                    "description": "Experts expect Donald Trump’s next administration to relax cybersecurity rules on businesses, abandon concerns around human rights, and take an aggressive stance against the cyber armies of US adversaries.",
+                    "url": "https://www.wired.com/story/trump-administration-cybersecurity-policy-reversals/"
+                },
+                {
+                    "title": "Elon Musk’s America PAC Hit With Class Action Lawsuit",
+                    "description": "Canvassers for California representative Michelle Steel are suing the congresswoman's campaign, America PAC, and others, alleging that they were promised hourly wages, then told pay would depend on how many doors they knocked.",
+                    "url": "https://www.wired.com/story/elon-musk-america-pac-class-action-lawsuit/"
+                },
+                {
+                    "title": "We Break Down the Internet’s Future Under Trump 2.0",
+                    "description": "WIRED global editorial director Katie Drummond joins this week to discuss what the fragmented internet did for the Trump campaign, and what the incoming Trump administration means for the internet.",
+                    "url": "https://www.wired.com/story/the-internets-future-under-donald-trump/"
+                },
+                {
+                    "title": "The Red Elephant in the Room at AfroTech",
+                    "description": "At the annual tech conference for Black professionals, all eyes were on AI—but many also braced for the impact of a Trump administration that has promised to kill DEI.",
+                    "url": "https://www.wired.com/story/afrotech-2024-red-elephant-in-the-room/"
+                },
+                {
+                    "title": "It’s Election Week. Brace Yourselves",
+                    "description": "The United States will choose between two drastically different futures in the coming days. Here’s what you can expect from WIRED.",
+                    "url": "https://www.wired.com/story/election-week-brace-yourselves/"
+                },
+                {
+                    "title": "The Fossil Fuels Conversation Needs a Hard Reset",
+                    "description": "The term “reducing emissions” has outlived its usefulness, a crutch to soften the blow that’s being exploited by greenwashers. Now it’s time to get real.",
+                    "url": "https://www.wired.com/story/fossil-fuels-conversation-needs-a-hard-reset/"
+                },
+                {
+                    "title": "Silk Road Creator Ross Ulbricht Is Waiting for Trump to Keep His Word—and Set Him Free",
+                    "description": "On the campaign trail, incoming US president Donald Trump vowed to release Silk Road creator Ross Ulbricht from prison if reelected. Will he keep his word?",
+                    "url": "https://www.wired.com/story/silk-road-creator-ross-ulbricht-is-waiting-for-trump-to-keep-his-word-and-set-him-free/"
+                },
+                {
+                    "title": "‘I'm Going to Bluesky’ Is the New ‘I’m Moving to Canada’",
+                    "description": "Users frustrated with Elon Musk’s handling of X and closeness to president-elect Donald Trump are fleeing to Bluesky—an easier migration than leaving the US.",
+                    "url": "https://www.wired.com/story/im-going-to-bluesky-is-the-new-im-moving-to-canada/"
+                },
+                {
+                    "title": "Arizona's Kari Lake Is Already Claiming Election Fraud",
+                    "description": "The night before the election, Arizona Senate candidate Kari Lake, a former TV anchor-turned-election truther, thanked her supporters for voting early—something she has long railed against.",
+                    "url": "https://www.wired.com/story/kari-lake-campaign-claims-election-fraud/"
+                },
+                {
+                    "title": "Forget Screen Time. We Need to Talk About Screen Real Estate",
+                    "description": "Spending many hours daily looking at screens feels like a foregone conclusion. The new challenge is paring down what fills them.",
+                    "url": "https://www.wired.com/story/forget-screen-time-we-need-to-talk-about-screen-real-estate/"
+                },
+                {
+                    "title": "Bluesky Says It Won’t Screw Things Up",
+                    "description": "The not-a-Twitter-clone is exploding, and its CEO promises to not repeat old social-media mistakes. Her strategy? Massively empower users to decide how the service works.",
+                    "url": "https://www.wired.com/story/plaintext-bluesky-says-it-wont-screw-things-up/"
+                },
+                {
+                    "title": "California is ready to pick a fight with Trump if he kills the federal EV tax credit",
+                    "description": "California Governor Gavin Newsom says he’ll bring back the state’s clean vehicle rebate if President-elect Trump follow through on his pledge to eliminate the EV tax credit.",
+                    "url": "https://www.theverge.com/2024/11/25/24305487/california-is-ready-to-pick-a-fight-with-trump-if-he-kills-the-federal-ev-tax-credit"
+                },
+                {
+                    "title": "Apple News will let you watch election results from your lockscreen",
+                    "description": "On Election Day in the US, Apple News is rolling out live results to lockscreens.",
+                    "url": "https://www.theverge.com/2024/11/5/24288777/election-results-apple-news-lock-screen"
+                },
+                {
+                    "title": "Rivian gets $6.6 billion government loan to build its EV factory in Georgia",
+                    "description": "Rivian has received conditional approval for a $6.6 billion loan from the Department of Energy to build an electric vehicle factory in Georgia.",
+                    "url": "https://www.theverge.com/2024/11/26/24306402/rivian-doe-atvm-loan-georgia-ev-factory-trump"
+                },
+                {
+                    "title": "Feds investigate racist texts sent across the country post-election",
+                    "description": "The Federal Communications Commission and Federal Bureau of Investigation are looking into racist messages sent to users in several states after the election.",
+                    "url": "https://www.theverge.com/2024/11/8/24291466/fcc-fbi-racist-text-messages-post-election"
+                },
+                {
+                    "title": "The Rivian R2’s next-gen batteries will be made in the US by LG Energy",
+                    "description": "Rivian is teaming up with LG Energy Solution to make EV batteries for its upcoming R2 vehicle. The cells will be produced at LG’s factory in Arizona.",
+                    "url": "https://www.theverge.com/2024/11/7/24290785/rivian-r2-battery-lg-energy-manufacture"
+                },
+                {
+                    "title": "Threads might get ads early next year",
+                    "description": "Meta is planning to roll out ads on Threads early in 2025, according to a report from The Information.",
+                    "url": "https://www.theverge.com/2024/11/13/24295735/threads-ads-rumor-2025"
+                },
+                {
+                    "title": "Dozens of states ask Congress to un-doom the Kids Online Safety Act",
+                    "description": "The attorneys general of New York, New Mexico, and other states have signed a law urging Congress to pass the Kids Online Safety Act before the end of the year.",
+                    "url": "https://www.theverge.com/2024/11/18/24299941/state-ag-letter-congress-pass-child-safety-kosa-deadline"
+                },
+                {
+                    "title": "2024 is going to smash heat records",
+                    "description": "Global temperatures soared in 2024, likely cruising past a key threshold.",
+                    "url": "https://www.theverge.com/2024/11/8/24291309/2024-hottest-year-heat-record-climate-change-goals"
+                },
+                {
+                    "title": "The Hyundai Ioniq 9 is a three-row electric SUV with room to grow",
+                    "description": "Hyundai revealed the Ioniq 9, an electric three-row SUV that will go into production next year. There’s no pricing yet, but the EV is expected to get over 300 miles of range.",
+                    "url": "https://www.theverge.com/2024/11/20/24301740/hyundai-ioniq-9-three-row-electric-suv-laas"
+                },
+                {
+                    "title": "Cadillac officially debuts three-row Vistiq electric SUV with 300 miles of range",
+                    "description": "Cadillac introduced the 2026 Vistiq three-row SUV, with 300 miles of range, a 102kWh battery, and a starting price over $80,000.",
+                    "url": "https://www.theverge.com/2024/11/12/24293786/cadillac-vistiq-ev-suv-price-range-specs-gm"
+                },
+                {
+                    "title": "Inside Elon Musk’s messy breakup with OpenAI",
+                    "description": "Elon Musk’s lawsuit against OpenAI reveals the startup’s turbulent origins and internal power struggles.",
+                    "url": "https://www.theverge.com/2024/11/18/24299787/elon-musk-openai-lawsuit-sam-altman-xai-google-deepmind"
+                },
+                {
+                    "title": "Black Americans Receive Threatening Texts About Return of Slavery",
+                    "description": "Racists have become emboldened on the internet after Donald Trump's election win.",
+                    "url": "https://gizmodo.com/black-americans-receive-threatening-texts-about-return-of-slavery-2000522121"
+                },
+                {
+                    "title": "Trump Promises to Let RFK Jr. ‘Make America Healthy Again’ in Victory Speech",
+                    "description": "Trump said Robert F. Kennedy Jr. would be allowed to reshape the country's public health and \"do some things.\"",
+                    "url": "https://gizmodo.com/trump-promises-to-let-rfk-jr-make-america-healthy-again-in-victory-speech-2000521085"
+                },
+                {
+                    "title": "Trump Guitars Slapped With Cease and Desist for Copying Gibson Design: Report",
+                    "description": "Gibson fiercely defends its trademarked guitar body shape.",
+                    "url": "https://gizmodo.com/trump-guitars-slapped-with-cease-and-desist-for-copying-gibson-design-report-2000529891"
+                },
+                {
+                    "title": "Trump Media Execs Dumped Millions in Stock After the Election",
+                    "description": "Trump has said he won't divest from his business holdings before taking office.",
+                    "url": "https://gizmodo.com/trump-media-execs-dumped-millions-in-stock-after-the-election-2000524557"
+                },
+                {
+                    "title": "RFK Jr. Wants the Internet to Pick Trump’s Top Health and Tech Experts",
+                    "description": "Captain Brainworm looks poised to have a lot of power soon.",
+                    "url": "https://gizmodo.com/rfk-jr-wants-the-internet-to-pick-trumps-top-health-and-tech-experts-2000522398"
+                },
+                {
+                    "title": "Peanut the Squirrel Becomes Right-Wing Martyr in Final Election Push From the Extremely Online",
+                    "description": "With hours to go before America votes, Trump’s surrogates spent their time building up a myth around a squirrel.",
+                    "url": "https://gizmodo.com/peanut-the-squirrel-and-the-rights-very-weird-extremely-online-weekend-before-the-election-2000520131"
+                },
+                {
+                    "title": "Palantir Adds an AI Company to Its Arsenal for Military and Spy Work",
+                    "description": "Palantir and Anthropic have signed a deal to bring Claude to the Pentagon.",
+                    "url": "https://gizmodo.com/palantir-adds-an-ai-company-to-its-arsenal-for-military-and-spy-work-2000521508"
+                },
+                {
+                    "title": "Supreme Court to Determine Whether Trump Voters Should Have Cheap Internet or Not",
+                    "description": "The court will seek to determine whether qualifying rural communities should receive federally funded internet access.",
+                    "url": "https://gizmodo.com/supreme-court-to-determine-whether-trump-voters-should-have-cheap-internet-or-not-2000529738"
+                },
+                {
+                    "title": "TikTok Announces Plan to Block Some Beauty Filters for Minors",
+                    "description": "\"By fostering a culture of authenticity, respect and support, we can create a digital world where everyone feels empowered to be their true self,\" the company said.",
+                    "url": "https://gizmodo.com/tiktok-announces-plan-to-block-some-beauty-filters-for-minors-2000531082"
+                },
+                {
+                    "title": "Hacker Steals File With Testimony From Accusers of Matt Gaetz: Report",
+                    "description": "Whoever took the file went by the alias \"Altam Beezley.\"",
+                    "url": "https://gizmodo.com/hacker-steals-file-with-testimony-from-accusers-of-matt-gaetz-report-2000526414"
+                },
+                {
+                    "title": "That Tech Guy Who Used His Son as a Blood Boy Is Hawking Supplements Now",
+                    "description": "Bryan Johnson recently posted a photo of himself with Robert F. Kennedy Jr.",
+                    "url": "https://gizmodo.com/that-tech-guy-who-used-his-son-as-a-blood-boy-is-hawking-supplements-now-2000523126"
+                },
+                {
+                    "title": "Vape the Vote: Every State Voting on Legal Weed Today",
+                    "description": "Kamala Harris has promised to legalize marijuana at the federal level.",
+                    "url": "https://gizmodo.com/vape-the-vote-every-state-voting-on-legal-weed-today-2000520781"
+                },
+                {
+                    "title": "Canada Is Doing Its Own Extremely Weird TikTok Ban",
+                    "description": "Canada wants TikTok's parent company to stop doing business in Canada.",
+                    "url": "https://gizmodo.com/now-canada-is-doing-its-own-extremely-weird-tiktok-ban-2000521585"
+                },
+                {
+                    "title": "Elon Musk Says He Owns Everyone’s Twitter Account in Bizarre Alex Jones Court Filing",
+                    "description": "Musk's X is trying to stop The Onion from buying Alex Jones' social media accounts.",
+                    "url": "https://gizmodo.com/elon-musk-says-he-owns-everyones-twitter-account-in-bizarre-alex-jones-court-filing-2000530503"
+                },
+                {
+                    "title": "Sweden’s Government-Issued Pamphlet for Surviving War Has a Long History",
+                    "description": "Russia's invasion of Ukraine has alarmed neighboring countries and Sweden's bringing back its guide to surviving war.",
+                    "url": "https://gizmodo.com/swedens-government-issued-pamphlet-for-surviving-war-has-a-long-history-2000528093"
+                },
+                {
+                    "title": "Crypto Trolls Hijacked NYC’s Dog Mayor Competition",
+                    "description": "Crypto holders have discovered a way to ruin the most fun and innocent of local competitions.",
+                    "url": "https://gizmodo.com/crypto-trolls-hijacked-nycs-dog-mayor-competition-2000524643"
+                },
+                {
+                    "title": "Lauren Boebert Abruptly Quits Controversial Cameo Account",
+                    "description": "The rightwing politician from Colorado briefly joined the video-sharing platform before apparently deactivating her account.",
+                    "url": "https://gizmodo.com/lauren-boebert-abruptly-quits-controversial-cameo-account-2000530357"
+                },
+                {
+                    "title": "Two Data Cables Are Cut in the Baltic Sea, Germany Calls It Sabotage",
+                    "description": "A cut data cable and changing standards around nuclear weapons use point to rising tensions in Europe.",
+                    "url": "https://gizmodo.com/two-data-cables-are-cut-in-the-baltic-sea-germany-calls-it-sabotage-2000526367"
+                },
+                {
+                    "title": "Watch: Donald Trump casts his vote with wife Melania",
+                    "description": "The Republican presidential candidate says he feels \"very confident\" as he casts his ballot.",
+                    "url": "https://www.bbc.com/news/videos/cvg7dgmglvpo"
+                },
+                {
+                    "title": "'I'm the UK's number one Trump impersonator'",
+                    "description": "Donald Trump impressionist Mike Osman is inspired to keep performing after the US election.",
+                    "url": "https://www.bbc.com/news/articles/c5yxzrlge59o"
+                },
+                {
+                    "title": "What impact could Trump's return have on sport?",
+                    "description": "How does Donald Trump's return to the White House impact the sporting landscape? BBC Sport examines some of his policies.",
+                    "url": "https://www.bbc.com/sport/articles/c170n9qy2qvo"
+                },
+                {
+                    "title": "Starmer to join Macron for Armistice Day events in Paris",
+                    "description": "The leaders are expected to discuss Ukraine, the Middle East, and the election of Donald Trump when they meet later.",
+                    "url": "https://www.bbc.com/news/articles/ce8dz0n8xldo"
+                },
+                {
+                    "title": "No guarantees Trump will give Netanyahu all he wants",
+                    "description": "Trump's win has been welcomed by Israel but it's unclear what he will deliver, writes Lucy Williamson.",
+                    "url": "https://www.bbc.com/news/articles/cq6lm62vm7zo"
+                },
+                {
+                    "title": "The view from countries where Trump's win really matters",
+                    "description": "An opportunity, a respite or a security fear - we assess how Trump's return to power is being viewed elsewhere.",
+                    "url": "https://www.bbc.com/news/articles/c4gpd2487e5o"
+                },
+                {
+                    "title": "Lammy dismisses past criticism of Trump as 'old news'",
+                    "description": "The foreign secretary previously called Trump a \"tyrant\" and \"xenophobic\" when he was a backbench MP.",
+                    "url": "https://www.bbc.com/news/articles/cm2z1zm1pk3o"
+                },
+                {
+                    "title": "Return of unpredictable president puts UK defence spending top of agenda",
+                    "description": "Politicians say we're living in dangerous times, and Trump is a lot less willing than Biden to pay for Europe's defence.",
+                    "url": "https://www.bbc.com/news/articles/c9vnd17v2vmo"
+                },
+                {
+                    "title": "Jubilation in the room as Trump declared victory",
+                    "description": "The president-elect delivered an ordinary speech in an extraordinary moment, writes Gary O'Donoghue.",
+                    "url": "https://www.bbc.com/news/articles/czxreenxvw5o"
+                },
+                {
+                    "title": "Seven things Trump says he will do as president",
+                    "description": "From immigration to the Ukraine war - these are the pledges he made ahead of his return to the White House.",
+                    "url": "https://www.bbc.com/news/articles/cev90d7wkk0o"
+                },
+                {
+                    "title": "All eyes on early vote results in key swing state of Georgia",
+                    "description": "The first wave of exit polls has voters naming the state of democracy and the economy as their most important issues.",
+                    "url": "https://www.bbc.com/news/articles/clyg856px7eo"
+                },
+                {
+                    "title": "Trump picks Covid lockdown critic to lead top health agency",
+                    "description": "The physician and economist was the face of the Great Barrington Declaration, which opposed widespread lockdowns.",
+                    "url": "https://www.bbc.com/news/articles/cvg4yxmmg1zo"
+                },
+                {
+                    "title": "Trump's pick of Huckabee and Witkoff a clue to Middle East policy",
+                    "description": "The former Arkansas governor and the New York real estate investor are staunch supporters of Israel.",
+                    "url": "https://www.bbc.com/news/articles/c0endd8qj01o"
+                },
+                {
+                    "title": "Who is Trump intelligence pick Tulsi Gabbard, accused of repeating Russian talking points?",
+                    "description": "The former Democratic congresswoman has emerged as one of Trump's most loyal backers.",
+                    "url": "https://www.bbc.com/news/articles/c9vnx8zn440o"
+                },
+                {
+                    "title": "German coalition on brink of collapse after Scholz fires key minister",
+                    "description": "The chancellor said he would call a vote of confidence in his government early next year.",
+                    "url": "https://www.bbc.com/news/articles/c7v3r046pzzo"
+                },
+                {
+                    "title": "US 'won’t accept Hamas presence in Qatar'",
+                    "description": "The move appears to be an effort to pressurise the Palestinian group to accept a limited Gaza ceasefire.",
+                    "url": "https://www.bbc.com/news/articles/c774d4p2mx6o"
+                },
+                {
+                    "title": "Trump and Xi Jinping’s ‘rollercoaster’ relationship has soured - can they rebuild it?",
+                    "description": "What their dynamic means for the future of US-China relations",
+                    "url": "https://www.bbc.com/news/articles/cdxvdqg8214o"
+                },
+                {
+                    "title": "Who is Pete Hegseth - the Fox News host who will be defence secretary?",
+                    "description": "Pete Hegseth, a Fox News host, has advocated for a conservative cultural shift in the US military.",
+                    "url": "https://www.bbc.com/news/articles/c04lvv6ee3lo"
+                },
+                {
+                    "title": "Who will win the House? The outstanding races to watch",
+                    "description": "It's too early to determine if Republicans will keep their majority in the US House of Representatives.",
+                    "url": "https://www.bbc.com/news/articles/c04ld19vlg6o"
+                },
+                {
+                    "title": "Oil and gas are a 'gift of god', says COP29 host",
+                    "description": "Azerbaijan's president said countries should not be blamed for having fossil fuel reserves.",
+                    "url": "https://www.bbc.com/news/articles/cpqd1rzw9r4o"
+                },
+                {
+                    "title": "How Donald Trump came back from the political abyss",
+                    "description": "North America correspondent Anthony Zurcher explores a disgraced White House exit and a comeback for the ages.",
+                    "url": "https://www.bbc.com/news/articles/cq52zj466l7o"
+                },
+                {
+                    "title": "US cuts interest rates as Trump election raises uncertainty",
+                    "description": "Donald Trump's plans for tax cuts and tariffs raise questions about much further the Fed might cut.",
+                    "url": "https://www.bbc.com/news/articles/cn4v7vwgqj0o"
+                },
+                {
+                    "title": "‘Welcome back’ - Watch moment Biden congratulates Trump",
+                    "description": "The president and president-elect shook hands as part of a long-standing tradition signifying the transfer of power.",
+                    "url": "https://www.bbc.com/news/videos/c8ek95kw8w4o"
+                },
+                {
+                    "title": "How US election fraud claims changed as Trump won",
+                    "description": "Both Trump fans and Harris supporters baselessly claimed large-scale voter fraud in Tuesday's election.",
+                    "url": "https://www.bbc.com/news/articles/cy9j8r8gg0do"
+                },
+                {
+                    "title": "Trump 'won fair and square': Business leaders from Mark Cuban to David Sacks react to election result",
+                    "description": "Here is what some of the most influential business figures have to say about Donald Trump winning the election.",
+                    "url": "https://www.businessinsider.com/business-leaders-react-donald-trump-winning-election-silicon-valley-2024-11"
+                },
+                {
+                    "title": "The Federal Reserve gives Americans another interest rate cut",
+                    "description": "Two days after Donald Trump won the presidential election, the Federal Reserve announced a 25-basis-point interest-rate cut.",
+                    "url": "https://www.businessinsider.com/federal-reserve-cuts-interest-rates-quarter-point-powell-inflation-election-2024-11"
+                },
+                {
+                    "title": "Who is Pam Bondi, Trump's nominee for attorney general?",
+                    "description": "The 59-year-old was the first woman to head Florida's justice system and she is a longtime Trump ally.",
+                    "url": "https://www.bbc.com/news/articles/c079y0r1j8po"
+                },
+                {
+                    "title": "The Polymarket 'whale' actually made $85 million, far more than originally thought",
+                    "description": "The Polymarket trader who bet millions that Donald Trump would win had more accounts than was previously known, according to Chainalysis.",
+                    "url": "https://www.businessinsider.com/polymarket-whale-banked-85-million-profit-trump-president-election-win-2024-11"
+                },
+                {
+                    "title": "Fed Chair Powell stands firm amid questioning about whether Trump will push him out",
+                    "description": "Fed chair Jerome Powell said he won't resign even if President-elect Donald Trump asks him to leave, saying that it's \"not permitted under the law.\"",
+                    "url": "https://www.businessinsider.com/powell-wont-resign-federal-reserve-step-down-trump-election-2024-11"
+                },
+                {
+                    "title": "Fate of Gaetz ethics report uncertain after congressional panel deadlocked",
+                    "description": "President-elect Donald Trump's pick for the next attorney general is at the centre of a number of allegations, which he denies.",
+                    "url": "https://www.bbc.com/news/articles/cx2l0vqdg92o"
+                },
+                {
+                    "title": "Saudi Arabia's ruler used to be one of Trump's biggest fans. This time it's complicated.",
+                    "description": "The Middle East's in chaos, and Gulf state leaders may fear that Donald Trump will make it worse.",
+                    "url": "https://www.businessinsider.com/trump-return-power-saudi-ruler-mbs-complicated-relationship-middle-east-2024-11"
+                },
+                {
+                    "title": "Democrats had bet on women showing up in force. They didn’t",
+                    "description": "All the talk before the vote was of a huge gender gap, but it didn't happen. Why was that?",
+                    "url": "https://www.bbc.com/news/articles/c3e8z53qyd5o"
+                },
+                {
+                    "title": "Trump picks Pam Bondi as attorney general after Matt Gaetz withdraws",
+                    "description": "Bondi is a former Florida attorney general and long-time ally of Trump.",
+                    "url": "https://www.bbc.com/news/articles/cjr4g50wxp2o"
+                },
+                {
+                    "title": "FEMA worker fired for telling hurricane responders to avoid homes with pro-Trump signs",
+                    "description": "FEMA's administrator said the employee told a team responding to hurricane survivors to skip homes with yard signs showing support for Donald Trump.",
+                    "url": "https://www.npr.org/2024/11/09/g-s1-33601/fema-worker-hurricane-trump-signs-florida"
+                },
+                {
+                    "title": "Thousands of Pennsylvania voters have had their mail ballot applications challenged",
+                    "description": "Thousands of last-minute challenges to voters’ mail ballot applications, along with baseless claims by former President Donald Trump, are adding pressure on Pennsylvania county officials.",
+                    "url": "https://www.npr.org/2024/11/04/nx-s1-5178714/pennsylvania-mail-ballot-voter-challenges-trump"
+                },
+                {
+                    "title": "Sales of 'The Handmaid's Tale' rose nearly 7,000% this week on Amazon — but 'Melania' takes the No. 1 bestseller spot",
+                    "description": "Sales of \"The Handmaid's Tale\" rose sharply on Amazon in the wake of Donald Trump's election, rising to No. 2. Melania Trump's memoir was No. 1.",
+                    "url": "https://www.businessinsider.com/handmaids-tale-book-sales-rise-melania-after-trump-win-election-2024-11"
+                }
+            ]
+        },
+        {
+            "cluster_id": 0,
+            "articles": [
+                {
+                    "title": "Donald Trump's Win Cements a New Era for Campaigning Online",
+                    "description": "On the ground, the Trump campaign was at a disadvantage to Kamala Harris’s massive canvassing operations. But many misunderstood the power—and purpose—of influencer marketing campaigns.",
+                    "url": "https://www.wired.com/story/donald-trump-online-campaign-era/"
+                },
+                {
+                    "title": "As Trump Takes a Victory Lap, the Crypto Faithful Kiss the Ring",
+                    "description": "The crypto industry is celebrating the return of Donald Trump to the White House in anticipation of an easier ride under his regime.",
+                    "url": "https://www.wired.com/story/trump-crypto-support/"
+                },
+                {
+                    "title": "The Best Black Friday Deals for MAGA, Conspiracists, and Extremists",
+                    "description": "Donald Trump’s most extreme supporters may slam big business, the elites, and corporate greed, but they’re not too shy to push their own Black Friday deals.",
+                    "url": "https://www.wired.com/story/the-best-black-friday-deals-for-maga-conspiracists-and-extremists/"
+                },
+                {
+                    "title": "Border Militias Prepare to Assist With Donald Trump’s Mass Deportation Plans",
+                    "description": "Militias that patrol the US border with Mexico are thrilled that Donald Trump has been elected—and plan to be a “valuable resource” to the incoming administration, whether or not they’re asked.",
+                    "url": "https://www.wired.com/story/border-militias-immigrants-trump/"
+                },
+                {
+                    "title": "Donald Trump's New 'Border Czar' Defended Child Separation at Festival Held by Gun-Worshipping Sect",
+                    "description": "Tom Homan, who helped usher in the family separation policy during Trump’s first term, is promising to enact the \"biggest deportation operation in the history of the United States.\"",
+                    "url": "https://www.wired.com/story/tom-homan-trump-border-czar-child-separation-policies/"
+                },
+                {
+                    "title": "Trump Won. What Will Happen to Electric Vehicles?",
+                    "description": "Thanks to Elon Musk's influence, the president-elect has waffled on the future of America's electric transition.",
+                    "url": "https://www.wired.com/story/trump-won-what-happens-to-electric-vehicles-now/"
+                },
+                {
+                    "title": "Elon Musk and Vivek Ramaswamy have spelled out their plans for DOGE",
+                    "description": "Elon Musk and Vivek Ramaswamy, the co-leads of President-elect Donald Trump’s “Department of Government Efficiency,” detailed their plans for the agency in The Wall Street Journal.",
+                    "url": "https://www.theverge.com/2024/11/20/24301975/elon-musk-vivek-ramaswamy-doge-plan"
+                },
+                {
+                    "title": "The best Black Friday deals you may want to get before Trump’s tariffs",
+                    "description": "The impending Trump administration’s threats of tariffs on countries like China, Mexico, and Canada may make tech and gadgets pricier. Here are the best deals available now.",
+                    "url": "https://www.theverge.com/24305982/black-friday-2024-best-deals-tariffs-trump-save-ideas-cyber-monday"
+                },
+                {
+                    "title": "Elon Musk’s new DOGE plans are actually old ideas about mass deregulation",
+                    "description": "Behind the Department of Government Efficiency’s memey name is a plot to dismantle the federal government.",
+                    "url": "https://www.theverge.com/2024/11/22/24302735/elon-musk-doge-vivek-ramaswamy-rage-curtis-yarvin"
+                },
+                {
+                    "title": "The Worst People in the World Are Making a Ton of Money After Trump’s Victory",
+                    "description": "Private prisons, crypto, banks, and the stock-market in general are all soaring at the news of Trump’s return to the White House.",
+                    "url": "https://gizmodo.com/the-worst-people-in-the-world-are-making-a-ton-of-money-after-trumps-victory-2000521095"
+                },
+                {
+                    "title": "Trump Reportedly Set to Attend Sixth SpaceX Starship Launch Today",
+                    "description": "The pair, who seem attached at the hip these days, are scheduled to watch Starship's takeoff during a pivotal transitional period for the private space sector.",
+                    "url": "https://gizmodo.com/trump-reportedly-set-to-attend-sixth-spacex-starship-launch-today-2000526481"
+                },
+                {
+                    "title": "Elon Musk Can Keep Handing Out $1 Million to Voters, Pennsylvania Court Says",
+                    "description": "The case is a scary peek at the future of buying votes.",
+                    "url": "https://gizmodo.com/elon-musk-can-keep-handing-out-1-million-to-voters-pennsylvania-court-says-2000520492"
+                },
+                {
+                    "title": "Elon Musk and Vivek Ramaswamy Promise New Podcast to Discuss Destruction of U.S. Government",
+                    "description": "Elon Musk and Vivek Ramaswamy have suggested they'll cut $2 trillion in government spending with DOGE.",
+                    "url": "https://gizmodo.com/elon-musk-and-vivek-ramaswamy-promise-new-podcast-to-discuss-destruction-of-u-s-government-2000527794"
+                },
+                {
+                    "title": "Buckle Up: SpaceX Aims for Rapid-Fire Starship Launches in 2025",
+                    "description": "The company is gearing up for the sixth test flight of the megarocket, with plans to significantly step up Starship's launch cadence next year.",
+                    "url": "https://gizmodo.com/spacex-sets-ambitious-goal-25-starship-flights-in-2025-2000524527"
+                },
+                {
+                    "title": "Trump has won the election. What happens to his legal cases?",
+                    "description": "Donald Trump is facing three criminal cases and a sentencing over a felony conviction.",
+                    "url": "https://www.bbc.com/news/articles/cj0jr5ypqedo"
+                },
+                {
+                    "title": "Trump and Musk can bring peace to golf - McIlroy",
+                    "description": "Donald Trump's return to the White House can help pave the way for peace in golf's 'civil war', says four-time major champion Rory McIlroy.",
+                    "url": "https://www.bbc.com/sport/golf/articles/cwyxq53jx5no"
+                },
+                {
+                    "title": "Prosecutors back delaying Trump sentence until he leaves White House",
+                    "description": "New York prosecutors have vowed to oppose President-elect Donald Trump’s effort to overturn his criminal conviction, however.",
+                    "url": "https://www.bbc.com/news/articles/czr72m57e1jo"
+                },
+                {
+                    "title": "Watch: Trump joins Musk to watch Starship test launch",
+                    "description": "The president-elect visited the launch site in Texas to watch the spacecraft's sixth test flight.",
+                    "url": "https://www.bbc.com/news/videos/cz9x2nk1jyvo"
+                },
+                {
+                    "title": "Trump's New York sentencing still could happen even after election victory",
+                    "description": "Sentencing would likely spark more delay requests from Trump and open up an unprecedented new legal front.",
+                    "url": "https://www.bbc.com/news/articles/cvgev9lwlxro"
+                },
+                {
+                    "title": "Divided Arizona contends with Trump's sweeping border plan",
+                    "description": "The state is likely to be one places seeing a shift under the president-elect's immigration policies.",
+                    "url": "https://www.bbc.com/news/articles/c2069w5lxw5o"
+                },
+                {
+                    "title": "When will we know whether Harris or Trump won?",
+                    "description": "Once polls close on Tuesday, a winner may not be projected for several hours, days or even weeks.",
+                    "url": "https://www.bbc.com/news/articles/cde7ng85jwgo"
+                },
+                {
+                    "title": "Ten reasons why either Trump or Harris might win",
+                    "description": "Polls suggest the race is deadlocked - but if one candidate pulls away, these factors could explain why.",
+                    "url": "https://www.bbc.com/news/articles/cj0jq134y91o"
+                },
+                {
+                    "title": "Our undecided US voters have (mostly) made up their minds. Who are they backing?",
+                    "description": "The BBC speaks again to a group who have struggled to pick between Kamala Harris and Donald Trump.",
+                    "url": "https://www.bbc.com/news/articles/c7484kwl55qo"
+                },
+                {
+                    "title": "Donald Trump wins Arizona",
+                    "description": "Arizona was that last state to be called by the Associated Press in the presidential race. It brings Trump's total electoral vote count to 312, with 226 for Vice President Harris.",
+                    "url": "https://www.npr.org/2024/11/10/g-s1-33609/donald-trump-wins-arizona"
+                },
+                {
+                    "title": "Joe Rogan endorsed Donald Trump, saying Elon Musk made a 'compelling case' for the former president",
+                    "description": "Joe Rogan, who interviewed Donald Trump on his podcast, has been critical of Trump. But he said Elon Musk made a \"compelling case\" for Trump.",
+                    "url": "https://www.businessinsider.com/joe-rogan-endorses-donald-trump-on-eve-of-election-2024-11"
+                },
+                {
+                    "title": "Did you need another reminder that Donald Trump watches TV? Here you go.",
+                    "description": "Twitter - and Elon Musk — are important for Trump 2.0. But Trump has always been a TV person and that's not going to change.",
+                    "url": "https://www.businessinsider.com/pete-hegseth-trump-fox-twitter-elon-musk-influence-2024-11"
+                },
+                {
+                    "title": "Trump praises Elon Musk in election night speech: 'A star is born'",
+                    "description": "Donald Trump called Tesla CEO Elon Musk \"an amazing guy\" as Trump neared the possibility of returning to the White House.",
+                    "url": "https://www.businessinsider.com/trump-praises-elon-musk-a-star-is-born-2024-11"
+                },
+                {
+                    "title": "Photos show Donald Trump and Elon Musk's post-election bromance",
+                    "description": "Donald Trump and Elon Musk have been nearly inseparable since the election, from going to boxing matches, to meeting with Congress, to playing golf.",
+                    "url": "https://www.businessinsider.com/elon-musk-donald-trump-photos-bromance-doge-2024-11"
+                },
+                {
+                    "title": "Tesla surges 13% as market sees Donald Trump's presidency benefiting key ally Elon Musk",
+                    "description": "Tesla stock soared 13% on Wednesday after the election result. CEO Elon Musk was among Trump's most vocal and high-powered backers during the campaign.",
+                    "url": "https://markets.businessinsider.com/news/stocks/tesla-stock-price-trump-win-elon-musk-election-tsla-2024-11"
+                },
+                {
+                    "title": "Trump wins the 2024 presidential election",
+                    "description": "Former President Donald Trump campaigned largely on a message that he would be the best candidate for Americans' pocketbooks.",
+                    "url": "https://www.businessinsider.com/donald-trump-wins-presidential-election-race-2024-11"
+                },
+                {
+                    "title": "Final polls show Harris and Trump headed for a photo finish",
+                    "description": "Final polling shows Kamala Harris and Donald Trump virtually tied a day before the election.",
+                    "url": "https://www.businessinsider.com/kamala-harris-donald-trump-swing-state-polls-photo-finish-2024-11"
+                },
+                {
+                    "title": "'Adjourn, adjourn, adjourn' — Trump is expected to use new status as president-elect to delay hush-money sentencing",
+                    "description": "As president-elect,  Donald Trump will have even better chances to delay his upcoming criminal sentencing.",
+                    "url": "https://www.businessinsider.com/trump-can-use-new-status-president-elect-to-delay-sentencing-2024-11"
+                },
+                {
+                    "title": "Trump still has 4 criminal indictments waiting for him — here's what happens if he wins or loses",
+                    "description": "Not only is the presidency on the line for Donald Trump in the 2024 election, but so are the four criminal indictments against him.",
+                    "url": "https://www.businessinsider.com/donald-trump-election-criminal-cases-presidency-2024-11"
+                },
+                {
+                    "title": "Harris concedes election, saying she promised Trump a peaceful transfer of power",
+                    "description": "Vice President Kamala Harris publicly conceded the 2024 election to former President Donald Trump in a Wednesday afternoon speech.",
+                    "url": "https://www.businessinsider.com/kamala-harris-addresses-nation-following-donald-trump-big-win-election-2024-11"
+                },
+                {
+                    "title": "Company executives are speaking out on Election Day: Starbucks' Howard Schultz calls for a peaceful transition of power",
+                    "description": "Business leaders including Howard Schultz, Elon Musk, and Reid Hoffman weigh in on Election Day for Donald Trump, Kamala Harris — or simply peace.",
+                    "url": "https://www.businessinsider.com/election-day-executives-speak-trump-harris-starbucks-meta-musk-2024-11"
+                },
+                {
+                    "title": "Election betting odds tighten as polls show Harris has momentum",
+                    "description": "Kamala Harris' odds jumped overnight following a new poll that showed she held a surprise lead over Donald Trump in Iowa.",
+                    "url": "https://www.businessinsider.com/election-betting-markets-kamala-harris-gains-donald-trump-2024-11"
+                },
+                {
+                    "title": "How long will Elon Musk and Donald Trump’s lovefest last?",
+                    "description": "Two massive egos and two idiosyncratic entrepreneurs have joined forces. That’s not always a recipe for success.\n\nThe bromance between Donald Trump and Elon Musk is one of the strangest outcomes of the 2024 presidential election cycle, with Musk stumping for …",
+                    "url": "https://www.fastcompany.com/91228113/how-long-will-elon-musk-and-donald-trumps-lovefest-last"
+                },
+                {
+                    "title": "From Marc Andreessen to Sriram Krishnan, these are all the Silicon Valley leaders linked with Elon Musk's DOGE",
+                    "description": "Donald Trump has tapped Elon Musk and Vivek Ramaswamy to lead the Department of Government Efficiency.",
+                    "url": "https://www.businessinsider.com/doge-silicon-valley-leaders-elon-musk-donald-trump-vivek-ramaswamy-2024-11"
+                },
+                {
+                    "title": "Trump wins Georgia, a key victory in the hotly contested purple state",
+                    "description": "Both Vice President Kamala Harris and former President Donald Trump campaigned heavily in Georgia, a pivotal state that voted for Joe Biden in 2020.",
+                    "url": "https://www.businessinsider.com/georgia-presidential-election-results-2024-11"
+                },
+                {
+                    "title": "Who Wall Street thinks will win the election",
+                    "description": "A survey of professional investors on the platform SumZero, along with other big finance names are expecting a win for former president Donald Trump.",
+                    "url": "https://www.businessinsider.com/wall-street-election-predictions-professional-investor-survey-2024-11"
+                },
+                {
+                    "title": "Volatility, higher rates, and surging bitcoin. Here's what analysts are saying about Trump's victory.",
+                    "description": "The economic impact of a second term for Donald Trump is likely to be volatile, with public spending set to remain high, one commentator wrote.",
+                    "url": "https://www.businessinsider.com/donald-trump-victory-wall-street-reaction-economy-inflation-public-spending-2024-11"
+                },
+                {
+                    "title": "Kamala Harris mocks Donald Trump as she joins long list of politicians to cameo on 'Saturday Night Live'",
+                    "description": "During her cameo, Harris appeared to poke fun at a recent video of Trump struggling to climb into a garbage truck at a campaign event.",
+                    "url": "https://www.businessinsider.com/kamala-harris-mocks-donald-trump-surprise-saturday-night-live-cameo-2024-11"
+                },
+                {
+                    "title": "Dogecoin spikes another 15% after Musk appointed to lead DOGE department for Trump",
+                    "description": "Dogecoin spiked again on Wednesday after Donald Trump appointed Elon Musk to help lead the Department of Government Efficiency, or DOGE.",
+                    "url": "https://markets.businessinsider.com/news/currencies/dogecoin-price-elon-musk-doge-department-trump-crypto-president-election-2024-11"
+                },
+                {
+                    "title": "Trump threatens China, Mexico and Canada with new tariffs",
+                    "description": "The president-elect said he plans to impose 25% tariffs on Mexico and Canada and an additional 10% on China on his first day in office.",
+                    "url": "https://www.bbc.com/news/articles/cvg7y52n411o"
+                }
+            ]
+        },
+        {
+            "cluster_id": 1,
+            "articles": [
+                {
+                    "title": "Jeff Bezos says he’s a climate guy — why is he kissing the ring?",
+                    "description": "Jeff Bezos joined other tech moguls in congratulating Trump on his election victory. That doesn’t seem to jive with his “passion” for fighting climate change.",
+                    "url": "https://www.theverge.com/2024/11/7/24289945/jeff-bezos-donald-trump-election-amazon-climate-change-fund"
+                },
+                {
+                    "title": "What Trump’s Re-Election Means for Our Warming Planet",
+                    "description": "With control of the White House and the Senate, Republicans are poised to upend U.S. climate policy.",
+                    "url": "https://gizmodo.com/what-trumps-re-election-means-for-our-warming-planet-2000521203"
+                },
+                {
+                    "title": "Climate talks to open in shadow of Trump victory",
+                    "description": "Leaders heading to the annual UN climate talks have a lot of other distractions to contend with",
+                    "url": "https://www.bbc.com/news/articles/c2k0zd2z53xo"
+                },
+                {
+                    "title": "Trump victory 'major setback' to climate action",
+                    "description": "Trump's election will hit immediate efforts to tackle climate change, experts say - but the longer-term effect is less certain.",
+                    "url": "https://www.bbc.com/news/articles/c5ygplyg09ro"
+                },
+                {
+                    "title": "Climate fight 'bigger than one election', says Biden’s top envoy",
+                    "description": "COP29 climate summit opens amid fears the US election will derail efforts to stop the planet heating up.",
+                    "url": "https://www.bbc.com/news/articles/c20nep2rw22o"
+                },
+                {
+                    "title": "Landmark $300bn for poorer nations in COP29 climate deal",
+                    "description": "A deal is salvaged at the UN summit as poorer nations are promised record funding for climate action.",
+                    "url": "https://www.bbc.com/news/articles/cd0gx4przejo"
+                },
+                {
+                    "title": "'We were ready to leave climate summit' - negotiator tells BBC",
+                    "description": "A key negotiator with the group that pushed climate talks close to collapse speaks to the BBC about what happened.",
+                    "url": "https://www.bbc.com/news/articles/cpwrlkwz9x9o"
+                }
+            ]
+        },
+        {
+            "cluster_id": 2,
+            "articles": [
+                {
+                    "title": "Russia's response to US missiles will be 'appropriate and tangible'",
+                    "description": "US approval for Ukraine to strike inside Russia is a key move in the war as it reaches its 1,000th day.",
+                    "url": "https://www.bbc.com/news/articles/crr91nn9n79o"
+                },
+                {
+                    "title": "Russia and US battle for advantage in Ukraine war ahead of Trump's return",
+                    "description": "Moscow appears to be maximising its gains while Joe Biden abandons long-held red lines at the end of his presidency.",
+                    "url": "https://www.bbc.com/news/articles/c8jyvv1l99wo"
+                },
+                {
+                    "title": "Biden allows Ukraine to strike inside Russia with missiles",
+                    "description": "The move is a major change in US policy after months of entreaties from Kyiv.",
+                    "url": "https://www.bbc.com/news/articles/c789x0y91vvo"
+                }
+            ]
+        },
+        {
+            "cluster_id": 3,
+            "articles": [
+                {
+                    "title": "Russia Is Going All Out on Election Day Interference",
+                    "description": "Along with other foreign influence operations—including from Iran—Kremlin-backed campaigns to stoke division and fear have gone into overdrive.",
+                    "url": "https://www.wired.com/story/russia-election-disinformation-2024-election-day/"
+                },
+                {
+                    "title": "Watch: Putin congratulates 'courageous' Trump on election win",
+                    "description": "The Russian president says he was impressed by Trump's reaction to the first assassination attempt against him.",
+                    "url": "https://www.bbc.com/news/videos/c30pzd3znqmo"
+                },
+                {
+                    "title": "Putin's allies celebrated as Trump closed in on victory",
+                    "description": "Kremlin officials and allies welcomed Donald Trump's victory in the US election. However, they have reasons to be wary.",
+                    "url": "https://www.businessinsider.com/putin-kremlin-allies-celebrate-donald-trump-election-victory-russia-reaction-2024-11"
+                }
+            ]
+        },
+        {
+            "cluster_id": 4,
+            "articles": [
+                {
+                    "title": "States’ Abortion Rights Wins May Be Short-Lived Under a Second Trump Term",
+                    "description": "More than two years after a historic Supreme Court decision ended the national right to an abortion, some states are fighting back—but the future of abortion rights remains in doubt.",
+                    "url": "https://www.wired.com/story/donald-trump-win-seven-states-vote-abortion-rights/"
+                },
+                {
+                    "title": "Donald Trump has won the presidential election and will return to the White House",
+                    "description": "Becoming just the second president to be defeated and then reelected to a subsequent term, former President Donald Trump defeated Vice President Harris and will be the 47th president.",
+                    "url": "https://www.npr.org/2024/11/06/nx-s1-5180057/donald-trump-wins-2024-election"
+                },
+                {
+                    "title": "Once Again, Donald Trump Misreads the Senate",
+                    "description": "As Trump's base claims he can appoint his cabinet through recess appointments, McConnell defends the Senate's role, suggests it's the only option",
+                    "url": "https://time.com/7177280/donald-trump-cabinet-mitch-mcconnell/"
+                },
+                {
+                    "title": "Trump wins a second term. And, Republicans reclaim Senate control",
+                    "description": "Former President Donald Trump has won a second presidential term. The GOP now controls the Senate, while control of the House remains too close to call. And, 10 states voted on reproductive rights.",
+                    "url": "https://www.npr.org/2024/11/06/g-s1-32961/up-first-newsletter-donald-trump-second-term-senate-gop-control-reproductive-rights"
+                }
+            ]
+        }
+    ]
+}
