@@ -33,6 +33,35 @@ interface Summary {
   summary: string;
 }
 
+function toTitleCase(input: string): string {
+  const minorWords = new Set([
+    "and",
+    "the",
+    "of",
+    "in",
+    "on",
+    "at",
+    "with",
+    "a",
+    "an",
+    "but",
+    "or",
+    "for",
+    "nor",
+  ]);
+
+  return input
+    .split(" ")
+    .map((word, index) =>
+      index === 0 ||
+      index === input.split(" ").length - 1 ||
+      !minorWords.has(word.toLowerCase())
+        ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        : word.toLowerCase()
+    )
+    .join(" ");
+}
+
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -191,7 +220,7 @@ const SearchPage: React.FC = () => {
 
       setArticles(articlesData);
       setSummary({
-        title: term,
+        title: toTitleCase(term),
         summary: data.summary.summary,
       });
     } catch (error) {
