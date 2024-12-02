@@ -206,6 +206,12 @@ const SearchPage: React.FC = () => {
     }
   }
 
+  function handleArticleDoubleClick(article: Article) {
+    if (article.url) {
+      window.open(article.url, "_blank"); // Open the URL in a new tab
+    }
+  }
+
   function closePanel() {
     setSelectedArticle(null);
     setSelectedArticleId(null);
@@ -241,6 +247,7 @@ const SearchPage: React.FC = () => {
                         : "border-transparent"
                     }`}
                     onClick={() => handleArticleClick(article)}
+                    onDoubleClick={() => handleArticleDoubleClick(article)}
                   >
                     <div className="flex items-center space-x-4">
                       <Image
@@ -278,7 +285,7 @@ const SearchPage: React.FC = () => {
           }`}
           style={{ zIndex: 50 }}
         >
-          <button onClick={closePanel} className="p-2 text-blue-600 rounded-md">
+          <button onClick={closePanel} className="p-2 text-gray-500 rounded-md">
             Close
           </button>
           {selectedArticle && (
@@ -287,6 +294,14 @@ const SearchPage: React.FC = () => {
               <p className="text-gray-500">
                 {selectedArticle.source} • {selectedArticle.time}
               </p>
+              <a
+                href={selectedArticle.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mt-4 text-blue-500 hover:underline"
+              >
+                Read Full Article
+              </a>
               <audio controls className="mt-2 w-full">
                 <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
                 {/* Replace with actual audio file */}
@@ -324,7 +339,7 @@ const SearchPage: React.FC = () => {
                     ))}
                   </div>
                 </>
-              )}
+              )}              
             </>
           )}
         </aside>
