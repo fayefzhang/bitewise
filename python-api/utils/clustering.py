@@ -12,7 +12,6 @@ from transformers import pipeline
 
 nltk.download('punkt')
 nltk.download('stopwords')
-nltk.download('punkt_tab')
 nltk.download('wordnet')
 
 pd.set_option('display.max_colwidth', None)

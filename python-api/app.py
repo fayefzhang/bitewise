@@ -3,6 +3,7 @@ import os
 from utils.openai import generate_summary_individual, generate_summary_collection
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources
 from utils.exa import get_contents
+from utils.clustering import cluster_articles
 import logging
 
 app = Flask(__name__)
