@@ -60,7 +60,6 @@ const Header: React.FC<HeaderProps> = ({
     if (e.key === "Enter" && searchTerm.trim()) {
       onSearch(searchTerm.trim());
       setPreferences(searchPreferences);
-      console.log("sending search pref to page\n", searchPreferences);
     }
   };
 

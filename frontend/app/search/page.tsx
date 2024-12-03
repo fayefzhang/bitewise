@@ -124,7 +124,6 @@ const SearchPage: React.FC = () => {
   }, [selectedArticle, AIPreferences]);
 
   async function setPreferences(preferences: Preferences) {
-    console.log("frontend page after search\n", headerPreferences);
     setHeaderPreferences(preferences);
   }
 
