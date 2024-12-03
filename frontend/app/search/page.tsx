@@ -1,66 +1,11 @@
 "use client";
 
+import { Preferences, Article, Summary } from '../common/interfaces';
+import { toTitleCase } from '../common/utils'
 import Header from "../components/header";
 import Image from "next/image";
 import { Key, useState, useEffect } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-
-interface Article {
-  id: Key | null | undefined;
-  url: string;
-  imageUrl: string;
-  title: string;
-  source: string;
-  content: string;
-  date: string;
-  bias: string;
-  readTime: string;
-  relatedSources: RelatedSource[];
-  details: string[];
-  fullContent: string;
-}
-
-interface RelatedSource {
-  id: Key | null | undefined;
-  title: string;
-  source: string;
-  date: string;
-  bias: string;
-}
-
-interface Summary {
-  title: string;
-  summary: string;
-}
-
-function toTitleCase(input: string): string {
-  const minorWords = new Set([
-    "and",
-    "the",
-    "of",
-    "in",
-    "on",
-    "at",
-    "with",
-    "a",
-    "an",
-    "but",
-    "or",
-    "for",
-    "nor",
-  ]);
-
-  return input
-    .split(" ")
-    .map((word, index) =>
-      index === 0 ||
-      index === input.split(" ").length - 1 ||
-      !minorWords.has(word.toLowerCase())
-        ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        : word.toLowerCase()
-    )
-    .join(" ");
-}
 
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -69,6 +14,7 @@ const SearchPage: React.FC = () => {
   const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
     null
   );
+  const [headerPreferences, setHeaderPreferences] = useState<Preferences | null> (null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const searchParams = useSearchParams();
@@ -175,7 +121,11 @@ const SearchPage: React.FC = () => {
     };
 
     fetchArticleSummary();
-  }, [selectedArticle]);
+  }, [selectedArticle, AIPreferences]);
+
+  async function setPreferences(preferences: Preferences) {
+    setHeaderPreferences(preferences);
+  }
 
   async function handleSearch(term: string) {
     const requestBody = {
@@ -256,7 +206,7 @@ const SearchPage: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
-      <Header onSearch={handleSearch} placeholder="Search topic..." />
+      <Header onSearch={handleSearch} setPreferences={setPreferences} placeholder="Search topic..." />
 
       {/* Main Content */}
       <main className="p-4 md:p-8 main-content flex">
@@ -274,7 +224,16 @@ const SearchPage: React.FC = () => {
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
               </section>
               <section>
-                {articles.map((article) => (
+                {articles.filter((article) => {
+                  let readTime = true;
+                  if (headerPreferences && headerPreferences.read_time != "") {
+                    readTime = ((headerPreferences?.read_time == "Short" && article.readTime == "<2 min") || 
+                    (headerPreferences?.read_time == "Medium" && article.readTime == "2-7 min") || 
+                    (headerPreferences?.read_time == "Long" && article.readTime == ">7 min"));
+                  }
+                  return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime);
+                })
+                .map((article) => (
                   <div
                     key={article.id}
                     className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${

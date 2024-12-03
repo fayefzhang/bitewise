@@ -1,25 +1,70 @@
 "use client";
 
+import { Preferences } from '../common/interfaces';
+import { search } from "@/api/api";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 interface HeaderProps {
   onSearch: (term: string) => void;
+  setPreferences: (preferences: Preferences) => void;
   placeholder?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
   onSearch,
+  setPreferences,
   placeholder = "Search for articles...",
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const [searchPreferences, setSearchPreferences] = useState<Preferences>({
+    sources: [],
+    domains: [],
+    exclude_domains: [],
+    from_date: "",
+    read_time: "",
+    bias: "",
+  });
+
+  const toggleReadTime = (time: string) => {
+    if (searchPreferences.read_time == time) {
+      setSearchPreferences((prev) => ({
+        ...prev,
+        read_time: "",
+      }));
+    } else {
+      setSearchPreferences((prev) => ({
+        ...prev,
+        read_time: time,
+      }));
+    }
+  };
+
+  const toggleBias = (articleBias: string) => {
+    if (searchPreferences.bias == articleBias) {
+      setSearchPreferences((prev) => ({
+        ...prev,
+        bias: "",
+      }));
+    } else {
+      setSearchPreferences((prev) => ({
+        ...prev,
+        bias: articleBias,
+      }));
+    }
+  };  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim()) {
       onSearch(searchTerm.trim());
+      setPreferences(searchPreferences);
     }
+  };
+
+  const updatePreference = (key: string, value: unknown) => {
+    setSearchPreferences((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -66,61 +111,42 @@ const Header: React.FC<HeaderProps> = ({
           style={{ zIndex: 50 }}
         >
           <h3 className="text-lg font-bold mb-4">Advanced Settings</h3>
-          {/* Date: Slider */}
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Date</label>
-            <input type="range" className="w-full" />
-          </div>
-          {/* Read Time: Buttons */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">
-              Read Time
-            </label>
+            <label className="block text-sm font-semibold mb-2">Read Time</label>
             <div className="flex space-x-2">
-              <button className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">
-                Short
-              </button>
-              <button className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">
-                Medium
-              </button>
-              <button className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">
-                Long
-              </button>
+              {["Short", "Medium", "Long"].map((time: string) => {
+                const isSelected = searchPreferences.read_time == time;
+                return (
+                  <button
+                    key={time}
+                    className={`px-4 py-2 rounded-md ${
+                      isSelected ? "bg-blue-500 text-white" : "bg-gray-200"
+                    } hover:bg-gray-300`}
+                    onClick={() => toggleReadTime(time)}
+                  >
+                    {time}
+                  </button>
+                );
+              })}
             </div>
           </div>
-          {/* Topic: Tags */}
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Topic</label>
-            <div className="flex space-x-2 flex-wrap">
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
-                Technology
-              </span>
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
-                Health
-              </span>
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
-                Business
-              </span>
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
-                Entertainment
-              </span>
-            </div>
-          </div>
-          {/* Bias: Slider */}
-          <div>
-            <label className="block text-sm font-semibold mb-2">Bias</label>
-            <input type="range" className="w-full" />
-          </div>
-          {/* Clustering: Checkmark */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">
-              Clustering
-            </label>
-            <div className="flex items-center space-x-2">
-              <input type="checkbox" id="clustering" className="w-4 h-4" />
-              <label htmlFor="clustering" className="text-sm">
-                Enable Clustering
-              </label>
+          <label className="block text-sm font-semibold mb-2">Bias</label>
+            <div className="flex space-x-2">
+              {["Left", "Center", "Right"].map((bias: string) => {
+                const isSelected = searchPreferences.bias == bias;
+                return (
+                  <button
+                    key={bias}
+                    className={`px-4 py-2 rounded-md ${
+                      isSelected ? "bg-blue-500 text-white" : "bg-gray-200"
+                    } hover:bg-gray-300`}
+                    onClick={() => toggleBias(bias)}
+                  >
+                    {bias}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
