@@ -16,7 +16,9 @@ def search():
         app.logger.info(f"Received data: {data}")
         query = data.get("query", "")
         search_preferences = data.get("search_preferences", {})
+        print(data.get("cluster"))
         cluster = data.get("cluster", False)
+        print(cluster)
 
         if not query:
             return jsonify({"error": "Query is required"}), 400

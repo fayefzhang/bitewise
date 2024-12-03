@@ -132,6 +132,7 @@ const SearchPage: React.FC = () => {
       query: term,
       search_preferences: searchPreferences,
       ai_preferences: AIPreferences,
+      cluster: headerPreferences?.clustering,
     };
 
     // Clear existing content
