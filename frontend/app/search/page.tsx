@@ -12,7 +12,7 @@ interface Article {
   title: string;
   source: string;
   content: string;
-  time: string;
+  date: string;
   bias: string;
   readTime: string;
   relatedSources: RelatedSource[];
@@ -24,7 +24,7 @@ interface RelatedSource {
   id: Key | null | undefined;
   title: string;
   source: string;
-  time: string;
+  date: string;
   bias: string;
 }
 
@@ -100,7 +100,7 @@ const SearchPage: React.FC = () => {
         id: 1,
         title: "Chancellor Scholz...",
         source: "Reuters",
-        time: "1 hr ago",
+        date: "1 hr ago",
         bias: "right-center",
       };
 
@@ -112,7 +112,7 @@ const SearchPage: React.FC = () => {
           "Germany’s ruling coalition collapses as Chancellor Scholz fires finance minister",
         source: "CNBC",
         content: "Germany’s ruling coalition collapsed on Wednesday...",
-        time: "5 hours ago",
+        date: "5 hours ago",
         bias: "center",
         readTime: "5 MIN READ",
         relatedSources: [sampleRelatedSource],
@@ -210,7 +210,7 @@ const SearchPage: React.FC = () => {
         title: entry.title,
         source: entry.source.name,
         content: entry.content,
-        time: entry.time,
+        date: entry.date,
         bias: entry.bias,
         readTime: entry.readTime,
         relatedSources: entry.relatedSources,
@@ -328,7 +328,7 @@ const SearchPage: React.FC = () => {
             <>
               <h2 className="font-bold">{selectedArticle.title}</h2>
               <p className="text-gray-500">
-                {selectedArticle.source} • {selectedArticle.time}
+                {selectedArticle.source} • {selectedArticle.date}
               </p>
               <a
                 href={selectedArticle.url}
@@ -366,7 +366,7 @@ const SearchPage: React.FC = () => {
                         <div className="flex-wrap items-center text-xs">
                           <p className="text-gray-500">{source.title}</p>
                           <p className="text-gray-500">{source.source}</p>
-                          <p className="text-gray-500">{source.time}</p>
+                          <p className="text-gray-500">{source.date}</p>
                           <p className="font-bold text-blue-600">
                             {source.bias}
                           </p>

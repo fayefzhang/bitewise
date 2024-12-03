@@ -50,7 +50,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             title: entry.title,
             source: entry.source.name,
             content: entry.content,
-            time: new Date(entry.publishedAt).toLocaleTimeString(),
+            date: entry.publishedAt,
             bias: entry.biasRating,
             readTime: entry.readTime,
             relatedSources: [], // TODO
