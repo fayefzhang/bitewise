@@ -8,6 +8,7 @@ export interface Preferences {
   from_date: string; // this defaults to past 7 days in newsapi code
   read_time: string;
   bias: string;
+  clustering: boolean;
 }
 
 // Article Interface
@@ -24,6 +25,7 @@ export interface Article {
   relatedSources: RelatedSource[];
   details: string[];
   fullContent: string;
+  cluster: number;
 }
 
 // RelatedSource Interface

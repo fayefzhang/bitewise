@@ -1,6 +1,6 @@
 "use client";
 
-import { Preferences } from '../common/interfaces';
+import { Preferences } from "../common/interfaces";
 import { search } from "@/api/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,6 +26,7 @@ const Header: React.FC<HeaderProps> = ({
     from_date: "",
     read_time: "",
     bias: "",
+    clustering: false,
   });
 
   const toggleReadTime = (time: string) => {
@@ -54,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({
         bias: articleBias,
       }));
     }
-  };  
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim()) {
@@ -112,7 +113,9 @@ const Header: React.FC<HeaderProps> = ({
         >
           <h3 className="text-lg font-bold mb-4">Advanced Settings</h3>
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Read Time</label>
+            <label className="block text-sm font-semibold mb-2">
+              Read Time
+            </label>
             <div className="flex space-x-2">
               {["Short", "Medium", "Long"].map((time: string) => {
                 const isSelected = searchPreferences.read_time == time;
@@ -131,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
           <div className="mb-4">
-          <label className="block text-sm font-semibold mb-2">Bias</label>
+            <label className="block text-sm font-semibold mb-2">Bias</label>
             <div className="flex space-x-2">
               {["Left", "Center", "Right"].map((bias: string) => {
                 const isSelected = searchPreferences.bias == bias;
@@ -147,6 +150,28 @@ const Header: React.FC<HeaderProps> = ({
                   </button>
                 );
               })}
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-2">
+              Clustering
+            </label>
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="clustering"
+                className="w-4 h-4"
+                checked={searchPreferences.clustering}
+                onChange={(e) =>
+                  setSearchPreferences((prev) => ({
+                    ...prev,
+                    clustering: e.target.checked,
+                  }))
+                }
+              />
+              <label htmlFor="clustering" className="text-sm">
+                Enable Clustering
+              </label>
             </div>
           </div>
         </div>

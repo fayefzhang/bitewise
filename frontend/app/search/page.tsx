@@ -166,6 +166,7 @@ const SearchPage: React.FC = () => {
         relatedSources: entry.relatedSources,
         details: entry.details,
         fullContent: entry.fullContent,
+        cluster: entry.cluster,
       }));
 
       setArticles(articlesData);
@@ -231,7 +232,7 @@ const SearchPage: React.FC = () => {
                     (headerPreferences?.read_time == "Medium" && article.readTime == "2-7 min") || 
                     (headerPreferences?.read_time == "Long" && article.readTime == ">7 min"));
                   }
-                  return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime);
+                  return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime && (!headerPreferences.clustering || article.cluster != -1));
                 })
                 .map((article) => (
                   <div
