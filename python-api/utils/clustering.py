@@ -39,15 +39,19 @@ def cluster_articles(search_data):
     embeddings = model.encode(articles_df['processed_text'].fillna(''))
     clusters = dbscan.fit_predict(embeddings)
     articles_df['cluster'] = clusters
-
     # Convert clusters to JSON format
-    clusters_json = []
-    for cluster_id in sorted(articles_df['cluster'].unique()):
-        cluster_articles = articles_df[articles_df['cluster'] == cluster_id]
-        cluster_data = {
-            "cluster_id": int(cluster_id),
-            "articles": cluster_articles[['title', 'description', 'url']].to_dict(orient='records')
-        }
-        clusters_json.append(cluster_data)
+    # clusters_json = []
+    # for cluster_id in sorted(articles_df['cluster'].unique()):
+    #     cluster_articles = articles_df[articles_df['cluster'] == cluster_id]
+    #     cluster_data = {
+    #         "cluster_id": int(cluster_id),
+    #         "articles": cluster_articles[['title', 'description', 'url']].to_dict(orient='records')
+    #     }
+    #     clusters_json.append(cluster_data)
     
-    return clusters_json
+    # return dict mapping article id to cluster
+    # print("IN DBSCAN- CLUSTERS:")
+    # print(clusters)
+    id_to_cluster = dict(zip(articles_df['id'], articles_df['cluster']))
+
+    return id_to_cluster

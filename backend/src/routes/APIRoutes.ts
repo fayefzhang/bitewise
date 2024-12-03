@@ -28,14 +28,14 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
 
         // read cache
-        const cache = readCache();
-        if (query === EXAMPLE_SEARCH_QUERY) {
-            if (cache[query]) {
-                console.log("search: using cached response for example query");
-                res.json(cache[query]);
-                return;
-            }
-        }
+        // const cache = readCache();
+        // if (query === EXAMPLE_SEARCH_QUERY) {
+        //     if (cache[query]) {
+        //         console.log("search: using cached response for example query");
+        //         res.json(cache[query]);
+        //         return;
+        //     }
+        // }
 
         // Step 1: fetch articles
         const articlesResponse = await axios.post("http://localhost:5000/search", { query, search_preferences, cluster });
@@ -56,6 +56,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             relatedSources: [], // TODO
             details: [], // TODO: summary 
             // ^^ @karen unsure what this means? -jared
+            cluster: entry.cluster,
             fullContent: null
         }));
 
@@ -112,11 +113,11 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // Step 5: cache response if it matches example query (see step 4 format)
-        if (query === EXAMPLE_SEARCH_QUERY) {
-            console.log("search: caching response for example query");
-            cache[query] = result;
-            writeCache(cache);
-        }
+        // if (query === EXAMPLE_SEARCH_QUERY) {
+        //     console.log("search: caching response for example query");
+        //     cache[query] = result;
+        //     writeCache(cache);
+        // }
 
         res.json(result);
     } catch (error) {

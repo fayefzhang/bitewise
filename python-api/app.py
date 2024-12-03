@@ -35,7 +35,13 @@ def search():
 
         # add clustering results if requested
         if cluster and search_results:
-            response["clusters"] = cluster_articles(search_results)
+            cluster_dict = cluster_articles(search_results)
+            print(set(cluster_dict.values()))
+            for article in search_results:
+                article_id = article.get("id")
+                article["cluster"] = cluster_dict.get(article_id, None)
+                if article["cluster"] != -1:
+                    print(article["title"], article["cluster"])
 
         return jsonify(response), 200
     except Exception as e:
@@ -114,7 +120,7 @@ def summarize_articles():
     
     # dict mapping urls to summary
     contents_mapping = get_contents(articles)
-    print(contents_mapping)
+    # print(contents_mapping)
 
     # enrich articles with full scraped content
     enriched_articles = []
