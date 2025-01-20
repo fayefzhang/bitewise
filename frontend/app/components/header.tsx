@@ -109,7 +109,9 @@ const Header: React.FC<HeaderProps> = ({
         </button>
       </div>
       <div className="flex space-x-4 absolute right-4">
-        <button className="p-3 rounded-full bg-white text-2xl">☰</button>
+        <Link href="/profile">
+          <button className="p-3 rounded-full bg-white text-2xl">☰</button>
+        </Link>
         <button
           className="p-3 rounded-full bg-white text-2xl"
           onClick={openPopup}
