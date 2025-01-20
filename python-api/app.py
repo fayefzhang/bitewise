@@ -7,7 +7,12 @@ from utils.clustering import cluster_articles
 import logging
 
 app = Flask(__name__)
+app.logger.setLevel(logging.DEBUG)
 
+@app.before_request
+def log_request_info():
+    logging.debug(f"Headers: {request.headers}")
+    logging.debug(f"Body: {request.data}")
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -28,6 +33,10 @@ def search():
         filename = os.path.join("data", generate_filename(query))
         search_results = user_search(query, search_preferences, filename)
         search_results = "" if search_results is None else search_results
+        if search_results != "":
+            print("search results not empty")
+        else:
+            print ("search results empty")
         
         response = {
             "query": query,
@@ -140,5 +149,6 @@ def summarize_articles():
         "summary": summary,
         "enriched_articles": enriched_articles,
     }), 200
+
 if __name__ == '__main__':
     app.run(port=5000)
