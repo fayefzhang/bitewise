@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface SignInSignUpPopupProps {
   onClose: () => void;
@@ -13,6 +14,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 }) => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [animationClass, setAnimationClass] = useState("hidden");
+  const router = useRouter();
 
   useEffect(() => {
     if (isOpen) {
@@ -21,6 +23,18 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
       setAnimationClass("hidden");
     }
   }, [isOpen]);
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Mock signup process
+    const signupSuccess = true; // Replace with actual signup logic
+
+    if (signupSuccess) {
+      router.push("/interests"); // Redirect to the /interests page
+    } else {
+      // Handle signup error (e.g., show error message)
+    }
+  };
 
   return (
     <>
@@ -41,7 +55,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
           <h2 className="text-xl font-bold mb-4 text-center">
             {isSignIn ? "Sign In" : "Sign Up"}
           </h2>
-          <form className="space-y-4">
+          <form onSubmit={handleFormSubmit} className="space-y-4">
             {!isSignIn && (
               <div>
                 <label htmlFor="name">Name</label>
