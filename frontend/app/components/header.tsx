@@ -1,6 +1,7 @@
 "use client";
 
 import { Preferences } from "../common/interfaces";
+import SignInPopUp from "./signinpopup";
 import { search } from "@/api/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({
   setPreferences,
   placeholder = "Search for articles...",
 }) => {
+  // SEARCH FUNCTIONAL SETUP
   const [searchTerm, setSearchTerm] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [searchPreferences, setSearchPreferences] = useState<Preferences>({
@@ -68,6 +70,12 @@ const Header: React.FC<HeaderProps> = ({
     setSearchPreferences((prev) => ({ ...prev, [key]: value }));
   };
 
+  // SIGN IN SIGN UP POPUP
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
@@ -102,8 +110,16 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <div className="flex space-x-4 absolute right-4">
         <button className="p-3 rounded-full bg-white text-2xl">☰</button>
-        <button className="p-3 rounded-full bg-white text-2xl">👤</button>
+        <button
+          className="p-3 rounded-full bg-white text-2xl"
+          onClick={openPopup}
+        >
+          👤
+        </button>
       </div>
+
+      {/* Sign In Sign Up Pop Up */}
+      {isPopupOpen && <SignInPopUp isOpen={isPopupOpen} onClose={closePopup} />}
 
       {/* Advanced Search */}
       {showSettings && (
