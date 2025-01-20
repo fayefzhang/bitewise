@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const router: Router = express.Router();
 const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
+// const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
 
 // @route POST /search
@@ -38,7 +40,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // }
 
         // Step 1: fetch articles
-        const articlesResponse = await axios.post("http://localhost:5000/search", { query, search_preferences, cluster });
+        const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
         
         const filteredResults = articlesResponse.data.results
@@ -76,7 +78,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             ai_preferences,
         };
 
-        const summaryResponse = await axios.post("http://localhost:5000/summarize-articles", summaryRequestBody);
+        const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
         const { summary, enriched_articles } = summaryResponse.data;
 
         console.log("Summary:", summary);
@@ -137,7 +139,7 @@ router.post('/dailynews', async (req: Request, res: Response): Promise<void> => 
             res.status(400).json({ message: 'User preferences are required' });
         }
 
-        const response = await axios.post('http://localhost:5000/daily-news', { search_preferences });
+        const response = await axios.post(`${BASE_URL}/daily-news`, { search_preferences });
         res.json(response.data);
     } catch (error) {
         console.error("error processing search request", error);
@@ -158,7 +160,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         }
 
         // send article and user prefs to the Python backend
-        const response = await axios.post('http://localhost:5000/summarize-article', { 
+        const response = await axios.post(`${BASE_URL}/summarize-article`, { 
             article, 
             ai_preferences 
         });
@@ -184,7 +186,7 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
         }
 
         // send articles and user prefs to the Python backend
-        const response = await axios.post('http://localhost:5000/summarize-articles', { 
+        const response = await axios.post(`${BASE_URL}/summarize-articles`, { 
             articles, 
             ai_preferences 
         });

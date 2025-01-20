@@ -9,3 +9,5 @@ tokenizers==0.20.3
 torch==2.5.1
 transformers==4.46.2
 openai==1.55.1
+ffmpeg==1.4
+podcastfy==0.4.1
