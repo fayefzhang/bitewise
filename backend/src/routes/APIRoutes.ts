@@ -198,5 +198,49 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
     }
 });
 
+// @route POST generate/audio
+// @description Generates an audio file from an article text using TTS
+// should only be used on article SUMMARY to avoid rate limits
+router.post('/generate/audio', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { article, summary } = req.body; // should be an article title and its content
+        if (!article) {
+            res.status(400).json({ message: 'Article title is required' });
+        }
+        if (!summary) {
+            res.status(400).json({ message: 'Article summary is required' });
+        }
+     
+        const response = await axios.post(`${BASE_URL}/generate-audio`, { 
+            article, summary,  
+        });
+
+        res.json(response.data); 
+    } catch (error) {
+        console.error("Error processing generate audio request", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// @route POST generate/podcast
+// @description Generates a podcast based on multiple articles
+router.post('/generate/podcast', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { articles } = req.body; // should be a list of article URLs
+        if (!articles) {
+            res.status(400).json({ message: 'Articles are required' });
+        }
+     
+        const response = await axios.post(`${BASE_URL}/generate-podcast`, { 
+            articles,  
+        });
+
+        res.json(response.data); 
+    } catch (error) {
+        console.error("Error processing generate podcast request", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 export default router;

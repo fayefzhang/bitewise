@@ -5,6 +5,8 @@ from utils.newsapi import generate_filename, daily_news, user_search, get_source
 from utils.exa import get_contents
 from utils.clustering import cluster_articles
 import logging
+import re
+
 
 app = Flask(__name__)
 
@@ -146,13 +148,13 @@ def summarize_articles():
 def generate_audio():
     data = request.get_json()
     article_title = data.get('article')
-    article_content = data.get('content')
-    filename = article_title + "-tts.mp3"
+    summary = data.get('summary')
+    filename = re.sub(r'[<>:"/\\|?*]', '', article_title) + "-tts.mp3"
     if not article_title:
         return jsonify({"error": "Article title is required"}), 400
-    if not article_content:
-        return jsonify({"error": "Article content is required"}), 400
-    audio_path = generate_audio_from_article(article_content, filename)
+    if not summary:
+        return jsonify({"error": "Article summary is required"}), 400
+    audio_path = generate_audio_from_article(summary, filename)
     return jsonify({"audio_path": audio_path}), 200
 
 

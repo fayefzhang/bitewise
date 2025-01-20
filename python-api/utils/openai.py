@@ -4,6 +4,8 @@ from . import config
 import io
 import sys
 import re
+from pathlib import Path
+from podcastfy.client import generate_podcast
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 OpenAI.api_key = config.OPENAI_API_KEY 
@@ -155,7 +157,7 @@ def generate_summary_collection(input_text, user_preferences):
 # Generates audio file based on given text using TTS
 def generate_audio_from_article(text: str, filename: str = "text-to-speech.mp3"):
     
-    audio_dir = Path(__file__).parent / "data/tts"
+    audio_dir = Path(__file__).parent.parent / "data/tts"
     speech_file_path = audio_dir / filename
     response = client.audio.speech.create(
         model="tts-1",
@@ -170,14 +172,18 @@ def generate_audio_from_article(text: str, filename: str = "text-to-speech.mp3")
 # Input: list of URLs of articles to be included in the podcast
 # Output: paths to the generated audio file and transcript file
 def generate_podcast_collection(links: [str]):
+    PROJECT_ROOT = Path(__file__).parent.parent
+
     custom_config = {
-      "conversation_style": ["formal", "engaging"],
+      "conversation_style": ["formal", "engaging", "enthusiastic"],
       "podcast_name": "BiteWise",
       "podcast_tagline": "Your hub for personalized, digestible news",
       "creativity": 0,
-      "output_directories": {
-        "transcripts": "./data/podcasts/transcripts",
-        "audio": "./data/podcasts/audio"
+      "text_to_speech": {"output_directories": 
+        {
+          "transcripts": str(PROJECT_ROOT / "data/podcasts/transcripts"),
+          "audio": str(PROJECT_ROOT / "data/podcasts/audio")
+        }
       }
     }
 
