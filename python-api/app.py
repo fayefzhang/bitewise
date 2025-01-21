@@ -4,7 +4,10 @@ from utils.openai import generate_summary_individual, generate_summary_collectio
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources
 from utils.exa import get_contents
 from utils.clustering import cluster_articles
+from collections import Counter
 import logging
+import json
+import pandas as pd
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
@@ -14,6 +17,40 @@ def log_request_info():
     logging.debug(f"Headers: {request.headers}")
     logging.debug(f"Body: {request.data}")
 
+@app.route('/daily-news', methods=['POST'])
+def refresh_daily_news():
+    # get filepath for daily newws data
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(current_dir, 'data', 'articles_data.json')
+
+    # apply clustering and get top 4 clusters
+    cluster_dict = cluster_daily_news_titles(json_file_path)
+    print(set(cluster_dict.values()))
+
+    # add cluster label to articles
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        articles_data = json.load(f)
+    articles_df = pd.DataFrame(articles_data)
+    articles_df['cluster'] = articles_df.index.map(cluster_dict)
+
+    # get top clusters
+    top_clusters = (
+        articles_df['cluster']
+        .value_counts()
+        .nlargest(4)
+        .index
+    )
+
+    # get articles for top clusters
+    top_articles = articles_df[articles_df['cluster'].isin(top_clusters)]
+    response = (
+        top_articles.groupby('cluster')
+        .apply(lambda x: x.to_dict(orient='records'))
+        .to_dict()
+    )
+    return jsonify(response)
+
+
 @app.route('/search', methods=['POST'])
 def search():
     try:
@@ -21,9 +58,7 @@ def search():
         app.logger.info(f"Received data: {data}")
         query = data.get("query", "")
         search_preferences = data.get("search_preferences", {})
-        print(data.get("cluster"))
         cluster = data.get("cluster", False)
-        print(cluster)
 
         if not query:
             return jsonify({"error": "Query is required"}), 400

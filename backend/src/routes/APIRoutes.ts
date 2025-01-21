@@ -125,25 +125,38 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
-// @route POST /dailynews
-// @description refreshes daily news
-// @returns list of articles
-router.post('/dailynews', async (req: Request, res: Response): Promise<void> => {
+// @route POST /daily-news
+// @description Fetches top clusters of daily news articles
+// @returns grouped articles by cluster
+router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { search_preferences } = req.body;
-
-        if (!search_preferences) {
-            res.status(400).json({ message: 'User preferences are required' });
-        }
-
-        const response = await axios.post('http://127.0.0.1:5000/daily-news', { search_preferences });
-        res.json(response.data);
+        const response = await axios.post('http://127.0.0.1:5000/daily-news');
+        res.status(200).json(response.data);
     } catch (error) {
         console.error("error processing search request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
+// // @route POST /dailynews
+// // @description refreshes daily news
+// // @returns list of articles
+// router.post('/dailynews', async (req: Request, res: Response): Promise<void> => {
+//     try {
+//         const { search_preferences } = req.body;
+
+//         if (!search_preferences) {
+//             res.status(400).json({ message: 'User preferences are required' });
+//         }
+
+//         const response = await axios.post('http://127.0.0.1:5000/daily-news', { search_preferences });
+//         res.json(response.data);
+//     } catch (error) {
+//         console.error("error processing search request", error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 // @route POST summarize/article
 // @description Summarizes a single article based on user preferences using OpenAI
