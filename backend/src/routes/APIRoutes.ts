@@ -132,14 +132,54 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 // @returns grouped articles by cluster
 router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { search_preferences } = req.body;
+        const { search_preferences, ai_preferences } = req.body;
 
         if (!search_preferences) {
             res.status(400).json({ message: 'User preferences are required' });
         }
 
+        if (!ai_preferences) {
+            res.status(400).json({ message: 'AI preferences are required' });
+        }
+
         const response = await axios.post(`${BASE_URL}/daily-news`, { search_preferences });
-        res.json(response.data);
+
+        // summarizing each cluster
+        const clusterSummaries = await Promise.all(
+            Object.entries(response.data).map(async ([clusterId, articles]) => {
+                // data formatted for summary endpoint
+                const formattedArticles = (articles as any[]).reduce((acc, article) => {
+                    acc[article.url] = {
+                        title: article.title,
+                        fullContent: article.content
+                    };
+                    return acc;
+                }, {});
+                try {
+                    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
+                        articles: formattedArticles,
+                        ai_preferences: ai_preferences
+                    });
+
+                    const summaryData = summaryResponse.data; 
+
+                    return {
+                        cluster: Number(clusterId),
+                        articles: summaryData.enriched_articles, 
+                        summary: summaryData.summary
+                    };
+                } catch (error) {
+                    console.error(`Error summarizing cluster ${clusterId}:`, error);
+                    return {
+                        cluster: Number(clusterId),
+                        articles: formattedArticles,
+                        summary: "Summary generation failed."
+                    };
+                }
+            })
+        );
+        
+        res.json(clusterSummaries);
     } catch (error) {
         console.error("error processing search request", error);
         res.status(500).json({ error: 'Internal server error' });
