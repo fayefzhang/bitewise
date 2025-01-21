@@ -1,0 +1,10 @@
+{
+    "sources": ["source1", "source2"],
+    "domains": ["domain1.com", "domain2.com"],
+    "exclude_domains": ["exclude1.com"],
+    "from_date": "2023-01-01",
+    "read_time": "5 min",
+    "bias": "neutral",
+    "clustering": true,
+    "topics": ["Technology", "Climate Change"]
+}

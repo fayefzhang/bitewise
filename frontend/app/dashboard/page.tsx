@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "../components/header";
+import TopicsArticles from './components/topicsarticles';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -82,39 +83,7 @@ const DashboardPage: React.FC = () => {
         </div>
 
         {/* Your + Local Topics */}
-        <aside className="w-full md:w-[30%] bg-blue-50 p-4 rounded-lg">
-          <h3 className="text-lg font-bold mb-4">Your Topics</h3>
-          <div className="bg-white p-4 rounded-md shadow mb-4">
-            <h4 className="font-semibold">Climate Change</h4>
-            <p className="text-sm">
-              Trump's victory promises to shake up U.S. energy and climate
-              policy, analysts say.
-            </p>
-          </div>
-          <div className="bg-white p-4 rounded-md shadow">
-            <h4 className="font-semibold">NFL</h4>
-            <p className="text-sm">
-              Niners RB Christian McCaffrey back at practice after missing first
-              eight games of season.
-            </p>
-            <Link href="/" className="text-sm mt-2 block hover:underline">
-              MORE
-            </Link>
-          </div>
-
-          <h3 className="text-lg font-bold mb-4">Local News</h3>
-          <div className="bg-white p-4 rounded-md shadow">
-            <h4 className="font-semibold">
-              Philadelphia, PA <span>73°</span>
-            </h4>
-            <p className="text-sm">
-              Voter turnout throughout Philly area mostly lower than 2020
-            </p>
-            <Link href="/" className="text-sm mt-2 block hover:underline">
-              MORE
-            </Link>
-          </div>
-        </aside>
+        <TopicsArticles />
       </main>
     </div>
   );
