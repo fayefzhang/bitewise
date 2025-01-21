@@ -95,23 +95,23 @@ def search():
         return {"error": "Internal Server Error"}, 500
 
 
-@app.route('/daily-news', methods=['POST'])
-def refresh_daily_news():
-    data = request.json
-    search_preferences = data.get("search_preferences", {})
-    if not search_preferences:
-        return jsonify({"error": "User preferences are required"}), 400
+# @app.route('/daily-news', methods=['POST'])
+# def refresh_daily_news():
+#     data = request.json
+#     search_preferences = data.get("search_preferences", {})
+#     if not search_preferences:
+#         return jsonify({"error": "User preferences are required"}), 400
     
-    filename = os.path.join("data", generate_filename("daily news"))
-    news = daily_news(search_preferences, filename) # this could also take in query, but don't see how we'd use this
-    news = [] if news is None else news
+#     filename = os.path.join("data", generate_filename("daily news"))
+#     news = daily_news(search_preferences, filename) # this could also take in query, but don't see how we'd use this
+#     news = [] if news is None else news
 
-    response = {
-        "results": news,
-        "filename": filename
-    }
+#     response = {
+#         "results": news,
+#         "filename": filename
+#     }
 
-    return jsonify(response), 200
+#     return jsonify(response), 200
 
 # this will only be called once to get sources
 @app.route('/sources', methods=['POST'])
