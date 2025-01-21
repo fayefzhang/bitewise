@@ -2,9 +2,72 @@
 
 import Header from "../components/header";
 import TopicsArticles from './components/topicsarticles';
+import { Key, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+
+const fetchDailyNews = async () => {
+  const BASE_URL = "http://localhost:3000";
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/daily-news`, {
+      method: "POST",
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch daily news");
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+interface Article {
+  imageUrl: string;
+  title: string;
+  source: string;
+  sentiment: string;
+  readTime: string;
+}
+
+interface NewsSectionProps {
+  header: string;
+  summary: string;
+  articles: Article[];
+}
+
+const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) => {
+  return (
+    <section className="mb-8">
+      <h2 className="text-xl font-bold">{header}</h2>
+      <p className="mb-4">{summary.substring(23)}</p>
+      <div className="flex space-x-4">
+        {articles.map((article, index) => (
+          <div
+            key={index}
+            className="bg-white p-4 rounded-md shadow w-1/3"
+          >
+            <Image
+              src={"/bitewise_logo.png"}
+              alt={article.title}
+              width={160}
+              height={50}
+              className="object-cover rounded-lg mb-2"
+            />
+            <p className="text-sm font-bold">{article.title}</p>
+            <p className="text-xs">{article.source}</p>
+            <p className="text-sm mt-1">{article.sentiment}</p>
+            <p className="text-xs mt-1">{article.readTime}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 
 const DashboardPage: React.FC = () => {
   const router = useRouter();
@@ -14,6 +77,22 @@ const DashboardPage: React.FC = () => {
       router.push(`/search?query=${encodeURIComponent(term)}`);
     }
   };
+
+  const [dailyNews, setDailyNews] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const news = await fetchDailyNews();
+
+      console.log(news);
+      setDailyNews(news);
+      setIsLoading(false);
+    };
+
+    fetchNews();
+  }, []); // Empty dependency array ensures this runs only once after initial render
+
 
   return (
     <div className="w-full min-h-screen mx-auto bg-white text-black">
@@ -25,10 +104,10 @@ const DashboardPage: React.FC = () => {
         <div className="flex-1 flex-col">
           <h1 className="text-2xl font-bold">Good evening, USER.</h1>
           <p className="text-lg mb-4">
-            We're covering Trump's victory, a Republican Senate and America's
-            rightward shift.
+            We're covering trending stories today.
           </p>
 
+          {/* Audio Summary */}
           <audio controls className="mt-2 w-full">
             <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
             {/* Replace with actual audio file */}
@@ -45,41 +124,21 @@ const DashboardPage: React.FC = () => {
             Listen to your daily bites: 11:14 min
           </button>
 
-          <section className="mb-8">
-            <h2 className="text-xl font-bold">President Trump, again</h2>
-            <p className="mb-4">
-              Donald Trump has completed a stunning political comeback, and the
-              United States has entered an uncertain new era...
-            </p>
-            <div className="flex space-x-4">
-              {[...Array(3)].map((_, index) => (
-                <div
+          {/* Dynamically Render News Sections */}
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            dailyNews.map((cluster: any, index: any) =>
+              cluster.cluster !== -1 ? (
+                <NewsSection
                   key={index}
-                  className="bg-white p-4 rounded-md shadow w-1/3"
-                >
-                  <Image
-                    src="/bitewise_logo.png"
-                    alt="Harris concedes"
-                    width={160}
-                    height={50}
-                    className="object-cover rounded-lg mb-2"
-                  />
-                  <p className="text-sm font-bold">Harris concedes</p>
-                  <p className="text-xs">AP News</p>
-                  <p className="text-sm mt-1">NEUTRAL</p>
-                  <p className="text-xs mt-1">5 MIN READ</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-bold">Nvidia Surpasses Apple</h2>
-            <p>
-              Nvidia, whose chips power AI systems and Bitcoin mining, surpassed
-              Apple to become the world's most valuable company...
-            </p>
-          </section>
+                  header={"Cluster " + index}
+                  summary={cluster.summary}
+                  articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
+                />
+              ) : null
+            )
+          )}
         </div>
 
         {/* Your + Local Topics */}

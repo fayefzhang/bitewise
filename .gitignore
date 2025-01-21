@@ -4,3 +4,4 @@
 /python-api/utils/config.py
 *.pyc
 __pycache__/
+/python-api/myenv

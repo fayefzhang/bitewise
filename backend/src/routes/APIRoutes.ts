@@ -132,17 +132,20 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 // @returns grouped articles by cluster
 router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { search_preferences, ai_preferences } = req.body;
+        // const { search_preferences, ai_preferences } = req.body;
 
-        if (!search_preferences) {
-            res.status(400).json({ message: 'User preferences are required' });
-        }
+        // if (!search_preferences) {
+        //     res.status(400).json({ message: 'User preferences are required' });
+        // }
 
-        if (!ai_preferences) {
-            res.status(400).json({ message: 'AI preferences are required' });
-        }
+        const ai_preferences = {
+            length: "short", // options: {"short", "medium", "long"}
+            tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}
+            format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
+            jargon_allowed: true, // options: {True, False}
+        };
 
-        const response = await axios.post(`${BASE_URL}/daily-news`, { search_preferences });
+        const response = await axios.post(`${BASE_URL}/daily-news`);
 
         // summarizing each cluster
         const clusterSummaries = await Promise.all(
