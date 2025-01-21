@@ -1,11 +1,17 @@
 from flask import Flask, request, jsonify
 import os
+from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources
 from utils.openai import generate_summary_individual, generate_summary_collection
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
 from utils.clustering import cluster_articles
+from collections import Counter
 import logging
 import json
+import pandas as pd
+import re
+
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
@@ -15,6 +21,40 @@ def log_request_info():
     logging.debug(f"Headers: {request.headers}")
     logging.debug(f"Body: {request.data}")
 
+@app.route('/daily-news', methods=['POST'])
+def refresh_daily_news():
+    # get filepath for daily newws data
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(current_dir, 'data', 'articles_data.json')
+
+    # apply clustering and get top 4 clusters
+    cluster_dict = cluster_daily_news_titles(json_file_path)
+    print(set(cluster_dict.values()))
+
+    # add cluster label to articles
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        articles_data = json.load(f)
+    articles_df = pd.DataFrame(articles_data)
+    articles_df['cluster'] = articles_df.index.map(cluster_dict)
+
+    # get top clusters
+    top_clusters = (
+        articles_df['cluster']
+        .value_counts()
+        .nlargest(4)
+        .index
+    )
+
+    # get articles for top clusters
+    top_articles = articles_df[articles_df['cluster'].isin(top_clusters)]
+    response = (
+        top_articles.groupby('cluster')
+        .apply(lambda x: x.to_dict(orient='records'))
+        .to_dict()
+    )
+    return jsonify(response)
+
+
 @app.route('/search', methods=['POST'])
 def search():
     try:
@@ -22,9 +62,7 @@ def search():
         app.logger.info(f"Received data: {data}")
         query = data.get("query", "")
         search_preferences = data.get("search_preferences", {})
-        print(data.get("cluster"))
         cluster = data.get("cluster", False)
-        print(cluster)
 
         if not query:
             return jsonify({"error": "Query is required"}), 400
@@ -61,23 +99,23 @@ def search():
         return {"error": "Internal Server Error"}, 500
 
 
-@app.route('/daily-news', methods=['POST'])
-def refresh_daily_news():
-    data = request.json
-    search_preferences = data.get("search_preferences", {})
-    if not search_preferences:
-        return jsonify({"error": "User preferences are required"}), 400
+# @app.route('/daily-news', methods=['POST'])
+# def refresh_daily_news():
+#     data = request.json
+#     search_preferences = data.get("search_preferences", {})
+#     if not search_preferences:
+#         return jsonify({"error": "User preferences are required"}), 400
     
-    filename = os.path.join("data", generate_filename("daily news"))
-    news = daily_news(search_preferences, filename) # this could also take in query, but don't see how we'd use this
-    news = [] if news is None else news
+#     filename = os.path.join("data", generate_filename("daily news"))
+#     news = daily_news(search_preferences, filename) # this could also take in query, but don't see how we'd use this
+#     news = [] if news is None else news
 
-    response = {
-        "results": news,
-        "filename": filename
-    }
+#     response = {
+#         "results": news,
+#         "filename": filename
+#     }
 
-    return jsonify(response), 200
+#     return jsonify(response), 200
 
 # this will only be called once to get sources
 @app.route('/sources', methods=['POST'])
@@ -150,6 +188,31 @@ def summarize_articles():
         "summary": summary,
         "enriched_articles": enriched_articles,
     }), 200
+
+# For generating a an audio file from an article using TTS
+@app.route('/generate-audio', methods=['POST'])
+def generate_audio():
+    data = request.get_json()
+    article_title = data.get('article')
+    summary = data.get('summary')
+    filename = re.sub(r'[<>:"/\\|?*]', '', article_title) + "-tts.mp3"
+    if not article_title:
+        return jsonify({"error": "Article title is required"}), 400
+    if not summary:
+        return jsonify({"error": "Article summary is required"}), 400
+    audio_path = generate_audio_from_article(summary, filename)
+    return jsonify({"audio_path": audio_path}), 200
+
+
+# For generating a podcast from multiple articles
+@app.route('/generate-podcast', methods=['POST'])
+def generate_podcast():
+    data = request.get_json()
+    articles = data.get('articles')
+    if not articles:
+        return jsonify({"error": "Articles are required"}), 400
+    paths = generate_podcast_collection(articles)
+    return jsonify(paths), 200
 
 @app.route('/user/preferences', methods=['GET'])
 def get_preferences():

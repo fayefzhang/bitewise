@@ -18,7 +18,7 @@ pd.set_option('display.max_colwidth', None)
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 dbscan = DBSCAN(eps=0.5, min_samples=3, metric='cosine')
-
+dbscan2 = DBSCAN(eps=0.2, min_samples=5, metric='cosine') # for tighter clustering
 
 def clean_text(text):
     if not isinstance(text, str):
@@ -54,4 +54,36 @@ def cluster_articles(search_data):
     # print(clusters)
     id_to_cluster = dict(zip(articles_df['id'], articles_df['cluster']))
 
+    return id_to_cluster
+
+# should eventually refactor to combine with above function
+def cluster_daily_news(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
+        articles_data = json.load(f)
+    articles_df = pd.json_normalize(articles_data)
+    articles_df['combined_text'] = articles_df['title'].fillna('') + ' ' + articles_df['content'].fillna('')
+    articles_df['processed_text'] = articles_df['combined_text'].apply(clean_text)
+    embeddings = model.encode(articles_df['processed_text'].fillna(''))
+    clusters = dbscan.fit_predict(embeddings)
+    articles_df['cluster'] = clusters
+    id_to_cluster = dict(zip(articles_df.index, articles_df['cluster']))
+    return id_to_cluster
+
+def extract_first_sentence(text):
+    if not isinstance(text, str) or text.strip() == "":
+        return ""
+    sentences = nltk.sent_tokenize(text)
+    return sentences[0] if sentences else ""
+
+def cluster_daily_news_titles(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
+        articles_data = json.load(f)
+    articles_df = pd.json_normalize(articles_data)
+    articles_df['first_sentence'] = articles_df['content'].fillna('').apply(extract_first_sentence)
+    articles_df['combined_text'] = articles_df['title'].fillna('') + " " + articles_df['first_sentence'].fillna('')
+    articles_df['processed_text'] = articles_df['combined_text'].apply(clean_text)
+    embeddings = model.encode(articles_df['processed_text'].fillna(''))
+    clusters = dbscan2.fit_predict(embeddings)
+    articles_df['cluster'] = clusters
+    id_to_cluster = dict(zip(articles_df.index, articles_df['cluster']))
     return id_to_cluster

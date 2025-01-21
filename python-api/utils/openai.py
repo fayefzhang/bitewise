@@ -1,6 +1,11 @@
 import os
 from openai import OpenAI
 from . import config
+import io
+import sys
+import re
+from pathlib import Path
+from podcastfy.client import generate_podcast
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 OpenAI.api_key = config.OPENAI_API_KEY 
@@ -83,7 +88,20 @@ def generate_summary_collection(input_text, user_preferences):
     max_tokens = 100
 
     # Customize prompt based on user preferences
-    prompt = f"Summarize the main topics and themes discussed across all of the provided articles in a cohesive manner, focusing on presenting the content directly and engagingly. Start the summary by directly addressing the topic without referencing the articles themselves. Ensure the summary aligns with {user_preferences.get('length', 'short')} length and maintains a {user_preferences.get('tone', 'formal')} tone."
+    prompt = f"""
+    The provided articles are formatted as follows:
+
+    Each article begins with a title enclosed in triple hashtags (###), followed by its content. Articles are separated by two newlines. Example format:
+
+    ### Article Title 1 ###
+    Article content here.
+
+    ### Article Title 2 ###
+    Article content here.
+
+    Summarize the main topics and themes discussed across all of the provided articles in a cohesive manner, focusing on presenting the content directly and engagingly. Start the summary by directly addressing the topic without referencing the articles themselves. 
+    
+    Ensure the summary aligns with {user_preferences.get('length', 'short')} length and maintains a {user_preferences.get('tone', 'formal')} tone."""
 
     if (user_preferences['format'] == 'bullets'):
       temperature = 0.3
@@ -109,9 +127,12 @@ def generate_summary_collection(input_text, user_preferences):
     if (not user_preferences.get('jargon_allowed', True)):
       prompt += " Use clear, simple language and avoid complicated jargon."
     prompt += f":\n\n{input_text}"
+    
+    
     # @ Sanya it may be clear to the GPT but I think we should have some sort of marker that divides articles (like some char/sequence) so GPT can easily distinguish between them
     # and if we implement this, we should mention it in prompt
-
+    # ^^DONE (added more detail to prompt to specify input format)
+    
     if (user_preferences['length'] == 'medium'):
         max_tokens = 250
     elif (user_preferences['length'] == 'long'):
@@ -132,3 +153,58 @@ def generate_summary_collection(input_text, user_preferences):
         return f"An error occurred: {str(e)}"
 
     return response.choices[0].message.content.strip()
+
+# Generates audio file based on given text using TTS
+def generate_audio_from_article(text: str, filename: str = "text-to-speech.mp3"):
+    
+    audio_dir = Path(__file__).parent.parent / "data/tts"
+    speech_file_path = audio_dir / filename
+    response = client.audio.speech.create(
+        model="tts-1",
+        voice="echo",
+        input=text,
+    )
+    response.stream_to_file(speech_file_path)
+    return str(speech_file_path)
+
+
+# Generates a podcast based on a collection of articles (URLs)
+# Input: list of URLs of articles to be included in the podcast
+# Output: paths to the generated audio file and transcript file
+def generate_podcast_collection(links: [str]):
+    PROJECT_ROOT = Path(__file__).parent.parent
+
+    custom_config = {
+      "conversation_style": ["formal", "engaging", "enthusiastic"],
+      "podcast_name": "BiteWise",
+      "podcast_tagline": "Your hub for personalized, digestible news",
+      "creativity": 0,
+      "text_to_speech": {"output_directories": 
+        {
+          "transcripts": str(PROJECT_ROOT / "data/podcasts/transcripts"),
+          "audio": str(PROJECT_ROOT / "data/podcasts/audio")
+        }
+      }
+    }
+
+    stdout_backup = sys.stdout  # backup original stdout
+    sys.stdout = io.StringIO()  # redirect to a StringIO object
+
+
+    audio_path = generate_podcast(
+        urls=links,
+        llm_model_name="gpt-4o-mini",
+        api_key_label="OPENAI_API_KEY",
+        conversation_config=custom_config
+    )
+
+    # Get the captured output
+    output = sys.stdout.getvalue()
+    sys.stdout = stdout_backup 
+
+    # Extract transcript path using regex
+    match = re.search(r"Transcript saved to (.+)", output)
+    transcript_path = match.group(1) if match else None
+
+
+    return {"audio_file": audio_path, "transcript_file": transcript_path}
