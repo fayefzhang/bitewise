@@ -178,7 +178,7 @@ def topic_search():
         topic_search_results = user_search(topic, search_preferences, "")
         topic_result = {
             "topic": topic,
-            "results": topic_search_results[:3]
+            "results": topic_search_results[:3] # arbitrary amount, can change
         }
         results.append(topic_result)
     

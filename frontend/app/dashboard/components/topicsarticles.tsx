@@ -12,7 +12,7 @@ const TopicsArticles = () => {
     const BASE_URL: string = "http://localhost:3000";
     const [preferences, setPreferences] = useState(null);
     const [topicArticles, setTopicArticles] = useState(null);
-
+    
     useEffect(() => {
         const getTopicsArticles = async () => {
             try {
@@ -66,36 +66,28 @@ const TopicsArticles = () => {
         getTopicsArticles();
     }, []);
 
+    const renderArticles = () => {
+        if (!topicArticles) return null;
+
+        return topicArticles.map((topic: any) => (
+            <div key={topic.topic}>
+                <h3 className="font-semibold">{topic.topic}</h3>
+                {topic.results.map((article: any) => (
+                    <ArticleEntry 
+                        key={article.title}
+                        title={article.title}
+                        description={article.description}
+                        link={article.url}
+                    />
+                ))}
+            </div>
+        ));
+    };
+
     return (
         <aside className="w-full md:w-[30%] bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-bold mb-4">Your Topics</h3>
-        <ArticleEntry 
-            title="Climate Change" 
-            description="Trump's victory promises to shake up U.S. energy and climate policy, analysts DO NOT SAY BECAUSE THEY'RE STUPIIIIIID." 
-        />
-        <div className="bg-white p-4 rounded-md shadow">
-            <h4 className="font-semibold">NFL</h4>
-            <p className="text-sm">
-            Niners RB Christian McCaffrey back at practice after missing first
-            eight games of season.
-            </p>
-            <Link href="/" className="text-sm mt-2 block hover:underline">
-            MORE
-            </Link>
-        </div>
-
-        <h3 className="text-lg font-bold mb-4">Local News</h3>
-        <div className="bg-white p-4 rounded-md shadow">
-            <h4 className="font-semibold">
-            Philadelphia, PA <span>73°</span>
-            </h4>
-            <p className="text-sm">
-            Voter turnout throughout Philly area mostly lower than 2020
-            </p>
-            <Link href="/" className="text-sm mt-2 block hover:underline">
-            MORE
-            </Link>
-        </div>
+            <h2 className='text-lg font-bold'>Your Topics</h2>
+            {renderArticles()}
         </aside>
     );
 };
