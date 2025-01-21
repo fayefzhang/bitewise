@@ -304,6 +304,28 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
     }
 });
 
+// @route GET audio/filename
+// @description Gets audio clip from Python server
+router.get('/audio', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { filename } = req.query; 
+        if (!filename) {
+            res.status(400).json({ message: 'Audio filename is required' });
+        }
+        const response = await axios({
+            method: 'get',
+            url: `${BASE_URL}/audio/${filename}`,
+            responseType: 'stream', // <- IMPORTANT: Enables streaming of the file
+        });
+
+        res.setHeader('Content-Type', 'audio/mpeg');
+        response.data.pipe(res);
+    } catch (error) {
+        console.error("Error fetching audio", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // @route GET user/topics
 // @description Gets the user's preferences.
 router.get('/user/preferences', async (req: Request, res: Response): Promise<void> => {

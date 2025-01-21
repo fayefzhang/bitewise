@@ -109,7 +109,7 @@ const DashboardPage: React.FC = () => {
 
           {/* Audio Summary */}
           <audio controls className="mt-2 w-full">
-            <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
+            <source src="http://localhost:3000/api/audio?filename=podcast_aefd727d6bbc48c69712aaee79f4114d.mp3" type="audio/mpeg" />
             {/* Replace with actual audio file */}
             Your browser does not support the audio element.
           </audio>
@@ -121,7 +121,7 @@ const DashboardPage: React.FC = () => {
             >
               <path d="M12 3v10.55a4 4 0 1 0 2 0V3h-2zm-7 6.5v2h2V9.5a7 7 0 1 1 10 0v2h2v-2a9 9 0 1 0-14 0z" />
             </svg>
-            Listen to your daily bites: 11:14 min
+            Listen to your daily bites: 4:41 min
           </button>
 
           {/* Dynamically Render News Sections */}
