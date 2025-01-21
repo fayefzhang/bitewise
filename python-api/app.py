@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-from utils.openai import generate_summary_individual, generate_summary_collection
+from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources
 from utils.exa import get_contents
 from utils.clustering import cluster_articles
@@ -8,6 +8,8 @@ from collections import Counter
 import logging
 import json
 import pandas as pd
+import re
+
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
@@ -184,6 +186,31 @@ def summarize_articles():
         "summary": summary,
         "enriched_articles": enriched_articles,
     }), 200
+
+# For generating a an audio file from an article using TTS
+@app.route('/generate-audio', methods=['POST'])
+def generate_audio():
+    data = request.get_json()
+    article_title = data.get('article')
+    summary = data.get('summary')
+    filename = re.sub(r'[<>:"/\\|?*]', '', article_title) + "-tts.mp3"
+    if not article_title:
+        return jsonify({"error": "Article title is required"}), 400
+    if not summary:
+        return jsonify({"error": "Article summary is required"}), 400
+    audio_path = generate_audio_from_article(summary, filename)
+    return jsonify({"audio_path": audio_path}), 200
+
+
+# For generating a podcast from multiple articles
+@app.route('/generate-podcast', methods=['POST'])
+def generate_podcast():
+    data = request.get_json()
+    articles = data.get('articles')
+    if not articles:
+        return jsonify({"error": "Articles are required"}), 400
+    paths = generate_podcast_collection(articles)
+    return jsonify(paths), 200
 
 if __name__ == '__main__':
     app.run(port=5000)
