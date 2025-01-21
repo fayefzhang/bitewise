@@ -5,7 +5,7 @@ from utils.newsapi import generate_filename, daily_news, user_search, get_source
 from utils.openai import generate_summary_individual, generate_summary_collection
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
-from utils.clustering import cluster_articles
+from utils.clustering import cluster_articles, cluster_daily_news_titles
 from collections import Counter
 import logging
 import json
