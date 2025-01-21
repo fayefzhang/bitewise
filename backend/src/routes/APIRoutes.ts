@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const router: Router = express.Router();
 const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
+// const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
 
 // @route POST /search
@@ -38,7 +40,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // }
 
         // Step 1: fetch articles
-        const articlesResponse = await axios.post("http://127.0.0.1:5000/search", { query, search_preferences, cluster });
+        const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
         
         const filteredResults = articlesResponse.data.results
@@ -76,7 +78,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             ai_preferences,
         };
 
-        const summaryResponse = await axios.post("http://127.0.0.1:5000/summarize-articles", summaryRequestBody);
+        const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
         const { summary, enriched_articles } = summaryResponse.data;
 
         console.log("Summary:", summary);
@@ -130,8 +132,14 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 // @returns grouped articles by cluster
 router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
     try {
-        const response = await axios.post('http://127.0.0.1:5000/daily-news');
-        res.status(200).json(response.data);
+        const { search_preferences } = req.body;
+
+        if (!search_preferences) {
+            res.status(400).json({ message: 'User preferences are required' });
+        }
+
+        const response = await axios.post(`${BASE_URL}/daily-news`, { search_preferences });
+        res.json(response.data);
     } catch (error) {
         console.error("error processing search request", error);
         res.status(500).json({ error: 'Internal server error' });
@@ -171,7 +179,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         }
 
         // send article and user prefs to the Python backend
-        const response = await axios.post('http://127.0.0.1:5000/summarize-article', { 
+        const response = await axios.post(`${BASE_URL}/summarize-article`, { 
             article, 
             ai_preferences 
         });
@@ -197,7 +205,7 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
         }
 
         // send articles and user prefs to the Python backend
-        const response = await axios.post('http://127.0.0.1:5000/summarize-articles', { 
+        const response = await axios.post(`${BASE_URL}/summarize-articles`, { 
             articles, 
             ai_preferences 
         });
@@ -205,6 +213,50 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
         res.json(response.data); 
     } catch (error) {
         console.error("Error processing summarize articles request", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// @route POST generate/audio
+// @description Generates an audio file from an article text using TTS
+// should only be used on article SUMMARY to avoid rate limits
+router.post('/generate/audio', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { article, summary } = req.body; // should be an article title and its content
+        if (!article) {
+            res.status(400).json({ message: 'Article title is required' });
+        }
+        if (!summary) {
+            res.status(400).json({ message: 'Article summary is required' });
+        }
+     
+        const response = await axios.post(`${BASE_URL}/generate-audio`, { 
+            article, summary,  
+        });
+
+        res.json(response.data); 
+    } catch (error) {
+        console.error("Error processing generate audio request", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// @route POST generate/podcast
+// @description Generates a podcast based on multiple articles
+router.post('/generate/podcast', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { articles } = req.body; // should be a list of article URLs
+        if (!articles) {
+            res.status(400).json({ message: 'Articles are required' });
+        }
+     
+        const response = await axios.post(`${BASE_URL}/generate-podcast`, { 
+            articles,  
+        });
+
+        res.json(response.data); 
+    } catch (error) {
+        console.error("Error processing generate podcast request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
