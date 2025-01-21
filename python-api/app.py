@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 import os
 from utils.openai import generate_summary_individual, generate_summary_collection
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
 from utils.clustering import cluster_articles
 import logging
+import json
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
@@ -149,6 +150,39 @@ def summarize_articles():
         "summary": summary,
         "enriched_articles": enriched_articles,
     }), 200
+
+@app.route('/user/preferences', methods=['GET'])
+def get_preferences():
+    userID = request.args.get('userID')
+
+    if userID == "TEST":
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        json_file_path = os.path.join(current_dir, 'data', 'test_preferences.json')
+
+        with open(json_file_path, 'r') as file:
+            test_preferences = json.load(file)
+        return jsonify(test_preferences), 200
+
+    # NEED TO IMPLEMENT ACTUAL USER ID FETCHING
+    return jsonify({"error": "User ID not found"}), 404
+
+@app.route('/search/topics', methods=['POST'])
+def topic_search():
+    data = request.get_json()
+    topics = data.get('topics')
+    search_preferences = data.get("search_preferences", {})
+
+    results = []
+    for topic in topics:
+        
+        topic_search_results = user_search(topic, search_preferences, "")
+        topic_result = {
+            "topic": topic,
+            "results": topic_search_results[:3]
+        }
+        results.append(topic_result)
+    
+    return jsonify(results), 200
 
 if __name__ == '__main__':
     app.run(port=5000)

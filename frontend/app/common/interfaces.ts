@@ -9,6 +9,7 @@ export interface Preferences {
   read_time: string;
   bias: string;
   clustering: boolean;
+  topics: string[];
 }
 
 // Article Interface

@@ -196,5 +196,43 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
     }
 });
 
+// @route GET user/topics
+// @description Gets the user's preferences.
+router.get('/user/preferences', async (req: Request, res: Response): Promise<void> => {
+    console.log("APIRoutes, /user/preferences");
+    try {
+        const userID = req.query.userID as string; // Explicitly cast to string if using TypeScript
+        if (!userID) {
+            res.status(400).json({ message: 'No user is logged in' });
+        }
+
+        const preferencesResponse = await axios.get("http://127.0.0.1:5000/user/preferences", {
+            params: { userID }, // Pass query parameters to Flask
+        });
+
+        res.json(preferencesResponse.data);
+    } catch (error) {
+        console.error("Error retrieving user preferences:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// @route POST /search/topics
+// @description Gets articles related to the user's topics.
+router.post('/search/topics', async(req: Request, res: Response): Promise<void> => {
+    try {
+        const { topics, search_preferences } = req.body;
+
+        const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', { 
+            topics, 
+            search_preferences
+        });
+
+        res.json(topics_articles.data);
+    } catch (error) {
+        console.error("Error retrieving user topics", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 export default router;
