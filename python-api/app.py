@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import os
 from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources
@@ -213,6 +213,11 @@ def generate_podcast():
         return jsonify({"error": "Articles are required"}), 400
     paths = generate_podcast_collection(articles)
     return jsonify(paths), 200
+
+@app.route('/audio/<filename>', methods=['GET'])
+def serve_audio(filename):
+    return send_from_directory("data/podcasts/audio", filename, mimetype="audio/mpeg")
+
 
 @app.route('/user/preferences', methods=['GET'])
 def get_preferences():
