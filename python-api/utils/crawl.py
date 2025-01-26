@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import time
 import re
 import json
+import concurrent.futures
+import time
 
 
 current_dir = os.path.dirname(__file__)
@@ -125,6 +127,27 @@ def extract_contents(url):
         paragraphs = soup.find_all('p')
         content = " ".join(p.get_text(strip=True) for p in paragraphs)
 
+        # extract thumbnail (biggest) image - TODO
+        # for img_tag in soup.find_all('img'):
+        #     image_url = img_tag.get('src')
+        #     if not image_url:
+        #         continue
+
+        #     try:
+        #         response = requests.get(image_url, stream=True, timeout=2)
+        #         response.raise_for_status()
+        #         img = Image.open(BytesIO(response.content))
+        #         width, height = img.size
+        #         area = width * height
+        #     if area > largest_area:
+        #             largest_area = area
+        #             largest_image = image_url
+
+
+        img_tag = soup.find('img')
+        image_url = img_tag['src'] if img_tag and 'src' in img_tag.attrs else None
+        print(image_url)
+
         return content
 
     except Exception as e:
@@ -137,6 +160,7 @@ class Article:
         self.source = source
         self.title = None
         self.content = None
+        self.image = None
 
     def __hash__(self):
         return hash(self.url)
@@ -146,20 +170,37 @@ class Article:
             return False
         return self.url == other.url
 
-
-# main crawler function
-if __name__ == "__main__":
-    all_links = set()
-
-    for seed in seed_list:
+# process single seed with timeout
+def process_seed(seed, timeout=120):
+    try:
         print(f"-------------------------> crawling: {seed}")
         delay, allowed = check_robots_txt(seed, seed)
         if allowed == 1:
             html = fetch_page(seed)
             if not html:
-                continue
+                return set()
             links = extract_links(html, base_url=seed, delay=delay)
-            all_links.update(links)
+            return links
+    except Exception as e:
+        print(f"Error processing {seed}: {e}")
+    return set()
+
+# main crawler function
+
+#def main():
+def crawl_all():
+    all_links = set()
+
+    for seed in seed_list:
+        try:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(process_seed, seed)
+                links = future.result(timeout=120)  # timeout of 2 min
+                all_links.update(links)
+        except concurrent.futures.TimeoutError:
+            print(f"Timeout reached for seed: {seed}. Skipping to the next.")
+        except Exception as e:
+            print(f"Unexpected error: {e}. Continuing to the next seed.")
 
     output_file = 'articles_data.json'
 
@@ -177,7 +218,10 @@ if __name__ == "__main__":
         articles_list.append(articles_data)
 
     # output articles data to JSON file
-    with open(output_file, 'a', encoding='utf-8') as json_file:
+    with open(output_file, 'w', encoding='utf-8') as json_file:
         json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
 
     print(f"Visited {len(all_links)} pages and saved data to {output_file}")
+
+if __name__ == "__main__":
+    main()

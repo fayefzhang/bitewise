@@ -6,6 +6,7 @@ from utils.openai import generate_summary_individual, generate_summary_collectio
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
+from utils.crawl import crawl_all as daily_crawl_all
 from collections import Counter
 import logging
 import json
@@ -251,6 +252,15 @@ def topic_search():
         results.append(topic_result)
     
     return jsonify(results), 200
+
+@app.route('/crawl/all', methods=['POST'])
+def crawl_all():
+    try:
+        daily_crawl_all()
+        return jsonify({"message": "ok"}), 200 
+    except Exception as e:
+        app.logger.error(f"Error occurred: {str(e)}")
+        return jsonify({"error": "An error occurred"}), 500
 
 if __name__ == '__main__':
     app.run(port=5000)

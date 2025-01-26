@@ -365,4 +365,20 @@ router.post('/search/topics', async(req: Request, res: Response): Promise<void> 
     }
 });
 
+router.post('/crawl/all', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const response = await axios.post('http://127.0.0.1:5000/crawl/all');
+
+        res.status(response.status).json(response.data);
+    } catch (error) {
+        console.error("Error occurred during crawling:", error);
+
+        if (axios.isAxiosError(error) && error.response) {
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+});
+
 export default router;
