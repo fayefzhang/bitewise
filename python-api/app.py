@@ -12,6 +12,7 @@ import logging
 import json
 import pandas as pd
 import re
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -238,20 +239,65 @@ def get_preferences():
 @app.route('/search/topics', methods=['POST'])
 def topic_search():
     data = request.get_json()
-    topics = data.get('topics')
-    search_preferences = data.get("search_preferences", {})
 
-    results = []
-    for topic in topics:
-        
-        topic_search_results = user_search(topic, search_preferences, "")
-        topic_result = {
-            "topic": topic,
-            "results": topic_search_results[:3] # arbitrary amount, can change
-        }
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(current_dir, 'data', 'daily_topics_news.json')
+
+    if os.path.exists(json_file_path):
+        if os.stat(json_file_path).st_size == 0:
+            print("The file exists but is empty.")
+            topics = data.get('topics')
+            search_preferences = data.get("search_preferences", {})
+
+            results = []
+            for topic in topics:
+                topic_search_results = user_search(topic, search_preferences, "")
+                topic_result = {
+                    "topic": topic,
+                    "results": topic_search_results[:3] # arbitrary amount, can change
+                }
+
+            results.append(topic_result)
+
+            # Save the fresh news to the cache
+            with open(json_file_path, 'w') as f:
+                json.dump({
+                    'timestamp': datetime.now().isoformat(),
+                    'news': results
+                }, f)
+
+            return jsonify(results), 200
+        else:
+            print("The file exists and is not empty.")
+            with open(json_file_path, 'r') as f:
+                cached_data = json.load(f)
+                last_updated = datetime.fromisoformat(cached_data['timestamp'])
+                current_day = datetime.now().date()
+
+                if last_updated.date() == current_day:
+                    return jsonify(cached_data['news'])
+    else:
+        topics = data.get('topics')
+        search_preferences = data.get("search_preferences", {})
+
+        results = []
+        for topic in topics:
+            topic_search_results = user_search(topic, search_preferences, "")
+            topic_result = {
+                "topic": topic,
+                "results": topic_search_results[:3] # arbitrary amount, can change
+            }
+
         results.append(topic_result)
-    
-    return jsonify(results), 200
+
+        # Save the fresh news to the cache
+        with open(json_file_path, 'w') as f:
+            json.dump({
+                'timestamp': datetime.now().isoformat(),
+                'news': results
+            }, f)
+
+        return jsonify(results), 200
 
 @app.route('/crawl/all', methods=['POST'])
 def crawl_all():
