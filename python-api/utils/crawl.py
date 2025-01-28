@@ -6,15 +6,14 @@ import re
 import json
 import concurrent.futures
 import time
+from PIL import Image
+from io import BytesIO
 
 
 current_dir = os.path.dirname(__file__)
-sources_path = os.path.join(current_dir, '../data/sources.txt')
+sources_path = os.path.join(current_dir, '../data/scraping/sources.txt')
 seeds_path = os.path.normpath(sources_path)
-
-with open(seeds_path, 'r') as file:
-    seeds = file.read()
-    seed_list = [seed.rstrip('/') + '/' for seed in seeds.splitlines()]
+local_sources_path = os.path.join(current_dir, '../data/scraping/local_sources.json')
 
 # set of crawlable urls
 robots_allowance = set()
@@ -107,7 +106,7 @@ def extract_links(html, base_url, delay=0.5):
 
         article = Article(url=link, source=base_url)
         article.title = title
-        article.content = extract_contents(link)
+        article.content, article.image = extract_contents(link)
         articles.add(article)
 
         print(f"{link}, {title}")
@@ -128,27 +127,27 @@ def extract_contents(url):
         content = " ".join(p.get_text(strip=True) for p in paragraphs)
 
         # extract thumbnail (biggest) image - TODO
-        # for img_tag in soup.find_all('img'):
-        #     image_url = img_tag.get('src')
-        #     if not image_url:
-        #         continue
+        largest_image = None
+        largest_area = 0
 
-        #     try:
-        #         response = requests.get(image_url, stream=True, timeout=2)
-        #         response.raise_for_status()
-        #         img = Image.open(BytesIO(response.content))
-        #         width, height = img.size
-        #         area = width * height
-        #     if area > largest_area:
-        #             largest_area = area
-        #             largest_image = image_url
+        for img_tag in soup.find_all('img'):
+            image_url = img_tag.get('src')
+            if not image_url or image_url.endswith('svg'):
+                continue
+            try:
+                response = requests.get(image_url, stream=True, timeout=1)
+                response.raise_for_status()
+                img = Image.open(BytesIO(response.content))
+                width, height = img.size
+                area = width * height
+                if area > largest_area:
+                    largest_area = area
+                    largest_image = image_url     
+            except Exception as e:
+                # print(f"Failed to process image {image_url}: {e}")
+                continue
 
-
-        img_tag = soup.find('img')
-        image_url = img_tag['src'] if img_tag and 'src' in img_tag.attrs else None
-        print(image_url)
-
-        return content
+        return content, largest_image
 
     except Exception as e:
         print(f"An error occurred while scraping the article: {e}")
@@ -185,13 +184,16 @@ def process_seed(seed, timeout=120):
         print(f"Error processing {seed}: {e}")
     return set()
 
-# main crawler function
 
-#def main():
-def crawl_all():
-    all_links = set()
+# crawl websites inputted by sources
+def crawl_seeds(sources, output_file='articles_data.json'):
+    # clear current contents
+    with open("data/" + output_file, 'w') as file:
+        pass
 
-    for seed in seed_list:
+    for seed in sources:
+        all_links = set()
+
         try:
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
                 future = executor.submit(process_seed, seed)
@@ -202,26 +204,49 @@ def crawl_all():
         except Exception as e:
             print(f"Unexpected error: {e}. Continuing to the next seed.")
 
-    output_file = 'articles_data.json'
+        articles_list = []
 
-    articles_list = []
+        # store articles in a list
+        for article in all_links:
+            articles_data = {
+                "url": article.url,
+                "title": article.title,
+                "source": article.source,
+                "content": article.content,
+                "img": article.image
+            }
 
-    # store articles in a list
-    for article in all_links:
-        articles_data = {
-            "url": article.url,
-            "title": article.title,
-            "source": article.source,
-            "content": article.content
-        }
+            articles_list.append(articles_data)
 
-        articles_list.append(articles_data)
-
-    # output articles data to JSON file
-    with open(output_file, 'w', encoding='utf-8') as json_file:
-        json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
-
+        # output articles data to JSON file -- TODO: clean json
+        with open("data/" + output_file, 'a', encoding='utf-8') as json_file:
+            json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
+        
     print(f"Visited {len(all_links)} pages and saved data to {output_file}")
+
+def crawl_all():
+    with open(seeds_path, 'r') as file:
+        seeds = file.read()
+        seed_list = [seed.rstrip('/') + '/' for seed in seeds.splitlines()]
+
+    crawl_seeds(sources=seed_list)
+
+
+# crawl local sources
+def crawl_location(location="Philadelphia, PA"):
+    # get local news sources
+    with open(local_sources_path, "r") as file:
+        data = json.load(file)
+    local_seed_list = data.get(location, None)
+
+    for source in local_seed_list:
+        print(source)
+
+    crawl_seeds(sources=local_seed_list, output_file='local_articles_data.json')
+
+
+def main():
+    crawl_all()
 
 if __name__ == "__main__":
     main()

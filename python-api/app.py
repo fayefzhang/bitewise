@@ -7,6 +7,7 @@ from utils.newsapi import generate_filename, daily_news, user_search, get_source
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
+from utils.crawl import crawl_location as daily_crawl_location
 from collections import Counter
 import logging
 import json
@@ -24,9 +25,17 @@ def log_request_info():
 
 @app.route('/daily-news', methods=['POST'])
 def refresh_daily_news():
+    return refresh_helper()
+
+@app.route('/local-news', methods=['POST'])
+def refresh_local_news():
+    return refresh_helper('local_articles_data.json')
+
+# helper function to refresh news and cluster to find main topics
+def refresh_helper(file_path='articles_data.json'):
     # get filepath for daily newws data
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    json_file_path = os.path.join(current_dir, 'data', 'articles_data.json')
+    json_file_path = os.path.join(current_dir, 'data', file_path)
 
     # apply clustering and get top 4 clusters
     cluster_dict = cluster_daily_news_titles(json_file_path)
@@ -257,6 +266,19 @@ def topic_search():
 def crawl_all():
     try:
         daily_crawl_all()
+        return jsonify({"message": "ok"}), 200 
+    except Exception as e:
+        app.logger.error(f"Error occurred: {str(e)}")
+        return jsonify({"error": "An error occurred"}), 500
+
+
+@app.route('/crawl/local', methods=['POST'])
+def crawl_local():
+
+    # TODO: pass in location
+
+    try:
+        daily_crawl_location()
         return jsonify({"message": "ok"}), 200 
     except Exception as e:
         app.logger.error(f"Error occurred: {str(e)}")

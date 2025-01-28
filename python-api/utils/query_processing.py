@@ -10,6 +10,7 @@ import string
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+nltk.download('omw-1.4')
 nltk.download('punkt_tab')
 
 def parse_query(query: str) -> str:
@@ -26,6 +27,7 @@ def parse_query(query: str) -> str:
         find('corpora/wordnet.zip')
     except LookupError:
         nltk.download('wordnet')
+        nltk.download('omw-1.4')
 
     # 1. Tokenization
     tokens = word_tokenize(query)

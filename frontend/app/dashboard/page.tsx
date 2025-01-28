@@ -2,6 +2,7 @@
 
 import Header from "../components/header";
 import TopicsArticles from './components/topicsarticles';
+import LocalNews from './components/localnews';
 import { Key, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -43,7 +44,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
   return (
     <section className="mb-8">
       <h2 className="text-xl font-bold">{header}</h2>
-      <p className="mb-4">{summary.substring(23)}</p>
+      <p className="mb-4">{summary.substring(23)}</p>  
       <div className="flex space-x-4">
         {articles.map((article, index) => (
           <div
@@ -51,7 +52,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
             className="bg-white p-4 rounded-md shadow w-1/3"
           >
             <Image
-              src={"/bitewise_logo.png"}
+              src={article.imageUrl}
               alt={article.title}
               width={160}
               height={50}
@@ -91,7 +92,7 @@ const DashboardPage: React.FC = () => {
     };
 
     fetchNews();
-  }, []); // Empty dependency array ensures this runs only once after initial render
+  }, []);
 
 
   return (
@@ -125,7 +126,7 @@ const DashboardPage: React.FC = () => {
           </button>
 
           {/* Dynamically Render News Sections */}
-          {isLoading ? (
+          {isLoading || !dailyNews ? (
             <p>Loading...</p>
           ) : (
             dailyNews.map((cluster: any, index: any) =>
@@ -142,7 +143,10 @@ const DashboardPage: React.FC = () => {
         </div>
 
         {/* Your + Local Topics */}
-        <TopicsArticles />
+        <div className="w-full md:w-[30%] flex flex-col space-y-4">
+          <TopicsArticles />
+          <LocalNews />
+        </div>
       </main>
     </div>
   );
