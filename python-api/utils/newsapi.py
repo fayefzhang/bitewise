@@ -243,7 +243,22 @@ def generate_filename(question):
     time = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{sanitized_question}_{time}.json"
 
+### GETS DAILY ARTICLES BASED ON USER'S TOPICS OF INTEREST ###
+def get_topics_articles(topics, search_preferences):
+
+    results = []
+
+    for topic in topics:
+        topic_search_results = user_search(topic, search_preferences, "")
+        topic_result = {
+            "topic": topic,
+            "results": topic_search_results[:3] # arbitrary amount, can change
+        }
     
+        results.append(topic_result)
+
+    return results
+
 ''' Running questions
 How to sort results- what if we did two queries - one by relevancy and one by popularity and then aggregated results
 Is there any way to use time of upload for breaking news - how would we categorize breaking news -> should look into this

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
 from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources, get_topics_articles
 from utils.openai import generate_summary_individual, generate_summary_collection
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
@@ -241,23 +241,16 @@ def topic_search():
     data = request.get_json()
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    json_file_path = os.path.join(current_dir, 'data', 'daily_topics_news.json')
+    json_file_path = os.path.join(current_dir, 'data', 'daily_topics_articles.json')
 
-    if os.path.exists(json_file_path):
-        if os.stat(json_file_path).st_size == 0:
+    topics = data.get('topics')
+    search_preferences = data.get("search_preferences", {})
+
+    if os.path.exists(json_file_path): # file exists
+        if os.stat(json_file_path).st_size == 0: # if file is empty
             print("The file exists but is empty.")
-            topics = data.get('topics')
-            search_preferences = data.get("search_preferences", {})
 
-            results = []
-            for topic in topics:
-                topic_search_results = user_search(topic, search_preferences, "")
-                topic_result = {
-                    "topic": topic,
-                    "results": topic_search_results[:3] # arbitrary amount, can change
-                }
-
-            results.append(topic_result)
+            results = get_topics_articles(topics, search_preferences)
 
             # Save the fresh news to the cache
             with open(json_file_path, 'w') as f:
@@ -267,7 +260,7 @@ def topic_search():
                 }, f)
 
             return jsonify(results), 200
-        else:
+        else: # file is not empty
             print("The file exists and is not empty.")
             with open(json_file_path, 'r') as f:
                 cached_data = json.load(f)
@@ -276,19 +269,18 @@ def topic_search():
 
                 if last_updated.date() == current_day:
                     return jsonify(cached_data['news'])
-    else:
-        topics = data.get('topics')
-        search_preferences = data.get("search_preferences", {})
+                else:
+                    results = get_topics_articles(topics, search_preferences)
+                    with open(json_file_path, 'w') as f:
+                        json.dump({
+                            'timestamp': datetime.now().isoformat(),
+                            'news': results
+                        }, f)
+                    return jsonify(results), 200
 
-        results = []
-        for topic in topics:
-            topic_search_results = user_search(topic, search_preferences, "")
-            topic_result = {
-                "topic": topic,
-                "results": topic_search_results[:3] # arbitrary amount, can change
-            }
-
-        results.append(topic_result)
+    else: # file does not exist
+        
+        results = get_topics_articles(topics, search_preferences)
 
         # Save the fresh news to the cache
         with open(json_file_path, 'w') as f:
