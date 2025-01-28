@@ -79,10 +79,10 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         };
 
         const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
-        const { summary, enriched_articles } = summaryResponse.data;
-
-        console.log("Summary:", summary);
-        console.log("Enriched Articles:", enriched_articles);
+        const { title, summary, enriched_articles } = summaryResponse.data;
+        
+        console.log("Summary: ", summary);
+        console.log("Enriched Articles: ", enriched_articles);
 
         // step 4: update articles with content (for caching)
         const enrichedArticlesData = articlesData.map((article: any) => {
@@ -169,6 +169,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     return {
                         cluster: Number(clusterId),
                         articles: summaryData.enriched_articles, 
+                        title: summaryData.title,
                         summary: summaryData.summary
                     };
                 } catch (error) {
@@ -176,6 +177,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     return {
                         cluster: Number(clusterId),
                         articles: formattedArticles,
+                        title: "Title generation failed.",
                         summary: "Summary generation failed."
                     };
                 }

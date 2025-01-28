@@ -195,8 +195,12 @@ def summarize_articles():
     })
 
     articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])
-    summary = generate_summary_collection(articles_text, ai_preferences)
+    summary_output = generate_summary_collection(articles_text, ai_preferences)
+    title, summary = summary_output.split("**Summary**:", 1)  # Splitting based on "**Summary**:"
+    title = title.replace("**Title**:", "").strip()
+    summary = summary.strip()
     return jsonify({
+        "title": title,
         "summary": summary,
         "enriched_articles": enriched_articles,
     }), 200
