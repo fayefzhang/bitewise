@@ -7,6 +7,7 @@ from utils.newsapi import generate_filename, daily_news, user_search, get_source
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
+from utils.features import get_source_and_bias, char_length, estimate_reading_time
 from collections import Counter
 import logging
 import json
@@ -31,13 +32,20 @@ def refresh_daily_news():
 
     # apply clustering and get top 4 clusters
     cluster_dict = cluster_daily_news_titles(json_file_path)
-    print(set(cluster_dict.values()))
+    # print(set(cluster_dict.values()))
 
     # add cluster label to articles
     with open(json_file_path, 'r', encoding='utf-8') as f:
         articles_data = json.load(f)
     articles_df = pd.DataFrame(articles_data)
     articles_df['cluster'] = articles_df.index.map(cluster_dict)
+
+    def process_article(article):
+        article['source'], article['biasRating'] = get_source_and_bias(article.get('source', {}))
+        article['readTime'] = estimate_reading_time(char_length(article.get('content', None)))
+        return article
+    
+    articles_df = articles_df.apply(lambda x: process_article(x), axis=1)
 
     # get top clusters
     top_clusters = (
@@ -50,7 +58,8 @@ def refresh_daily_news():
     # get articles for top clusters
     top_articles = articles_df[articles_df['cluster'].isin(top_clusters)]
     response = (
-        top_articles.groupby('cluster')
+        top_articles
+        .groupby('cluster')
         .apply(lambda x: x.to_dict(orient='records'))
         .to_dict()
     )
