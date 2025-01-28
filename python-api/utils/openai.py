@@ -88,41 +88,73 @@ def generate_summary_collection(input_text, user_preferences):
     max_tokens = 100
 
     # Customize prompt based on user preferences
-    prompt = f"""
-    The provided articles are formatted as follows:
+    # prompt = f"""
+    # The provided articles are formatted as follows:
 
-    Each article begins with a title enclosed in triple hashtags (###), followed by its content. Articles are separated by two newlines. Example format:
+    # Each article begins with a title enclosed in triple hashtags (###), followed by its content. Articles are separated by two newlines. Example format:
 
-    ### Article Title 1 ###
-    Article content here.
+    # ### Article Title 1 ###
+    # Article content here.
 
-    ### Article Title 2 ###
-    Article content here.
+    # ### Article Title 2 ###
+    # Article content here.
 
-    Summarize the main topics and themes discussed across all of the provided articles in a cohesive manner, focusing on presenting the content directly and engagingly. Start the summary by directly addressing the topic without referencing the articles themselves. 
+    # Generate a concise, engaging title (5-10 words) summarizing the overall theme of the articles. 
+    # Then, summarize the main topics and themes discussed across all of the provided articles in a cohesive manner, focusing on presenting the content directly and engagingly. Start the summary by directly addressing the topic without referencing the articles themselves. 
     
-    Ensure the summary aligns with {user_preferences.get('length', 'short')} length and maintains a {user_preferences.get('tone', 'formal')} tone."""
+    # Ensure the summary aligns with {user_preferences.get('length', 'short')} length and maintains a {user_preferences.get('tone', 'formal')} tone.
+
+    # Format your response as:
+
+    # **Title**: [Generated Title]
+    # **Summary**:
+    # [Generated Summary]
+    # """
+    prompt = f"""
+      The provided articles are formatted as follows:
+
+      Each article begins with a title enclosed in triple hashtags (###), followed by its content. Articles are separated by two newlines. Example format:
+
+      ### Article Title 1 ###
+      Article content here.
+
+      ### Article Title 2 ###
+      Article content here.
+
+      **Task:**
+      1. Generate a concise, engaging title (4-8 words) that captures the overall theme of the provided articles. The title should be not be overly long or vague.
+      2. Summarize the main topics and themes discussed across all the articles in a cohesive and engaging manner. The summary should be direct, informative, and engaging. Start the summary by directly addressing the topic without referencing the articles themselves.
+      3. Ensure the summary aligns with the following user preferences:
+        - **Length**: {user_preferences.get('length', 'short')}
+        - **Tone**: {user_preferences.get('tone', 'formal')}
+
+      **Formatting Requirement:**  
+      Your response must follow this exact structure:
+      **Title**: [Generated Title]
+      **Summary**:
+      [Generated Summary]
+    """
 
     if (user_preferences['format'] == 'bullets'):
       temperature = 0.3
       top_p = 0.8
       presence_penalty = 0.7
-      prompt += " Format the response as a list of concise, bullet points that cover key content and understandings."
+      prompt += " Format the summary as a list of concise, bullet points that cover key content and understandings."
     elif (user_preferences['format'] == 'analysis'):
       temperature = 0.6
       top_p = 1
       frequency_penalty = 0.4
-      prompt += " Format the response as a thoughtful analysis."
+      prompt += " Format the summary as a thoughtful analysis."
     elif (user_preferences['format'] == 'quotes'):
       temperature = 0.1
       top_p = 0.6
       frequency_penalty = 0
-      prompt += " Format the response by extracting direct quotes from the articles provided, and then commenting on the quotes."
+      prompt += " Format the summary by extracting direct quotes from the articles provided, and then commenting on the quotes."
     else: #default is highlight summary
       temperature = 0.4
       top_p = 0.9
       frequency_penalty = 0.3
-      prompt += " Format the response as a highlight summary."
+      prompt += " Format the summary as a highlight summary."
 
     if (not user_preferences.get('jargon_allowed', True)):
       prompt += " Use clear, simple language and avoid complicated jargon."

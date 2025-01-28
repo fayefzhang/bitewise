@@ -1,18 +1,20 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
 from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources, get_topics_articles
 from utils.openai import generate_summary_individual, generate_summary_collection
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
 from utils.crawl import crawl_location as daily_crawl_location
+from utils.features import get_source_and_bias, char_length, estimate_reading_time
 from collections import Counter
 import logging
 import json
 import pandas as pd
 import re
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -39,7 +41,7 @@ def refresh_helper(file_path='articles_data.json'):
 
     # apply clustering and get top 4 clusters
     cluster_dict = cluster_daily_news_titles(json_file_path)
-    print(set(cluster_dict.values()))
+    # print(set(cluster_dict.values()))
 
     # add cluster label to articles
     with open(json_file_path, 'r', encoding='utf-8') as f:
@@ -47,18 +49,27 @@ def refresh_helper(file_path='articles_data.json'):
     articles_df = pd.DataFrame(articles_data)
     articles_df['cluster'] = articles_df.index.map(cluster_dict)
 
+    def process_article(article):
+        article['source'], article['biasRating'] = get_source_and_bias(article.get('source', {}))
+        article['readTime'] = estimate_reading_time(char_length(article.get('content', None)))
+        return article
+    
+    articles_df = articles_df.apply(lambda x: process_article(x), axis=1)
+
     # get top clusters
     top_clusters = (
         articles_df['cluster']
+        .loc[articles_df['cluster'] != -1]
         .value_counts()
-        .nlargest(4)
+        .nlargest(min(4, articles_df['cluster'].nunique() - 1))
         .index
     )
 
     # get articles for top clusters
     top_articles = articles_df[articles_df['cluster'].isin(top_clusters)]
     response = (
-        top_articles.groupby('cluster')
+        top_articles
+        .groupby('cluster')
         .apply(lambda x: x.to_dict(orient='records'))
         .to_dict()
     )
@@ -193,8 +204,12 @@ def summarize_articles():
     })
 
     articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])
-    summary = generate_summary_collection(articles_text, ai_preferences)
+    summary_output = generate_summary_collection(articles_text, ai_preferences)
+    title, summary = summary_output.split("**Summary**:", 1)  # Splitting based on "**Summary**:"
+    title = title.replace("**Title**:", "").strip()
+    summary = summary.strip()
     return jsonify({
+        "title": title,
         "summary": summary,
         "enriched_articles": enriched_articles,
     }), 200
@@ -247,20 +262,57 @@ def get_preferences():
 @app.route('/search/topics', methods=['POST'])
 def topic_search():
     data = request.get_json()
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(current_dir, 'data', 'daily_topics_articles.json')
+
     topics = data.get('topics')
     search_preferences = data.get("search_preferences", {})
 
-    results = []
-    for topic in topics:
+    if os.path.exists(json_file_path): # file exists
+        if os.stat(json_file_path).st_size == 0: # if file is empty
+            print("The file exists but is empty.")
+
+            results = get_topics_articles(topics, search_preferences)
+
+            # Save the fresh news to the cache
+            with open(json_file_path, 'w') as f:
+                json.dump({
+                    'timestamp': datetime.now().isoformat(),
+                    'news': results
+                }, f)
+
+            return jsonify(results), 200
+        else: # file is not empty
+            print("The file exists and is not empty.")
+            with open(json_file_path, 'r') as f:
+                cached_data = json.load(f)
+                last_updated = datetime.fromisoformat(cached_data['timestamp'])
+                current_day = datetime.now().date()
+
+                if last_updated.date() == current_day:
+                    return jsonify(cached_data['news'])
+                else:
+                    results = get_topics_articles(topics, search_preferences)
+                    with open(json_file_path, 'w') as f:
+                        json.dump({
+                            'timestamp': datetime.now().isoformat(),
+                            'news': results
+                        }, f)
+                    return jsonify(results), 200
+
+    else: # file does not exist
         
-        topic_search_results = user_search(topic, search_preferences, "")
-        topic_result = {
-            "topic": topic,
-            "results": topic_search_results[:3] # arbitrary amount, can change
-        }
-        results.append(topic_result)
-    
-    return jsonify(results), 200
+        results = get_topics_articles(topics, search_preferences)
+
+        # Save the fresh news to the cache
+        with open(json_file_path, 'w') as f:
+            json.dump({
+                'timestamp': datetime.now().isoformat(),
+                'news': results
+            }, f)
+
+        return jsonify(results), 200
 
 @app.route('/crawl/all', methods=['POST'])
 def crawl_all():
