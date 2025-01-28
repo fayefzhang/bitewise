@@ -50,8 +50,9 @@ def refresh_daily_news():
     # get top clusters
     top_clusters = (
         articles_df['cluster']
+        .loc[articles_df['cluster'] != -1]
         .value_counts()
-        .nlargest(4)
+        .nlargest(min(4, articles_df['cluster'].nunique() - 1))
         .index
     )
 
