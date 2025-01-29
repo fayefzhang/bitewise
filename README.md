@@ -1,4 +1,4 @@
-Start python backend (use Python version 3.11 or later, and ensure that `ffmpeg` is installed on your device (`brew install ffmpeg`)):
+Start python backend (use Python version 3.11 or 3.12, and ensure that `ffmpeg` is installed on your device (`brew install ffmpeg`)):
 
 ```
 cd python-api
