@@ -146,11 +146,17 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
         };
 
         const response = await axios.post(`${BASE_URL}/daily-news`);
+        console.log("DATA", response.data)
+        const { clusters, overall_summary } = response.data;
+        console.log("clust", clusters)
 
         // summarizing each cluster
         const clusterSummaries = await Promise.all(
-            Object.entries(response.data).map(async ([clusterId, articles]) => {
+            clusters.map(async (cluster: { cluster_id: any; articles: any; }) => {
                 // data formatted for summary endpoint
+                const clusterId = cluster.cluster_id;
+                const articles = cluster.articles;
+                
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
@@ -159,6 +165,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     return acc;
                 }, {});
                 try {
+                    console.log("HERERERE", formattedArticles)
                     const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
                         articles: formattedArticles,
                         ai_preferences: ai_preferences
@@ -167,7 +174,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     const summaryData = summaryResponse.data; 
 
                     return {
-                        cluster: Number(clusterId),
+                        cluster: clusterId,
                         articles: summaryData.enriched_articles, 
                         title: summaryData.title,
                         summary: summaryData.summary
@@ -184,7 +191,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
             })
         );
         
-        res.json(clusterSummaries);
+        res.json({overall_summary, clusterSummaries});
     } catch (error) {
         console.error("error processing search request", error);
         res.status(500).json({ error: 'Internal server error' });
