@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, get_topics_articles
-from utils.openai import generate_summary_individual, generate_summary_collection
+from utils.openai import generate_summary_individual, generate_summary_collection, daily_news_summary
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
@@ -57,14 +57,45 @@ def refresh_daily_news():
     )
 
     # get articles for top clusters
-    top_articles = articles_df[articles_df['cluster'].isin(top_clusters)]
-    response = (
-        top_articles
-        .groupby('cluster')
-        .apply(lambda x: x.to_dict(orient='records'))
-        .to_dict()
-    )
+    top_articles = articles_df[articles_df['cluster'].isin(top_clusters)].to_dict(orient="records")
+    # response = (
+    #     top_articles
+    #     .groupby('cluster')
+    #     .apply(lambda x: x.to_dict(orient='records'))
+    #     .to_dict()
+    # )
+
+    cluster_groups = {}
+    for article in top_articles:
+        cluster_id = article["cluster"]
+        if cluster_id not in cluster_groups:
+            cluster_groups[cluster_id] = []
+        cluster_groups[cluster_id].append(article)
+
+    # **Generate summary from daily news articles**
+    articles_text = "\n\n".join([
+        f"### {article.get('title', 'Untitled')} ###\n{article.get('content', '')}" for article in top_articles
+    ])
+
+    daily_summary = daily_news_summary(articles_text)  # Calling the summary function
+
+    # **Build the final response**
+    response = {
+        "overall_summary": daily_summary,  # Daily news summary
+        "clusters": [
+            {
+                "cluster_id": cluster_id,
+                "title": cluster_articles[0].get("title", "Untitled"),  # Using first article title as cluster title
+                "articles": cluster_articles
+            }
+            for cluster_id, cluster_articles in cluster_groups.items()
+        ]
+    }
+
     return jsonify(response)
+
+
+    # return jsonify(response)
 
 
 @app.route('/search', methods=['POST'])
