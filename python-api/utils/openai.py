@@ -240,3 +240,47 @@ def generate_podcast_collection(links: [str]):
 
 
     return {"audio_file": audio_path, "transcript_file": transcript_path}
+
+# Summarizes daily news articles
+def daily_news_summary(input_text):
+    temperature = 0
+    top_p = 0
+    frequency_penalty = 0
+    presence_penalty = 0
+    max_tokens = 100
+
+    prompt = f"""
+      The provided articles are formatted as follows:
+
+      Each article begins with a title enclosed in triple hashtags (###), followed by its content. Articles are separated by two newlines. Example format:
+
+      ### Article Title 1 ###
+      Article content here.
+
+      ### Article Title 2 ###
+      Article content here.
+
+      **Task:**
+      Generate a 5-sentence overview of the key topics and themes discussed in the provided articles. The summary should:
+      1. Be concise, engaging, and informative.
+      2. Cover diverse topics from the articles rather than focusing on a single theme.
+      3. Flow logically, ensuring smooth transitions between sentences.
+      4. Avoid referencing specific articles, titles, or sources.
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=temperature,
+            top_p=top_p,
+            frequency_penalty=frequency_penalty,
+            presence_penalty=presence_penalty,
+            # max_tokens=max_tokens ### removed max_tokens to allow for longer summaries for now
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+    return response.choices[0].message.content.strip()
+
