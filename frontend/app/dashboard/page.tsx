@@ -93,6 +93,7 @@ const DashboardPage: React.FC = () => {
   };
 
   const [dailyNews, setDailyNews] = useState<any>(null);
+  const [dailySummary, setDailySummary] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -100,7 +101,9 @@ const DashboardPage: React.FC = () => {
       const news = await fetchDailyNews();
 
       console.log(news);
-      setDailyNews(news);
+
+      setDailyNews(news.clusterSummaries);
+      setDailySummary(news.overall_summary)
       setIsLoading(false);
     };
 
@@ -118,7 +121,7 @@ const DashboardPage: React.FC = () => {
         <div className="flex-1 flex-col">
           <h1 className="text-2xl font-bold">Good evening, USER.</h1>
           <p className="text-lg mb-4">
-            We're covering trending stories today.
+          {dailySummary}
           </p>
 
           {/* Audio Summary */}

@@ -43,7 +43,7 @@ const LocalNews = () => {
           const news = await fetchLocalNews();
     
           console.log(news);
-          setLocalNews(news);
+          setLocalNews(news.clusterSummaries);
           setIsLoading(false);
         };
     
