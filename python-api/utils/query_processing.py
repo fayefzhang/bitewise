@@ -3,6 +3,7 @@
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from nltk.data import find
 import string
@@ -12,6 +13,8 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 nltk.download('punkt_tab')
+
+lemmatizer = WordNetLemmatizer()
 
 def parse_query(query: str) -> str:
     # nltk setup
@@ -42,7 +45,6 @@ def parse_query(query: str) -> str:
     ]
 
     # 3. Lemmatization
-    lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(token) for token in tokens]
 
     return " ".join(tokens)

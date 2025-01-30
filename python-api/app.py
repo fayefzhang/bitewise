@@ -201,6 +201,9 @@ def summarize_articles():
             "url": url,
             "title": article_result["title"],
             "content": article_result['fullContent'],
+            "image": article_result["imageUrl"],
+            "readTime": article_result["readTime"],
+            "biasRating": article_result["biasRating"],
     })
 
     articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])

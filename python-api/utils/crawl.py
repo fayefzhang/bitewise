@@ -219,8 +219,9 @@ def crawl_seeds(sources, output_file='articles_data.json'):
             articles_list.append(articles_data)
 
         # output articles data to JSON file -- TODO: clean json
-        with open("data/" + output_file, 'a', encoding='utf-8') as json_file:
-            json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
+        if articles_list:
+            with open("data/" + output_file, 'a', encoding='utf-8') as json_file:
+                json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
         
     print(f"Visited {len(all_links)} pages and saved data to {output_file}")
 

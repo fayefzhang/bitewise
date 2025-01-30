@@ -23,7 +23,7 @@ const fetchLocalNews = async () => {
         body: JSON.stringify({ local: true })
         });
         if (!response.ok) {
-        throw new Error("Failed to fetch daily news");
+        throw new Error("Failed to fetch local news");
         }
         return response.json();
     } catch (error) {
@@ -63,7 +63,7 @@ const LocalNews = () => {
                 <ArticleEntry 
                     key={index}
                     title={""}
-                    description={cluster.summary.substring(23)}
+                    description={cluster.summary}
                 />
             )
           )}

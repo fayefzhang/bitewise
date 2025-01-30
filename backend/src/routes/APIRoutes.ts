@@ -80,9 +80,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
         const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
         const { title, summary, enriched_articles } = summaryResponse.data;
-        
-        console.log("Summary: ", summary);
-        console.log("Enriched Articles: ", enriched_articles);
+
+        console.log("Summary:", summary);
+        console.log("Enriched Articles:", enriched_articles);
 
         // step 4: update articles with content (for caching)
         const enrichedArticlesData = articlesData.map((article: any) => {
@@ -154,11 +154,15 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
         const clusterSummaries = await Promise.all(
             Object.entries(response.data).map(async ([clusterId, articles]) => {
                 // data formatted for summary endpoint
+
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
                         fullContent: article.content,
                         imageUrl: article.img,
+                        readTime: article.readTime,
+                        biasRating: article.biasRating,
+                        source: article.source,
                     };
                     return acc;
                 }, {});
