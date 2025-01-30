@@ -80,9 +80,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
         const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
         const { title, summary, enriched_articles } = summaryResponse.data;
-        
-        console.log("Summary: ", summary);
-        console.log("Enriched Articles: ", enriched_articles);
+
+        console.log("Summary:", summary);
+        console.log("Enriched Articles:", enriched_articles);
 
         // step 4: update articles with content (for caching)
         const enrichedArticlesData = articlesData.map((article: any) => {
@@ -133,6 +133,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
     try {
         // const { search_preferences, ai_preferences } = req.body;
+        const { local } = req.body;
 
         // if (!search_preferences) {
         //     res.status(400).json({ message: 'User preferences are required' });
@@ -144,8 +145,10 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
             format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
             jargon_allowed: true, // options: {True, False}
         };
-
-        const response = await axios.post(`${BASE_URL}/daily-news`);
+        
+        const route = req.body && local ? 'local-news' : 'daily-news';
+        
+        const response = await axios.post(`${BASE_URL}/${route}`);
         console.log("DATA", response.data)
         const { clusters, overall_summary } = response.data;
         console.log("clust", clusters)
@@ -154,13 +157,18 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
         const clusterSummaries = await Promise.all(
             clusters.map(async (cluster: { cluster_id: any; articles: any; }) => {
                 // data formatted for summary endpoint
+
                 const clusterId = cluster.cluster_id;
                 const articles = cluster.articles;
                 
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
-                        fullContent: article.content
+                        fullContent: article.content,
+                        imageUrl: article.img,
+                        readTime: article.readTime,
+                        biasRating: article.biasRating,
+                        source: article.source,
                     };
                     return acc;
                 }, {});
@@ -377,6 +385,23 @@ router.post('/search/topics', async(req: Request, res: Response): Promise<void> 
 router.post('/crawl/all', async (req: Request, res: Response): Promise<void> => {
     try {
         const response = await axios.post('http://127.0.0.1:5000/crawl/all');
+
+        res.status(response.status).json(response.data);
+    } catch (error) {
+        console.error("Error occurred during crawling:", error);
+
+        if (axios.isAxiosError(error) && error.response) {
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+});
+
+router.post('/crawl/local', async (req: Request, res: Response): Promise<void> => {
+    try {
+        
+        const response = await axios.post('http://127.0.0.1:5000/crawl/local');
 
         res.status(response.status).json(response.data);
     } catch (error) {

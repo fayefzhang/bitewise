@@ -13,3 +13,5 @@ ffmpeg==1.4
 podcastfy==0.4.1
 pathlib==1.0.1
 exa_py==1.7.2
+bs4==0.0.2
+pillow==11.1.0
