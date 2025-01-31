@@ -100,7 +100,7 @@ def extract_links(html, base_url, delay=0.5):
         link = a_tag['href']
         if link.startswith('/'):
             link = base_url + link  # handle relative links
-        title = a_tag.get_text(strip=True)
+        title = a_tag.get_text(strip=True)  # TODO: fix title -- extract h1 from scraping article
         if len(link) - len(base_url) < 20 or len(title) < 20:  # avoid non-article links
             continue
 
@@ -247,7 +247,7 @@ def crawl_location(location="Philadelphia, PA"):
 
 
 def main():
-    crawl_all()
+    crawl_location()
 
 if __name__ == "__main__":
     main()

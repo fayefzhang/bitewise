@@ -46,7 +46,7 @@ interface NewsSectionProps {
 const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) => {
   return (
     <section className="mb-8">
-      <h2 className="text-xl font-bold">{header}</h2>
+      <h2 className="text-xl font-bold mb-2">{header}</h2>
       <p className="mb-4">{summary}</p>  
       <div className="flex space-x-4">
         {articles.map((article, index) => (
@@ -62,7 +62,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
                 src={article.image}
                 alt={article.title}
                 layout="fill"
-                objectFit="cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="rounded-md"
               />
               </div>
@@ -120,9 +120,7 @@ const DashboardPage: React.FC = () => {
         {/* Main Section */}
         <div className="flex-1 flex-col">
           <h1 className="text-2xl font-bold">Good evening, USER.</h1>
-          <p className="text-lg mb-4">
-          {dailySummary}
-          </p>
+          <p className="text-lg mt-4 mb-4">{dailySummary}</p>
 
           {/* Audio Summary */}
           <audio controls className="mt-2 w-full">

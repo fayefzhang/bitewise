@@ -52,7 +52,7 @@ const LocalNews = () => {
     
 
     return (
-        <aside className="bg-blue-50 p-4 rounded-lg max-h-[250px] overflow-y-auto">
+        <aside className="bg-blue-50 p-4 rounded-lg max-h-[400px] overflow-y-auto">
             <h2 className='text-lg font-bold mb-2'>Local News</h2>
             <h4 className="font-semibold italic">{location}</h4>
 
@@ -62,19 +62,13 @@ const LocalNews = () => {
             localNews.map((cluster: any, index: any) =>
                 <ArticleEntry 
                     key={index}
-                    title={""}
+                    title={cluster.title}
                     description={cluster.summary}
                 />
             )
           )}
         </aside>
     );
-};
-
-const getFormattedDate = (): string => {
-    const today = new Date();
-    const options: Intl.DateTimeFormatOptions = { month: 'long', day: '2-digit', year: 'numeric' };
-    return today.toLocaleDateString('en-US', options);
 };
 
 const ArticleEntry: React.FC<ArticleEntryProps>  = ({ title, description, link }) => {
