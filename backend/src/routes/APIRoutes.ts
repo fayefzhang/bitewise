@@ -41,6 +41,10 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         //     }
         // }
 
+        // do we have this query in our database
+        // if so, is it within the last 24 hours
+        // if so, return the cached response
+
         // Step 1: fetch articles
         const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
