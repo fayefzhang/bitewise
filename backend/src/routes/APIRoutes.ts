@@ -1,5 +1,7 @@
 import express, { Router, Request, Response, RequestHandler } from "express";
 import axios from 'axios';
+import Article from "../models/Article";
+import ISummary from "../interfaces/ISummary";
 
 const router: Router = express.Router();
 const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
@@ -92,6 +94,8 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 fullContent: enrichedArticle?.content || null,
             };
         });
+
+        // TO-DO: HERE WE CAN CREATE ARTICLE OBJECTS AND SAVE TO DB
 
         // Step 4: Combine articles and summaries into a single response
         const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
