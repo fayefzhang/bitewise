@@ -4,6 +4,7 @@ from . import config
 import io
 import sys
 import re
+import textstat
 from pathlib import Path
 from podcastfy.client import generate_podcast
 
@@ -29,37 +30,72 @@ def generate_summary_individual(input_text, user_preferences):
     presence_penalty = 0
     max_tokens = 100
 
+    fre_score = textstat.flesch_reading_ease(input_text)
+    fkgl_score = textstat.flesch_kincaid_grade(input_text)
+    readability_score = textstat.text_standard(input_text)
+
+    summary_instruction = ""
+
     # Customize prompt based on user preferences
-    prompt = f"Summarize the following article with {user_preferences.get('length', 'short')} length, in a {user_preferences.get('tone', 'formal')} tone."
     if (user_preferences['format'] == 'bullets'):
       temperature = 0.2
       top_p = 0.5
       presence_penalty = 0.7
-      prompt += " Format the response as a list of concise, bullet points that cover key content and understandings."
+      summary_instruction = "Format the response as a list of concise, bullet points that cover key content and understandings."
     elif (user_preferences['format'] == 'analysis'):
       temperature = 0.6
       top_p = 1
       frequency_penalty = 0.4
-      prompt += " Format the response as a thoughtful analysis."
+      summary_instruction = "Format the response as a thoughtful analysis."
     elif (user_preferences['format'] == 'quotes'):
       temperature = 0.1
       top_p = 0.3
       frequency_penalty = 0
-      prompt += " Format the response by extracting direct quotations from the articles provided."
+      summary_instruction = "Format the response by extracting direct quotations from the articles provided."
     else: #default is highlight summary
       temperature = 0.4
       top_p = 0.7
       frequency_penalty = 0.3
-      prompt += " Format the response as a highlight summary."
+      summary_instruction = "Format the response as a highlight summary."
 
     if (not user_preferences.get('jargon_allowed', True)):
-      prompt += " Use clear, simple language and avoid complicated jargon."
-    prompt += f":\n\n{input_text}"
+      summary_instruction += " Use clear, simple language and avoid complicated jargon."
 
     if (user_preferences['length'] == 'medium'):
         max_tokens = 250
     elif (user_preferences['length'] == 'long'):
         max_tokens = 500
+    
+    prompt = f"""
+      Summarize the following article based on user preferences:
+      - Length: {user_preferences.get('length', 'short')}
+      - Tone: {user_preferences.get('tone', 'formal')}
+
+      {summary_instruction}
+
+      This article has the following readability metrics:
+      - **Flesch Reading Ease Score**: {fre_score}
+      - **Flesch-Kincaid Grade Level**: {fkgl_score}
+      - **Initial Readability Classification**: {readability_score}
+
+      Please follow these instructions:
+      1️⃣ **Generate a structured summary** based on the user's selected format.
+      2️⃣ **Verify and adjust the readability classification** based on the complexity of the text. 
+        - Use the provided metrics as a guideline.
+        - If the text has long sentences, advanced vocabulary, or technical terms, adjust accordingly.
+
+      **Formatting Requirements:**
+      Your response **must** follow this exact structure:
+      ---
+      **Summary**:
+      [Generated summary]
+      **Reading Difficulty**:
+      [Easy/Medium/Hard]
+      ---
+
+      Article Content:
+      {input_text}
+    """
     
     
     try:
@@ -87,29 +123,6 @@ def generate_summary_collection(input_text, user_preferences):
     presence_penalty = 0
     max_tokens = 100
 
-    # Customize prompt based on user preferences
-    # prompt = f"""
-    # The provided articles are formatted as follows:
-
-    # Each article begins with a title enclosed in triple hashtags (###), followed by its content. Articles are separated by two newlines. Example format:
-
-    # ### Article Title 1 ###
-    # Article content here.
-
-    # ### Article Title 2 ###
-    # Article content here.
-
-    # Generate a concise, engaging title (5-10 words) summarizing the overall theme of the articles. 
-    # Then, summarize the main topics and themes discussed across all of the provided articles in a cohesive manner, focusing on presenting the content directly and engagingly. Start the summary by directly addressing the topic without referencing the articles themselves. 
-    
-    # Ensure the summary aligns with {user_preferences.get('length', 'short')} length and maintains a {user_preferences.get('tone', 'formal')} tone.
-
-    # Format your response as:
-
-    # **Title**: [Generated Title]
-    # **Summary**:
-    # [Generated Summary]
-    # """
     prompt = f"""
       The provided articles are formatted as follows:
 

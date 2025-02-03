@@ -205,8 +205,15 @@ def summarize_article():
     if not ai_preferences:
         return jsonify({"error": "AI preferences are required"}), 400
 
-    summary = generate_summary_individual(full_content, ai_preferences)
-    return jsonify({"summary": summary}), 200
+    summary_output = generate_summary_individual(full_content, ai_preferences)
+    summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)  # Splitting based on "**Summary**:"
+    summary = summary.replace("**Summary**:", "").strip()
+    difficulty = difficulty.strip()
+    return jsonify({
+        "summary": summary,
+        "difficulty": difficulty,
+        "enriched_articles": enriched_articles,
+    }), 200
 
 # For summarizing multiple articles into one summary
 @app.route('/summarize-articles', methods=['POST'])

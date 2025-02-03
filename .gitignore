@@ -1,5 +1,6 @@
 /backend/node_modules
 /backend/package-lock.json
+/backend/.env
 /venv
 /python-api/utils/config.py
 *.pyc
