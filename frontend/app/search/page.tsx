@@ -1,7 +1,7 @@
 "use client";
 
-import { Preferences, Article, Summary } from '../common/interfaces';
-import { toTitleCase } from '../common/utils'
+import { Preferences, Article, Summary } from "../common/interfaces";
+import { toTitleCase } from "../common/utils";
 import Header from "../components/header";
 import Image from "next/image";
 import { Key, useState, useEffect } from "react";
@@ -14,7 +14,8 @@ const SearchPage: React.FC = () => {
   const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
     null
   );
-  const [headerPreferences, setHeaderPreferences] = useState<Preferences | null> (null);
+  const [headerPreferences, setHeaderPreferences] =
+    useState<Preferences | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const searchParams = useSearchParams();
@@ -34,8 +35,11 @@ const SearchPage: React.FC = () => {
     domains: null, // theoretically same as sources, will add in code later to go from one to another so we only need one
     exclude_domains: null,
     from_date: null, // this defaults to past 7 days in newsapi code
-    read_time: null,
-    bias: null,
+    to_date: null,
+    read_time: [],
+    bias: [],
+    clustering: false,
+    topics: [],
   };
 
   useEffect(() => {
@@ -46,7 +50,7 @@ const SearchPage: React.FC = () => {
         id: 1,
         title: "Chancellor Scholz...",
         source: "Reuters",
-        date: "1 hr ago",
+        time: "1 hr ago",
         bias: "right-center",
       };
 
@@ -58,6 +62,8 @@ const SearchPage: React.FC = () => {
           "Germany’s ruling coalition collapses as Chancellor Scholz fires finance minister",
         source: "CNBC",
         content: "Germany’s ruling coalition collapsed on Wednesday...",
+        time: "1 hr ago",
+        cluster: 1,
         date: "5 hours ago",
         bias: "center",
         readTime: "5 MIN READ",
@@ -208,7 +214,11 @@ const SearchPage: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
-      <Header onSearch={handleSearch} setPreferences={setPreferences} placeholder="Search topic..." />
+      <Header
+        onSearch={handleSearch}
+        setPreferences={setPreferences}
+        placeholder="Search topic..."
+      />
 
       {/* Main Content */}
       <main className="p-4 md:p-8 main-content flex">
@@ -226,46 +236,89 @@ const SearchPage: React.FC = () => {
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
               </section>
               <section>
-                {articles.filter((article) => {
-                  let readTime = true;
-                  if (headerPreferences && headerPreferences.read_time != "") {
-                    readTime = ((headerPreferences?.read_time == "Short" && article.readTime == "<2 min") || 
-                    (headerPreferences?.read_time == "Medium" && article.readTime == "2-7 min") || 
-                    (headerPreferences?.read_time == "Long" && article.readTime == ">7 min"));
-                  }
-                  return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime && (!headerPreferences.clustering || article.cluster != -1));
-                })
-                .map((article) => (
-                  <div
-                    key={article.id}
-                    className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
-                      selectedArticleId === article.id
-                        ? "border-blue-500 bg-blue-100"
-                        : "border-transparent"
-                    }`}
-                    onClick={() => handleArticleClick(article)}
-                    onDoubleClick={() => handleArticleDoubleClick(article)}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <Image
-                        src="/bitewise_logo.png" // Replace with actual image path
-                        alt="article thumbnail"
-                        width={80}
-                        height={50}
-                        className="rounded-lg"
-                      />
-                      <div>
-                        <p className="text-gray-500">{article.source}</p>
-                        <h2 className="font-bold text-lg text-black">
-                          {article.title}
-                        </h2>
-                        <p className="text-gray-500 text-sm">
-                          {article.bias} • {article.readTime}
-                        </p>
+                {articles
+                  .filter((article) => {
+                    let readTime = true;
+                    let biasMatch = true;
+                    let dateMatch = true;
+
+                    // Read Time Filtering (Supports Multiple Selections)
+                    if (headerPreferences?.read_time?.length > 0) {
+                      readTime = headerPreferences.read_time.some(
+                        (time) =>
+                          (time === "Short" && article.readTime === "<2 min") ||
+                          (time === "Medium" &&
+                            article.readTime === "2-7 min") ||
+                          (time === "Long" && article.readTime === ">7 min")
+                      );
+                    }
+
+                    // Bias Filtering (Supports Multiple Selections)
+                    if (headerPreferences?.bias?.length > 0) {
+                      biasMatch = headerPreferences.bias.some((bias) =>
+                        article.bias.includes(bias.toLowerCase())
+                      );
+                    }
+
+                    // Date Filtering (Supports From and To Dates)
+                    if (headerPreferences?.from_date) {
+                      const articleDate = new Date(article.time).getTime();
+                      const fromDate = new Date(
+                        headerPreferences.from_date
+                      ).getTime();
+                      if (articleDate < fromDate) {
+                        dateMatch = false;
+                      }
+                    }
+
+                    if (headerPreferences?.to_date) {
+                      const articleDate = new Date(article.time).getTime();
+                      const toDate = new Date(
+                        headerPreferences.to_date
+                      ).getTime();
+                      if (articleDate > toDate) {
+                        dateMatch = false;
+                      }
+                    }
+
+                    return (
+                      biasMatch &&
+                      readTime &&
+                      dateMatch &&
+                      (!headerPreferences.clustering || article.cluster !== -1)
+                    );
+                  })
+                  .map((article) => (
+                    <div
+                      key={article.id}
+                      className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
+                        selectedArticleId === article.id
+                          ? "border-blue-500 bg-blue-100"
+                          : "border-transparent"
+                      }`}
+                      onClick={() => handleArticleClick(article)}
+                      onDoubleClick={() => handleArticleDoubleClick(article)}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <Image
+                          src="/bitewise_logo.png" // Replace with actual image path
+                          alt="article thumbnail"
+                          width={80}
+                          height={50}
+                          className="rounded-lg"
+                        />
+                        <div>
+                          <p className="text-gray-500">{article.source}</p>
+                          <h2 className="font-bold text-lg text-black">
+                            {article.title}
+                          </h2>
+                          <p className="text-gray-500 text-sm">
+                            {article.bias} • {article.readTime}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </section>
             </>
           ) : (
