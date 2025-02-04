@@ -74,7 +74,8 @@ const StepSelection: React.FC<StepSelectionProps> = ({
                 Continue
               </button>
             </Link>
-            <button className="mt-4 text-blue-500 underline">Skip</button>
+            <Link href="/profile"><button className="mt-4 text-blue-500 underline">Skip</button></Link>
+            
           </div>
         </div>
       </div>
