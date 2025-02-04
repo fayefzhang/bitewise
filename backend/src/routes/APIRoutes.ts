@@ -7,6 +7,19 @@ const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
 const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
 
+const FILTER_DICT = {
+    bias: {
+        "left": 0,
+        "center": 1,
+        "right": 2
+    },
+    readTime: {
+        "<2 min": 0,
+        "2-7 min": 1,
+        ">7 min": 2
+    }
+};
+
 // @route POST /search
 // @description Processes a news search query
 // @returns list of articles
@@ -146,13 +159,17 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
             return;
         }
 
-        const { bias, maxReadTime, dateRange } = filter_preferences;
+        const { bias, readTime, dateRange } = filter_preferences;
+
+        const biasIntArray = bias.map((b: keyof typeof FILTER_DICT.bias) => FILTER_DICT.bias[b]);
+        const readTimeIntArray = readTime.map((rt: keyof typeof FILTER_DICT.readTime) => FILTER_DICT.readTime[rt]);
+
 
         console.log("Filtering with preferences:", filter_preferences);
 
         const filteredArticles = articles.filter((article: any) => {
-            const biasMatches = !bias || bias.includes(article.bias);
-            const readTimeMatches = !maxReadTime || (article.readTime && article.readTime <= maxReadTime);
+            const biasMatches = !bias || biasIntArray.includes(article.bias);
+            const readTimeMatches = !readTime || readTimeIntArray.includes(article.readTime);
             const dateMatches = !dateRange || (article.date && new Date(article.date) >= new Date(dateRange));
 
             return biasMatches && readTimeMatches && dateMatches;
