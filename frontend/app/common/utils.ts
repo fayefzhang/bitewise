@@ -1,5 +1,7 @@
 // src/common/utils.ts
 
+import { Preferences } from "./interfaces";
+
 // make search titles look nice
 export function toTitleCase(input: string): string {
   const minorWords = new Set([
@@ -56,8 +58,6 @@ export const interests = [
   "Photography",
   "Health",
   "Fitness",
-  "Yoga",
-  "Meditation",
   "Psychology",
   "Philosophy",
   "Economics",
@@ -74,32 +74,8 @@ export const interests = [
   "Small Business",
   "Parenting",
   "Education",
-  "Personal Finance",
-  "DIY Projects",
-  "Gardening",
-  "Home Improvement",
   "World News",
   "Local News",
-  "True Crime",
-  "Horror",
-  "Comedy",
-  "Romance",
-  "Science Fiction",
-  "Fantasy",
-  "Poetry",
-  "Comics",
-  "Anime",
-  "K-Pop",
-  "Hip Hop",
-  "Classical Music",
-  "Golf",
-  "Tennis",
-  "Basketball",
-  "Soccer",
-  "Baseball",
-  "Formula 1",
-  "Cycling",
-  "Hiking",
   "Wildlife",
 ];
 
@@ -113,3 +89,22 @@ export const sources = [
   "Fox News",
   // ... add more sources here
 ];
+
+export const defaultSearchPreferences: Preferences = {
+  sources: [],
+  domains: [],
+  exclude_domains: [],
+  from_date: "",
+  to_date: "",
+  read_time: [],
+  bias: [],
+  clustering: false,
+  topics: [],
+};
+
+export const defaultAIPreferences = {
+  length: "short", // options: {"short", "medium", "long"}
+  tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}
+  format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
+  jargon_allowed: true, // options: {True, False}
+};

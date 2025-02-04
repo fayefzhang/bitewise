@@ -23,7 +23,7 @@ export interface Article {
   title: string;
   source: string;
   content: string;
-  time: string;
+  time: string; // date published
   bias: string;
   readTime: string;
   relatedSources: RelatedSource[];

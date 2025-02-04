@@ -119,7 +119,7 @@ const DashboardPage: React.FC = () => {
       <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Main Section */}
         <div className="flex-1 flex-col">
-          <h1 className="text-2xl font-bold">Good evening, USER.</h1>
+          <h1 className="text-2xl font-bold">Good evening, GUEST.</h1>
           <p className="text-lg mt-4 mb-4">{dailySummary}</p>
 
           {/* Audio Summary */}
