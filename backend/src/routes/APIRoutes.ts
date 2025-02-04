@@ -65,7 +65,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         const { clusters } = articlesResponse.data;
         const articlesData = filteredResults;
 
-        console.log("search step 1, found articles:", articlesData);
+        // console.log("search step 1, found articles:", articlesData);
 
         // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
         const summaryRequestBody = {
@@ -127,6 +127,47 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+
+// @route POST /search/filter
+// @description Processes a news search query and filters based on user preferences for bias, read time, and date range
+// @returns list of filtered articles
+router.post("/search/filter", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { articles, filter_preferences } = req.body;
+
+        if (!articles || !Array.isArray(articles)) {
+            res.status(400).json({ message: "Articles array is required" });
+            return;
+        }
+
+        if (!filter_preferences) {
+            res.status(400).json({ message: "Filter preferences are required" });
+            return;
+        }
+
+        const { bias, maxReadTime, dateRange } = filter_preferences;
+
+        console.log("Filtering with preferences:", filter_preferences);
+
+        const filteredArticles = articles.filter((article: any) => {
+            const biasMatches = !bias || bias.includes(article.bias);
+            const readTimeMatches = !maxReadTime || (article.readTime && article.readTime <= maxReadTime);
+            const dateMatches = !dateRange || (article.date && new Date(article.date) >= new Date(dateRange));
+
+            return biasMatches && readTimeMatches && dateMatches;
+        });
+
+        console.log("Filtered articles count:", filteredArticles.length);
+
+        res.json({ filtered_articles: filteredArticles });
+    } catch (error) {
+        console.error("Error filtering search results", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
 // @returns grouped articles by cluster
@@ -149,9 +190,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
         const route = req.body && local ? 'local-news' : 'daily-news';
         
         const response = await axios.post(`${BASE_URL}/${route}`);
-        console.log("DATA", response.data)
         const { clusters, overall_summary } = response.data;
-        console.log("clust", clusters)
 
         // summarizing each cluster
         const clusterSummaries = await Promise.all(
@@ -173,7 +212,6 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     return acc;
                 }, {});
                 try {
-                    console.log("HERERERE", formattedArticles)
                     const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
                         articles: formattedArticles,
                         ai_preferences: ai_preferences
