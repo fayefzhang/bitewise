@@ -3,7 +3,7 @@
 import Header from "../components/header";
 import TopicsArticles from './components/topicsarticles';
 import LocalNews from './components/localnews';
-import { Key, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -85,7 +85,6 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
 
 const DashboardPage: React.FC = () => {
   const router = useRouter();
-
   const handleSearch = (term: string) => {
     if (term) {
       router.push(`/search?query=${encodeURIComponent(term)}`);

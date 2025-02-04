@@ -4,11 +4,9 @@ import Header from "../components/header";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { interests, sources } from "../common/utils";
-import { defaultSearchPreferences } from "../common/utils";
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
-
   const handleSearch = (term: string) => {
     if (term) {
       router.push(`/search?query=${encodeURIComponent(term)}`);

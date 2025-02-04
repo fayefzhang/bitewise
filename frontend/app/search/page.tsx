@@ -1,7 +1,11 @@
 "use client";
 
 import { Preferences, Article, Summary } from "../common/interfaces";
-import { defaultAIPreferences, toTitleCase } from "../common/utils";
+import {
+  defaultAIPreferences,
+  defaultSearchPreferences,
+  toTitleCase,
+} from "../common/utils";
 import Header from "../components/header";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -66,8 +70,9 @@ const SearchPage: React.FC = () => {
   const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
     null
   );
-  const [headerPreferences, setHeaderPreferences] =
-    useState<Preferences | null>(null);
+  const [headerPreferences, setHeaderPreferences] = useState<Preferences>(
+    defaultSearchPreferences
+  );
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const BASE_URL: string = "http://localhost:3000";
 
@@ -201,6 +206,7 @@ const SearchPage: React.FC = () => {
         onSearch={handleSearch}
         setPreferences={setPreferences}
         placeholder="Search topic..."
+        isSearchPage={true}
       />
 
       {/* Main Content */}

@@ -2,36 +2,30 @@
 
 import { Preferences } from "../common/interfaces";
 import SignInPopUp from "./signinpopup";
-import { search } from "@/api/api";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { defaultSearchPreferences } from "../common/utils";
 
 interface HeaderProps {
   onSearch: (term: string) => void;
-  setPreferences: (preferences: Preferences) => void;
+  setPreferences?: (preferences: Preferences) => void;
   placeholder?: string;
+  isSearchPage?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
   onSearch,
   setPreferences,
   placeholder = "Search for articles...",
+  isSearchPage = false,
 }) => {
   // SEARCH FUNCTIONAL SETUP
   const [searchTerm, setSearchTerm] = useState("");
   const [showSettings, setShowSettings] = useState(false);
-  const [searchPreferences, setSearchPreferences] = useState<Preferences>({
-    sources: [],
-    domains: [],
-    exclude_domains: [],
-    from_date: "",
-    to_date: "",
-    read_time: [],
-    bias: [],
-    clustering: false,
-    topics: [],
-  });
+  const [searchPreferences, setSearchPreferences] = useState<Preferences>(
+    defaultSearchPreferences
+  );
 
   const toggleReadTime = (time: string) => {
     setSearchPreferences((prev) => {
@@ -99,12 +93,14 @@ const Header: React.FC<HeaderProps> = ({
           placeholder={placeholder}
           className="p-2 w-full md:w-80 text-black focus:outline-none"
         />
-        <button
-          className="text-xl text-gray-600 hover:text-black"
-          onClick={() => setShowSettings(!showSettings)}
-        >
-          ⚙️
-        </button>
+        {isSearchPage && (
+          <button
+            className="text-xl text-gray-600 hover:text-black"
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            ⚙️
+          </button>
+        )}
       </div>
       <div className="flex space-x-4 absolute right-4">
         <Link href="/profile">
@@ -209,7 +205,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">
-            Date Published To
+              Date Published To
             </label>
             <div className="flex space-x-2">
               <input
@@ -225,7 +221,6 @@ const Header: React.FC<HeaderProps> = ({
               />
             </div>
           </div>
-
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">
               Clustering
