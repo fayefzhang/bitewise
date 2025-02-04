@@ -7,8 +7,8 @@ export interface IArticle extends Document {
     source: string;
     url: string; // primary key
     title: string;
-    readTime?: number; // approx 0 = <2 min, 1 = 2-5 min, 2 = 5+ min
-    biasRating?: number; // approx 0 = left, 1 = left-center, 2 = left, 3 = right-center, 4 = right
+    readTime?: number; // approx 0 = <2 min, 1 = 2-7 min, 2 = 7+ min
+    biasRating?: number; // approx 0 = left, 1 = left-center, 2 = left, 3 = right-center, 4 = right, 5 = unknown
     difficulty?: number; // approx 0 = easy, 1 = med, 2 = hard
     imageUrl?: string;
     summaries?: ISummary[];

@@ -7,10 +7,10 @@ from nltk.stem import WordNetLemmatizer
 from nltk.data import find
 import string
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('punkt_tab')
+# nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('wordnet')
+# nltk.download('punkt_tab')
 
 def parse_query(query: str) -> str:
     # nltk setup

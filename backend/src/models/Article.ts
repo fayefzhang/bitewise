@@ -9,7 +9,7 @@ const ArticleSchema: Schema = new Schema<IArticle>({
   url: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   readTime: { type: Number, enum: [0, 1, 2]},
-  biasRating: { type: Number, enum: [0, 1, 2, 3, 4] },
+  biasRating: { type: Number, enum: [0, 1, 2, 3, 4, 5] },
   difficulty: { type: Number, enum: [0, 1, 2] },
   imageUrl: { type: String },
   summaries: [{
@@ -17,7 +17,7 @@ const ArticleSchema: Schema = new Schema<IArticle>({
     AILength: { type: Number, enum: [0, 1, 2], required: true },
     AITone: { type: Number, enum: [0, 1, 2, 3], required: true },
     AIFormat: { type: Number, enum: [0, 1, 2, 3], required: true },
-    AIJargonAllowed: { type: Boolean, required: true },
+    AIJargonAllowed: { type: Number, enum: [0, 1], required: true },
   }]
 });
 

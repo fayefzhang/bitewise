@@ -9,6 +9,7 @@ else:
     print("bias.csv NOT found at:", bias_data_path)
 bias_data = pd.read_csv(bias_data_path)
 bias_lookup = bias_data.set_index("news_source")["rating"].to_dict()
+bias_translation = {'left' : 0, 'left-center' : 1, 'center' : 2, 'right-center' : 3, 'right' : 4, 'Unknown' : 5}
 
 source_mapping = {
     "https://abcnews.go.com/": "ABC News",
@@ -76,7 +77,7 @@ def get_source_and_bias(source):
     if not source.endswith('/'):
         source += '/'
     cleaned_source = source_mapping.get(source, "UNKNOWN")
-    bias = bias_lookup.get(cleaned_source, "Unknown")
+    bias = bias_translation[bias_lookup.get(cleaned_source, "Unknown")]
     return cleaned_source, bias
 
 def char_length(content):
@@ -96,8 +97,8 @@ def estimate_reading_time(char_length):
     word_count = char_length / 5 # approximate
     mins = word_count / 250  # 250 words per minute
     if mins < 2:
-        return "<2 min"
+        return 0
     elif 2 <= mins <= 7:
-        return "2-7 min"
+        return 1
     else:
-        return ">7 min"
+        return 2

@@ -13,7 +13,7 @@ BASE_URL = "https://newsapi.org/v2"
 bias_data_path = "data/mediabias/bias.csv"
 bias_data = pd.read_csv(bias_data_path)
 bias_lookup = bias_data.set_index("news_source")["rating"].to_dict()
-
+bias_translation = {'left' : 0, 'left-center' : 1, 'center' : 2, 'right-center' : 3, 'right' : 4, 'Unknown' : 5}
 
 # DEFINE FUNCTIONS TO CREATE API REQUESTS
 def fetch_search_results(query=None, from_date=None, to_date=None, language=None, sort_by=None, page_size=100, page=1, domains=None, exclude_domains=None):
@@ -97,11 +97,11 @@ def estimate_reading_time(char_length):
     word_count = char_length / 5 # approximate
     mins = word_count / 250  # 250 words per minute
     if mins < 2:
-        return "<2 min"
+        return 0
     elif 2 <= mins <= 7:
-        return "2-7 min"
+        return 1
     else:
-        return ">7 min"
+        return 2
 
 def aggregate_eliminate_dups(responses, user_pref=None):
     """
@@ -128,7 +128,7 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 
                 # bias rating
                 source_name = article.get("source", {}).get("name", None)
-                article["biasRating"] = bias_lookup.get(source_name, "Unknown")
+                article["biasRating"] = bias_translation[bias_lookup.get(source_name, "Unknown")]
 
                 # add char length and read time
                 chars = char_length(article.get("content", None))
