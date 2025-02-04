@@ -3,6 +3,7 @@ import axios from 'axios';
 import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
+import UserModel from '../models/User'
 
 // import ISummary from "../interfaces/ISummary";
 
@@ -86,7 +87,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         .then(() => {
             console.log("Articles successfully inserted into the database");
         })
-        .catch((error) => {
+        .catch((error: any) => {
             if (error.code === 11000) {
             console.warn("Some articles already exist, skipping duplicates");
             } else {
@@ -128,7 +129,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             .then(() => {
                 console.log("Successfully updated articles with full content");
             })
-            .catch((error) => {
+            .catch((error: any) => {
                 console.error("Error updating articles with full content:", error);
             });
         } else {
@@ -164,7 +165,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // }
 
         res.json(result);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error processing search request", error);
         res.status(500).json({ error: "Internal server error" });
     }
@@ -234,7 +235,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                                 });
                                 const savedArticle = await newArticle.save();
                                 return savedArticle.url;
-                            } catch (error) {
+                            } catch (error: any) {
                                 console.error(`Error saving article ${article.url}:`, error);
                                 return null;
                             }
@@ -246,7 +247,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                         title: summaryData.title,
                         summary: summaryData.summary
                     };
-                } catch (error) {
+                } catch (error: any) {
                     console.error(`Error summarizing cluster ${clusterId}:`, error);
                     return {
                         cluster: Number(clusterId),
@@ -271,7 +272,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
 
         // OLD JSON FOR REFERENCE
         // res.json({overall_summary, clusterSummaries});
-    } catch (error) {
+    } catch (error: any) {
         console.error("error processing search request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -294,7 +295,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         const existingArticle = await ArticleModel.findOne({ url: article.url });
         if (existingArticle) {
             // frontend not passing it in this format
-            const existingSummary = existingArticle.summaries?.find((summary) => 
+            const existingSummary = existingArticle.summaries?.find((summary: any) => 
                 summary.AILength === ai_preferences.AILength &&
                 summary.AITone === ai_preferences.AITone &&
                 summary.AIFormat === ai_preferences.AIFormat &&
@@ -332,7 +333,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
             throw new Error("No existing article in database");
         }
         
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error processing summarize article request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -372,7 +373,7 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
             .then(() => {
                 console.log("Successfully updated articles with full content");
             })
-            .catch((error) => {
+            .catch((error: any) => {
                 console.error("Error updating articles with full content:", error);
             });
         } else {
@@ -380,7 +381,7 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
         }
 
         res.json(response.data); 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error processing summarize articles request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -404,7 +405,7 @@ router.post('/generate/audio', async (req: Request, res: Response): Promise<void
         });
 
         res.json(response.data); 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error processing generate audio request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -424,7 +425,7 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
         });
 
         res.json(response.data); 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error processing generate podcast request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -446,16 +447,48 @@ router.get('/audio', async (req: Request, res: Response): Promise<void> => {
 
         res.setHeader('Content-Type', 'audio/mpeg');
         response.data.pipe(res);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error fetching audio", error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// @route GET user/topics
+// @route POST user/update
+// @description Creates or updates a user's info
+router.post('/user/update', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { user } = req.body; // see IUser interface
+        if (!user || !user.email) {
+            res.status(400).json({ message: 'No User object passed' });
+            return
+        }
+
+        const updatedUser = await UserModel.findOneAndUpdate(
+            { email: user.email },
+            { 
+                $set: { 
+                    preferences: user.preferences,
+                    id: user.id,
+                    password: user.password
+                }
+            },
+            { 
+                new: true,
+                upsert: true,
+                runValidators: true
+            }
+        );
+
+        res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+    } catch (error: any) {
+        console.error("Error updating user preferences:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+// @route GET user/preferences
 // @description Gets the user's preferences.
 router.get('/user/preferences', async (req: Request, res: Response): Promise<void> => {
-    console.log("APIRoutes, /user/preferences");
     try {
         const userID = req.query.userID as string; // Explicitly cast to string if using TypeScript
         if (!userID) {
@@ -467,7 +500,7 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
         });
 
         res.json(preferencesResponse.data);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error retrieving user preferences:", error);
         res.status(500).json({ error: "Internal server error" });
     }
@@ -477,7 +510,7 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async(req: Request, res: Response): Promise<void> => {
     try {
-        const { topics, search_preferences } = req.body;
+        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
 
         const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', { 
             topics, 
@@ -485,7 +518,7 @@ router.post('/search/topics', async(req: Request, res: Response): Promise<void> 
         });
 
         res.json(topics_articles.data);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error retrieving user topics", error);
         res.status(500).json({ error: "Internal server error" });
     }
@@ -496,7 +529,7 @@ router.post('/crawl/all', async (req: Request, res: Response): Promise<void> => 
         const response = await axios.post('http://127.0.0.1:5000/crawl/all');
 
         res.status(response.status).json(response.data);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error occurred during crawling:", error);
 
         if (axios.isAxiosError(error) && error.response) {
