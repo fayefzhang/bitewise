@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +14,9 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
   isOpen,
 }) => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [animationClass, setAnimationClass] = useState("hidden");
   const router = useRouter();
 
@@ -26,21 +30,31 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock signup process
-    const signupSuccess = true; // Replace with actual signup logic
 
-    if (signupSuccess) {
-      router.push("/interests"); // Redirect to the /interests page
-    } else {
-      // Handle signup error (e.g., show error message)
+    const endpoint = isSignIn ? "/api/signin" : "/api/register";
+    try {
+      const response = await axios.post(`http://localhost:5000${endpoint}`, {
+        username,
+        email,
+        password,
+      });
+
+      if (isSignIn) {
+        localStorage.setItem("token", response.data.token);
+        router.push("/profile"); // Redirect after login
+      } else {
+        console.log("registeringg...")
+        alert("Registration successful! Please sign in.");
+        setIsSignIn(true);
+      }
+    } catch (error) {
+      console.error("Authentication failed. Check credentials.", error);
     }
   };
 
   return (
     <>
-      {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-40"></div>
-      )}
+      {isOpen && <div className="fixed inset-0 bg-black/50 z-40"></div>}
       <div
         className={`fixed top-0 text-black/80 left-0 w-full h-full flex items-center justify-center z-50 ${animationClass}`}
         style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.3s ease" }}
@@ -48,7 +62,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
         <div className="bg-white rounded-lg shadow-lg p-6 w-96 relative">
           <button
             onClick={onClose}
-            className="text-5xl absolute top-4 right-4 text-gray-500 hover:text-blue-700"
+            className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-blue-700"
           >
             ×
           </button>
@@ -58,11 +72,13 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
           <form onSubmit={handleFormSubmit} className="space-y-4">
             {!isSignIn && (
               <div>
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Username</label>
                 <input
                   type="text"
                   id="name"
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -73,6 +89,8 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
                 type="email"
                 id="email"
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -82,12 +100,14 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
                 type="password"
                 id="password"
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               {isSignIn ? "Sign In" : "Sign Up"}
             </button>

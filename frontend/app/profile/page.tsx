@@ -2,11 +2,22 @@
 
 import Header from "../components/header";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { interests, sources } from "../common/utils";
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
+  const [user, setUser] = useState<string>("GUEST");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // router.push("/dashboard");
+    } else {
+      setUser("User");
+    }
+  }, [router]);
+
   const handleSearch = (term: string) => {
     if (term) {
       router.push(`/search?query=${encodeURIComponent(term)}`);
@@ -38,7 +49,9 @@ const ProfilePage: React.FC = () => {
 
       <div className="flex-grow flex flex-col items-start bg-white p-8">
         <div className="flex flex-col items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-700">Good evening, GUEST.</h1>
+          <h1 className="text-2xl font-bold text-gray-700">
+            Good evening, {user}.
+          </h1>
         </div>
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-xl font-bold text-gray-600">Your Topics</h1>
