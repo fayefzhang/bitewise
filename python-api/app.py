@@ -206,12 +206,14 @@ def summarize_article():
         return jsonify({"error": "AI preferences are required"}), 400
 
     summary_output = generate_summary_individual(full_content, ai_preferences)
-    summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)  # Splitting based on "**Summary**:"
+    summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)  
     summary = summary.replace("**Summary**:", "").strip()
     difficulty = difficulty.strip()
+    # if difficult is easy, then 0, if medium, then 1, if hard, then 2
+    difficulty_int = 0 if difficulty == "Easy" else 1 if difficulty == "Medium" else 2
     return jsonify({
         "summary": summary,
-        "difficulty": difficulty,
+        "difficulty": difficulty_int,
         "enriched_articles": enriched_articles,
     }), 200
 
