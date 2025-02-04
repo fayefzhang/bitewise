@@ -19,6 +19,7 @@ export interface Preferences {
 export interface Article {
   id: Key | null | undefined;
   url: string;
+  authors: string[];
   imageUrl: string;
   title: string;
   source: string;

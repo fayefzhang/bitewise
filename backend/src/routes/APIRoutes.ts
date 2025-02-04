@@ -48,6 +48,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         .map((entry: any) => ({
             id: entry.id,
             url: entry.url,
+            authors: entry.authors,
             imageUrl: entry.urlToImage,
             title: entry.title,
             source: entry.source.name,

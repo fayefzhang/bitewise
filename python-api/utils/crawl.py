@@ -8,7 +8,27 @@ import concurrent.futures
 import time
 from PIL import Image
 from io import BytesIO
+from newspaper import Article as NewsArticle
 
+
+# TODO: use jared interface
+class Article:
+    def __init__(self, url, source):
+        self.url = url
+        self.source = source
+        self.authors = None
+        self.date = None
+        self.title = None
+        self.content = None
+        self.image = None
+
+    def __hash__(self):
+        return hash(self.url)
+
+    def __eq__(self, other):
+        if not isinstance(other, Article):
+            return False
+        return self.url == other.url
 
 current_dir = os.path.dirname(__file__)
 sources_path = os.path.join(current_dir, '../data/scraping/sources.txt')
@@ -100,13 +120,22 @@ def extract_links(html, base_url, delay=0.5):
         link = a_tag['href']
         if link.startswith('/'):
             link = base_url + link  # handle relative links
+            
         title = a_tag.get_text(strip=True)  # TODO: fix title -- extract h1 from scraping article
         if len(link) - len(base_url) < 20 or len(title) < 20:  # avoid non-article links
             continue
 
         article = Article(url=link, source=base_url)
-        article.title = title
-        article.content, article.image = extract_contents(link)
+
+        # parse article
+        parsed_article = NewsArticle(link)
+        parsed_article.download()
+        parsed_article.parse()
+        article.title = parsed_article.title
+        article.authors = parsed_article.authors
+        article.date = parsed_article.publish_date
+        article.content = parsed_article.text
+        article.image = parsed_article.top_image
         articles.add(article)
 
         print(f"{link}, {title}")
@@ -114,60 +143,6 @@ def extract_links(html, base_url, delay=0.5):
         time.sleep(delay)  # be polite and avoid overloading the server
 
     return articles
-
-def extract_contents(url):
-    try:
-        # fetch article HTML content
-        response = requests.get(url)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        # extract the content -- paragraph <p> tags
-        paragraphs = soup.find_all('p')
-        content = " ".join(p.get_text(strip=True) for p in paragraphs)
-
-        # extract thumbnail (biggest) image - TODO
-        largest_image = None
-        largest_area = 0
-
-        for img_tag in soup.find_all('img'):
-            image_url = img_tag.get('src')
-            if not image_url or image_url.endswith('svg'):
-                continue
-            try:
-                response = requests.get(image_url, stream=True, timeout=1)
-                response.raise_for_status()
-                img = Image.open(BytesIO(response.content))
-                width, height = img.size
-                area = width * height
-                if area > largest_area:
-                    largest_area = area
-                    largest_image = image_url     
-            except Exception as e:
-                # print(f"Failed to process image {image_url}: {e}")
-                continue
-
-        return content, largest_image
-
-    except Exception as e:
-        print(f"An error occurred while scraping the article: {e}")
-        return None
-
-class Article:
-    def __init__(self, url, source):
-        self.url = url
-        self.source = source
-        self.title = None
-        self.content = None
-        self.image = None
-
-    def __hash__(self):
-        return hash(self.url)
-
-    def __eq__(self, other):
-        if not isinstance(other, Article):
-            return False
-        return self.url == other.url
 
 # process single seed with timeout
 def process_seed(seed, timeout=120):
@@ -187,9 +162,7 @@ def process_seed(seed, timeout=120):
 
 # crawl websites inputted by sources
 def crawl_seeds(sources, output_file='articles_data.json'):
-    # clear current contents
-    with open("data/" + output_file, 'w') as file:
-        pass
+    articles_list = []
 
     for seed in sources:
         all_links = set()
@@ -204,8 +177,6 @@ def crawl_seeds(sources, output_file='articles_data.json'):
         except Exception as e:
             print(f"Unexpected error: {e}. Continuing to the next seed.")
 
-        articles_list = []
-
         # store articles in a list
         for article in all_links:
             articles_data = {
@@ -213,15 +184,21 @@ def crawl_seeds(sources, output_file='articles_data.json'):
                 "title": article.title,
                 "source": article.source,
                 "content": article.content,
-                "img": article.image
+                "img": article.image,
+                "authors": article.authors,
+                "date": None
             }
+
+            if article.date is not None:
+                articles_data["date"] = article.date.strftime('%Y-%m-%dT%H:%M:%S')
+            else:
+                articles_data["date"] = "unknown"
 
             articles_list.append(articles_data)
 
-        # output articles data to JSON file -- TODO: clean json
-        if articles_list:
-            with open("data/" + output_file, 'a', encoding='utf-8') as json_file:
-                json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
+    if articles_list:
+        with open("data/" + output_file, 'w', encoding='utf-8') as json_file:
+            json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
         
     print(f"Visited {len(all_links)} pages and saved data to {output_file}")
 
@@ -247,7 +224,7 @@ def crawl_location(location="Philadelphia, PA"):
 
 
 def main():
-    crawl_location()
+    crawl_all()
 
 if __name__ == "__main__":
     main()

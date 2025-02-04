@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+// import { Article } from "../common/interfaces";
 
 const fetchDailyNews = async () => {
   const BASE_URL = "http://localhost:3000";
@@ -49,34 +50,39 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
       <h2 className="text-xl font-bold mb-2">{header}</h2>
       <p className="mb-4">{summary}</p>  
       <div className="flex space-x-4">
-        {articles.map((article, index) => (
-            <Link
-              key={index}
-              href={article.url}
-              className="bg-white p-4 rounded-md shadow w-1/3"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="relative w-full h-32 mb-2">
+        <div className="flex w-full">
+            <div className="w-1/3 pr-4 flex items-center">
+            <div className="relative w-full h-full mb-2 flex items-center justify-center">
               <Image
-                src={article.image}
-                alt={article.title}
-                layout="fill"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="rounded-md"
+              src={articles[0].image}
+              alt={articles[0].title}
+              layout="fill"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="rounded-md object-cover"
               />
-              </div>
-              <p className="text-sm font-bold">{article.title}</p>
-              <div>
-                <p className="text-xs">{article.source}</p>
-                <div className="flex justify-between mt-1">
-                  {/* <p className="text-sm">{article.sentiment}</p> */}
+            </div>
+            </div>
+          <div className="w-2/3 flex flex-col space-y-4">
+            {articles.slice(0, 3).map((article, index) => (
+                <Link
+                key={index}
+                href={article.url}
+                className="bg-white p-4 rounded-md shadow hover:bg-blue-100"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                <p className="text-sm font-bold">{article.title}</p>
+                <div>
+                  <p className="text-xs">{article.source}</p>
+                  <div className="flex justify-between mt-1">
                   <p className="text-sm">{article.biasRating}</p>
                   <p className="text-xs">{article.readTime}</p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-        ))}
+                </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

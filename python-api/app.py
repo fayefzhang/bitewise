@@ -27,10 +27,22 @@ def log_request_info():
 
 @app.route('/daily-news', methods=['POST'])
 def refresh_daily_news():
+    last_modified_timestamp = os.path.getmtime("data/articles_data.json")
+    last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
+    current_time = datetime.now()
+    time_difference = current_time - last_modified_date
+    if time_difference.total_seconds() > 12 * 3600:
+        daily_crawl_all()
     return refresh_helper()
 
 @app.route('/local-news', methods=['POST'])
 def refresh_local_news():
+    last_modified_timestamp = os.path.getmtime("data/local_articles_data.json")
+    last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
+    current_time = datetime.now()
+    time_difference = current_time - last_modified_date
+    if time_difference.total_seconds() > 12 * 3600:
+        daily_crawl_all()
     return refresh_helper('local_articles_data.json')
 
 # helper function to refresh news and cluster to find main topics
@@ -230,11 +242,11 @@ def summarize_articles():
         article_result = contents_mapping.get(url, None)
         enriched_articles.append({
             "url": url,
-            "title": article_result["title"],
-            "content": article_result['fullContent'],
-            "image": article_result["imageUrl"],
-            "readTime": article_result["readTime"],
-            "biasRating": article_result["biasRating"],
+            "title": article_result.get("title", ""),
+            "content": article_result.get("fullContent", ""),
+            "image": article_result.get("imageUrl", ""),
+            "readTime": article_result.get("readTime", ""),
+            "biasRating": article_result.get("biasRating", ""),
     })
 
     articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])
