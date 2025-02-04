@@ -8,3 +8,5 @@ const DashboardSchema: Schema = new Schema<IDashboard>({
     clusterSummaries: { type: [String] },
     clusterLabels: { type: [String] }
 });
+
+export default mongoose.model<IDashboard>('Dashboard', DashboardSchema);

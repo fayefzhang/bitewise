@@ -7,3 +7,5 @@ const QuerySchema: Schema = new Schema<IQuery>({
     query: { type: String },
     articleIDs: [{ type: String, ref: 'Article' }]
 });
+
+export default mongoose.model<IQuery>('Query', QuerySchema);

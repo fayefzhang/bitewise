@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 import { IArticle } from '../interfaces/IArticle';
 
 const ArticleSchema: Schema = new Schema<IArticle>({
-  id: { type: String, unique: true },
   content: { type: String },
   datePublished: { type: Date },
   author: { type: String },
