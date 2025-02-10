@@ -468,7 +468,6 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
             { 
                 $set: { 
                     preferences: user.preferences,
-                    id: user.id,
                     password: user.password
                 }
             },
