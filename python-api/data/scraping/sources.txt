@@ -1,5 +1,4 @@
 https://abcnews.go.com
-https://apnews.com/
 https://arstechnica.com
 https://fortune.com
 https://mashable.com
@@ -10,7 +9,6 @@ https://techcrunch.com
 https://thehill.com
 https://thenextweb.com
 https://time.com
-https://www.aljazeera.com
 https://www.axios.com
 https://www.bbc.com
 https://www.bleacherreport.com

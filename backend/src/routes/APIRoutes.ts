@@ -70,12 +70,19 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
         // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
         const summaryRequestBody = {
-            articles: Object.fromEntries(
-                articlesData.slice(0, 5).map((article: any) => [
-                    article.url,
-                    { title: article.title, fullContent: article.fullContent }
-                ])
-            ),
+            articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
+            acc[article.url] = {
+                title: article.title,
+                fullContent: article.fullContent,
+                imageUrl: article.imageUrl,
+                readTime: article.readTime,
+                biasRating: article.bias,
+                source: article.source,
+                time: article.date,
+                authors: article.authors,
+            };
+            return acc;
+            }, {}),
             ai_preferences,
         };
 
@@ -166,10 +173,12 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     acc[article.url] = {
                         title: article.title,
                         fullContent: article.content,
-                        imageUrl: article.img,
+                        imageUrl: article.imageUrl,
                         readTime: article.readTime,
                         biasRating: article.biasRating,
                         source: article.source,
+                        time: article.time,
+                        authors: article.authors,
                     };
                     return acc;
                 }, {});

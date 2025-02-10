@@ -11,16 +11,15 @@ from io import BytesIO
 from newspaper import Article as NewsArticle
 
 
-# TODO: use jared interface
 class Article:
     def __init__(self, url, source):
         self.url = url
-        self.source = source
         self.authors = None
-        self.date = None
+        self.imageUrl = None
         self.title = None
+        self.source = source
         self.content = None
-        self.image = None
+        self.time = None
 
     def __hash__(self):
         return hash(self.url)
@@ -133,9 +132,9 @@ def extract_links(html, base_url, delay=0.5):
         parsed_article.parse()
         article.title = parsed_article.title
         article.authors = parsed_article.authors
-        article.date = parsed_article.publish_date
+        article.time = parsed_article.publish_date
         article.content = parsed_article.text
-        article.image = parsed_article.top_image
+        article.imageUrl = parsed_article.top_image
         articles.add(article)
 
         print(f"{link}, {title}")
@@ -183,16 +182,17 @@ def crawl_seeds(sources, output_file='articles_data.json'):
                 "url": article.url,
                 "title": article.title,
                 "source": article.source,
-                "content": article.content,
-                "img": article.image,
+                "fullContent": article.content,
+                "content": article.content[:200] + "...",
+                "imageUrl": article.imageUrl,
                 "authors": article.authors,
-                "date": None
+                "time": None
             }
 
-            if article.date is not None:
-                articles_data["date"] = article.date.strftime('%Y-%m-%dT%H:%M:%S')
+            if article.time is not None:
+                articles_data["time"] = article.time.strftime('%Y-%m-%dT%H:%M:%S')
             else:
-                articles_data["date"] = "unknown"
+                articles_data["time"] = "unknown"
 
             articles_list.append(articles_data)
 
@@ -224,7 +224,7 @@ def crawl_location(location="Philadelphia, PA"):
 
 
 def main():
-    crawl_all()
+    crawl_location()
 
 if __name__ == "__main__":
     main()

@@ -25,7 +25,8 @@ export interface Article {
   source: string;
   content: string;
   time: string; // date published
-  bias: string;
+  biasRating: string;
+  sentiment: string;
   readTime: string;
   relatedSources: RelatedSource[];
   details: string[];
