@@ -17,7 +17,7 @@ const TopicsArticles = () => {
         const getTopicsArticles = async () => {
             try {
                 console.log("Fetching user preferences...");
-                const preferencesResponse = await fetch(`${BASE_URL}/api/user/preferences?userID=TEST`, {
+                const preferencesResponse = await fetch(`${BASE_URL}/api/user/preferences?userID=TEST`, { // NEED TO CHANGE TO ACTUAL USER
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

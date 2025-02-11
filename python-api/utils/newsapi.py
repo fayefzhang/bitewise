@@ -30,8 +30,9 @@ def fetch_search_results(query=None, from_date=None, to_date=None, language=None
         "sortBy": sort_by,
         "pageSize": page_size,
         "page": page,
+        # WILL DO THIS USING FILTERING 
         "domains": domains,
-        "excludeDomains": exclude_domains,
+        # "excludeDomains": exclude_domains,
     }
     return make_request(url, params)
 
@@ -180,17 +181,18 @@ def user_search(question, user_preferences, filename):
 
     # step 2: set API args
     # for now, setting default variables
-    from_date = user_preferences.get("from_date", (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d')) # results in past week
+    # from_date = user_preferences.get("from_date", (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d')) # results in past week
+    # will apply filtering later
+    from_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d') # results in past week
     language = "en" # defaulting english
     domains = user_preferences.get("domains", None)
-    exclude_domains = user_preferences.get("exclude_domains", None)
 
     # step 3: make API requests
-    response_popularity = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", exclude_domains=exclude_domains)
-    response_relevancy = fetch_search_results(question, from_date=from_date, language=language, sort_by="relevancy", exclude_domains=exclude_domains)
+    response_popularity = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity")
+    response_relevancy = fetch_search_results(question, from_date=from_date, language=language, sort_by="relevancy")
     response_domains = None
     if domains:
-        response_domains = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", domains=domains, exclude_domains=exclude_domains)
+        response_domains = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", domains=domains)
     # step 4: aggregate results
     responses = [response_popularity, response_relevancy]
     aggregated_results = aggregate_eliminate_dups(responses, response_domains)
