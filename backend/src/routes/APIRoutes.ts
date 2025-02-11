@@ -57,6 +57,19 @@ const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
 const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
 
+const FILTER_DICT = {
+    bias: {
+        "left": 0,
+        "center": 1,
+        "right": 2
+    },
+    readTime: {
+        "<2 min": 0,
+        "2-7 min": 1,
+        ">7 min": 2
+    }
+};
+
 // @route POST /search
 // @description Processes a news search query
 // @returns list of articles
@@ -214,6 +227,51 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+
+// @route POST /search/filter
+// @description Processes a news search query and filters based on user preferences for bias, read time, and date range
+// @returns list of filtered articles
+router.post("/search/filter", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { articles, filter_preferences } = req.body;
+
+        if (!articles || !Array.isArray(articles)) {
+            res.status(400).json({ message: "Articles array is required" });
+            return;
+        }
+
+        if (!filter_preferences) {
+            res.status(400).json({ message: "Filter preferences are required" });
+            return;
+        }
+
+        const { bias, readTime, dateRange } = filter_preferences;
+
+        const biasIntArray = bias.map((b: keyof typeof FILTER_DICT.bias) => FILTER_DICT.bias[b]);
+        const readTimeIntArray = readTime.map((rt: keyof typeof FILTER_DICT.readTime) => FILTER_DICT.readTime[rt]);
+
+
+        console.log("Filtering with preferences:", filter_preferences);
+
+        const filteredArticles = articles.filter((article: any) => {
+            const biasMatches = !bias || biasIntArray.includes(article.bias);
+            const readTimeMatches = !readTime || readTimeIntArray.includes(article.readTime);
+            const dateMatches = !dateRange || (article.date && new Date(article.date) >= new Date(dateRange));
+
+            return biasMatches && readTimeMatches && dateMatches;
+        });
+
+        console.log("Filtered articles count:", filteredArticles.length);
+
+        res.json({ filtered_articles: filteredArticles });
+    } catch (error) {
+        console.error("Error filtering search results", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
 // @returns grouped articles by cluster
@@ -242,13 +300,18 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
         const clusterSummaries = await Promise.all(
             clusters.map(async (cluster: { cluster_id: any; articles: any; }) => {
                 // data formatted for summary endpoint
+
                 const clusterId = cluster.cluster_id;
                 const articles = cluster.articles;
 
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
-                        fullContent: article.content
+                        fullContent: article.content,
+                        imageUrl: article.img,
+                        readTime: article.readTime,
+                        biasRating: article.biasRating,
+                        source: article.source,
                     };
                     return acc;
                 }, {});
@@ -505,6 +568,10 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
             articles,
         });
 
+        if (!response.data.s3_url) {
+            res.status(500).json({ error: 'Podcast failed to upload to S3' });
+        }
+
         res.json(response.data);
     } catch (error) {
         console.error("Error processing generate podcast request", error);
@@ -576,6 +643,23 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
 router.post('/crawl/all', async (req: Request, res: Response): Promise<void> => {
     try {
         const response = await axios.post('http://127.0.0.1:5000/crawl/all');
+
+        res.status(response.status).json(response.data);
+    } catch (error) {
+        console.error("Error occurred during crawling:", error);
+
+        if (axios.isAxiosError(error) && error.response) {
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+});
+
+router.post('/crawl/local', async (req: Request, res: Response): Promise<void> => {
+    try {
+        
+        const response = await axios.post('http://127.0.0.1:5000/crawl/local');
 
         res.status(response.status).json(response.data);
     } catch (error) {

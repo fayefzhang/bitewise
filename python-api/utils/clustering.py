@@ -5,6 +5,7 @@ import numpy as np
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import DBSCAN
@@ -13,12 +14,15 @@ from transformers import pipeline
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 pd.set_option('display.max_colwidth', None)
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 dbscan = DBSCAN(eps=0.5, min_samples=3, metric='cosine')
 dbscan2 = DBSCAN(eps=0.2, min_samples=5, metric='cosine') # for tighter clustering
+
+lemmatizer = WordNetLemmatizer()
 
 def clean_text(text):
     if not isinstance(text, str):
@@ -28,7 +32,6 @@ def clean_text(text):
     text = re.sub(r'\W+', ' ', text)
     tokens = word_tokenize(text)
     tokens = [word for word in tokens if word not in stopwords.words('english')]
-    lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
     return ' '.join(tokens)
 

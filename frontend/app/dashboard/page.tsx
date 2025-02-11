@@ -2,6 +2,7 @@
 
 import Header from "../components/header";
 import TopicsArticles from './components/topicsarticles';
+import LocalNews from './components/localnews';
 import { Key, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -18,6 +19,7 @@ const fetchDailyNews = async () => {
     if (!response.ok) {
       throw new Error("Failed to fetch daily news");
     }
+
     return response.json();
   } catch (error) {
     console.error(error);
@@ -26,11 +28,13 @@ const fetchDailyNews = async () => {
 };
 
 interface Article {
-  imageUrl: string;
+  url: string;
+  image: string;
   title: string;
   source: string;
   sentiment: string;
   readTime: string;
+  biasRating: string;
 }
 
 interface NewsSectionProps {
@@ -42,26 +46,36 @@ interface NewsSectionProps {
 const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) => {
   return (
     <section className="mb-8">
-      <h2 className="text-xl font-bold">{header}</h2>
-      <p className="mb-4">{summary.substring(23)}</p>
+      <h2 className="text-xl font-bold mb-2">{header}</h2>
+      <p className="mb-4">{summary}</p>  
       <div className="flex space-x-4">
         {articles.map((article, index) => (
-          <div
-            key={index}
-            className="bg-white p-4 rounded-md shadow w-1/3"
-          >
-            <Image
-              src={"/bitewise_logo.png"}
-              alt={article.title}
-              width={160}
-              height={50}
-              className="object-cover rounded-lg mb-2"
-            />
-            <p className="text-sm font-bold">{article.title}</p>
-            <p className="text-xs">{article.source}</p>
-            <p className="text-sm mt-1">{article.sentiment}</p>
-            <p className="text-xs mt-1">{article.readTime}</p>
-          </div>
+            <Link
+              key={index}
+              href={article.url}
+              className="bg-white p-4 rounded-md shadow w-1/3"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative w-full h-32 mb-2">
+              <Image
+                src={article.image}
+                alt={article.title}
+                layout="fill"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="rounded-md"
+              />
+              </div>
+              <p className="text-sm font-bold">{article.title}</p>
+              <div>
+                <p className="text-xs">{article.source}</p>
+                <div className="flex justify-between mt-1">
+                  {/* <p className="text-sm">{article.sentiment}</p> */}
+                  <p className="text-sm">{article.biasRating}</p>
+                  <p className="text-xs">{article.readTime}</p>
+                </div>
+              </div>
+            </Link>
         ))}
       </div>
     </section>
@@ -79,6 +93,7 @@ const DashboardPage: React.FC = () => {
   };
 
   const [dailyNews, setDailyNews] = useState<any>(null);
+  const [dailySummary, setDailySummary] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -86,12 +101,14 @@ const DashboardPage: React.FC = () => {
       const news = await fetchDailyNews();
 
       console.log(news);
-      setDailyNews(news);
+
+      setDailyNews(news.clusterSummaries);
+      setDailySummary(news.overall_summary)
       setIsLoading(false);
     };
 
     fetchNews();
-  }, []); // Empty dependency array ensures this runs only once after initial render
+  }, []);
 
 
   return (
@@ -103,9 +120,7 @@ const DashboardPage: React.FC = () => {
         {/* Main Section */}
         <div className="flex-1 flex-col">
           <h1 className="text-2xl font-bold">Good evening, USER.</h1>
-          <p className="text-lg mb-4">
-            We're covering trending stories today.
-          </p>
+          <p className="text-lg mt-4 mb-4">{dailySummary}</p>
 
           {/* Audio Summary */}
           <audio controls className="mt-2 w-full">
@@ -125,14 +140,14 @@ const DashboardPage: React.FC = () => {
           </button>
 
           {/* Dynamically Render News Sections */}
-          {isLoading ? (
+          {isLoading || !dailyNews ? (
             <p>Loading...</p>
           ) : (
             dailyNews.map((cluster: any, index: any) =>
               cluster.cluster !== -1 ? (
                 <NewsSection
                   key={index}
-                  header={"Cluster " + index}
+                  header={cluster.title}
                   summary={cluster.summary}
                   articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
                 />
@@ -142,7 +157,10 @@ const DashboardPage: React.FC = () => {
         </div>
 
         {/* Your + Local Topics */}
-        <TopicsArticles />
+        <div className="w-full md:w-[30%] flex flex-col space-y-4">
+          <TopicsArticles />
+          <LocalNews />
+        </div>
       </main>
     </div>
   );

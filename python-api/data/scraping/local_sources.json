@@ -1,0 +1,383 @@
+{
+  "New York, NY": [
+    "https://www.nbcnewyork.com/",
+    "https://abc7ny.com/",
+    "https://www.fox5ny.com/",
+    "https://pix11.com/",
+    "https://www.cbsnews.com/newyork/",
+    "https://gothamist.com/",
+    "https://www.thecity.nyc/",
+    "https://ny1.com/nyc/all-boroughs",
+    "https://nypost.com/metro/",
+    "https://www.nydailynews.com/"
+  ],
+  "Los Angeles, CA": [
+    "https://www.cbsnews.com/losangeles/",
+    "https://ktla.com/",
+    "https://abc7.com/",
+    "https://www.nbclosangeles.com/",
+    "https://www.foxla.com/",
+    "https://www.dailynews.com/",
+    "https://www.nbclosangeles.com/news/local/",
+    "https://www.cbsnews.com/losangeles/local-news/los-angeles/"
+  ],
+  "Chicago, IL": [
+    "https://www.cbsnews.com/chicago/",
+    "https://abc7chicago.com/",
+    "https://wgntv.com/",
+    "https://www.nbcchicago.com/",
+    "https://www.fox32chicago.com/",
+    "https://www.chicagotribune.com/",
+    "https://chicago.suntimes.com/",
+    "https://blockclubchicago.org/"
+  ],
+  "Houston, TX": [
+    "https://www.khou.com/",
+    "https://abc13.com/",
+    "https://www.click2houston.com/",
+    "https://www.fox26houston.com/",
+    "https://www.houstonchronicle.com/",
+    "https://cw39.com/"
+  ],
+  "Phoenix, AZ": [
+    "https://www.abc15.com/",
+    "https://www.azfamily.com/",
+    "https://www.fox10phoenix.com/",
+    "https://www.12news.com/",
+    "https://www.phoenixnewtimes.com/",
+    "https://www.azcentral.com/"
+  ],
+  "Philadelphia, PA": [
+    "https://www.inquirer.com/",
+    "https://www.nbcphiladelphia.com/",
+    "https://6abc.com/",
+    "https://metrophiladelphia.com/",
+    "https://www.bizjournals.com/philadelphia",
+    "https://www.thedp.com/",
+    "https://www.fox29.com/",
+    "https://www.phillyvoice.com/",
+    "https://www.cbsnews.com/philadelphia/"
+  ],
+  "San Antonio, TX": [
+    "https://www.ksat.com/",
+    "https://www.kens5.com/",
+    "https://www.foxsanantonio.com/",
+    "https://www.sanantonio.gov/",
+    "https://www.spectrumlocalnews.com/tx/san-antonio"
+  ],
+  "San Diego, CA": [
+    "https://www.10news.com/",
+    "https://www.fox5sandiego.com/",
+    "https://www.cbs8.com/",
+    "https://www.nbcsandiego.com/",
+    "https://www.sandiegouniontribune.com/"
+  ],
+  "Dallas, TX": [
+    "https://www.wfaa.com/",
+    "https://www.nbcdfw.com/",
+    "https://www.fox4news.com/",
+    "https://www.dallasnews.com/"
+  ],
+  "San Jose, CA": [
+    "https://www.nbcbayarea.com/",
+    "https://www.mercurynews.com/",
+    "https://www.kron4.com/",
+    "https://www.sfgate.com/",
+    "https://abc7news.com/",
+    "https://www.ktvu.com/",
+    "https://www.cbsnews.com/sanfrancisco/"
+  ],
+  "Austin, TX": [
+    "https://www.kxan.com/",
+    "https://www.kvue.com/",
+    "https://www.fox7austin.com/",
+    "https://www.statesman.com/",
+    "https://www.austin360.com/"
+  ],
+  "Jacksonville, FL": [
+    "https://www.news4jax.com/",
+    "https://www.firstcoastnews.com/",
+    "https://www.actionnewsjax.com/",
+    "https://www.wokv.com/",
+    "https://www.jacksonville.com/"
+  ],
+  "Fort Worth, TX": [
+    "https://www.star-telegram.com/",
+    "https://www.wfaa.com/",
+    "https://www.nbcdfw.com/",
+    "https://www.fox4news.com/"
+  ],
+  "Columbus, OH": [
+    "https://www.10tv.com/",
+    "https://www.dispatch.com/",
+    "https://abc6onyourside.com/",
+    "https://www.nbc4i.com/",
+    "https://www.thecolumbusdispatch.com/",
+    "https://myfox28columbus.com/"
+  ],
+  "Charlotte, NC": [
+    "https://www.charlotteobserver.com/",
+    "https://www.wsoctv.com/",
+    "https://www.wbtv.com/",
+    "https://www.qcnews.com/",
+    "https://www.wcnc.com/"
+  ],
+  "San Francisco, CA": [
+    "https://www.nbcbayarea.com/",
+    "https://www.mercurynews.com/",
+    "https://www.kron4.com/",
+    "https://www.sfgate.com/",
+    "https://abc7news.com/",
+    "https://www.ktvu.com/",
+    "https://www.cbsnews.com/sanfrancisco/"
+  ],
+  "Indianapolis, IN": [
+    "https://www.indystar.com/",
+    "https://www.wthr.com/",
+    "https://www.wfyi.org/",
+    "https://www.wrtv.com/",
+    "https://www.cbs4indy.com/"
+  ],
+  "Seattle, WA": [
+    "https://www.seattletimes.com/",
+    "https://www.king5.com/",
+    "https://www.q13fox.com/",
+    "https://www.komonews.com/",
+    "https://www.kiro7.com/"
+  ],
+  "Denver, CO": [
+    "https://www.denverpost.com/",
+    "https://www.9news.com/",
+    "https://www.denver7.com/",
+    "https://kdvr.com/",
+    "https://www.coloradoan.com/",
+    "https://www.cbsnews.com/colorado/"
+  ],
+  "Washington, DC": [
+    "https://www.nbcwashington.com/",
+    "https://www.fox5dc.com/",
+    "https://www.wusa9.com/",
+    "https://wjla.com/",
+    "https://wtop.com/local/dc/",
+    "https://www.dcnewsnow.com/"
+  ],
+  "Boston, MA": [
+    "https://www.cbsnews.com/boston/",
+    "https://www.wcvb.com/",
+    "https://www.nbcboston.com/",
+    "https://whdh.com/",
+    "https://www.boston25news.com/homepage",
+    "https://www.boston.com/",
+    "https://www.bostonherald.com/"
+  ],
+  "El Paso, TX": [
+    "https://www.ktsm.com/",
+    "https://kfoxtv.com/",
+    "https://kvia.com/",
+    "https://cbs4local.com/",
+    "https://www.elpasotimes.com/"
+  ],
+  "Nashville, TN": [
+    "https://www.newschannel5.com/",
+    "https://www.wkrn.com/",
+    "https://www.wsmv.com/",
+    "https://fox17.com/",
+    "https://www.tennessean.com/",
+    "https://www.newschannel5.com/"
+  ],
+  "Detroit, MI": [
+    "https://www.cbsnews.com/detroit/",
+    "https://www.clickondetroit.com/",
+    "https://www.fox2detroit.com/",
+    "https://www.wxyz.com/",
+    "https://www.detroitnews.com/"
+  ],
+  "Oklahoma City, OK": [
+    "https://www.news9.com/",
+    "https://kfor.com/",
+    "https://okcfox.com/",
+    "https://www.koco.com/",
+    "https://www.oklahoman.com/"
+  ],
+  "Portland, OR": [
+    "https://www.kgw.com/",
+    "https://katu.com/",
+    "https://www.koin.com/",
+    "https://www.kptv.com/",
+    "https://www.oregonlive.com/portland/"
+  ],
+  "Las Vegas, NV": [
+    "https://www.8newsnow.com/",
+    "https://www.fox5vegas.com/",
+    "https://www.ktnv.com/",
+    "https://news3lv.com/",
+    "https://www.reviewjournal.com/",
+    "https://lasvegassun.com/"
+  ],
+  "Memphis, TN": [
+    "https://www.actionnews5.com/",
+    "https://www.fox13memphis.com/",
+    "https://wreg.com/",
+    "https://www.localmemphis.com/",
+    "https://www.commercialappeal.com/"
+  ],
+  "Louisville, KY": [
+    "https://www.wlky.com/",
+    "https://www.whas11.com/",
+    "https://www.wave3.com/",
+    "https://www.wdrb.com/",
+    "https://www.courier-journal.com/"
+  ],
+  "Baltimore, MD": [
+    "https://www.cbsnews.com/baltimore/",
+    "https://www.wbaltv.com/",
+    "https://foxbaltimore.com/",
+    "https://www.wmar2news.com/",
+    "https://www.wbaltv.com/"
+  ],
+  "Milwaukee, WI": [
+    "https://www.fox6now.com/",
+    "https://www.tmj4.com/",
+    "https://www.wisn.com/",
+    "https://www.cbs58.com/",
+    "https://www.jsonline.com/"
+  ],
+  "Albuquerque, NM": [
+    "https://www.krqe.com/",
+    "https://www.kob.com/",
+    "https://www.koat.com/",
+    "https://www.abqjournal.com/",
+    "https://www.kunm.org/"
+  ],
+  "Tucson, AZ": [
+    "https://www.kold.com/",
+    "https://www.kgun9.com/",
+    "https://www.kvoa.com/",
+    "https://tucson.com/news/",
+    "https://www.abc15.com/news/region-central-southern-az/tucson",
+    "https://www.tucsonsentinel.com/"
+  ],
+  "Fresno, CA": [
+    "https://abc30.com/",
+    "https://kmph.com/",
+    "https://www.yourcentralvalley.com/",
+    "https://www.fresnobee.com/",
+    "https://fresnoland.org/"
+  ],
+  "Sacramento, CA": [
+    "https://www.cbsnews.com/sacramento/",
+    "https://www.kcra.com/",
+    "https://fox40.com/",
+    "https://www.abc10.com/",
+    "https://www.sacbee.com/news/local/"
+  ],
+  "Mesa, AZ": [
+    "https://www.abc15.com/news/region-southeast-valley/mesa",
+    "https://www.azcentral.com/local/mesa/",
+    "https://www.eastvalleytribune.com/",
+    "https://www.fox10phoenix.com/tag/us/az/maricopa-county/mesa",
+    "https://www.themesatribune.com/"
+  ],
+  "Kansas City, MO": [
+    "https://fox4kc.com/",
+    "https://www.kshb.com/",
+    "https://www.kctv5.com/",
+    "https://www.kmbc.com/",
+    "https://www.kansascity.com/"
+  ],
+  "Atlanta, GA": [
+    "https://www.fox5atlanta.com/",
+    "https://www.wsbtv.com/",
+    "https://www.11alive.com/",
+    "https://www.atlantanewsfirst.com/",
+    "https://www.ajc.com/"
+  ],
+  "Omaha, NE": [
+    "https://www.wowt.com/",
+    "https://www.ketv.com/",
+    "https://www.3newsnow.com/",
+    "https://omaha.com/",
+    "https://fox42kptm.com/"
+  ],
+  "Colorado Springs, CO": [
+    "https://www.kktv.com/",
+    "https://www.fox21news.com/",
+    "https://krdo.com/",
+    "https://www.koaa.com/",
+    "https://gazette.com/"
+  ],
+  "Raleigh, NC": [
+    "https://www.wral.com/",
+    "https://abc11.com/",
+    "https://www.cbs17.com/",
+    "https://www.newsobserver.com/",
+    "https://www.wral.com/"
+  ],
+  "Miami, FL": [
+    "https://www.cbsnews.com/miami/",
+    "https://www.nbcmiami.com/",
+    "https://wsvn.com/",
+    "https://www.local10.com/",
+    "https://www.sun-sentinel.com/",
+    "https://www.miamiherald.com/news/local/community/miami-dade/"
+  ],
+  "Long Beach, CA": [
+    "https://lbpost.com/",
+    "https://www.presstelegram.com/",
+    "https://www.longbeachlocalnews.com/",
+    "https://abc7.com/place/long-beach/"
+  ],
+  "Virginia Beach, VA": [
+    "https://www.wtkr.com/",
+    "https://www.wavy.com/news/local-news/virginia-beach/",
+    "https://www.13newsnow.com/",
+    "https://www.wtkr.com/news/in-the-community/virginia-beach",
+    "https://www.wsls.com/topic/Virginia_Beach/"
+  ],
+  "Oakland, CA": [
+    "https://abc7news.com/place/oakland/",
+    "https://www.ktvu.com/",
+    "https://www.eastbaytimes.com/",
+    "https://oaklandside.org/",
+    "https://abc7news.com/east-bay/"
+  ],
+  "Minneapolis, MN": [
+    "https://www.fox9.com/",
+    "https://www.kare11.com/",
+    "https://www.cbsnews.com/minnesota/",
+    "https://kstp.com/",
+    "https://bringmethenews.com/",
+    "https://www.startribune.com/",
+    "https://www.mprnews.org/"
+  ],
+  "Tulsa, OK": [
+    "https://www.newson6.com/",
+    "https://ktul.com/",
+    "https://www.kjrh.com/",
+    "https://tulsaworld.com/",
+    "https://www.krmg.com/"
+  ],
+  "Arlington, TX": [
+    "https://www.fox4news.com/tag/us/tx/tarrant-county/arlington",
+    "https://www.nbcdfw.com/tag/arlington/",
+    "https://www.cbsnews.com/texas/tag/arlington/",
+    "https://www.star-telegram.com/news/local/arlington/",
+    "https://arlingtontoday.com/",
+    "https://arlingtonnetwork.com/"
+  ],
+  "Tampa, FL": [
+    "https://www.fox13news.com/",
+    "https://www.abcactionnews.com/",
+    "https://www.wfla.com/",
+    "https://www.wtsp.com/",
+    "https://www.fox13news.com/",
+    "https://www.tampabay.com/"
+  ],
+  "New Orleans, LA": [
+    "https://www.nola.com/",
+    "https://www.fox8live.com/",
+    "https://www.wdsu.com/",
+    "https://www.wwltv.com/",
+    "https://wgno.com/"
+  ]
+}
