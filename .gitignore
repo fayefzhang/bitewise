@@ -5,3 +5,5 @@
 *.pyc
 __pycache__/
 /python-api/myenv
+.env
+

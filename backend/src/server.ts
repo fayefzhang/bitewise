@@ -2,10 +2,14 @@ import express, { Application, Request, Response } from 'express';
 import axios from 'axios';
 import routes from './routes/APIRoutes';
 import cors from "cors";
+import { connectDB } from './config/db';
+
 
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
+
+connectDB();
 
 app.use(
 	cors({
