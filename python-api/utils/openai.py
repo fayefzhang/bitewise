@@ -7,11 +7,18 @@ import re
 import textstat
 from pathlib import Path
 from podcastfy.client import generate_podcast
+import boto3
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 OpenAI.api_key = config.OPENAI_API_KEY 
 
+S3_BUCKET = "bitewise-podcasts"
+S3_REGION = "us-east-1"  
+S3_BASE_URL = f"https://{S3_BUCKET}.s3.amazonaws.com"
+
 client = OpenAI(api_key=config.OPENAI_API_KEY)
+
+s3_client = boto3.client('s3', aws_access_key_id=config.AWS_ACCESS_KEY_ID, aws_secret_access_key=config.AWS_SECRET_ACCESS_KEY, region_name=S3_REGION)
 
 # FORMAT FOR USER PREFERENCES:
 # user_preferences = {
@@ -20,6 +27,16 @@ client = OpenAI(api_key=config.OPENAI_API_KEY)
 #     "format": "highlights", # options: {"highlights", "bullets", "analysis", "quotes"}
 #     "jargon_allowed": True # options: {True, False}
 # }
+
+def upload_to_s3(file_path, folder="podcasts"):
+    file_name = file_path.split("/")[-1]
+    s3_file_path = f"{folder}/{file_name}"
+    try:
+      s3_client.upload_file(file_path, S3_BUCKET, s3_file_path)
+      return f"{S3_BASE_URL}/{s3_file_path}"
+    except Exception as e: 
+      return f"Error uploading to S3: {str(e)}"
+
 
 # Summarizes an individual article based on user preferences
 def generate_summary_individual(input_text, user_preferences):
@@ -251,8 +268,10 @@ def generate_podcast_collection(links: [str]):
     match = re.search(r"Transcript saved to (.+)", output)
     transcript_path = match.group(1) if match else None
 
+    # Upload podcast file to S3
+    s3_url = upload_to_s3(audio_path) if audio_path else None
 
-    return {"audio_file": audio_path, "transcript_file": transcript_path}
+    return {"audio_file": audio_path, "transcript_file": transcript_path, "s3_url": s3_url}
 
 # Summarizes daily news articles
 def daily_news_summary(input_text):

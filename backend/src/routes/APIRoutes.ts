@@ -369,6 +369,10 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
             articles,  
         });
 
+        if (!response.data.s3_url) {
+            res.status(500).json({ error: 'Podcast failed to upload to S3' });
+        }
+
         res.json(response.data); 
     } catch (error) {
         console.error("Error processing generate podcast request", error);

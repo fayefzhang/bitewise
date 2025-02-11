@@ -279,8 +279,10 @@ def generate_podcast():
     articles = data.get('articles')
     if not articles:
         return jsonify({"error": "Articles are required"}), 400
-    paths = generate_podcast_collection(articles)
-    return jsonify(paths), 200
+    result = generate_podcast_collection(articles)
+    if not result.get("s3_url"):
+        return jsonify({"error": "Failed to upload podcast to S3"}), 500
+    return jsonify(result), 200
 
 @app.route('/audio/<filename>', methods=['GET'])
 def serve_audio(filename):
