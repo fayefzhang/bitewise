@@ -19,12 +19,14 @@ export interface Preferences {
 export interface Article {
   id: Key | null | undefined;
   url: string;
+  authors: string[];
   imageUrl: string;
   title: string;
   source: string;
   content: string;
   time: string; // date published
-  bias: string;
+  biasRating: string;
+  sentiment: string;
   readTime: string;
   relatedSources: RelatedSource[];
   details: string[];

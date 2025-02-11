@@ -40,49 +40,52 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
     //     }
     // }
 
-    // Step 1: fetch articles
-    const articlesResponse = await axios.post(`${BASE_URL}/search`, {
-      query,
-      search_preferences,
-      cluster,
-    });
+        // Step 1: fetch articles
+        const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
-    const filteredResults = articlesResponse.data.results
-      .filter((entry: any) => entry.title !== "[Removed]")
-      .map((entry: any) => ({
-        id: entry.id,
-        url: entry.url,
-        imageUrl: entry.urlToImage,
-        title: entry.title,
-        source: entry.source.name,
-        content: entry.content,
-        date: entry.publishedAt,
-        bias: entry.biasRating,
-        readTime: entry.readTime,
-        relatedSources: [], // TODO
-        details: [], // TODO: summary
-        // ^^ @karen unsure what this means? -jared
-        cluster: entry.cluster,
-        fullContent: null,
-      }));
+        
+        const filteredResults = articlesResponse.data.results
+        .filter((entry: any) => entry.title !== "[Removed]")
+        .map((entry: any) => ({
+            id: entry.id,
+            url: entry.url,
+            authors: entry.authors,
+            imageUrl: entry.urlToImage,
+            title: entry.title,
+            source: entry.source.name,
+            content: entry.content,
+            date: entry.publishedAt,
+            bias: entry.biasRating,
+            readTime: entry.readTime,
+            relatedSources: [], // TODO
+            details: [], // TODO: summary 
+            // ^^ @karen unsure what this means? -jared
+            cluster: entry.cluster,
+            fullContent: null
+        }));
 
     const { clusters } = articlesResponse.data;
     const articlesData = filteredResults;
 
     console.log("search step 1, found articles:", articlesData);
 
-    // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
-    const summaryRequestBody = {
-      articles: Object.fromEntries(
-        articlesData
-          .slice(0, 5)
-          .map((article: any) => [
-            article.url,
-            { title: article.title, fullContent: article.fullContent },
-          ])
-      ),
-      ai_preferences,
-    };
+        // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
+        const summaryRequestBody = {
+            articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
+            acc[article.url] = {
+                title: article.title,
+                fullContent: article.fullContent,
+                imageUrl: article.imageUrl,
+                readTime: article.readTime,
+                biasRating: article.bias,
+                source: article.source,
+                time: article.date,
+                authors: article.authors,
+            };
+            return acc;
+            }, {}),
+            ai_preferences,
+        };
 
     const summaryResponse = await axios.post(
       `${BASE_URL}/summarize-articles`,
@@ -175,32 +178,28 @@ router.post(
         clusters.map(async (cluster: { cluster_id: any; articles: any }) => {
           // data formatted for summary endpoint
 
-          const clusterId = cluster.cluster_id;
-          const articles = cluster.articles;
-
-          const formattedArticles = (articles as any[]).reduce(
-            (acc, article) => {
-              acc[article.url] = {
-                title: article.title,
-                fullContent: article.content,
-                imageUrl: article.img,
-                readTime: article.readTime,
-                biasRating: article.biasRating,
-                source: article.source,
-              };
-              return acc;
-            },
-            {}
-          );
-          try {
-            console.log("HERERERE", formattedArticles);
-            const summaryResponse = await axios.post(
-              `${BASE_URL}/summarize-articles`,
-              {
-                articles: formattedArticles,
-                ai_preferences: ai_preferences,
-              }
-            );
+                const clusterId = cluster.cluster_id;
+                const articles = cluster.articles;
+                
+                const formattedArticles = (articles as any[]).reduce((acc, article) => {
+                    acc[article.url] = {
+                        title: article.title,
+                        fullContent: article.content,
+                        imageUrl: article.imageUrl,
+                        readTime: article.readTime,
+                        biasRating: article.biasRating,
+                        source: article.source,
+                        time: article.time,
+                        authors: article.authors,
+                    };
+                    return acc;
+                }, {});
+                try {
+                    console.log("HERERERE", formattedArticles)
+                    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
+                        articles: formattedArticles,
+                        ai_preferences: ai_preferences
+                    });
 
             const summaryData = summaryResponse.data;
 

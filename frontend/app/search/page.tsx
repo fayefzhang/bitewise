@@ -149,7 +149,8 @@ const SearchPage: React.FC = () => {
       const articlesData = data.articles.map((entry: any) => ({
         id: entry.id,
         url: entry.url,
-        imageUrl: entry.urlToImage,
+        authors: entry.authors,
+        imageUrl: entry.imageUrl,
         title: entry.title,
         source: entry.source.name,
         content: entry.content,
@@ -225,7 +226,9 @@ const SearchPage: React.FC = () => {
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
               </section>
               <section>
-                {filteredArticles.map((article) => (
+                {filteredArticles
+                  .filter((article) => article.imageUrl)
+                  .map((article) => (
                   <div
                     key={article.id}
                     className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
@@ -238,7 +241,7 @@ const SearchPage: React.FC = () => {
                   >
                     <div className="flex items-center space-x-4">
                       <Image
-                        src="/bitewise_logo.png"
+                        src={article.imageUrl || "/bitewise_logo.png"}
                         alt="article thumbnail"
                         width={80}
                         height={50}
