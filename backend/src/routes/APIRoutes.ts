@@ -116,28 +116,30 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             .filter((entry: any) => entry.title !== "[Removed]")
             .map((entry: any) => ({
                 url: entry.url,  // Primary key
-                content: null,
+                content: "", //will be filled in later
                 datePublished: entry.publishedAt,
                 author: entry.author,
                 source: entry.source.name,
                 title: entry.title,
                 readTime: entry.readTime,
                 biasRating: entry.biasRating,
-                difficulty: entry.difficulty,
                 imageUrl: entry.urlToImage,
-                summaries: [],
             }));
-        await ArticleModel.insertMany(filteredResults, { ordered: false })
-            .then(() => {
-                console.log("Articles successfully inserted into the database");
-            })
-            .catch((error) => {
-                if (error.code === 11000) {
-                    console.warn("Some articles already exist, skipping duplicates");
-                } else {
-                    console.error("Error inserting articles:", error);
-                }
-            });
+
+        
+        console.log("filtered results:", filteredResults.slice(0, 5));
+        console.log("collection name results:", ArticleModel.collection.name);
+
+        try {
+            const insertManyResponse = await ArticleModel.insertMany(filteredResults, { ordered: false });
+            console.log("Articles successfully inserted into the database");
+            console.log("InsertMany response:", JSON.stringify(insertManyResponse, null, 2));
+        } catch (error) {
+            console.error("Error inserting articles:", error);
+        }
+
+        const existingArticles = await ArticleModel.find({});
+        console.log("existing articles:", existingArticles);
 
         const { clusters } = articlesResponse.data;
         const articlesData = filteredResults;
@@ -163,7 +165,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // update articles with scraped content in database
         const bulkOperations = enriched_articles.map((article: any) => ({
             updateOne: {
-                filter: { url: article.url, content: { $exists: false } },
+                filter: { url: article.url, content: "" },
                 update: { $set: { content: article.content } },
                 upsert: false // don't create a new document if it doesn't exist
             }
