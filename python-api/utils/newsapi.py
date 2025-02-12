@@ -161,7 +161,7 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 
                 # bias rating
                 source_name = article.get("source", {}).get("name", None)
-                article["biasRating"] = bias_lookup.get(source_name, "Unknown")
+                article["biasRating"] = bias_translation[bias_lookup.get(source_name, 'Unknown')]
 
                 # add char length and read time
                 chars = char_length(article.get("content", None))

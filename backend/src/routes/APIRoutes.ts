@@ -48,7 +48,11 @@ function createReverseMapping(dictionary: AIDictionaryType): ReverseAIDictionary
 }
 
 const ReverseAIDictionary = createReverseMapping(AIDictionary);
+<<<<<<< HEAD
 import UserModel from '../models/User'
+=======
+console.log("REVERSE DICT", ReverseAIDictionary)
+>>>>>>> jared
 
 // import ISummary from "../interfaces/ISummary";
 
@@ -98,60 +102,61 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             const timeDifference = new Date().getTime() - existingQuery.date.getTime();
             if (timeDifference < 24 * 60 * 60 * 1000) {
                 console.log("search: using cached response for existing query");
-                res.json(existingQuery);
+
+                // get existing articles from database and resummarize
+                const articles = await ArticleModel.find({ url: { $in: existingQuery.articles } }); 
+                const summaryRequestBody = {
+                    articles: Object.fromEntries(
+                        articles.slice(0, 5).map((article: any) => [
+                            article.url,
+                            { title: article.title, fullContent: article.content }
+                        ])
+                    ),
+                    ai_preferences,
+                };
+
+                const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
+                const { title, summary, enriched_articles } = summaryResponse.data;
+                // create and return response
+                const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
+                    articles: articles,
+                    summary: {
+                        title: query,
+                        summary: summary,
+                    },
+                };
+                res.json(result);
+                return;
+
+            } else {
+                // delete existing query
+                await QueryModel.deleteOne({ query: query });
             }
         }
 
         // Step 1: fetch articles
         const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
-        // OLD SCHEMA FOR FRONTEND REFERENCE
-        // const filteredResults = articlesResponse.data.results
-        // .filter((entry: any) => entry.title !== "[Removed]")
-        // .map((entry: any) => ({
-        //     id: entry.id,
-        //     url: entry.url,
-        //     imageUrl: entry.urlToImage,
-        //     title: entry.title,
-        //     source: entry.source.name,
-        //     content: entry.content,
-        //     date: entry.publishedAt,
-        //     bias: entry.biasRating,
-        //     readTime: entry.readTime,
-        //     relatedSources: [], // TODO
-        //     details: [], // TODO: summary 
-        //     // ^^ @karen unsure what this means? -jared
-        //     cluster: entry.cluster,
-        //     fullContent: null
-        // }));
-
         // format and write articles to database
         const filteredResults = articlesResponse.data.results
             .filter((entry: any) => entry.title !== "[Removed]")
             .map((entry: any) => ({
                 url: entry.url,  // Primary key
-                content: null,
+                content: "", // will be filled in later
                 datePublished: entry.publishedAt,
                 authors: entry.authors,
                 source: entry.source.name,
                 title: entry.title,
                 readTime: entry.readTime,
                 biasRating: entry.biasRating,
-                difficulty: entry.difficulty,
                 imageUrl: entry.urlToImage,
-                summaries: [],
             }));
-        await ArticleModel.insertMany(filteredResults, { ordered: false })
-            .then(() => {
-                console.log("Articles successfully inserted into the database");
-            })
-            .catch((error) => {
-                if (error.code === 11000) {
-                    console.warn("Some articles already exist, skipping duplicates");
-                } else {
-                    console.error("Error inserting articles:", error);
-                }
-            });
+
+        try {
+            const insertManyResponse = await ArticleModel.insertMany(filteredResults, { ordered: false });
+        } catch (error) {
+            console.error("Error inserting articles:", error);
+        }
 
         const { clusters } = articlesResponse.data;
         const articlesData = filteredResults;
@@ -177,14 +182,11 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
         const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
         const { title, summary, enriched_articles } = summaryResponse.data;
-        console.log("Summary: ", summary);
-        console.log("Enriched Articles: ", enriched_articles);
-
 
         // update articles with scraped content in database
         const bulkOperations = enriched_articles.map((article: any) => ({
             updateOne: {
-                filter: { url: article.url, content: { $exists: false } },
+                filter: { url: article.url, content: "" },
                 update: { $set: { content: article.content } },
                 upsert: false // don't create a new document if it doesn't exist
             }
@@ -222,12 +224,15 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             }));
         }
 
-        // Step 5: cache response if it matches example query (see step 4 format)
-        // if (query === EXAMPLE_SEARCH_QUERY) {
-        //     console.log("search: caching response for example query");
-        //     cache[query] = result;
-        //     writeCache(cache);
-        // }
+        // store query in database
+        const newQuery = new QueryModel({
+            query,
+            date: new Date(),
+            articles: articlesData.map((article: { url: string }) => article.url)
+        });
+
+        const savedQuery = await newQuery.save();
+        console.log("saved query:", savedQuery);
 
         res.json(result);
     } catch (error: any) {
@@ -350,28 +355,6 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                 }
             })
         );
-        // const finalClusters = clusterSummaries.map((cluster: any) => {
-        //     // Log the cluster to see its structure
-        //     console.log('Cluster:', cluster);
-        
-        //     const mappedArticles = cluster.articles.map((article: any) => {
-        //         // Log each article to inspect its fields
-        //         console.log('Article:', article);
-        
-        //         return {
-        //             content: article.content,
-        //             datePublished: article.datePublished,
-        //             title: article.title,  // Ensure that title exists
-        //             url: article.url       // Ensure that url exists
-        //         };
-        //     });
-        
-        //     return {
-        //         articles: mappedArticles,
-        //         summary: cluster.summary,
-        //         clusterTitle: cluster.title
-        //     };
-        // });
 
         // save to database and return dashboard
         const newDashboard = new DashboardModel({
@@ -449,14 +432,37 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 
         if (existingArticle) {
             // frontend not passing it in this format
+<<<<<<< HEAD
             const existingSummary = existingArticle.summaries?.find((summary: any) =>
                 summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.AILength] &&
                 summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.AITone] &&
                 summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat] &&
                 summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+=======
+            console.log(ai_preferences);
+            console.log("ai pref length:", ai_preferences.AILength);
+            console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
+            console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
+            console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
+            console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
+
+            // should be AILength, AITone, AIFormat, AIJargonAllowed
+            // const existingSummary = existingArticle.summaries?.find((summary) =>
+            //     summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.AILength] &&
+            //     summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.AITone] &&
+            //     summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat] &&
+            //     summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+            // );
+            const existingSummary = existingArticle.summaries?.find((summary) =>
+                summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.length] &&
+                summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.tone] &&
+                summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.format] &&
+                summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+>>>>>>> jared
             );
 
             if (existingSummary) {
+                console.log("using existing summary from database");
                 res.json(existingSummary.summary);
             } else {
                 // send article and user prefs to the Python backend
@@ -466,17 +472,26 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 });
 
                 // save summary to database by update article
+                // should switch to this format once frontend fixed
+                // const newSummary = {
+                //     summary: response.data.summary, // The generated summary
+                //     AILength: ReverseAIDictionary['AILength'][ai_preferences.AILength],
+                //     AITone: ReverseAIDictionary['AITone'][ai_preferences.AITone],
+                //     AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat],
+                //     AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+                // };
                 const newSummary = {
                     summary: response.data.summary, // The generated summary
-                    AILength: ReverseAIDictionary['AILength'][ai_preferences.AILength],
-                    AITone: ReverseAIDictionary['AITone'][ai_preferences.AITone],
-                    AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat],
-                    AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+                    AILength: ReverseAIDictionary['AILength'][ai_preferences.length],
+                    AITone: ReverseAIDictionary['AITone'][ai_preferences.tone],
+                    AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.format],
+                    AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []
                 }
                 existingArticle.summaries.push(newSummary);
+                console.log("pushed new summary to existing article:", existingArticle);
                 // @Sanya add in later when we merge branches
                 // existingArticle.difficulty = readingDifficulty; 
                 await existingArticle.save();
