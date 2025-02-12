@@ -1,6 +1,7 @@
 from exa_py import Exa
 from typing import Dict, List
 from . import config
+from newspaper import Article
 
 # articles: {"url": { "title": "string", "fullContent": "string" }}
 def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str]]:
@@ -30,5 +31,12 @@ def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str
     for url, article_data in articles.items():
       if url in fetched_results:
         article_data["fullContent"] = fetched_results[url].text.strip()
+        # get thumbnail image
+        article = Article(url)
+        article.download()
+        article.parse()
+        article_data["imageUrl"] = article.top_image
+        article_data["authors"] = article.authors
+        article_data["date"] = article.publish_date
 
     return articles

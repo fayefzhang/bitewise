@@ -15,6 +15,7 @@ import json
 import pandas as pd
 import re
 from datetime import datetime
+from threading import Thread
 
 
 app = Flask(__name__)
@@ -27,10 +28,22 @@ def log_request_info():
 
 @app.route('/daily-news', methods=['POST'])
 def refresh_daily_news():
+    last_modified_timestamp = os.path.getmtime("data/articles_data.json")
+    last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
+    current_time = datetime.now()
+    time_difference = current_time - last_modified_date
+    if time_difference.total_seconds() > 12 * 3600:
+        Thread(target=daily_crawl_all).start()
     return refresh_helper()
 
 @app.route('/local-news', methods=['POST'])
 def refresh_local_news():
+    last_modified_timestamp = os.path.getmtime("data/local_articles_data.json")
+    last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
+    current_time = datetime.now()
+    time_difference = current_time - last_modified_date
+    if time_difference.total_seconds() > 12 * 3600:
+        Thread(target=daily_crawl_location).start()
     return refresh_helper('local_articles_data.json')
 
 # helper function to refresh news and cluster to find main topics
@@ -52,6 +65,9 @@ def refresh_helper(file_path='articles_data.json'):
     def process_article(article):
         article['source'], article['biasRating'] = get_source_and_bias(article.get('source', {}))
         article['readTime'] = estimate_reading_time(char_length(article.get('content', None)))
+        article['time'] = article.get('time', None)
+        article['authors'] = article.get('authors', None)
+        article['imageUrl'] = article.get('imageUrl', None)
         return article
     
     articles_df = articles_df.apply(lambda x: process_article(x), axis=1)
@@ -239,11 +255,16 @@ def summarize_articles():
         article_result = contents_mapping.get(url, None)
         enriched_articles.append({
             "url": url,
-            "title": article_result["title"],
-            "content": article_result['fullContent'],
-            "image": article_result["imageUrl"],
-            "readTime": article_result["readTime"],
-            "biasRating": article_result["biasRating"],
+            "title": article_result.get("title", ""),
+            "fullContent": article_result.get("fullContent", ""),
+            "content": article_result.get("content", ""),
+            "imageUrl": article_result.get("imageUrl", ""),
+            "readTime": article_result.get("readTime", ""),
+            "biasRating": article_result.get("biasRating", ""),
+            "source": article_result.get("source", ""),
+            "authors": article_result.get("authors", ""),
+            "time": article_result.get("time", ""),
+            "sentiment": article_result.get("sentiment", ""),
     })
 
     articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])

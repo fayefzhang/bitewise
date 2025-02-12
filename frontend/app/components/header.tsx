@@ -2,61 +2,57 @@
 
 import { Preferences } from "../common/interfaces";
 import SignInPopUp from "./signinpopup";
-import { search } from "@/api/api";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { defaultSearchPreferences } from "../common/utils";
 
 interface HeaderProps {
   onSearch: (term: string) => void;
-  setPreferences: (preferences: Preferences) => void;
+  setPreferences?: (preferences: Preferences) => void;
   placeholder?: string;
+  isSearchPage?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
   onSearch,
   setPreferences,
   placeholder = "Search for articles...",
+  isSearchPage = false,
 }) => {
   // SEARCH FUNCTIONAL SETUP
   const [searchTerm, setSearchTerm] = useState("");
   const [showSettings, setShowSettings] = useState(false);
-  const [searchPreferences, setSearchPreferences] = useState<Preferences>({
-    sources: [],
-    domains: [],
-    exclude_domains: [],
-    from_date: "",
-    read_time: "",
-    bias: "",
-    clustering: false,
-  });
+  const [searchPreferences, setSearchPreferences] = useState<Preferences>(
+    defaultSearchPreferences
+  );
 
   const toggleReadTime = (time: string) => {
-    if (searchPreferences.read_time == time) {
-      setSearchPreferences((prev) => ({
+    setSearchPreferences((prev) => {
+      const currentSelection = prev.read_time || []; // Ensure it's an array
+      const isAlreadySelected = currentSelection.includes(time);
+
+      return {
         ...prev,
-        read_time: "",
-      }));
-    } else {
-      setSearchPreferences((prev) => ({
-        ...prev,
-        read_time: time,
-      }));
-    }
+        read_time: isAlreadySelected
+          ? currentSelection.filter((t) => t !== time) // Remove if already selected
+          : [...currentSelection, time], // Add if not selected
+      };
+    });
   };
 
   const toggleBias = (articleBias: string) => {
-    if (searchPreferences.bias == articleBias) {
-      setSearchPreferences((prev) => ({
+    setSearchPreferences((prev) => {
+      const currentSelection = prev.bias || []; // Ensure it's an array
+      const isAlreadySelected = currentSelection.includes(articleBias);
+
+      return {
         ...prev,
-        bias: "",
-      }));
-    } else {
-      setSearchPreferences((prev) => ({
-        ...prev,
-        bias: articleBias,
-      }));
-    }
+        bias: isAlreadySelected
+          ? currentSelection.filter((b) => b !== articleBias) // Remove if already selected
+          : [...currentSelection, articleBias], // Add if not selected
+      };
+    });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -64,10 +60,6 @@ const Header: React.FC<HeaderProps> = ({
       onSearch(searchTerm.trim());
       setPreferences(searchPreferences);
     }
-  };
-
-  const updatePreference = (key: string, value: unknown) => {
-    setSearchPreferences((prev) => ({ ...prev, [key]: value }));
   };
 
   // SIGN IN SIGN UP POPUP
@@ -101,12 +93,14 @@ const Header: React.FC<HeaderProps> = ({
           placeholder={placeholder}
           className="p-2 w-full md:w-80 text-black focus:outline-none"
         />
-        <button
-          className="text-xl text-gray-600 hover:text-black"
-          onClick={() => setShowSettings(!showSettings)}
-        >
-          ⚙️
-        </button>
+        {isSearchPage && (
+          <button
+            className="text-xl text-gray-600 hover:text-black"
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            ⚙️
+          </button>
+        )}
       </div>
       <div className="flex space-x-4 absolute right-4">
         <Link href="/profile">
@@ -135,8 +129,8 @@ const Header: React.FC<HeaderProps> = ({
               Read Time
             </label>
             <div className="flex space-x-2">
-              {["Short", "Medium", "Long"].map((time: string) => {
-                const isSelected = searchPreferences.read_time == time;
+              {["Short", "Medium", "Long"].map((time) => {
+                const isSelected = searchPreferences.read_time?.includes(time);
                 return (
                   <button
                     key={time}
@@ -152,10 +146,31 @@ const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Bias</label>
+            <label className="block text-sm font-semibold mb-2 flex items-center space-x-1">
+              <span>Bias</span>
+              <div className="relative group">
+                <svg
+                  className="w-4 h-4 text-blue-500 hover:text-gray-700 cursor-pointer"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M12 18h0"
+                  />
+                </svg>
+                <div className="absolute left-6 top-1/2 transform -translate-y-1/2 w-56 bg-gray-800 text-white text-xs rounded-md p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg">
+                  Bias is determined by the source's rating in our bias
+                  database.
+                </div>
+              </div>
+            </label>
             <div className="flex space-x-2">
-              {["Left", "Center", "Right"].map((bias: string) => {
-                const isSelected = searchPreferences.bias == bias;
+              {["Left", "Center", "Right"].map((bias) => {
+                const isSelected = searchPreferences.bias?.includes(bias);
                 return (
                   <button
                     key={bias}
@@ -168,6 +183,42 @@ const Header: React.FC<HeaderProps> = ({
                   </button>
                 );
               })}
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-2">
+              Date Published From
+            </label>
+            <div className="flex space-x-2">
+              <input
+                type="date"
+                value={searchPreferences.from_date}
+                onChange={(e) =>
+                  setSearchPreferences((prev) => ({
+                    ...prev,
+                    from_date: e.target.value,
+                  }))
+                }
+                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-2">
+              Date Published To
+            </label>
+            <div className="flex space-x-2">
+              <input
+                type="date"
+                value={searchPreferences.to_date}
+                onChange={(e) =>
+                  setSearchPreferences((prev) => ({
+                    ...prev,
+                    to_date: e.target.value,
+                  }))
+                }
+                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
           </div>
           <div className="mb-4">

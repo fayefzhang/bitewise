@@ -43,7 +43,9 @@ const LocalNews = () => {
           const news = await fetchLocalNews();
     
           console.log(news);
+          if (news) {
           setLocalNews(news.clusterSummaries);
+          }
           setIsLoading(false);
         };
     
@@ -52,7 +54,7 @@ const LocalNews = () => {
     
 
     return (
-        <aside className="bg-blue-50 p-4 rounded-lg max-h-[400px] overflow-y-auto">
+        <aside className="bg-blue-50 p-4 rounded-lg max-h-[30vh] overflow-y-auto">
             <h2 className='text-lg font-bold mb-2'>Local News</h2>
             <h4 className="font-semibold italic">{location}</h4>
 

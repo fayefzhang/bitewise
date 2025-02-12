@@ -293,12 +293,14 @@ def daily_news_summary(input_text):
       Article content here.
 
       **Task:**
-      Generate a 5-sentence overview of the key topics and themes discussed in the provided articles. Start the summary by directly addressing the first topic without referencing the articles themselves. The summary should:
+      Generate a 3-sentence overview of the key topics and themes discussed in the provided articles. Start the summary by overviewing all covered topics in the first sentence with an opening phrase such as "Today, we will cover...". The summary should:
       1. Be concise, engaging, and informative.
       2. Cover diverse topics from the articles rather than focusing on a single theme.
       3. Flow logically, ensuring smooth transitions between sentences.
       4. Avoid referencing specific articles, titles, or sources.
     """
+
+    prompt += f":\n\n{input_text}"
 
     try:
         response = client.chat.completions.create(
@@ -315,4 +317,3 @@ def daily_news_summary(input_text):
         return f"An error occurred: {str(e)}"
 
     return response.choices[0].message.content.strip()
-

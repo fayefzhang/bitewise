@@ -17,7 +17,7 @@ const TopicsArticles = () => {
         const getTopicsArticles = async () => {
             try {
                 console.log("Fetching user preferences...");
-                const preferencesResponse = await fetch(`${BASE_URL}/api/user/preferences?userID=TEST`, {
+                const preferencesResponse = await fetch(`${BASE_URL}/api/user/preferences?userID=TEST`, { // NEED TO CHANGE TO ACTUAL USER
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const TopicsArticles = () => {
     };
 
     return (
-        <aside className="bg-blue-50 p-4 rounded-lg max-h-[400px] overflow-y-auto">
+        <aside className="bg-blue-50 p-4 rounded-lg max-h-[50vh] overflow-y-auto">
             <h2 className='text-lg font-bold mb-4'>Your Topics</h2>
             {renderArticles()}
         </aside>

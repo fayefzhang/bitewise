@@ -1,11 +1,67 @@
 "use client";
 
-import { Preferences, Article, Summary } from '../common/interfaces';
-import { toTitleCase } from '../common/utils'
+import { Preferences, Article, Summary } from "../common/interfaces";
+import {
+  defaultAIPreferences,
+  defaultSearchPreferences,
+  toTitleCase,
+} from "../common/utils";
 import Header from "../components/header";
 import Image from "next/image";
-import { Key, useState, useEffect } from "react";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+
+const filterArticles = (
+  articles: Article[],
+  headerPreferences: Preferences | null
+) => {
+  if (!headerPreferences) return articles;
+  return articles.filter((article) => {
+    let readTime = true;
+    let biasMatch = true;
+    let dateMatch = true;
+
+    // Read Time Filtering (Supports Multiple Selections)
+    if (headerPreferences?.read_time?.length > 0) {
+      readTime = headerPreferences.read_time.some(
+        (time) =>
+          (time === "Short" && article.readTime === "<2 min") ||
+          (time === "Medium" && article.readTime === "2-7 min") ||
+          (time === "Long" && article.readTime === ">7 min")
+      );
+    }
+
+    // Bias Filtering (Supports Multiple Selections)
+    if (headerPreferences?.bias?.length > 0) {
+      biasMatch = headerPreferences.bias.some((bias) =>
+        article.bias.includes(bias.toLowerCase())
+      );
+    }
+
+    // Date Filtering (Supports From and To Dates)
+    if (headerPreferences?.from_date) {
+      const articleDate = new Date(article.time).getTime();
+      const fromDate = new Date(headerPreferences.from_date).getTime();
+      if (articleDate < fromDate) {
+        dateMatch = false;
+      }
+    }
+
+    if (headerPreferences?.to_date) {
+      const articleDate = new Date(article.time).getTime();
+      const toDate = new Date(headerPreferences.to_date).getTime();
+      if (articleDate > toDate) {
+        dateMatch = false;
+      }
+    }
+
+    return (
+      biasMatch &&
+      readTime &&
+      dateMatch &&
+      (!headerPreferences?.clustering || article.cluster !== -1)
+    );
+  });
+};
 
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -14,75 +70,11 @@ const SearchPage: React.FC = () => {
   const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
     null
   );
-  const [headerPreferences, setHeaderPreferences] = useState<Preferences | null> (null);
+  const [headerPreferences, setHeaderPreferences] = useState<Preferences>(
+    defaultSearchPreferences
+  );
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-
-  const searchParams = useSearchParams();
-
   const BASE_URL: string = "http://localhost:3000";
-
-  // default AI and search preferences
-  const AIPreferences = {
-    length: "short", // options: {"short", "medium", "long"}
-    tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}
-    format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
-    jargon_allowed: true, // options: {True, False}
-  };
-
-  const searchPreferences = {
-    sources: null, // for daily news
-    domains: null, // theoretically same as sources, will add in code later to go from one to another so we only need one
-    exclude_domains: null,
-    from_date: null, // this defaults to past 7 days in newsapi code
-    read_time: null,
-    bias: null,
-  };
-
-  useEffect(() => {
-    const query = searchParams.get("query");
-    if (query) {
-      // USING SAMPLE DATA
-      const sampleRelatedSource = {
-        id: 1,
-        title: "Chancellor Scholz...",
-        source: "Reuters",
-        date: "1 hr ago",
-        bias: "right-center",
-      };
-
-      const sampleArticle = {
-        id: 1,
-        url: "https://www.cnbc.com/2022/12/07/germanys-ruling-coalition-collapses-as-chancellor-scholz-fires-finance-minister.html",
-        imageUrl: "/article-thumbnail.jpg",
-        title:
-          "Germany’s ruling coalition collapses as Chancellor Scholz fires finance minister",
-        source: "CNBC",
-        content: "Germany’s ruling coalition collapsed on Wednesday...",
-        date: "5 hours ago",
-        bias: "center",
-        readTime: "5 MIN READ",
-        relatedSources: [sampleRelatedSource],
-        details: [
-          "Scholz sacks finance minister Lindner over budget disputes",
-          "Scholz expected to lead minority government with Social Democrats and Greens",
-          "To hold confidence vote in January triggering snap elections",
-          "Political shake-up could benefit populist movements such as AfD",
-          "Scholz to ask opposition conservatives for support",
-        ],
-        fullContent: "",
-      };
-
-      setArticles([sampleArticle]);
-      setSummary({
-        title: "Germany",
-        summary:
-          "Germany's ruling coalition collapses as Chancellor Scholz fires finance minister. Also, France and Germany hold talks over Trump election win and Germany's cabinet approves draft law on voluntary military service.",
-      });
-    } else {
-      setArticles([]);
-      setSummary(null);
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     // Get article summary if not already done
@@ -94,7 +86,7 @@ const SearchPage: React.FC = () => {
             fullContent: selectedArticle.fullContent,
             url: selectedArticle.url,
           },
-          ai_preferences: AIPreferences,
+          ai_preferences: defaultAIPreferences,
         };
 
         try {
@@ -121,7 +113,7 @@ const SearchPage: React.FC = () => {
     };
 
     fetchArticleSummary();
-  }, [selectedArticle, AIPreferences]);
+  }, [selectedArticle]);
 
   async function setPreferences(preferences: Preferences) {
     setHeaderPreferences(preferences);
@@ -130,8 +122,8 @@ const SearchPage: React.FC = () => {
   async function handleSearch(term: string) {
     const requestBody = {
       query: term,
-      search_preferences: searchPreferences,
-      ai_preferences: AIPreferences,
+      search_preferences: headerPreferences,
+      ai_preferences: defaultAIPreferences,
       cluster: headerPreferences?.clustering,
     };
 
@@ -175,7 +167,8 @@ const SearchPage: React.FC = () => {
       const articlesData = filteredArticles.articles.map((entry: any) => ({
         id: entry.id,
         url: entry.url,
-        imageUrl: entry.urlToImage,
+        authors: entry.authors,
+        imageUrl: entry.imageUrl,
         title: entry.title,
         source: entry.source.name,
         content: entry.content,
@@ -224,9 +217,16 @@ const SearchPage: React.FC = () => {
     setIsPanelOpen(false); // Close panel
   }
 
+  const filteredArticles = filterArticles(articles, headerPreferences);
+
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
-      <Header onSearch={handleSearch} setPreferences={setPreferences} placeholder="Search topic..." />
+      <Header
+        onSearch={handleSearch}
+        setPreferences={setPreferences}
+        placeholder="Search topic..."
+        isSearchPage={true}
+      />
 
       {/* Main Content */}
       <main className="p-4 md:p-8 main-content flex">
@@ -267,7 +267,7 @@ const SearchPage: React.FC = () => {
                   >
                     <div className="flex items-center space-x-4">
                       <Image
-                        src="/bitewise_logo.png" // Replace with actual image path
+                        src={article.imageUrl || "/bitewise_logo.png"}
                         alt="article thumbnail"
                         width={80}
                         height={50}
@@ -308,7 +308,7 @@ const SearchPage: React.FC = () => {
             <>
               <h2 className="font-bold">{selectedArticle.title}</h2>
               <p className="text-gray-500">
-                {selectedArticle.source} • {selectedArticle.date}
+                {selectedArticle.source} • {selectedArticle.time}
               </p>
               <a
                 href={selectedArticle.url}
@@ -346,7 +346,7 @@ const SearchPage: React.FC = () => {
                         <div className="flex-wrap items-center text-xs">
                           <p className="text-gray-500">{source.title}</p>
                           <p className="text-gray-500">{source.source}</p>
-                          <p className="text-gray-500">{source.date}</p>
+                          <p className="text-gray-500">{source.time}</p>
                           <p className="font-bold text-blue-600">
                             {source.bias}
                           </p>

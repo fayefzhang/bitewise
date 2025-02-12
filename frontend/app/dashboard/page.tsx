@@ -3,10 +3,11 @@
 import Header from "../components/header";
 import TopicsArticles from './components/topicsarticles';
 import LocalNews from './components/localnews';
-import { Key, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { Article } from "../common/interfaces";
 
 const fetchDailyNews = async () => {
   const BASE_URL = "http://localhost:3000";
@@ -27,16 +28,6 @@ const fetchDailyNews = async () => {
   }
 };
 
-interface Article {
-  url: string;
-  image: string;
-  title: string;
-  source: string;
-  sentiment: string;
-  readTime: string;
-  biasRating: string;
-}
-
 interface NewsSectionProps {
   header: string;
   summary: string;
@@ -49,34 +40,42 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
       <h2 className="text-xl font-bold mb-2">{header}</h2>
       <p className="mb-4">{summary}</p>  
       <div className="flex space-x-4">
-        {articles.map((article, index) => (
-            <Link
-              key={index}
-              href={article.url}
-              className="bg-white p-4 rounded-md shadow w-1/3"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="relative w-full h-32 mb-2">
+        <div className="flex w-full">
+            <div className="w-2/5 pr-4 flex items-center">
+            <div className="relative w-full h-full mb-2 flex items-center justify-center">
               <Image
-                src={article.image}
-                alt={article.title}
-                layout="fill"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="rounded-md"
+              src={articles[1].imageUrl}
+              alt={articles[1].title}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="rounded-md object-cover"
               />
-              </div>
-              <p className="text-sm font-bold">{article.title}</p>
-              <div>
-                <p className="text-xs">{article.source}</p>
-                <div className="flex justify-between mt-1">
-                  {/* <p className="text-sm">{article.sentiment}</p> */}
-                  <p className="text-sm">{article.biasRating}</p>
-                  <p className="text-xs">{article.readTime}</p>
+            </div>
+            </div>
+          <div className="w-3/5 flex flex-col space-y-4">
+            {articles.slice(0, 3).map((article, index) => (
+                <Link
+                key={index}
+                href={article.url}
+                className="bg-white p-2 rounded-md shadow hover:bg-blue-100"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                <p className="text-sm font-bold">{article.title}</p>
+                <div>
+                  <div className="flex justify-between mt-1">
+                    <p className="text-xs">{article.source}</p>
+                    <p className="text-xs">{article.authors[0]}</p>
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <p className="text-xs">{article.biasRating !== "Unknown" && article.biasRating}</p>
+                    <p className="text-xs">{article.readTime}</p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-        ))}
+                </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -85,7 +84,6 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
 
 const DashboardPage: React.FC = () => {
   const router = useRouter();
-
   const handleSearch = (term: string) => {
     if (term) {
       router.push(`/search?query=${encodeURIComponent(term)}`);
@@ -119,7 +117,9 @@ const DashboardPage: React.FC = () => {
       <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Main Section */}
         <div className="flex-1 flex-col">
-          <h1 className="text-2xl font-bold">Good evening, USER.</h1>
+            <h1 className="text-2xl font-bold">
+            Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}!
+            </h1>
           <p className="text-lg mt-4 mb-4">{dailySummary}</p>
 
           {/* Audio Summary */}
@@ -142,14 +142,14 @@ const DashboardPage: React.FC = () => {
           {/* Dynamically Render News Sections */}
           {isLoading || !dailyNews ? (
             <p>Loading...</p>
-          ) : (
+            ) : (
             dailyNews.map((cluster: any, index: any) =>
               cluster.cluster !== -1 ? (
-                <NewsSection
-                  key={index}
-                  header={cluster.title}
-                  summary={cluster.summary}
-                  articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
+              <NewsSection
+                key={index}
+                header={cluster.title}
+                summary={cluster.summary}
+                articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
                 />
               ) : null
             )
@@ -158,8 +158,10 @@ const DashboardPage: React.FC = () => {
 
         {/* Your + Local Topics */}
         <div className="w-full md:w-[30%] flex flex-col space-y-4">
-          <TopicsArticles />
-          <LocalNews />
+            <div className="fixed space-y-4 pr-4">
+            <TopicsArticles />
+            <LocalNews />
+            </div>
         </div>
       </main>
     </div>
