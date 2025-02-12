@@ -132,7 +132,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 url: entry.url,  // Primary key
                 content: null,
                 datePublished: entry.publishedAt,
-                author: entry.author,
+                authors: entry.authors,
                 source: entry.source.name,
                 title: entry.title,
                 readTime: entry.readTime,
@@ -387,7 +387,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                     return {
                         content: article.content,
                         datePublished: article.datePublished,
-                        author: article.author,
+                        authors: article.authors,
                         source: article.source,
                         url: article.url,
                         title: article.title,

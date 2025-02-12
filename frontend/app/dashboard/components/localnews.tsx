@@ -43,9 +43,7 @@ const LocalNews = () => {
           const news = await fetchLocalNews();
     
           console.log(news);
-          if (news) {
-          setLocalNews(news.clusterSummaries);
-          }
+          setLocalNews(news);
           setIsLoading(false);
         };
     
@@ -61,11 +59,11 @@ const LocalNews = () => {
             {isLoading || !localNews ? (
             <p>Loading...</p>
           ) : (
-            localNews.map((cluster: any, index: any) =>
+            localNews.clusters.map((cluster: any, index: any) =>
                 <ArticleEntry 
                     key={index}
-                    title={cluster.title}
-                    description={cluster.summary}
+                    title={localNews.clusterLabels[index]}
+                    description={localNews.clusterSummaries[index]}
                 />
             )
           )}

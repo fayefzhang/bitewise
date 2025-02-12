@@ -9,6 +9,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Article } from "../common/interfaces";
 
+
+const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
+const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
+const difficultyLabels = ["Easy", "Medium", "Hard"];
+
 const fetchDailyNews = async () => {
   const BASE_URL = "http://localhost:3000";
 
@@ -65,11 +70,11 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
                 <div>
                   <div className="flex justify-between mt-1">
                     <p className="text-xs">{article.source}</p>
-                    <p className="text-xs">{article.authors[0]}</p>
+                    {/* <p className="text-xs">{article.authors[0]}</p> */}
                   </div>
                   <div className="flex justify-between mt-1">
-                    <p className="text-xs">{article.biasRating !== "Unknown" && article.biasRating}</p>
-                    <p className="text-xs">{article.readTime}</p>
+                    <p className="text-xs">{article.biasRating !== "5" && biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
+                    <p className="text-xs">{readTimeLabels[parseInt(article.readTime, 10)]}</p>
                   </div>
                 </div>
                 </Link>
@@ -100,8 +105,8 @@ const DashboardPage: React.FC = () => {
 
       console.log(news);
 
-      setDailyNews(news.clusterSummaries);
-      setDailySummary(news.overall_summary)
+      setDailyNews(news);
+      setDailySummary(news.summary)
       setIsLoading(false);
     };
 
@@ -143,12 +148,12 @@ const DashboardPage: React.FC = () => {
           {isLoading || !dailyNews ? (
             <p>Loading...</p>
             ) : (
-            dailyNews.map((cluster: any, index: any) =>
+            dailyNews.clusters.map((cluster: any, index: any) =>
               cluster.cluster !== -1 ? (
               <NewsSection
                 key={index}
-                header={cluster.title}
-                summary={cluster.summary}
+                header={dailyNews.clusterLabels[index]}
+                summary={dailyNews.clusterSummaries[index]}
                 articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
                 />
               ) : null
