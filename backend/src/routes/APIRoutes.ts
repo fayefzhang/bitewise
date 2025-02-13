@@ -3,6 +3,7 @@ import axios from 'axios';
 import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
+import UserModel from '../models/User';
 
 const AIDictionary = {
     AILength: {
@@ -48,13 +49,6 @@ function createReverseMapping(dictionary: AIDictionaryType): ReverseAIDictionary
 }
 
 const ReverseAIDictionary = createReverseMapping(AIDictionary);
-<<<<<<< HEAD
-import UserModel from '../models/User'
-=======
-console.log("REVERSE DICT", ReverseAIDictionary)
->>>>>>> jared
-
-// import ISummary from "../interfaces/ISummary";
 
 const router: Router = express.Router();
 const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
@@ -432,13 +426,6 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 
         if (existingArticle) {
             // frontend not passing it in this format
-<<<<<<< HEAD
-            const existingSummary = existingArticle.summaries?.find((summary: any) =>
-                summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.AILength] &&
-                summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.AITone] &&
-                summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat] &&
-                summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
-=======
             console.log(ai_preferences);
             console.log("ai pref length:", ai_preferences.AILength);
             console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
@@ -458,7 +445,6 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.tone] &&
                 summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.format] &&
                 summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
->>>>>>> jared
             );
 
             if (existingSummary) {
