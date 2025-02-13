@@ -221,8 +221,17 @@ def summarize_article():
     if not ai_preferences:
         return jsonify({"error": "AI preferences are required"}), 400
 
-    summary = generate_summary_individual(full_content, ai_preferences)
-    return jsonify({"summary": summary}), 200
+    summary_output = generate_summary_individual(full_content, ai_preferences)
+    summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)  
+    summary = summary.replace("**Summary**:", "").strip()
+    difficulty = difficulty.strip()
+    # if difficult is easy, then 0, if medium, then 1, if hard, then 2
+    difficulty_int = 0 if difficulty == "Easy" else 1 if difficulty == "Medium" else 2
+    return jsonify({
+        "summary": summary,
+        "difficulty": difficulty_int,
+        "enriched_articles": enriched_articles,
+    }), 200
 
 # For summarizing multiple articles into one summary
 @app.route('/summarize-articles', methods=['POST'])
@@ -291,8 +300,10 @@ def generate_podcast():
     articles = data.get('articles')
     if not articles:
         return jsonify({"error": "Articles are required"}), 400
-    paths = generate_podcast_collection(articles)
-    return jsonify(paths), 200
+    result = generate_podcast_collection(articles)
+    if not result.get("s3_url"):
+        return jsonify({"error": "Failed to upload podcast to S3"}), 500
+    return jsonify(result), 200
 
 @app.route('/audio/<filename>', methods=['GET'])
 def serve_audio(filename):

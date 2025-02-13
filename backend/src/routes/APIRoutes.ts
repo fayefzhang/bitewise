@@ -3,15 +3,71 @@ import axios from 'axios';
 import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
-import UserModel from '../models/User'
+import UserModel from '../models/User';
 
-// import ISummary from "../interfaces/ISummary";
+const AIDictionary = {
+    AILength: {
+        0: 'short',
+        1: 'medium',
+        2: 'long',
+    },
+    AITone: {
+        0: 'formal',
+        1: 'conversational',
+        2: 'technical',
+        3: 'analytical',
+    },
+    AIFormat: {
+        0: 'highlights',
+        1: 'bullets',
+        2: 'analysis',
+        3: 'quotes',
+    },
+    AIJargonAllowed: {
+        0: 'true',
+        1: 'false',
+    }
+};
+
+// bi-directional dictionary
+interface AIDictionaryType {
+    [key: string]: { [key: number]: string };
+}
+
+interface ReverseAIDictionaryType {
+    [key: string]: { [key: string]: number };
+}
+
+function createReverseMapping(dictionary: AIDictionaryType): ReverseAIDictionaryType {
+    const reversed: ReverseAIDictionaryType = {};
+    for (const key in dictionary) {
+        reversed[key] = Object.fromEntries(
+            Object.entries(dictionary[key]).map(([k, v]) => [v, Number(k)])
+        );
+    }
+    return reversed;
+}
+
+const ReverseAIDictionary = createReverseMapping(AIDictionary);
 
 const router: Router = express.Router();
 const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
 // const BASE_URL = "http://localhost:5000";
 const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
+
+const FILTER_DICT = {
+    bias: {
+        "left": 0,
+        "center": 1,
+        "right": 2
+    },
+    readTime: {
+        "<2 min": 0,
+        "2-7 min": 1,
+        ">7 min": 2
+    }
+};
 
 // @route POST /search
 // @description Processes a news search query
@@ -40,65 +96,65 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             const timeDifference = new Date().getTime() - existingQuery.date.getTime();
             if (timeDifference < 24 * 60 * 60 * 1000) {
                 console.log("search: using cached response for existing query");
-                res.json(existingQuery);
+
+                // get existing articles from database and resummarize
+                const articles = await ArticleModel.find({ url: { $in: existingQuery.articles } }); 
+                const summaryRequestBody = {
+                    articles: Object.fromEntries(
+                        articles.slice(0, 5).map((article: any) => [
+                            article.url,
+                            { title: article.title, fullContent: article.content }
+                        ])
+                    ),
+                    ai_preferences,
+                };
+
+                const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
+                const { title, summary, enriched_articles } = summaryResponse.data;
+                // create and return response
+                const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
+                    articles: articles,
+                    summary: {
+                        title: query,
+                        summary: summary,
+                    },
+                };
+                res.json(result);
+                return;
+
+            } else {
+                // delete existing query
+                await QueryModel.deleteOne({ query: query });
             }
         }
 
         // Step 1: fetch articles
         const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
-        // OLD SCHEMA FOR FRONTEND REFERENCE
-        // const filteredResults = articlesResponse.data.results
-        // .filter((entry: any) => entry.title !== "[Removed]")
-        // .map((entry: any) => ({
-        //     id: entry.id,
-        //     url: entry.url,
-        //     imageUrl: entry.urlToImage,
-        //     title: entry.title,
-        //     source: entry.source.name,
-        //     content: entry.content,
-        //     date: entry.publishedAt,
-        //     bias: entry.biasRating,
-        //     readTime: entry.readTime,
-        //     relatedSources: [], // TODO
-        //     details: [], // TODO: summary 
-        //     // ^^ @karen unsure what this means? -jared
-        //     cluster: entry.cluster,
-        //     fullContent: null
-        // }));
-
         // format and write articles to database
         const filteredResults = articlesResponse.data.results
-        .filter((entry: any) => entry.title !== "[Removed]")
-        .map((entry: any) => ({
-            id: entry.id,
-            url: entry.url,
-            authors: entry.authors,
-            imageUrl: entry.urlToImage,
-            title: entry.title,
-            source: entry.source.name,
-            title: entry.title,
-            readTime: entry.readTime,
-            biasRating: entry.biasRating,
-            difficulty: entry.difficulty, 
-            imageUrl: entry.urlToImage,
-            summaries: [],
-        }));
-        await ArticleModel.insertMany(filteredResults, { ordered: false })
-        .then(() => {
-            console.log("Articles successfully inserted into the database");
-        })
-        .catch((error: any) => {
-            if (error.code === 11000) {
-            console.warn("Some articles already exist, skipping duplicates");
-            } else {
+            .filter((entry: any) => entry.title !== "[Removed]")
+            .map((entry: any) => ({
+                url: entry.url,  // Primary key
+                content: "", // will be filled in later
+                datePublished: entry.publishedAt,
+                authors: entry.authors,
+                source: entry.source.name,
+                title: entry.title,
+                readTime: entry.readTime,
+                biasRating: entry.biasRating,
+                imageUrl: entry.urlToImage,
+            }));
+
+        try {
+            const insertManyResponse = await ArticleModel.insertMany(filteredResults, { ordered: false });
+        } catch (error) {
             console.error("Error inserting articles:", error);
-            }
-        });
+        }
 
         const { clusters } = articlesResponse.data;
         const articlesData = filteredResults;
-        console.log("search step 1, found articles:", articlesData);
+        // console.log("search step 1, found articles:", articlesData);
 
         // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
         const summaryRequestBody = {
@@ -121,14 +177,10 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
         const { title, summary, enriched_articles } = summaryResponse.data;
 
-        console.log("Summary:", summary);
-        console.log("Enriched Articles:", enriched_articles);
-
-
         // update articles with scraped content in database
         const bulkOperations = enriched_articles.map((article: any) => ({
             updateOne: {
-                filter: { url: article.url, content: { $exists: false } },
+                filter: { url: article.url, content: "" },
                 update: { $set: { content: article.content } },
                 upsert: false // don't create a new document if it doesn't exist
             }
@@ -166,12 +218,15 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             }));
         }
 
-        // Step 5: cache response if it matches example query (see step 4 format)
-        // if (query === EXAMPLE_SEARCH_QUERY) {
-        //     console.log("search: caching response for example query");
-        //     cache[query] = result;
-        //     writeCache(cache);
-        // }
+        // store query in database
+        const newQuery = new QueryModel({
+            query,
+            date: new Date(),
+            articles: articlesData.map((article: { url: string }) => article.url)
+        });
+
+        const savedQuery = await newQuery.save();
+        console.log("saved query:", savedQuery);
 
         res.json(result);
     } catch (error: any) {
@@ -179,17 +234,64 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+
+// @route POST /search/filter
+// @description Processes a news search query and filters based on user preferences for bias, read time, and date range
+// @returns list of filtered articles
+router.post("/search/filter", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { articles, filter_preferences } = req.body;
+
+        if (!articles || !Array.isArray(articles)) {
+            res.status(400).json({ message: "Articles array is required" });
+            return;
+        }
+
+        if (!filter_preferences) {
+            res.status(400).json({ message: "Filter preferences are required" });
+            return;
+        }
+
+        const { bias, readTime, dateRange } = filter_preferences;
+
+        const biasIntArray = bias.map((b: keyof typeof FILTER_DICT.bias) => FILTER_DICT.bias[b]);
+        const readTimeIntArray = readTime.map((rt: keyof typeof FILTER_DICT.readTime) => FILTER_DICT.readTime[rt]);
+
+
+        console.log("Filtering with preferences:", filter_preferences);
+
+        const filteredArticles = articles.filter((article: any) => {
+            const biasMatches = !bias || biasIntArray.includes(article.bias);
+            const readTimeMatches = !readTime || readTimeIntArray.includes(article.readTime);
+            const dateMatches = !dateRange || (article.date && new Date(article.date) >= new Date(dateRange));
+
+            return biasMatches && readTimeMatches && dateMatches;
+        });
+
+        console.log("Filtered articles count:", filteredArticles.length);
+
+        res.json({ filtered_articles: filteredArticles });
+    } catch (error) {
+        console.error("Error filtering search results", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
 // @returns grouped articles by cluster
 router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
     try {
-        // const { search_preferences, ai_preferences } = req.body;
-        const { local } = req.body;
-
-        // if (!search_preferences) {
-        //     res.status(400).json({ message: 'User preferences are required' });
-        // }
+        // if the dashboard has already been created, read and return it from the database      
+        const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
+        const existingDashboard = await DashboardModel.findOne({ date: today });
+        if (existingDashboard) {
+            console.log("daily news dashboard already exists for this date");
+            res.json(existingDashboard);
+            return;
+        }
 
         const ai_preferences = {
             length: "short", // options: {"short", "medium", "long"}
@@ -197,11 +299,8 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
             format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
             jargon_allowed: true, // options: {True, False}
         };
-        
-        const route = req.body && local ? 'local-news' : 'daily-news';
-        
-        const response = await axios.post(`${BASE_URL}/${route}`);
-        console.log("DATA", response.data)
+
+        const response = await axios.post(`${BASE_URL}/daily-news`);
         const { clusters, overall_summary } = response.data;
 
         // summarizing each cluster
@@ -211,7 +310,7 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
 
                 const clusterId = cluster.cluster_id;
                 const articles = cluster.articles;
-                
+
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
@@ -231,36 +330,11 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                         ai_preferences: ai_preferences
                     });
 
-                    const summaryData = summaryResponse.data; 
-
-                    // save articles to database
-                    const articleIds = await Promise.all(
-                        articles.map(async (article: any) => {
-                            try {
-                                const newArticle = new ArticleModel({
-                                    content: article.content,
-                                    datePublished: article.datePublished, // don't think we have this info, but would be good
-                                    author: article.author,
-                                    source: article.source,
-                                    url: article.url,
-                                    title: article.title,
-                                    readTime: article.readTime,
-                                    biasRating: article.biasRating,
-                                    difficulty: article.difficulty,
-                                    imageUrl: article.imageUrl,
-                                    summaries: [],
-                                });
-                                const savedArticle = await newArticle.save();
-                                return savedArticle.url;
-                            } catch (error: any) {
-                                console.error(`Error saving article ${article.url}:`, error);
-                                return null;
-                            }
-                        })
-                    );
+                    const summaryData = summaryResponse.data;
+                    // console.log("Enriched articles structure:", summaryData.enriched_articles);
                     return {
                         cluster: clusterId,
-                        articles: summaryData.enriched_articles, 
+                        articles: summaryData.enriched_articles,
                         title: summaryData.title,
                         summary: summaryData.summary
                     };
@@ -275,15 +349,37 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                 }
             })
         );
-        
+
         // save to database and return dashboard
         const newDashboard = new DashboardModel({
             date: today,
             summary: overall_summary,
-            clusters: clusters.map((cluster: any) => cluster.articles.map((a: any) => a.url)),
+            clusters: clusterSummaries.map((cluster: any) => ({
+                articles: cluster.articles.map((article: any) => {
+                    // Check for missing title or url and log if any are missing
+                    if (!article.title || !article.url) {
+                        console.warn('Missing title or URL for article:', article);
+                    }
+        
+                    return {
+                        content: article.content,
+                        datePublished: article.datePublished,
+                        authors: article.authors,
+                        source: article.source,
+                        url: article.url,
+                        title: article.title,
+                        readTime: article.readTime,
+                        biasRating: article.biasRating,
+                        difficulty: article.difficulty,
+                        imageUrl: article.imageUrl,
+                        summaries: []
+                    };
+                })
+            })),
             clusterSummaries: clusterSummaries.map(cs => cs.summary),
             clusterLabels: clusterSummaries.map(cs => cs.title)
         });
+
         const savedDashboard = await newDashboard.save();
         res.json(savedDashboard);
 
@@ -295,12 +391,29 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
     }
 });
 
-// @route POST summarize/article
+router.post('/retrieve-article', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { urls } = req.body; 
+        if (!urls) {
+            res.status(400).json({ message: 'URLs are required' });
+        }
+        const articles = await ArticleModel.find({ url: { $in: urls } });
+        if (!articles.length) {
+            res.status(404).json({ message: "Articles not found" });
+        }
+        res.json({ articles });
+    } catch (error) {
+        console.error("Error processing summarize article request", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+    
+    // @route POST summarize/article
 // @description Summarizes a single article based on user preferences using OpenAI
 router.post('/summarize/article', async (req: Request, res: Response): Promise<void> => {
     try {
 
-        const { article, ai_preferences } = req.body; 
+        const { article, ai_preferences } = req.body;
         if (!article) {
             res.status(400).json({ message: 'Article is required' });
         }
@@ -310,46 +423,71 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 
         // NEED URL FROM FRONTEND 
         const existingArticle = await ArticleModel.findOne({ url: article.url });
+
         if (existingArticle) {
             // frontend not passing it in this format
-            const existingSummary = existingArticle.summaries?.find((summary: any) => 
-                summary.AILength === ai_preferences.AILength &&
-                summary.AITone === ai_preferences.AITone &&
-                summary.AIFormat === ai_preferences.AIFormat &&
-                summary.AIJargonAllowed === ai_preferences.AIJargonAllowed
+            console.log(ai_preferences);
+            console.log("ai pref length:", ai_preferences.AILength);
+            console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
+            console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
+            console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
+            console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
+
+            // should be AILength, AITone, AIFormat, AIJargonAllowed
+            // const existingSummary = existingArticle.summaries?.find((summary) =>
+            //     summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.AILength] &&
+            //     summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.AITone] &&
+            //     summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat] &&
+            //     summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+            // );
+            const existingSummary = existingArticle.summaries?.find((summary) =>
+                summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.length] &&
+                summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.tone] &&
+                summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.format] &&
+                summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
             );
 
             if (existingSummary) {
+                console.log("using existing summary from database");
                 res.json(existingSummary.summary);
             } else {
                 // send article and user prefs to the Python backend
-                const response = await axios.post(`${BASE_URL}/summarize-article`, { 
-                    article, 
-                    ai_preferences 
+                const response = await axios.post(`${BASE_URL}/summarize-article`, {
+                    article,
+                    ai_preferences
                 });
 
                 // save summary to database by update article
+                // should switch to this format once frontend fixed
+                // const newSummary = {
+                //     summary: response.data.summary, // The generated summary
+                //     AILength: ReverseAIDictionary['AILength'][ai_preferences.AILength],
+                //     AITone: ReverseAIDictionary['AITone'][ai_preferences.AITone],
+                //     AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat],
+                //     AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+                // };
                 const newSummary = {
                     summary: response.data.summary, // The generated summary
-                    AILength: ai_preferences.AILength, 
-                    AITone: ai_preferences.AITone, 
-                    AIFormat: ai_preferences.AIFormat, 
-                    AIJargonAllowed: ai_preferences.AIJargonAllowed
+                    AILength: ReverseAIDictionary['AILength'][ai_preferences.length],
+                    AITone: ReverseAIDictionary['AITone'][ai_preferences.tone],
+                    AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.format],
+                    AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []
                 }
                 existingArticle.summaries.push(newSummary);
+                console.log("pushed new summary to existing article:", existingArticle);
                 // @Sanya add in later when we merge branches
                 // existingArticle.difficulty = readingDifficulty; 
                 await existingArticle.save();
 
-                res.json(response.data);
+                res.json(newSummary);
             }
         } else {
             throw new Error("No existing article in database");
         }
-        
+
     } catch (error: any) {
         console.error("Error processing summarize article request", error);
         res.status(500).json({ error: 'Internal server error' });
@@ -361,7 +499,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 // this would only be called by frontend for REFRESHING summary such as updating params
 router.post('/summarize/articles', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { articles, ai_preferences } = req.body; 
+        const { articles, ai_preferences } = req.body;
         if (!articles) {
             res.status(400).json({ message: 'Articles are required' });
         }
@@ -370,9 +508,9 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
         }
 
         // send articles and user prefs to the Python backend
-        const response = await axios.post(`${BASE_URL}/summarize-articles`, { 
-            articles, 
-            ai_preferences 
+        const response = await axios.post(`${BASE_URL}/summarize-articles`, {
+            articles,
+            ai_preferences
         });
 
         const { title, summary, enriched_articles } = response.data;
@@ -387,17 +525,17 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
         }));
         if (bulkOperations.length > 0) {
             await ArticleModel.bulkWrite(bulkOperations)
-            .then(() => {
-                console.log("Successfully updated articles with full content");
-            })
-            .catch((error: any) => {
-                console.error("Error updating articles with full content:", error);
-            });
+                .then(() => {
+                    console.log("Successfully updated articles with full content");
+                })
+                .catch((error: any) => {
+                    console.error("Error updating articles with full content:", error);
+                });
         } else {
             console.log("No articles required content update.");
         }
 
-        res.json(response.data); 
+        res.json(response.data);
     } catch (error: any) {
         console.error("Error processing summarize articles request", error);
         res.status(500).json({ error: 'Internal server error' });
@@ -416,12 +554,12 @@ router.post('/generate/audio', async (req: Request, res: Response): Promise<void
         if (!summary) {
             res.status(400).json({ message: 'Article summary is required' });
         }
-     
-        const response = await axios.post(`${BASE_URL}/generate-audio`, { 
-            article, summary,  
+
+        const response = await axios.post(`${BASE_URL}/generate-audio`, {
+            article, summary,
         });
 
-        res.json(response.data); 
+        res.json(response.data);
     } catch (error: any) {
         console.error("Error processing generate audio request", error);
         res.status(500).json({ error: 'Internal server error' });
@@ -436,12 +574,16 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
         if (!articles) {
             res.status(400).json({ message: 'Articles are required' });
         }
-     
-        const response = await axios.post(`${BASE_URL}/generate-podcast`, { 
-            articles,  
+
+        const response = await axios.post(`${BASE_URL}/generate-podcast`, {
+            articles,
         });
 
-        res.json(response.data); 
+        if (!response.data.s3_url) {
+            res.status(500).json({ error: 'Podcast failed to upload to S3' });
+        }
+
+        res.json(response.data);
     } catch (error: any) {
         console.error("Error processing generate podcast request", error);
         res.status(500).json({ error: 'Internal server error' });
@@ -452,7 +594,7 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
 // @description Gets audio clip from Python server
 router.get('/audio', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { filename } = req.query; 
+        const { filename } = req.query;
         if (!filename) {
             res.status(400).json({ message: 'Audio filename is required' });
         }
@@ -524,12 +666,12 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
 
 // @route POST /search/topics
 // @description Gets articles related to the user's topics.
-router.post('/search/topics', async(req: Request, res: Response): Promise<void> => {
+router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
         const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
 
-        const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', { 
-            topics, 
+        const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
+            topics,
             search_preferences
         });
 

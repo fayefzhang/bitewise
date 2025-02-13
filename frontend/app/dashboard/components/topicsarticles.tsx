@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Tab } from '@headlessui/react';
 
 interface ArticleEntryProps {
     title: string;
@@ -69,19 +70,38 @@ const TopicsArticles = () => {
     const renderArticles = () => {
         if (!topicArticles) return null;
 
-        return topicArticles.map((topic: any) => (
-            <div key={topic.topic}>
-                <h3 className="font-semibold">{topic.topic}</h3>
-                {topic.results.map((article: any) => (
-                    <ArticleEntry 
-                        key={article.title}
-                        title={article.title}
-                        description={article.description}
-                        link={article.url}
-                    />
-                ))}
-            </div>
-        ));
+        return (
+            <Tab.Group>
+                <Tab.List className="flex space-x-1 p-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                    {topicArticles.map((topic: any) => (
+                        <Tab
+                            key={topic.topic}
+                            className={({ selected }: { selected: boolean }) =>
+                                `px-4 py-2.5 text-sm leading-5 font-bold rounded-lg flex-shrink-0
+                                ${selected ? 'bg-white shadow' : 'hover:bg-white/[0.12] hover:text-white'}
+                                focus:outline-none`
+                            }
+                        >
+                            {topic.topic}
+                        </Tab>
+                    ))}
+                </Tab.List>
+                <Tab.Panels className="mt-2">
+                    {topicArticles.map((topic: any) => (
+                        <Tab.Panel key={topic.topic}>
+                            {topic.results.map((article: any) => (
+                                <ArticleEntry 
+                                    key={article.title}
+                                    title={article.title}
+                                    description={article.description}
+                                    link={article.url}
+                                />
+                            ))}
+                        </Tab.Panel>
+                    ))}
+                </Tab.Panels>
+            </Tab.Group>
+        );
     };
 
     return (
@@ -99,7 +119,7 @@ const ArticleEntry: React.FC<ArticleEntryProps>  = ({ title, description, link }
         <h4 className="font-semibold">{title}</h4>
         <p className="text-sm">{description}</p>
         {link && (
-          <Link href={link} className="text-sm mt-2 block hover:underline">
+          <Link href={link} className="text-sm mt-2 block hover:underline" target="_blank" rel="noopener noreferrer">
             MORE
           </Link>
         )}

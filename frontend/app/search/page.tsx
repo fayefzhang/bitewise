@@ -143,10 +143,28 @@ const SearchPage: React.FC = () => {
         },
         body: JSON.stringify(requestBody),
       });
-      const data = await response.json();
+      const searchData = await response.json();
+
+      const filterRequestBody = {
+        articles: searchData.articles,
+        filter_preferences: {
+          bias: headerPreferences?.bias,
+          maxReadTime: headerPreferences?.read_time,
+          dateRange: headerPreferences?.from_date,
+        },
+      };
+
+      const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filterRequestBody),
+      });
+  
+      const filteredArticles = await filterResponse.json();
+
 
       // Process search results
-      const articlesData = data.articles.map((entry: any) => ({
+      const articlesData = filteredArticles.articles.map((entry: any) => ({
         id: entry.id,
         url: entry.url,
         authors: entry.authors,
@@ -166,7 +184,7 @@ const SearchPage: React.FC = () => {
       setArticles(articlesData);
       setSummary({
         title: toTitleCase(term),
-        summary: data.summary.summary,
+        summary: searchData.summary.summary,
       });
     } catch (error) {
       console.error("Error processing search request", error);
@@ -226,9 +244,17 @@ const SearchPage: React.FC = () => {
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
               </section>
               <section>
-                {filteredArticles
-                  .filter((article) => article.imageUrl)
-                  .map((article) => (
+                {articles
+                // .filter((article) => {
+                //   let readTime = true;
+                //   if (headerPreferences && headerPreferences.read_time != "") {
+                //     readTime = ((headerPreferences?.read_time == "Short" && article.readTime == "<2 min") || 
+                //     (headerPreferences?.read_time == "Medium" && article.readTime == "2-7 min") || 
+                //     (headerPreferences?.read_time == "Long" && article.readTime == ">7 min"));
+                //   }
+                //   return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime && (!headerPreferences.clustering || article.cluster != -1));
+                // })
+                .map((article) => (
                   <div
                     key={article.id}
                     className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
