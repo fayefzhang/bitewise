@@ -7,67 +7,71 @@ import {
   toTitleCase,
 } from "../common/utils";
 import Header from "../components/header";
+import Sidebar from "../search/sidebar";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-const filterArticles = (
-  articles: Article[],
-  headerPreferences: Preferences | null
-) => {
-  if (!headerPreferences) return articles;
-  return articles.filter((article) => {
-    let readTime = true;
-    let biasMatch = true;
-    let dateMatch = true;
+const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
+const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
 
-    // Read Time Filtering (Supports Multiple Selections)
-    if (headerPreferences?.read_time?.length > 0) {
-      readTime = headerPreferences.read_time.some(
-        (time) =>
-          (time === "Short" && article.readTime === "<2 min") ||
-          (time === "Medium" && article.readTime === "2-7 min") ||
-          (time === "Long" && article.readTime === ">7 min")
-      );
-    }
+// const filterArticles = (
+//   articles: Article[],
+//   headerPreferences: Preferences | null
+// ) => {
+//   if (!headerPreferences) return articles;
+//   return articles.filter((article) => {
+//     let readTime = true;
+//     let biasMatch = true;
+//     let dateMatch = true;
 
-    // Bias Filtering (Supports Multiple Selections)
-    if (headerPreferences?.bias?.length > 0) {
-      biasMatch = headerPreferences.bias.some((bias) =>
-        article.bias.includes(bias.toLowerCase())
-      );
-    }
+//     // Read Time Filtering (Supports Multiple Selections)
+//     if (headerPreferences?.read_time?.length > 0) {
+//       readTime = headerPreferences.read_time.some(
+//         (time) =>
+//           (time === "Short" && article.readTime === "<2 min") ||
+//           (time === "Medium" && article.readTime === "2-7 min") ||
+//           (time === "Long" && article.readTime === ">7 min")
+//       );
+//     }
 
-    // Date Filtering (Supports From and To Dates)
-    if (headerPreferences?.from_date) {
-      const articleDate = new Date(article.time).getTime();
-      const fromDate = new Date(headerPreferences.from_date).getTime();
-      if (articleDate < fromDate) {
-        dateMatch = false;
-      }
-    }
+//     // Bias Filtering (Supports Multiple Selections)
+//     if (headerPreferences?.bias?.length > 0) {
+//       biasMatch = headerPreferences.bias.some((bias) =>
+//         article.biasRating.includes(bias.toLowerCase())
+//       );
+//     }
 
-    if (headerPreferences?.to_date) {
-      const articleDate = new Date(article.time).getTime();
-      const toDate = new Date(headerPreferences.to_date).getTime();
-      if (articleDate > toDate) {
-        dateMatch = false;
-      }
-    }
+//     // Date Filtering (Supports From and To Dates)
+//     if (headerPreferences?.from_date) {
+//       const articleDate = new Date(article.time).getTime();
+//       const fromDate = new Date(headerPreferences.from_date).getTime();
+//       if (articleDate < fromDate) {
+//         dateMatch = false;
+//       }
+//     }
 
-    return (
-      biasMatch &&
-      readTime &&
-      dateMatch &&
-      (!headerPreferences?.clustering || article.cluster !== -1)
-    );
-  });
-};
+//     if (headerPreferences?.to_date) {
+//       const articleDate = new Date(article.time).getTime();
+//       const toDate = new Date(headerPreferences.to_date).getTime();
+//       if (articleDate > toDate) {
+//         dateMatch = false;
+//       }
+//     }
+
+//     return (
+//       biasMatch &&
+//       readTime &&
+//       dateMatch &&
+//       (!headerPreferences?.clustering || article.cluster !== -1)
+//     );
+//   });
+// };
 
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
+  const [selectedArticleUrl, setSelectedArticleUrl] = useState<string | null>(
     null
   );
   const [headerPreferences, setHeaderPreferences] = useState<Preferences>(
@@ -79,7 +83,7 @@ const SearchPage: React.FC = () => {
   useEffect(() => {
     // Get article summary if not already done
     const fetchArticleSummary = async () => {
-      if (selectedArticle?.details.length === 0) {
+      if (selectedArticle?.summaries.length === 0) {
         const articleBody = {
           article: {
             title: selectedArticle.title,
@@ -99,11 +103,13 @@ const SearchPage: React.FC = () => {
           });
           const data = await response.json();
 
+          console.log("summary", data);
+
           setSelectedArticle((prevArticle) => {
             if (!prevArticle) return null;
             return {
               ...prevArticle,
-              details: [...prevArticle.details, data.summary],
+              summaries: [...prevArticle.summaries, data.summary],
             };
           });
         } catch (error) {
@@ -145,6 +151,8 @@ const SearchPage: React.FC = () => {
       });
       const searchData = await response.json();
 
+      console.log(searchData);
+
       const filterRequestBody = {
         articles: searchData.articles,
         filter_preferences: {
@@ -154,29 +162,32 @@ const SearchPage: React.FC = () => {
         },
       };
 
-      const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(filterRequestBody),
-      });
+      // const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(filterRequestBody),
+      // });
   
-      const filteredArticles = await filterResponse.json();
+      // const filteredArticles = await filterResponse.json();
+      const filteredArticles = searchData;
+
+      console.log(searchData);
 
 
       // Process search results
       const articlesData = filteredArticles.articles.map((entry: any) => ({
-        id: entry.id,
+        id: entry.id,  // NO ID?
         url: entry.url,
         authors: entry.authors,
         imageUrl: entry.imageUrl,
         title: entry.title,
-        source: entry.source.name,
+        source: entry.source,
         content: entry.content,
-        date: entry.date,
-        bias: entry.bias,
+        time: entry.datePublished,
+        biasRating: entry.biasRating,
         readTime: entry.readTime,
         relatedSources: entry.relatedSources,
-        details: entry.details,
+        summaries: [],
         fullContent: entry.fullContent,
         cluster: entry.cluster,
       }));
@@ -196,11 +207,9 @@ const SearchPage: React.FC = () => {
       closePanel();
     } else {
       setSelectedArticle(article);
-      if (typeof article.id === "number") {
-        setSelectedArticleId(article.id);
-      } else {
-        setSelectedArticleId(null); // Fallback for invalid id
-      }
+      console.log("SELECT ARTICLE", article);
+      console.log("SELECT ARTICLE ID", article.url);
+      setSelectedArticleUrl(article.url);
       setIsPanelOpen(true); // Open panel
     }
   }
@@ -213,11 +222,11 @@ const SearchPage: React.FC = () => {
 
   function closePanel() {
     setSelectedArticle(null);
-    setSelectedArticleId(null);
+    setSelectedArticleUrl(null);
     setIsPanelOpen(false); // Close panel
   }
 
-  const filteredArticles = filterArticles(articles, headerPreferences);
+  // const filteredArticles = filterArticles(articles, headerPreferences);
 
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
@@ -256,9 +265,9 @@ const SearchPage: React.FC = () => {
                 // })
                 .map((article) => (
                   <div
-                    key={article.id}
+                    key={article.url}
                     className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
-                      selectedArticleId === article.id
+                      selectedArticleUrl === article.url
                         ? "border-blue-500 bg-blue-100"
                         : "border-transparent"
                     }`}
@@ -272,14 +281,15 @@ const SearchPage: React.FC = () => {
                         width={80}
                         height={50}
                         className="rounded-lg"
+                        style={{ width: "80px", height: "50px", objectFit: "cover" }}
                       />
                       <div>
-                        <p className="text-gray-500">{article.source}</p>
                         <h2 className="font-bold text-lg text-black">
                           {article.title}
                         </h2>
+                        <p className="text-gray-500">{article.source} • {article.time}</p>
                         <p className="text-gray-500 text-sm">
-                          {article.bias} • {article.readTime}
+                          {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
                         </p>
                       </div>
                     </div>
@@ -294,71 +304,11 @@ const SearchPage: React.FC = () => {
           )}
         </section>
 
-        {/* Sliding Panel */}
-        <aside
-          className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-full md:w-[40%] lg:w-[30%] bg-blue-50 p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
-            isPanelOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-          style={{ zIndex: 50 }}
-        >
-          <button onClick={closePanel} className="p-2 text-gray-500 rounded-md">
-            Close
-          </button>
-          {selectedArticle && (
-            <>
-              <h2 className="font-bold">{selectedArticle.title}</h2>
-              <p className="text-gray-500">
-                {selectedArticle.source} • {selectedArticle.time}
-              </p>
-              <a
-                href={selectedArticle.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block mt-4 text-blue-500 hover:underline"
-              >
-                Read Full Article
-              </a>
-              <audio controls className="mt-2 w-full">
-                <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
-                {/* Replace with actual audio file */}
-                Your browser does not support the audio element.
-              </audio>
-              <ul className="mt-4 list-disc list-inside space-y-2">
-                {selectedArticle.details.map((detail, index) => (
-                  <li key={index} className="text-gray-700 text-sm">
-                    {detail}
-                  </li>
-                ))}
-              </ul>
-              {/* Related Articles */}
-              {selectedArticle.relatedSources.length > 0 && (
-                <>
-                  <h3 className="mt-6 font-bold">Related Articles</h3>
-                  <p className="text-sm text-gray-500">
-                    Explore a more conservative viewpoint.
-                  </p>
-                  <div className="mt-2 grid grid-cols-1 gap-2">
-                    {selectedArticle.relatedSources.map((source) => (
-                      <div
-                        key={source.id}
-                        className="rounded-lg p-2 shadow-md w-full h-full text-center bg-white"
-                      >
-                        <div className="flex-wrap items-center text-xs">
-                          <p className="text-gray-500">{source.title}</p>
-                          <p className="text-gray-500">{source.source}</p>
-                          <p className="text-gray-500">{source.time}</p>
-                          <p className="font-bold text-blue-600">
-                            {source.bias}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </>
-          )}
-        </aside>
+        <Sidebar
+          selectedArticle={selectedArticle}
+          closePanel={closePanel}
+          isPanelOpen={isPanelOpen}
+        />
       </main>
     </div>
   );

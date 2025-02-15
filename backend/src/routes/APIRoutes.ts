@@ -219,14 +219,18 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // store query in database
-        const newQuery = new QueryModel({
-            query,
-            date: new Date(),
-            articles: articlesData.map((article: { url: string }) => article.url)
-        });
+        const duplicateQuery = await QueryModel.findOne({ query });  // check duplicate
 
-        const savedQuery = await newQuery.save();
-        console.log("saved query:", savedQuery);
+        if (!duplicateQuery) {
+            const newQuery = new QueryModel({
+                query,
+                date: new Date(),
+                articles: articlesData.map((article: { url: string }) => article.url)
+            });
+
+            const savedQuery = await newQuery.save();
+            console.log("saved query:", savedQuery);
+        }
 
         res.json(result);
     } catch (error: any) {

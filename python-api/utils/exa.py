@@ -38,5 +38,6 @@ def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str
         article_data["imageUrl"] = article.top_image
         article_data["authors"] = article.authors
         article_data["date"] = article.publish_date
+        article_data["title"] = article.title
 
     return articles

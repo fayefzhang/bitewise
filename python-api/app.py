@@ -222,15 +222,19 @@ def summarize_article():
         return jsonify({"error": "AI preferences are required"}), 400
 
     summary_output = generate_summary_individual(full_content, ai_preferences)
-    summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)  
-    summary = summary.replace("**Summary**:", "").strip()
+    if "**Reading Difficulty**:" in summary_output:
+        summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)
+        summary = summary.replace("**Summary**:", "").strip()
+        difficulty = difficulty.strip()
+    else:
+        summary = summary_output.replace("**Summary**:", "").strip()
+        difficulty = "Unknown"
     difficulty = difficulty.strip()
     # if difficult is easy, then 0, if medium, then 1, if hard, then 2
-    difficulty_int = 0 if difficulty == "Easy" else 1 if difficulty == "Medium" else 2
+    difficulty_int = 0 if difficulty == "Easy" else 1 if difficulty == "Medium" else 2 if difficulty == "Hard" else -1
     return jsonify({
         "summary": summary,
         "difficulty": difficulty_int,
-        "enriched_articles": enriched_articles,
     }), 200
 
 # For summarizing multiple articles into one summary
