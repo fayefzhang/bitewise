@@ -4,6 +4,7 @@ import Header from "../components/header";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { interests, sources } from "../common/utils";
+import { Preferences } from "../common/interfaces";
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();

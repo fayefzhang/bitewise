@@ -1,8 +1,8 @@
 "use client";
 
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { loginUser, registerUser } from "@/api/api";
 
 interface SignInSignUpPopupProps {
   onClose: () => void;
@@ -14,7 +14,6 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
   isOpen,
 }) => {
   const [isSignIn, setIsSignIn] = useState(true);
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [animationClass, setAnimationClass] = useState("hidden");
@@ -31,24 +30,18 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const endpoint = isSignIn ? "/api/signin" : "/api/register";
     try {
-      const response = await axios.post(`http://localhost:5000${endpoint}`, {
-        username,
-        email,
-        password,
-      });
+      const response = isSignIn
+        ? await loginUser(email, password)
+        : await registerUser(email, password);
 
-      if (isSignIn) {
-        localStorage.setItem("token", response.data.token);
-        router.push("/profile"); // Redirect after login
-      } else {
-        console.log("registeringg...")
-        alert("Registration successful! Please sign in.");
-        setIsSignIn(true);
+      if (response.token) {
+        localStorage.setItem("token", response.token); // Store token for authentication
+        router.push("/profile"); // Redirect after successful login/signup
       }
     } catch (error) {
-      console.error("Authentication failed. Check credentials.", error);
+      console.error("Authentication failed:", error);
+      alert("Invalid credentials or error occurred. Please try again.");
     }
   };
 
@@ -70,19 +63,6 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
             {isSignIn ? "Sign In" : "Sign Up"}
           </h2>
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            {!isSignIn && (
-              <div>
-                <label htmlFor="name">Username</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div>
-            )}
             <div>
               <label htmlFor="email">Email</label>
               <input

@@ -58,7 +58,9 @@ const Header: React.FC<HeaderProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim()) {
       onSearch(searchTerm.trim());
-      setPreferences(searchPreferences);
+      if (setPreferences) {
+        setPreferences(searchPreferences);
+      }
     }
   };
 

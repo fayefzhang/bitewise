@@ -3,9 +3,9 @@ import axios from "axios";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import ArticleModel from "../models/Article";
-import DashboardModel from '../models/Dashboard';
-import QueryModel from '../models/Queries';
-import UserModel from '../models/User'
+import DashboardModel from "../models/Dashboard";
+import QueryModel from "../models/Queries";
+import UserModel from "../models/User";
 
 // import ISummary from "../interfaces/ISummary";
 
@@ -31,94 +31,97 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-        if (!ai_preferences) {
-            res.status(400).json({ message: "AI preferences are required" });
-            return;
+    if (!ai_preferences) {
+      res.status(400).json({ message: "AI preferences are required" });
+      return;
+    }
+
+    // if the query has been made in the last 24 hours, return the cached response
+    const existingQuery = await QueryModel.findOne({ query: query });
+    if (existingQuery) {
+      const timeDifference =
+        new Date().getTime() - existingQuery.date.getTime();
+      if (timeDifference < 24 * 60 * 60 * 1000) {
+        console.log("search: using cached response for existing query");
+        res.json(existingQuery);
+      }
+    }
+
+    // Step 1: fetch articles
+    const articlesResponse = await axios.post(`${BASE_URL}/search`, {
+      query,
+      search_preferences,
+      cluster,
+    });
+
+    // OLD SCHEMA FOR FRONTEND REFERENCE
+    // const filteredResults = articlesResponse.data.results
+    // .filter((entry: any) => entry.title !== "[Removed]")
+    // .map((entry: any) => ({
+    //     id: entry.id,
+    //     url: entry.url,
+    //     imageUrl: entry.urlToImage,
+    //     title: entry.title,
+    //     source: entry.source.name,
+    //     content: entry.content,
+    //     date: entry.publishedAt,
+    //     bias: entry.biasRating,
+    //     readTime: entry.readTime,
+    //     relatedSources: [], // TODO
+    //     details: [], // TODO: summary
+    //     // ^^ @karen unsure what this means? -jared
+    //     cluster: entry.cluster,
+    //     fullContent: null
+    // }));
+
+    // format and write articles to database
+    const filteredResults = articlesResponse.data.results
+      .filter((entry: any) => entry.title !== "[Removed]")
+      .map((entry: any) => ({
+        id: entry.id,
+        url: entry.url,
+        authors: entry.authors,
+        imageUrl: entry.urlToImage,
+        title: entry.title,
+        source: entry.source.name,
+        readTime: entry.readTime,
+        biasRating: entry.biasRating,
+        difficulty: entry.difficulty,
+        summaries: [],
+      }));
+    await ArticleModel.insertMany(filteredResults, { ordered: false })
+      .then(() => {
+        console.log("Articles successfully inserted into the database");
+      })
+      .catch((error: any) => {
+        if (error.code === 11000) {
+          console.warn("Some articles already exist, skipping duplicates");
+        } else {
+          console.error("Error inserting articles:", error);
         }
-
-        // if the query has been made in the last 24 hours, return the cached response
-        const existingQuery = await QueryModel.findOne({ query: query });
-        if (existingQuery) {
-            const timeDifference = new Date().getTime() - existingQuery.date.getTime();
-            if (timeDifference < 24 * 60 * 60 * 1000) {
-                console.log("search: using cached response for existing query");
-                res.json(existingQuery);
-            }
-        }
-
-        // Step 1: fetch articles
-        const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
-
-        // OLD SCHEMA FOR FRONTEND REFERENCE
-        // const filteredResults = articlesResponse.data.results
-        // .filter((entry: any) => entry.title !== "[Removed]")
-        // .map((entry: any) => ({
-        //     id: entry.id,
-        //     url: entry.url,
-        //     imageUrl: entry.urlToImage,
-        //     title: entry.title,
-        //     source: entry.source.name,
-        //     content: entry.content,
-        //     date: entry.publishedAt,
-        //     bias: entry.biasRating,
-        //     readTime: entry.readTime,
-        //     relatedSources: [], // TODO
-        //     details: [], // TODO: summary 
-        //     // ^^ @karen unsure what this means? -jared
-        //     cluster: entry.cluster,
-        //     fullContent: null
-        // }));
-
-        // format and write articles to database
-        const filteredResults = articlesResponse.data.results
-        .filter((entry: any) => entry.title !== "[Removed]")
-        .map((entry: any) => ({
-            id: entry.id,
-            url: entry.url,
-            authors: entry.authors,
-            imageUrl: entry.urlToImage,
-            title: entry.title,
-            source: entry.source.name,
-            title: entry.title,
-            readTime: entry.readTime,
-            biasRating: entry.biasRating,
-            difficulty: entry.difficulty, 
-            imageUrl: entry.urlToImage,
-            summaries: [],
-        }));
-        await ArticleModel.insertMany(filteredResults, { ordered: false })
-        .then(() => {
-            console.log("Articles successfully inserted into the database");
-        })
-        .catch((error: any) => {
-            if (error.code === 11000) {
-            console.warn("Some articles already exist, skipping duplicates");
-            } else {
-            console.error("Error inserting articles:", error);
-            }
-        });
+      });
 
     const { clusters } = articlesResponse.data;
     const articlesData = filteredResults;
     console.log("search step 1, found articles:", articlesData);
 
-        // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
-        const summaryRequestBody = {
-            articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
-            acc[article.url] = {
-                title: article.title,
-                fullContent: article.fullContent,
-                imageUrl: article.imageUrl,
-                readTime: article.readTime,
-                biasRating: article.bias,
-                source: article.source,
-                time: article.date,
-                authors: article.authors,
-            };
-            return acc;
-            }, {}),
-            ai_preferences,
+    // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
+    const summaryRequestBody = {
+      articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
+        acc[article.url] = {
+          title: article.title,
+          fullContent: article.fullContent,
+          imageUrl: article.imageUrl,
+          readTime: article.readTime,
+          biasRating: article.bias,
+          source: article.source,
+          time: article.date,
+          authors: article.authors,
         };
+        return acc;
+      }, {}),
+      ai_preferences,
+    };
 
     const summaryResponse = await axios.post(
       `${BASE_URL}/summarize-articles`,
@@ -129,35 +132,38 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
     console.log("Summary:", summary);
     console.log("Enriched Articles:", enriched_articles);
 
+    // update articles with scraped content in database
+    const bulkOperations = enriched_articles.map((article: any) => ({
+      updateOne: {
+        filter: { url: article.url, content: { $exists: false } },
+        update: { $set: { content: article.content } },
+        upsert: false, // don't create a new document if it doesn't exist
+      },
+    }));
+    if (bulkOperations.length > 0) {
+      await ArticleModel.bulkWrite(bulkOperations)
+        .then(() => {
+          console.log("Successfully updated articles with full content");
+        })
+        .catch((error: any) => {
+          console.error("Error updating articles with full content:", error);
+        });
+    } else {
+      console.log("No articles required content update.");
+    }
 
-        // update articles with scraped content in database
-        const bulkOperations = enriched_articles.map((article: any) => ({
-            updateOne: {
-                filter: { url: article.url, content: { $exists: false } },
-                update: { $set: { content: article.content } },
-                upsert: false // don't create a new document if it doesn't exist
-            }
-        }));
-        if (bulkOperations.length > 0) {
-            await ArticleModel.bulkWrite(bulkOperations)
-            .then(() => {
-                console.log("Successfully updated articles with full content");
-            })
-            .catch((error: any) => {
-                console.error("Error updating articles with full content:", error);
-            });
-        } else {
-            console.log("No articles required content update.");
-        }
-
-        // Step 4: Combine articles and summaries into a single response
-        const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
-            articles: articlesData,
-            summary: {
-                title: query,
-                summary: summary,
-            },
-        };
+    // Step 4: Combine articles and summaries into a single response
+    const result: {
+      articles: any;
+      summary: { title: any; summary: any };
+      clusters?: any;
+    } = {
+      articles: articlesData,
+      summary: {
+        title: query,
+        summary: summary,
+      },
+    };
 
     // Add clusters to the response if clustering was requested
     if (cluster && clusters) {
@@ -178,11 +184,11 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
     //     writeCache(cache);
     // }
 
-        res.json(result);
-    } catch (error: any) {
-        console.error("Error processing search request", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
+    res.json(result);
+  } catch (error: any) {
+    console.error("Error processing search request", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
@@ -198,109 +204,117 @@ router.post(
       //     res.status(400).json({ message: 'User preferences are required' });
       // }
 
-        const ai_preferences = {
-            length: "short", // options: {"short", "medium", "long"}
-            tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}
-            format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
-            jargon_allowed: true, // options: {True, False}
-        };
-        
-        const route = req.body && local ? 'local-news' : 'daily-news';
-        
-        const response = await axios.post(`${BASE_URL}/${route}`);
-        console.log("DATA", response.data)
-        const { clusters, overall_summary } = response.data;
+      const ai_preferences = {
+        length: "short", // options: {"short", "medium", "long"}
+        tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}
+        format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
+        jargon_allowed: true, // options: {True, False}
+      };
+
+      const route = req.body && local ? "local-news" : "daily-news";
+
+      const response = await axios.post(`${BASE_URL}/${route}`);
+      console.log("DATA", response.data);
+      const { clusters, overall_summary } = response.data;
 
       // summarizing each cluster
       const clusterSummaries = await Promise.all(
         clusters.map(async (cluster: { cluster_id: any; articles: any }) => {
           // data formatted for summary endpoint
 
-                const clusterId = cluster.cluster_id;
-                const articles = cluster.articles;
-                
-                const formattedArticles = (articles as any[]).reduce((acc, article) => {
-                    acc[article.url] = {
-                        title: article.title,
-                        fullContent: article.content,
-                        imageUrl: article.imageUrl,
-                        readTime: article.readTime,
-                        biasRating: article.biasRating,
-                        source: article.source,
-                        time: article.time,
-                        authors: article.authors,
-                    };
-                    return acc;
-                }, {});
-                try {
-                    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
-                        articles: formattedArticles,
-                        ai_preferences: ai_preferences
-                    });
+          const clusterId = cluster.cluster_id;
+          const articles = cluster.articles;
+
+          const formattedArticles = (articles as any[]).reduce(
+            (acc, article) => {
+              acc[article.url] = {
+                title: article.title,
+                fullContent: article.content,
+                imageUrl: article.imageUrl,
+                readTime: article.readTime,
+                biasRating: article.biasRating,
+                source: article.source,
+                time: article.time,
+                authors: article.authors,
+              };
+              return acc;
+            },
+            {}
+          );
+          try {
+            const summaryResponse = await axios.post(
+              `${BASE_URL}/summarize-articles`,
+              {
+                articles: formattedArticles,
+                ai_preferences: ai_preferences,
+              }
+            );
 
             const summaryData = summaryResponse.data;
 
-                    // save articles to database
-                    const articleIds = await Promise.all(
-                        articles.map(async (article: any) => {
-                            try {
-                                const newArticle = new ArticleModel({
-                                    content: article.content,
-                                    datePublished: article.datePublished, // don't think we have this info, but would be good
-                                    author: article.author,
-                                    source: article.source,
-                                    url: article.url,
-                                    title: article.title,
-                                    readTime: article.readTime,
-                                    biasRating: article.biasRating,
-                                    difficulty: article.difficulty,
-                                    imageUrl: article.imageUrl,
-                                    summaries: [],
-                                });
-                                const savedArticle = await newArticle.save();
-                                return savedArticle.url;
-                            } catch (error: any) {
-                                console.error(`Error saving article ${article.url}:`, error);
-                                return null;
-                            }
-                        })
-                    );
-                    return {
-                        cluster: clusterId,
-                        articles: summaryData.enriched_articles, 
-                        title: summaryData.title,
-                        summary: summaryData.summary
-                    };
+            // save articles to database
+            const articleIds = await Promise.all(
+              articles.map(async (article: any) => {
+                try {
+                  const newArticle = new ArticleModel({
+                    content: article.content,
+                    datePublished: article.datePublished, // don't think we have this info, but would be good
+                    author: article.author,
+                    source: article.source,
+                    url: article.url,
+                    title: article.title,
+                    readTime: article.readTime,
+                    biasRating: article.biasRating,
+                    difficulty: article.difficulty,
+                    imageUrl: article.imageUrl,
+                    summaries: [],
+                  });
+                  const savedArticle = await newArticle.save();
+                  return savedArticle.url;
                 } catch (error: any) {
-                    console.error(`Error summarizing cluster ${clusterId}:`, error);
-                    return {
-                        cluster: Number(clusterId),
-                        articles: formattedArticles,
-                        title: "Title generation failed.",
-                        summary: "Summary generation failed."
-                    };
+                  console.error(`Error saving article ${article.url}:`, error);
+                  return null;
                 }
-            })
-        );
-        
-        // save to database and return dashboard
-        const newDashboard = new DashboardModel({
-            date: today,
-            summary: overall_summary,
-            clusters: clusters.map((cluster: any) => cluster.articles.map((a: any) => a.url)),
-            clusterSummaries: clusterSummaries.map(cs => cs.summary),
-            clusterLabels: clusterSummaries.map(cs => cs.title)
-        });
-        const savedDashboard = await newDashboard.save();
-        res.json(savedDashboard);
+              })
+            );
+            return {
+              cluster: clusterId,
+              articles: summaryData.enriched_articles,
+              title: summaryData.title,
+              summary: summaryData.summary,
+            };
+          } catch (error: any) {
+            console.error(`Error summarizing cluster ${clusterId}:`, error);
+            return {
+              cluster: Number(clusterId),
+              articles: formattedArticles,
+              title: "Title generation failed.",
+              summary: "Summary generation failed.",
+            };
+          }
+        })
+      );
 
-        // OLD JSON FOR REFERENCE
-        // res.json({overall_summary, clusterSummaries});
+      // save to database and return dashboard
+      const newDashboard = new DashboardModel({
+        summary: overall_summary,
+        clusters: clusters.map((cluster: any) =>
+          cluster.articles.map((a: any) => a.url)
+        ),
+        clusterSummaries: clusterSummaries.map((cs) => cs.summary),
+        clusterLabels: clusterSummaries.map((cs) => cs.title),
+      });
+      const savedDashboard = await newDashboard.save();
+      res.json(savedDashboard);
+
+      // OLD JSON FOR REFERENCE
+      // res.json({overall_summary, clusterSummaries});
     } catch (error: any) {
-        console.error("error processing search request", error);
-        res.status(500).json({ error: 'Internal server error' });
+      console.error("error processing search request", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-});
+  }
+);
 
 // @route POST summarize/article
 // @description Summarizes a single article based on user preferences using OpenAI
@@ -308,60 +322,59 @@ router.post(
   "/summarize/article",
   async (req: Request, res: Response): Promise<void> => {
     try {
+      const { article, ai_preferences } = req.body;
+      if (!article) {
+        res.status(400).json({ message: "Article is required" });
+      }
+      if (!ai_preferences) {
+        res.status(400).json({ message: "AI preferences are required" });
+      }
 
-        const { article, ai_preferences } = req.body; 
-        if (!article) {
-            res.status(400).json({ message: 'Article is required' });
-        }
-        if (!ai_preferences) {
-            res.status(400).json({ message: 'AI preferences are required' });
-        }
+      // NEED URL FROM FRONTEND
+      const existingArticle = await ArticleModel.findOne({ url: article.url });
+      if (existingArticle) {
+        // frontend not passing it in this format
+        const existingSummary = existingArticle.summaries?.find(
+          (summary: any) =>
+            summary.AILength === ai_preferences.AILength &&
+            summary.AITone === ai_preferences.AITone &&
+            summary.AIFormat === ai_preferences.AIFormat &&
+            summary.AIJargonAllowed === ai_preferences.AIJargonAllowed
+        );
 
-        // NEED URL FROM FRONTEND 
-        const existingArticle = await ArticleModel.findOne({ url: article.url });
-        if (existingArticle) {
-            // frontend not passing it in this format
-            const existingSummary = existingArticle.summaries?.find((summary: any) => 
-                summary.AILength === ai_preferences.AILength &&
-                summary.AITone === ai_preferences.AITone &&
-                summary.AIFormat === ai_preferences.AIFormat &&
-                summary.AIJargonAllowed === ai_preferences.AIJargonAllowed
-            );
-
-            if (existingSummary) {
-                res.json(existingSummary.summary);
-            } else {
-                // send article and user prefs to the Python backend
-                const response = await axios.post(`${BASE_URL}/summarize-article`, { 
-                    article, 
-                    ai_preferences 
-                });
-
-                // save summary to database by update article
-                const newSummary = {
-                    summary: response.data.summary, // The generated summary
-                    AILength: ai_preferences.AILength, 
-                    AITone: ai_preferences.AITone, 
-                    AIFormat: ai_preferences.AIFormat, 
-                    AIJargonAllowed: ai_preferences.AIJargonAllowed
-                };
-                if (!existingArticle.summaries) {
-                    existingArticle.summaries = []
-                }
-                existingArticle.summaries.push(newSummary);
-                // @Sanya add in later when we merge branches
-                // existingArticle.difficulty = readingDifficulty; 
-                await existingArticle.save();
-
-                res.json(response.data);
-            }
+        if (existingSummary) {
+          res.json(existingSummary.summary);
         } else {
-            throw new Error("No existing article in database");
+          // send article and user prefs to the Python backend
+          const response = await axios.post(`${BASE_URL}/summarize-article`, {
+            article,
+            ai_preferences,
+          });
+
+          // save summary to database by update article
+          const newSummary = {
+            summary: response.data.summary, // The generated summary
+            AILength: ai_preferences.AILength,
+            AITone: ai_preferences.AITone,
+            AIFormat: ai_preferences.AIFormat,
+            AIJargonAllowed: ai_preferences.AIJargonAllowed,
+          };
+          if (!existingArticle.summaries) {
+            existingArticle.summaries = [];
+          }
+          existingArticle.summaries.push(newSummary);
+          // @Sanya add in later when we merge branches
+          // existingArticle.difficulty = readingDifficulty;
+          await existingArticle.save();
+
+          res.json(response.data);
         }
-        
+      } else {
+        throw new Error("No existing article in database");
+      }
     } catch (error: any) {
-        console.error("Error processing summarize article request", error);
-        res.status(500).json({ error: 'Internal server error' });
+      console.error("Error processing summarize article request", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 );
@@ -381,38 +394,38 @@ router.post(
         res.status(400).json({ message: "AI preferences are required" });
       }
 
-        // send articles and user prefs to the Python backend
-        const response = await axios.post(`${BASE_URL}/summarize-articles`, { 
-            articles, 
-            ai_preferences 
-        });
+      // send articles and user prefs to the Python backend
+      const response = await axios.post(`${BASE_URL}/summarize-articles`, {
+        articles,
+        ai_preferences,
+      });
 
-        const { title, summary, enriched_articles } = response.data;
+      const { title, summary, enriched_articles } = response.data;
 
-        // update articles with scraped content in database
-        const bulkOperations = enriched_articles.map((article: any) => ({
-            updateOne: {
-                filter: { url: article.url, content: { $exists: false } },
-                update: { $set: { content: article.content } },
-                upsert: false
-            }
-        }));
-        if (bulkOperations.length > 0) {
-            await ArticleModel.bulkWrite(bulkOperations)
-            .then(() => {
-                console.log("Successfully updated articles with full content");
-            })
-            .catch((error: any) => {
-                console.error("Error updating articles with full content:", error);
-            });
-        } else {
-            console.log("No articles required content update.");
-        }
+      // update articles with scraped content in database
+      const bulkOperations = enriched_articles.map((article: any) => ({
+        updateOne: {
+          filter: { url: article.url, content: { $exists: false } },
+          update: { $set: { content: article.content } },
+          upsert: false,
+        },
+      }));
+      if (bulkOperations.length > 0) {
+        await ArticleModel.bulkWrite(bulkOperations)
+          .then(() => {
+            console.log("Successfully updated articles with full content");
+          })
+          .catch((error: any) => {
+            console.error("Error updating articles with full content:", error);
+          });
+      } else {
+        console.log("No articles required content update.");
+      }
 
-        res.json(response.data); 
+      res.json(response.data);
     } catch (error: any) {
-        console.error("Error processing summarize articles request", error);
-        res.status(500).json({ error: 'Internal server error' });
+      console.error("Error processing summarize articles request", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 );
@@ -437,10 +450,10 @@ router.post(
         summary,
       });
 
-        res.json(response.data); 
+      res.json(response.data);
     } catch (error: any) {
-        console.error("Error processing generate audio request", error);
-        res.status(500).json({ error: 'Internal server error' });
+      console.error("Error processing generate audio request", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 );
@@ -460,10 +473,10 @@ router.post(
         articles,
       });
 
-        res.json(response.data); 
+      res.json(response.data);
     } catch (error: any) {
-        console.error("Error processing generate podcast request", error);
-        res.status(500).json({ error: 'Internal server error' });
+      console.error("Error processing generate podcast request", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 );
@@ -482,49 +495,67 @@ router.get("/audio", async (req: Request, res: Response): Promise<void> => {
       responseType: "stream", // <- IMPORTANT: Enables streaming of the file
     });
 
-        res.setHeader('Content-Type', 'audio/mpeg');
-        response.data.pipe(res);
-    } catch (error: any) {
-        console.error("Error fetching audio", error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
+    res.setHeader("Content-Type", "audio/mpeg");
+    response.data.pipe(res);
+  } catch (error: any) {
+    console.error("Error fetching audio", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // @route POST user/update
 // @description Creates or updates a user's info
-router.post('/user/update', async (req: Request, res: Response): Promise<void> => {
+// @route POST /user/update
+// @description Creates or updates a user's info (registration or updating preferences)
+router.post(
+  "/user/update",
+  async (req: Request, res: Response): Promise<void> => {
     try {
-        const { user } = req.body; // see IUser interface
-        if (!user || !user.email) {
-            res.status(400).json({ message: 'No User object passed' });
-            return
-        }
+      const { user } = req.body; // see IUser interface
+      if (!user || !user.email || !user.password) {
+        res
+          .status(400)
+          .json({ message: "Missing required fields (email or password)" });
+        return;
+      }
 
-        const updatedUser = await UserModel.findOneAndUpdate(
-            { email: user.email },
-            { 
-                $set: { 
-                    preferences: user.preferences,
-                    password: user.password
-                }
-            },
-            { 
-                new: true,
-                upsert: true,
-                runValidators: true
-            }
-        );
+      // Check if user already exists by email
+      let existingUser = await UserModel.findOne({ email: user.email });
 
-        res.status(200).json({ message: 'User updated successfully', user: updatedUser });
-    } catch (error: any) {
-        console.error("Error updating user preferences:", error);
-        res.status(500).json({ error: "Internal server error" });
+      if (existingUser) {
+        // If user exists, update preferences and password
+        existingUser.preferences = user.preferences;
+        existingUser.password = user.password; // You should ideally hash the password here
+
+        await existingUser.save();
+        res
+          .status(200)
+          .json({ message: "User updated successfully", user: existingUser });
+      } else {
+        // If user doesn't exist, create a new user
+        const newUser = new UserModel({
+          email: user.email,
+          password: user.password, // You should ideally hash the password here
+          preferences: user.preferences,
+        });
+
+        await newUser.save();
+        res
+          .status(201)
+          .json({ message: "User created successfully", user: newUser });
+      }
+    } catch (error) {
+      console.error("Error updating or creating user:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-})
+  }
+);
 
 // @route GET user/preferences
 // @description Gets the user's preferences.
-router.get('/user/preferences', async (req: Request, res: Response): Promise<void> => {
+router.get(
+  "/user/preferences",
+  async (req: Request, res: Response): Promise<void> => {
     try {
       const userID = req.query.userID as string; // Explicitly cast to string if using TypeScript
       if (!userID) {
@@ -538,10 +569,42 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
         }
       );
 
-        res.json(preferencesResponse.data);
+      res.json(preferencesResponse.data);
     } catch (error: any) {
-        console.error("Error retrieving user preferences:", error);
-        res.status(500).json({ error: "Internal server error" });
+      console.error("Error retrieving user preferences:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+// @route POST /user/login
+// @desc Authenticate user and return token
+router.post(
+  "/user/login",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        res.status(400).json({ message: "Missing email or password" });
+        return;
+      }
+
+      const user = await UserModel.findOne({ email });
+      if (!user || user.password !== password) {
+        // Replace with hashed password comparison
+        res.status(401).json({ message: "Invalid credentials" });
+        return;
+      }
+
+      // Generate a JWT token (if using authentication tokens)
+      const token = jwt.sign({ email: user.email }, "your_secret_key", {
+        expiresIn: "1h",
+      });
+
+      res.status(200).json({ message: "Login successful", token, user });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
   }
 );
@@ -552,7 +615,7 @@ router.post(
   "/search/topics",
   async (req: Request, res: Response): Promise<void> => {
     try {
-        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+      const { topics, search_preferences } = req.body; // topics: [string], search_preferences:
 
       const topics_articles = await axios.post(
         "http://127.0.0.1:5000/search/topics",
@@ -562,10 +625,10 @@ router.post(
         }
       );
 
-        res.json(topics_articles.data);
+      res.json(topics_articles.data);
     } catch (error: any) {
-        console.error("Error retrieving user topics", error);
-        res.status(500).json({ error: "Internal server error" });
+      console.error("Error retrieving user topics", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 );
@@ -574,24 +637,26 @@ router.post(
   "/crawl/all",
   async (req: Request, res: Response): Promise<void> => {
     try {
-        const response = await axios.post('http://127.0.0.1:5000/crawl/all');
+      const response = await axios.post("http://127.0.0.1:5000/crawl/all");
 
-        res.status(response.status).json(response.data);
+      res.status(response.status).json(response.data);
     } catch (error: any) {
-        console.error("Error occurred during crawling:", error);
+      console.error("Error occurred during crawling:", error);
 
-        if (axios.isAxiosError(error) && error.response) {
-            res.status(error.response.status).json(error.response.data);
-        } else {
-            res.status(500).json({ error: "Internal server error" });
-        }
+      if (axios.isAxiosError(error) && error.response) {
+        res.status(error.response.status).json(error.response.data);
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
     }
-});
+  }
+);
 
-router.post('/crawl/local', async (req: Request, res: Response): Promise<void> => {
+router.post(
+  "/crawl/local",
+  async (req: Request, res: Response): Promise<void> => {
     try {
-        
-        const response = await axios.post('http://127.0.0.1:5000/crawl/local');
+      const response = await axios.post("http://127.0.0.1:5000/crawl/local");
 
       res.status(response.status).json(response.data);
     } catch (error) {
@@ -624,40 +689,5 @@ router.post(
     }
   }
 );
-
-interface User {
-  username: string;
-  email: string;
-  password: string;
-}
-
-let users: User[] = []; // Simple in-memory store
-
-// Register Route
-router.post("/register", async (req: Request, res: Response): Promise<void> => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password)
-    res.status(400).json({ message: "Missing fields" });
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-  users.push({ username, email, password: hashedPassword });
-
-  res.json({ message: "User registered successfully" });
-});
-
-// Sign-in Route
-router.post("/signin", async (req: Request, res: Response): Promise<void> => {
-  const { email, password } = req.body;
-  const user = users.find((user) => user.email === email);
-
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    res.status(401).json({ message: "Invalid credentials" });
-  }
-
-  const token = jwt.sign({ email }, process.env.JWT_SECRET || "secret", {
-    expiresIn: "1h",
-  });
-  res.json({ token });
-});
 
 export default router;

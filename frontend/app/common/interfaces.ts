@@ -48,3 +48,31 @@ export interface Summary {
   title: string;
   summary: string;
 }
+
+export interface IPreference {
+  sources?: string[],
+  domains?: string[],
+  exclude_domains?: string[],
+  from_date?: string,
+  read_time?: number,
+  bias?: number,
+  clustering?: boolean,
+  topics?: string[]
+}
+
+export const defaultSearchIPreferences: IPreference = {
+  sources: [],
+  domains: [],
+  exclude_domains: [],
+  from_date: "",
+  read_time: 0,
+  bias: 0,
+  clustering: false,
+  topics: [],
+};
+
+export interface IUser {
+  email: string;
+  password: string;
+  preferences: IPreference;
+}
