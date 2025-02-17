@@ -141,7 +141,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 url: entry.url,  // Primary key
                 content: "", // will be filled in later
                 datePublished: entry.publishedAt,
-                authors: entry.authors,
+                authors: entry.authors ? entry.authors[0] : "",
                 source: entry.source.name,
                 title: entry.title,
                 readTime: entry.readTime,
@@ -222,18 +222,18 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // store query in database
-        const duplicateQuery = await QueryModel.findOne({ query });  // check duplicate
+        // const duplicateQuery = await QueryModel.findOne({ query });  // check duplicate
 
-        if (!duplicateQuery) {
-            const newQuery = new QueryModel({
-                query,
-                date: new Date(),
-                articles: articlesData.map((article: { url: string }) => article.url)
-            });
+        // if (!duplicateQuery) {
+        //     const newQuery = new QueryModel({
+        //         query,
+        //         date: new Date(),
+        //         articles: articlesData.map((article: { url: string }) => article.url)
+        //     });
 
-            const savedQuery = await newQuery.save();
-            console.log("saved query:", savedQuery);
-        }
+        //     const savedQuery = await newQuery.save();
+        //     console.log("saved query:", savedQuery);
+        // }
 
         res.json(result);
     } catch (error: any) {
@@ -299,7 +299,7 @@ router.post('/local-news', (req: Request, res: Response) => {
 });
 
 // helper
-async function generateNewsDashboard(newsType: string, location: string, file: string, res: Response) {
+async function generateNewsDashboard(newsType: string, location: string, filePath: string, res: Response) {
     try {
         // if the dashboard has already been created, read and return it from the database      
         const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
@@ -369,7 +369,6 @@ async function generateNewsDashboard(newsType: string, location: string, file: s
         );
 
         // check if crawl done today to create and save new dashboard
-        const filePath = path.join(__dirname, file);
         const stats = fs.statSync(filePath);
         const lastModifiedDate = new Date(stats.mtime);
         const currentTime = new Date();

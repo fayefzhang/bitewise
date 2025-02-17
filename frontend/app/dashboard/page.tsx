@@ -75,7 +75,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles, ha
                 <div>
                   <div className="flex justify-between mt-1">
                   <p className="text-xs">{article.source}</p>
-                  {/* <p className="text-xs">{article.authors[0]}</p> */}
+                  <p className="text-xs">{article.authors}</p>
                   </div>
                   <div className="flex justify-between mt-1">
                   <p className="text-xs">{article.biasRating !== "5" && biasRatingLabels[parseInt(article.biasRating, 10)]}</p>

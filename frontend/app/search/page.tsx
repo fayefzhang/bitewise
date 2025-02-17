@@ -103,13 +103,11 @@ const SearchPage: React.FC = () => {
           });
           const data = await response.json();
 
-          console.log("summary", data);
-
           setSelectedArticle((prevArticle) => {
             if (!prevArticle) return null;
             return {
               ...prevArticle,
-              summaries: [...prevArticle.summaries, data.summary],
+              summaries: [...prevArticle.summaries, data.summary || data],
             };
           });
         } catch (error) {
