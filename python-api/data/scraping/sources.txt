@@ -1,7 +1,5 @@
 https://abcnews.go.com
 https://arstechnica.com
-https://fortune.com
-https://mashable.com
 https://news.nationalgeographic.com
 https://news.vice.com
 https://nymag.com/
@@ -38,7 +36,6 @@ https://www.washingtontimes.com/
 https://www.wired.com
 https://www.wsj.com
 https://news.yahoo.com
-https://www.atlanticcouncil.org
 https://www.csmonitor.com
 https://www.foreignpolicy.com
 https://www.theatlantic.com

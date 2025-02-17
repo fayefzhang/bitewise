@@ -29,7 +29,7 @@ export interface Article {
   sentiment: string;
   readTime: string;
   relatedSources: RelatedSource[];
-  details: string[];
+  summaries: string[];
   fullContent: string;
   cluster: number;
 }

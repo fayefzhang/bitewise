@@ -6,4 +6,5 @@ export interface IDashboard {
     clusters: IArticle[][]; // list of lists of articles
     clusterSummaries: string[]; // list of summaries for each cluster
     clusterLabels: string[]; // list of labels for each cluster
+    location: string;  // location if local news
 }

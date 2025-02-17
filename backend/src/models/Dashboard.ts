@@ -9,7 +9,7 @@ const DashboardSchema: Schema = new Schema<IDashboard>({
             articles: [{
                 content: { type: String },
                 datePublished: { type: Date },
-                author: { type: String },
+                authors: { type: String },
                 source: { type: String },
                 url: { type: String, required: true, unique: true },
                 title: { type: String, required: true },
@@ -28,7 +28,8 @@ const DashboardSchema: Schema = new Schema<IDashboard>({
         }]
     },
     clusterSummaries: { type: [String] },
-    clusterLabels: { type: [String] }
+    clusterLabels: { type: [String] },
+    location: { type: String },
 });
 
 export default mongoose.model<IDashboard>('Dashboard', DashboardSchema);

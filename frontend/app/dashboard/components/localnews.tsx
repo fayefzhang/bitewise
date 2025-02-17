@@ -14,13 +14,12 @@ const fetchLocalNews = async () => {
     const BASE_URL = "http://localhost:3000";
 
     try {
-        const response = await fetch(`${BASE_URL}/api/daily-news`, {
+        const response = await fetch(`${BASE_URL}/api/local-news`, {
         method: "POST",
         cache: "no-store",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ local: true })
         });
         if (!response.ok) {
         throw new Error("Failed to fetch local news");

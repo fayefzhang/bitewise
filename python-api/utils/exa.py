@@ -30,13 +30,17 @@ def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str
     # modify articles with content of fetched results
     for url, article_data in articles.items():
       if url in fetched_results:
-        article_data["fullContent"] = fetched_results[url].text.strip()
-        # get thumbnail image
-        article = Article(url)
-        article.download()
-        article.parse()
-        article_data["imageUrl"] = article.top_image
-        article_data["authors"] = article.authors
-        article_data["date"] = article.publish_date
+        try:
+            article_data["fullContent"] = fetched_results[url].text.strip()
+            # get thumbnail image
+            article = Article(url)
+            article.download()
+            article.parse()
+            article_data["imageUrl"] = article.top_image
+            article_data["authors"] = article.authors
+            article_data["date"] = article.publish_date
+            article_data["title"] = article.title
+        except Exception as e:
+            print(f"Error processing {url}: {e}")
 
     return articles

@@ -56,6 +56,9 @@ const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
 const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
 
+const fs = require('fs');
+const path = require('path');
+
 const FILTER_DICT = {
     bias: {
         "left": 0,
@@ -138,7 +141,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 url: entry.url,  // Primary key
                 content: "", // will be filled in later
                 datePublished: entry.publishedAt,
-                authors: entry.authors,
+                authors: entry.authors ? entry.authors[0] : "",
                 source: entry.source.name,
                 title: entry.title,
                 readTime: entry.readTime,
@@ -219,14 +222,18 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // store query in database
-        const newQuery = new QueryModel({
-            query,
-            date: new Date(),
-            articles: articlesData.map((article: { url: string }) => article.url)
-        });
+        // const duplicateQuery = await QueryModel.findOne({ query });  // check duplicate
 
-        const savedQuery = await newQuery.save();
-        console.log("saved query:", savedQuery);
+        // if (!duplicateQuery) {
+        //     const newQuery = new QueryModel({
+        //         query,
+        //         date: new Date(),
+        //         articles: articlesData.map((article: { url: string }) => article.url)
+        //     });
+
+        //     const savedQuery = await newQuery.save();
+        //     console.log("saved query:", savedQuery);
+        // }
 
         res.json(result);
     } catch (error: any) {
@@ -282,17 +289,27 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
 // @returns grouped articles by cluster
-router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
+
+router.post('/daily-news', (req: Request, res: Response) => {
+    generateNewsDashboard('daily-news', '', path.join(__dirname, '../../../python-api/data/articles_data.json'), res);
+});
+
+router.post('/local-news', (req: Request, res: Response) => {
+    generateNewsDashboard('local-news', 'Philadelphia', path.join(__dirname, '../../../python-api/data/local_articles_data.json'), res);
+});
+
+// helper
+async function generateNewsDashboard(newsType: string, location: string, filePath: string, res: Response) {
     try {
         // if the dashboard has already been created, read and return it from the database      
         const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
-        const existingDashboard = await DashboardModel.findOne({ date: today });
+        const existingDashboard = await DashboardModel.findOne({ date: today, location: location });
         if (existingDashboard) {
             console.log("daily news dashboard already exists for this date");
             res.json(existingDashboard);
             return;
         }
-
+        
         const ai_preferences = {
             length: "short", // options: {"short", "medium", "long"}
             tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}
@@ -300,7 +317,8 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
             jargon_allowed: true, // options: {True, False}
         };
 
-        const response = await axios.post(`${BASE_URL}/daily-news`);
+        const response = await axios.post(`${BASE_URL}/${newsType}`);
+
         const { clusters, overall_summary } = response.data;
 
         // summarizing each cluster
@@ -350,7 +368,12 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
             })
         );
 
-        // save to database and return dashboard
+        // check if crawl done today to create and save new dashboard
+        const stats = fs.statSync(filePath);
+        const lastModifiedDate = new Date(stats.mtime);
+        const currentTime = new Date();
+        const timeDifference = currentTime.getTime() - lastModifiedDate.getTime();
+
         const newDashboard = new DashboardModel({
             date: today,
             summary: overall_summary,
@@ -377,11 +400,16 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
                 })
             })),
             clusterSummaries: clusterSummaries.map(cs => cs.summary),
-            clusterLabels: clusterSummaries.map(cs => cs.title)
+            clusterLabels: clusterSummaries.map(cs => cs.title),
+            location: location,
         });
 
-        const savedDashboard = await newDashboard.save();
-        res.json(savedDashboard);
+        if (timeDifference < 12 * 3600 * 1000) {  // save new dashboard only if crawl done
+            const savedDashboard = await newDashboard.save();
+            res.json(savedDashboard);
+            return;
+        } 
+        res.json(newDashboard);
 
         // OLD JSON FOR REFERENCE
         // res.json({overall_summary, clusterSummaries});
@@ -389,7 +417,8 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
         console.error("error processing search request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
-});
+}
+
 
 router.post('/retrieve-article', async (req: Request, res: Response): Promise<void> => {
     try {
