@@ -149,28 +149,35 @@ const SearchPage: React.FC = () => {
       });
       const searchData = await response.json();
 
-      console.log(searchData);
+      console.log("Raw search results (no filtering): ", searchData);
 
-      const filterRequestBody = {
-        articles: searchData.articles,
-        filter_preferences: {
-          bias: headerPreferences?.bias,
-          maxReadTime: headerPreferences?.read_time,
-          dateRange: headerPreferences?.from_date,
-        },
-      };
+      const { bias, read_time, from_date } = headerPreferences || {};
+      const hasFilters = (bias?.length || 0) > 0 || (read_time?.length || 0) > 0 || from_date;
 
-      // const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(filterRequestBody),
-      // });
-  
-      // const filteredArticles = await filterResponse.json();
-      const filteredArticles = searchData;
+      let filteredArticles = searchData || [];
 
-      console.log(searchData);
+      if (hasFilters) {
+        const filterRequestBody = {
+          articles: searchData.articles,
+          filter_preferences: {
+            bias: headerPreferences?.bias,
+            maxReadTime: headerPreferences?.read_time,
+            dateRange: headerPreferences?.from_date,
+          },
+        };
+        console.log("Filtering", filterRequestBody);
 
+        const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(filterRequestBody),
+        });
+    
+        const filteredData = await filterResponse.json();
+        filteredArticles = filteredData;
+
+        console.log("Filtered search results: ", filteredArticles);
+      }
 
       // Process search results
       const articlesData = filteredArticles.articles.map((entry: any) => ({
