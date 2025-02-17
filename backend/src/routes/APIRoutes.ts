@@ -469,7 +469,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
             //     summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat] &&
             //     summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
             // );
-            const existingSummary = existingArticle.summaries?.find((summary) =>
+            const existingSummary = existingArticle.summaries?.find((summary: any) =>
                 summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.length] &&
                 summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.tone] &&
                 summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.format] &&
@@ -514,7 +514,19 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 res.json(newSummary);
             }
         } else {
-            throw new Error("No existing article in database");
+            console.log("Article not found in database, fetching summary from Python backend");
+            const response = await axios.post(`${BASE_URL}/summarize-article`, {
+                article,
+                ai_preferences
+            });
+            const newSummary = {
+                summary: response.data.summary, // The generated summary
+                AILength: ReverseAIDictionary['AILength'][ai_preferences.length],
+                AITone: ReverseAIDictionary['AITone'][ai_preferences.tone],
+                AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.format],
+                AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+            };
+            res.json(newSummary);
         }
 
     } catch (error: any) {
