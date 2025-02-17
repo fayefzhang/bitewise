@@ -8,14 +8,20 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Article } from "../common/interfaces";
+import Sidebar from "../search/sidebar";
+import {
+  defaultAIPreferences,
+  defaultSearchPreferences,
+  toTitleCase,
+} from "../common/utils";
 
+const BASE_URL = "http://localhost:3000";
 
 const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
 const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
 const difficultyLabels = ["Easy", "Medium", "Hard"];
 
 const fetchDailyNews = async () => {
-  const BASE_URL = "http://localhost:3000";
 
   try {
     const response = await fetch(`${BASE_URL}/api/daily-news`, {
@@ -37,9 +43,10 @@ interface NewsSectionProps {
   header: string;
   summary: string;
   articles: Article[];
+  handleArticleClick: (article: Article) => void;
 }
 
-const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) => {
+const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles, handleArticleClick }) => {
   return (
     <section className="mb-8">
       <h2 className="text-xl font-bold mb-2">{header}</h2>
@@ -59,25 +66,23 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles }) 
             </div>
           <div className="w-3/5 flex flex-col space-y-4">
             {articles.slice(0, 3).map((article, index) => (
-                <Link
+                <div
                 key={index}
-                href={article.url}
-                className="bg-white p-2 rounded-md shadow hover:bg-blue-100"
-                target="_blank"
-                rel="noopener noreferrer"
+                className="bg-white p-2 rounded-md shadow cursor-pointer"
+                onClick={() => handleArticleClick(article)}
                 >
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
                   <div className="flex justify-between mt-1">
-                    <p className="text-xs">{article.source}</p>
-                    {/* <p className="text-xs">{article.authors[0]}</p> */}
+                  <p className="text-xs">{article.source}</p>
+                  {/* <p className="text-xs">{article.authors[0]}</p> */}
                   </div>
                   <div className="flex justify-between mt-1">
-                    <p className="text-xs">{article.biasRating !== "5" && biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
-                    <p className="text-xs">{readTimeLabels[parseInt(article.readTime, 10)]}</p>
+                  <p className="text-xs">{article.biasRating !== "5" && biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
+                  <p className="text-xs">{readTimeLabels[parseInt(article.readTime, 10)]}</p>
                   </div>
                 </div>
-                </Link>
+                </div>
             ))}
           </div>
         </div>
@@ -98,6 +103,65 @@ const DashboardPage: React.FC = () => {
   const [dailyNews, setDailyNews] = useState<any>(null);
   const [dailySummary, setDailySummary] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+
+  function handleArticleClick(article: Article) {
+    if (isPanelOpen) {
+      closePanel();
+    } else {
+      setSelectedArticle(article);
+      setIsPanelOpen(true); // Open panel
+    }
+  }
+
+  function closePanel() {
+    setSelectedArticle(null);
+    setIsPanelOpen(false); // Close panel
+  }
+
+  useEffect(() => {
+      // Get article summary if not already done
+      const fetchArticleSummary = async () => {
+        if (selectedArticle?.summaries.length === 0) {
+          const articleBody = {
+            article: {
+              title: selectedArticle.title,
+              fullContent: selectedArticle.fullContent,
+              url: selectedArticle.url,
+            },
+            ai_preferences: defaultAIPreferences,
+          };
+  
+          try {
+            const response = await fetch(`${BASE_URL}/api/summarize/article`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(articleBody),
+            });
+            const data = await response.json();
+  
+            console.log("summary", data);
+  
+            setSelectedArticle((prevArticle) => {
+              if (!prevArticle) return null;
+              return {
+                ...prevArticle,
+                summaries: [...prevArticle.summaries, data.summary],
+              };
+            });
+          } catch (error) {
+            console.error("Error processing article summary request", error);
+          }
+        }
+      };
+  
+      fetchArticleSummary();
+    }, [selectedArticle]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -155,6 +219,7 @@ const DashboardPage: React.FC = () => {
                 header={dailyNews.clusterLabels[index]}
                 summary={dailyNews.clusterSummaries[index]}
                 articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
+                handleArticleClick={handleArticleClick}
                 />
               ) : null
             )
@@ -168,6 +233,12 @@ const DashboardPage: React.FC = () => {
             <LocalNews />
             </div>
         </div>
+
+        <Sidebar
+          selectedArticle={selectedArticle}
+          closePanel={closePanel}
+          isPanelOpen={isPanelOpen}
+        />
       </main>
     </div>
   );
