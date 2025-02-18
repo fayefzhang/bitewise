@@ -59,8 +59,7 @@ const Header: React.FC<HeaderProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim()) {
       onSearch(searchTerm.trim());
-      if (setPreferences)
-        setPreferences(searchPreferences);
+      if (setPreferences) setPreferences(searchPreferences);
     }
   };
 
@@ -69,6 +68,40 @@ const Header: React.FC<HeaderProps> = ({
 
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
+
+  const transformReadTime = (read_time: number): string[] => {
+    if (!read_time)
+      return [];
+    switch (read_time) {
+      case 1:
+        return ["Short"];
+      case 2:
+        return ["Medium"];
+      case 3:
+        return ["Long"];
+      default:
+        return [];
+    }
+  };
+
+  const transformBias = (bias: number): string[] => {
+    if (!bias)
+      return [];
+    switch (bias) {
+      case 1:
+        return ["Center"];
+      case 2:
+        return ["Left"];
+      case 3:
+        return ["Left", "Center"];
+      case 4:
+        return ["Right"];
+      case 5:
+        return ["Right", "Center"];
+      default:
+        return [];
+    }
+  };
 
   const [isSignedIn, setisSignedIn] = useState(false);
   useEffect(() => {
@@ -91,15 +124,8 @@ const Header: React.FC<HeaderProps> = ({
           const transformedPreferences = {
             from_date: userPreferences.from_date || "",
             to_date: "", // NOT IN DATABASE
-            read_time: userPreferences.read_time
-              // EXTREMELY SCUFFED taken from the database on how we store read_time
-              ? [userPreferences.read_time == 1 ? "Short" :
-                (userPreferences.read_time == 2? "Medium" : "Long")]
-              : [],
-            bias: userPreferences.bias
-              // similarly EXTREMELY SCUFFED taken from the database on how we store bias
-              ? [userPreferences.bias == 1 ? "Center" :
-                (userPreferences.bias == 2 ? "Left" : "Right")] : [],
+            read_time: transformReadTime(userPreferences.read_time),
+            bias: transformBias(userPreferences.bias),
             clustering: userPreferences.clustering || false,
           };
 

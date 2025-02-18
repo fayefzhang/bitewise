@@ -332,48 +332,20 @@ def get_preferences():
 def topic_search():
     data = request.get_json()
 
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    json_file_path = os.path.join(current_dir, 'data', 'daily_topics_articles.json')
+    if not data:
+        return jsonify({"error": "No JSON data received"}), 400
 
     topics = data.get('topics')
     search_preferences = data.get("search_preferences", {})
-
-    if os.path.exists(json_file_path): # file exists
-        if os.stat(json_file_path).st_size == 0: # if file is empty
-            print("The file exists but is empty.")
-
-            results = get_topics_articles(topics, search_preferences)
-            return jsonify(results), 200
-        else: # file is not empty
-            print("The file exists and is not empty.")
-            with open(json_file_path, 'r') as f:
-                cached_data = json.load(f)
-                last_updated = datetime.fromisoformat(cached_data['timestamp'])
-                current_day = datetime.now().date()
-
-                if last_updated.date() == current_day:
-                    return jsonify(cached_data['news'])
-                else:
-                    results = get_topics_articles(topics, search_preferences)
-                    with open(json_file_path, 'w') as f:
-                        json.dump({
-                            'timestamp': datetime.now().isoformat(),
-                            'news': results
-                        }, f)
-                    return jsonify(results), 200
-
-    else: # file does not exist
+    
+    print("topics in app.py:", topics)  # Debugging print
+    if topics is None:
+        return jsonify({"error": "Missing 'topics' in request data"}), 400
         
-        results = get_topics_articles(topics, search_preferences)
+    # print("topics in app.py: " + topics)
+    results = get_topics_articles(topics, search_preferences)
 
-        # Save the fresh news to the cache
-        with open(json_file_path, 'w') as f:
-            json.dump({
-                'timestamp': datetime.now().isoformat(),
-                'news': results
-            }, f)
-
-        return jsonify(results), 200
+    return jsonify(results), 200
 
 @app.route('/crawl/all', methods=['POST'])
 def crawl_all():

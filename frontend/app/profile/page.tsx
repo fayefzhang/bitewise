@@ -171,7 +171,9 @@ const ProfilePage: React.FC = () => {
             <option value={0}>Select Bias</option>
             <option value={1}>Center</option>
             <option value={2}>Left</option>
-            <option value={3}>Right</option>
+            <option value={3}>Left-Center</option>
+            <option value={4}>Right</option>
+            <option value={5}>Right-Center</option>
           </select>
           <div className="relative group">
             <svg

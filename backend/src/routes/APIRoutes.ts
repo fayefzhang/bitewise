@@ -4,6 +4,7 @@ import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
 import UserModel from '../models/User';
+import TopicsArticlesModel from '../models/TopicsArticles'
 
 const PrefDictionary = {
     AILength: {
@@ -222,18 +223,14 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // store query in database
-        // const duplicateQuery = await QueryModel.findOne({ query });  // check duplicate
+        const newQuery = new QueryModel({
+            query,
+            date: new Date(),
+            articles: articlesData.map((article: { url: string }) => article.url)
+        });
 
-        // if (!duplicateQuery) {
-        //     const newQuery = new QueryModel({
-        //         query,
-        //         date: new Date(),
-        //         articles: articlesData.map((article: { url: string }) => article.url)
-        //     });
-
-        //     const savedQuery = await newQuery.save();
-        //     console.log("saved query:", savedQuery);
-        // }
+        const savedQuery = await newQuery.save();
+        console.log("saved query:", savedQuery);
 
         res.json(result);
     } catch (error: any) {
@@ -717,6 +714,77 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
     }
 });
 
+// @route POST /generate/topics
+// @description Generates new daily topics articles for each topic.
+router.post('/generate/topics', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: (default preferences)
+  
+        const today = new Date() // yyyy-mm-dd part
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+        const existingTopics = await Promise.all(
+            topics.map(async (topic: string) => {
+                const existingTopicsArticles = await TopicsArticlesModel.findOne({
+                    date: { $gte: startOfDay, $lte: endOfDay }, topic
+                });
+                console.log(`Checking topic: ${topic}, Found:`, existingTopicsArticles);
+                return existingTopicsArticles ? null : topic; // Return topic only if it doesn't exist
+            })
+        );
+
+        console.log("existingTopics: " + existingTopics)
+        
+        // Filter out null values
+        const filteredRemainingTopics = existingTopics.filter(topic => topic !== null);
+
+        if (filteredRemainingTopics.length === 0) {
+            console.log("topics for " + today + "already loaded")
+            res.status(200).json({ error: "topics for " + today + "already loaded" })
+            return;
+        }
+
+        console.log("filteredRemainingTopics: " + filteredRemainingTopics)
+
+        const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
+            topics: filteredRemainingTopics,
+            search_preferences
+        });
+
+        console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
+
+        // convert to TopicsArticles schema
+        const formattedTopicsArticles = topics_articles_response.data.map((topicArticle: { topic: any; results: any[]; }) => ({
+            date: new Date(), // Current date
+            topic: topicArticle.topic,
+            results: topicArticle.results.map(article => ({
+                articles: {
+                    author: article.author,
+                    biasRating: article.biasRating,
+                    description: article.description,
+                    datePublished: new Date(article.publishedAt),
+                    source: article.source.name,
+                    title: article.title,
+                    url: article.url,
+                    readTime: article.readTime,
+                }
+            }))
+        }));
+        
+        // Save to MongoDB
+        TopicsArticlesModel.insertMany(formattedTopicsArticles)
+            .then(() => console.log("Data successfully inserted"))
+            .catch(error => console.error("Error inserting data:", error));
+
+        res.json(topics_articles_response.data);
+
+    } catch (error: any) {
+        console.error("Error retrieving user topics", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 // @route POST /user/signin
 // @description Validates the user's email and password
 router.post('/user/signin', async (req: Request, res: Response): Promise<void> => {
@@ -749,7 +817,7 @@ router.post('/user/signin', async (req: Request, res: Response): Promise<void> =
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
-        // const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
 
         // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
         //     topics,
@@ -757,14 +825,23 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
         // });
 
         // had to modify because topics was null
-        const { search_preferences } = req.body; // topics: [string], search_preferences: 
-        const topics = "technology";
+        // const { search_preferences } = req.body; // topics: [string], search_preferences: 
+        // const topics = "technology";
 
-        const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
-            topics,
-            search_preferences
-        });
-        res.json(topics_articles.data);
+        const existingTopicsArticles = await TopicsArticlesModel.find({
+            topic: { $in: topics }
+        }).lean();
+
+        const formattedTopicsArticles = existingTopicsArticles.reduce((acc: any, topicArticle: any) => {
+            acc[topicArticle.topic] = topicArticle.results;
+            return acc;
+        }, {});
+
+        // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics,
+        //     search_preferences
+        // });
+        res.json(formattedTopicsArticles);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
         res.status(500).json({ error: "Internal server error" });
