@@ -182,7 +182,7 @@ def crawl_seeds(sources, output_file='articles_data.json'):
                 "url": article.url,
                 "title": article.title,
                 "source": article.source,
-                "fullContent": article.content,
+                "content": article.content,
                 "content": article.content[:200] + "...",
                 "imageUrl": article.imageUrl,
                 "authors": article.authors,

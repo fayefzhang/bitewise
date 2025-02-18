@@ -3,16 +3,12 @@
 import { Key } from "react";
 
 // Preferences Interface
-export interface Preferences {
-  sources: string[]; // for daily news
-  domains: string[]; // theoretically same as sources, will add in code later to go from one to another so we only need one
-  exclude_domains: string[];
+export interface AdvancedSearchPreferences {
   from_date: string; // this defaults to past 7 days in newsapi code
   to_date: string;
   read_time: string[];
   bias: string[];
   clustering: boolean;
-  topics: string[];
 }
 
 // Article Interface

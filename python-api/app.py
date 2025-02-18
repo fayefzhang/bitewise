@@ -205,7 +205,7 @@ def summarize_article():
     if not article:
         return jsonify({"error": "Article is required"}), 400
     
-    full_content = article.get("fullContent")
+    full_content = article.get("content")
     title = article.get("title")
     url = article.get("url")
 
@@ -213,8 +213,8 @@ def summarize_article():
     
     # only retrieve full content if we didn't already get it
     if not full_content:
-        fetched_data = get_contents({url: {"title": title, "fullContent": None}})
-        full_content = fetched_data[url]["fullContent"]
+        fetched_data = get_contents({url: {"title": title, "content": None}})
+        full_content = fetched_data[url]["content"]
 
     # generate summary
     ai_preferences = data.get('ai_preferences')
@@ -260,7 +260,6 @@ def summarize_articles():
         enriched_articles.append({
             "url": url,
             "title": article_result.get("title", ""),
-            "fullContent": article_result.get("fullContent", ""),
             "content": article_result.get("content", ""),
             "imageUrl": article_result.get("imageUrl", ""),
             "readTime": article_result.get("readTime", ""),
@@ -333,11 +332,6 @@ def get_preferences():
 def topic_search():
     data = request.get_json()
 
-    # current_dir = os.path.dirname(os.path.abspath(__file__))
-    # json_file_path = os.path.join(current_dir, 'data', 'daily_topics_articles.json')
-
-    print("Received data:", data)  # Debugging print
-
     if not data:
         return jsonify({"error": "No JSON data received"}), 400
 
@@ -347,49 +341,9 @@ def topic_search():
     print("topics in app.py:", topics)  # Debugging print
     if topics is None:
         return jsonify({"error": "Missing 'topics' in request data"}), 400
-    # if os.path.exists(json_file_path): # file exists
-    #     if os.stat(json_file_path).st_size == 0: # if file is empty
-    #         print("The file exists but is empty.")
-
-    #         results = get_topics_articles(topics, search_preferences)
-
-    #         # Save the fresh news to the cache
-    #         with open(json_file_path, 'w') as f:
-    #             json.dump({
-    #                 'timestamp': datetime.now().isoformat(),
-    #                 'news': results
-    #             }, f)
-
-    #         return jsonify(results), 200
-    #     else: # file is not empty
-    #         print("The file exists and is not empty.")
-    #         with open(json_file_path, 'r') as f:
-    #             cached_data = json.load(f)
-    #             last_updated = datetime.fromisoformat(cached_data['timestamp'])
-    #             current_day = datetime.now().date()
-
-    #             if last_updated.date() == current_day:
-    #                 return jsonify(cached_data['news'])
-    #             else:
-    #                 results = get_topics_articles(topics, search_preferences)
-    #                 with open(json_file_path, 'w') as f:
-    #                     json.dump({
-    #                         'timestamp': datetime.now().isoformat(),
-    #                         'news': results
-    #                     }, f)
-    #                 return jsonify(results), 200
-
-    # else: # file does not exist
         
     # print("topics in app.py: " + topics)
     results = get_topics_articles(topics, search_preferences)
-
-    # Save the fresh news to the cache
-    # with open(json_file_path, 'w') as f:
-    #     json.dump({
-    #         'timestamp': datetime.now().isoformat(),
-    #         'news': results
-    #     }, f)
 
     return jsonify(results), 200
 

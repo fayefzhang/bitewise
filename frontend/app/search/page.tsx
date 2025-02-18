@@ -1,6 +1,6 @@
 "use client";
 
-import { Preferences, Article, Summary } from "../common/interfaces";
+import { AdvancedSearchPreferences, Article, Summary } from "../common/interfaces";
 import {
   defaultAIPreferences,
   defaultSearchPreferences,
@@ -74,7 +74,7 @@ const SearchPage: React.FC = () => {
   const [selectedArticleUrl, setSelectedArticleUrl] = useState<string | null>(
     null
   );
-  const [headerPreferences, setHeaderPreferences] = useState<Preferences>(
+  const [headerPreferences, setHeaderPreferences] = useState<AdvancedSearchPreferences>(
     defaultSearchPreferences
   );
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -87,7 +87,7 @@ const SearchPage: React.FC = () => {
         const articleBody = {
           article: {
             title: selectedArticle.title,
-            fullContent: selectedArticle.fullContent,
+            content: selectedArticle.content,
             url: selectedArticle.url,
           },
           ai_preferences: defaultAIPreferences,
@@ -119,7 +119,7 @@ const SearchPage: React.FC = () => {
     fetchArticleSummary();
   }, [selectedArticle]);
 
-  async function setPreferences(preferences: Preferences) {
+  async function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
   }
 
@@ -186,7 +186,6 @@ const SearchPage: React.FC = () => {
         readTime: entry.readTime,
         relatedSources: entry.relatedSources,
         summaries: [],
-        fullContent: entry.fullContent,
         cluster: entry.cluster,
       }));
 

@@ -107,7 +107,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                     articles: Object.fromEntries(
                         articles.slice(0, 5).map((article: any) => [
                             article.url,
-                            { title: article.title, fullContent: article.content }
+                            { title: article.title, content: article.content }
                         ])
                     ),
                     ai_preferences,
@@ -165,7 +165,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
             acc[article.url] = {
                 title: article.title,
-                fullContent: article.fullContent,
+                content: article.content,
                 imageUrl: article.imageUrl,
                 readTime: article.readTime,
                 biasRating: article.bias,
@@ -333,7 +333,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
-                        fullContent: article.content,
+                        content: article.content,
                         imageUrl: article.imageUrl,
                         readTime: article.readTime,
                         biasRating: article.biasRating,
@@ -652,6 +652,7 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
             return
         }
 
+        // TODO: do hashing on password
         const updatedUser = await UserModel.findOneAndUpdate(
             { email: user.email },
             { 
@@ -675,19 +676,24 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
 })
 
 // @route GET user/preferences
-// @description Gets the user's preferences.
+// @description Gets the user's preferences by email.
 router.get('/user/preferences', async (req: Request, res: Response): Promise<void> => {
     try {
-        const userID = req.query.userID as string; // Explicitly cast to string if using TypeScript
-        if (!userID) {
-            res.status(400).json({ message: 'No user is logged in' });
+        const userEmail = req.query.email as string; // Get the email from query parameters
+        if (!userEmail) {
+            res.status(400).json({ message: 'No user email provided' });
+            return;
         }
 
-        const preferencesResponse = await axios.get("http://127.0.0.1:5000/user/preferences", {
-            params: { userID }, // Pass query parameters to Flask
-        });
+        // Find the user by email in the database
+        const user = await UserModel.findOne({ email: userEmail });
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
 
-        res.json(preferencesResponse.data);
+        // Return the user's preferences
+        res.json(user.preferences);
     } catch (error: any) {
         console.error("Error retrieving user preferences:", error);
         res.status(500).json({ error: "Internal server error" });
@@ -765,22 +771,54 @@ router.post('/generate/topics', async (req: Request, res: Response): Promise<voi
     }
 });
 
+// @route POST /user/signin
+// @description Validates the user's email and password
+router.post('/user/signin', async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body;
+  
+    try {
+      // Find the user by email
+      const user = await UserModel.findOne({ email: email });
+  
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+  
+      // TODO: do hashing on password
+      const passwordMatch = (password == user.password);
+      if (!passwordMatch) {
+        res.status(401).json({ message: "Incorrect password" });
+        return;
+      }
+
+      res.json({ message: "Sign-in successful", preferences: user.preferences });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
 // @route POST /search/topics
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+        // const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+
+        // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics,
+        //     search_preferences
+        // });
+
+        // had to modify because topics was null
+        const { search_preferences } = req.body; // topics: [string], search_preferences: 
+        const topics = "technology";
 
         const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
             topics,
             search_preferences
         });
-
-        console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
-
-        const formatted_topics_articles = 
-
-        res.json(topics_articles_response.data);
+        res.json(topics_articles.data);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
         res.status(500).json({ error: "Internal server error" });

@@ -3,14 +3,14 @@ from typing import Dict, List
 from . import config
 from newspaper import Article
 
-# articles: {"url": { "title": "string", "fullContent": "string" }}
+# articles: {"url": { "title": "string", "content": "string" }}
 def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str]]:
     exa = Exa(api_key=config.EXA_API_KEY)
     url_list = []
     
     # only calls exa if we haven't already scraped content
     for url, article_data in articles.items():
-      if not article_data.get("fullContent"):
+      if not article_data.get("content"):
         url_list.append(url)
         print(f"url: {url}")
 
@@ -31,7 +31,7 @@ def get_contents(articles: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str
     for url, article_data in articles.items():
       if url in fetched_results:
         try:
-            article_data["fullContent"] = fetched_results[url].text.strip()
+            article_data["content"] = fetched_results[url].text.strip()
             # get thumbnail image
             article = Article(url)
             article.download()
