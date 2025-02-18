@@ -2,8 +2,10 @@
 
 import Header from "../components/header";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { interests, sources } from "../common/utils";
+
+const BASE_URL = "http://localhost:3000";
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
@@ -15,6 +17,61 @@ const ProfilePage: React.FC = () => {
 
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
+
+  // Fetch user preferences on page load
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    const fetchUserPreferences = async () => {
+      try {
+        const userPrefResponse = await fetch(
+          `${BASE_URL}/api/user/preferences?email=${userEmail}`
+        );
+        if (!userPrefResponse.ok) {
+          throw new Error("Failed to get existing user preferences");
+        }
+        const userPreferences = await userPrefResponse.json();
+
+        // Set the initial state based on fetched preferences
+        setSelectedTopics(userPreferences.topics || []);
+        setSelectedSources(userPreferences.sources || []);
+      } catch (error) {
+        console.error("Error fetching user preferences:", error);
+      }
+    };
+
+    fetchUserPreferences();
+  }, []);
+
+  const updateUserProfile = async (
+    updatedTopics: string[],
+    updatedSources: string[]
+  ) => {
+    try {
+      const userEmail = localStorage.getItem("userEmail");
+      const response = await fetch(`${BASE_URL}/api/user/update`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user: {
+            email: userEmail, // make sure to pass the current user's email
+            preferences: {
+              topics: updatedTopics,
+              sources: updatedSources,
+            },
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update user preferences");
+      }
+
+      const updatedPreferences = await response.json();
+      console.log("Updated preferences:", updatedPreferences);
+    } catch (error) {
+      console.error("Error updating preferences:", error);
+    }
+  };
 
   const handleOptionClick = (interest: string, isTopics: boolean) => {
     if (isTopics) {
@@ -47,6 +104,7 @@ const ProfilePage: React.FC = () => {
       <Header onSearch={handleSearch} placeholder="Search topic..." />
 
       <div className="flex-grow flex flex-col items-start bg-white p-8">
+        {/* Topics Section */}
         <div className="flex flex-col items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-700">
             Your Persistent User Preferences
@@ -64,7 +122,7 @@ const ProfilePage: React.FC = () => {
             className="w-full border-2 rounded-full px-4 py-2 text-blue-500 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <div className="w-full flex flex-wrap gap-4 mb-8">
+        <div className="w-full flex flex-wrap gap-4 mb-2">
           {filteredInterests.map((interest) => (
             <button
               key={interest}
@@ -79,10 +137,20 @@ const ProfilePage: React.FC = () => {
             </button>
           ))}
         </div>
+        <div className="flex flex-col items-center mb-6">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            onClick={() => updateUserProfile(selectedTopics, selectedSources)}
+          >
+            Save Topics
+          </button>
+        </div>
+
+        {/* Sources Section */}
         <div className="flex flex-col items-center mb-4">
           <h1 className="text-xl font-bold text-gray-600">Your Sources</h1>
         </div>
-        <div className="w-full flex flex-wrap gap-4 mb-8">
+        <div className="w-full flex flex-wrap gap-4 mb-2">
           {sources.map((source) => (
             <button
               key={source}
@@ -96,6 +164,14 @@ const ProfilePage: React.FC = () => {
               {source}
             </button>
           ))}
+        </div>
+        <div className="flex flex-col items-center mb-6">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            onClick={() => updateUserProfile(selectedTopics, selectedSources)}
+          >
+            Save Sources
+          </button>
         </div>
       </div>
     </div>
