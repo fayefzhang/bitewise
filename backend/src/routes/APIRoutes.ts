@@ -4,6 +4,7 @@ import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
 import UserModel from '../models/User';
+import TopicsArticlesModel from '../models/TopicsArticles'
 
 const AIDictionary = {
     AILength: {
@@ -693,6 +694,77 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
     }
 });
 
+// @route POST /generate/topics
+// @description Generates new daily topics articles for each topic.
+router.post('/generate/topics', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: (default preferences)
+  
+        const today = new Date() // yyyy-mm-dd part
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+        const existingTopics = await Promise.all(
+            topics.map(async (topic: string) => {
+                const existingTopicsArticles = await TopicsArticlesModel.findOne({
+                    date: { $gte: startOfDay, $lte: endOfDay }, topic
+                });
+                console.log(`Checking topic: ${topic}, Found:`, existingTopicsArticles);
+                return existingTopicsArticles ? null : topic; // Return topic only if it doesn't exist
+            })
+        );
+
+        console.log("existingTopics: " + existingTopics)
+        
+        // Filter out null values
+        const filteredRemainingTopics = existingTopics.filter(topic => topic !== null);
+
+        if (filteredRemainingTopics.length === 0) {
+            console.log("topics for " + today + "already loaded")
+            res.status(200).json({ error: "topics for " + today + "already loaded" })
+            return;
+        }
+
+        console.log("filteredRemainingTopics: " + filteredRemainingTopics)
+
+        const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
+            topics: filteredRemainingTopics,
+            search_preferences
+        });
+
+        console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
+
+        // convert to TopicsArticles schema
+        const formattedTopicsArticles = topics_articles_response.data.map((topicArticle: { topic: any; results: any[]; }) => ({
+            date: new Date(), // Current date
+            topic: topicArticle.topic,
+            results: topicArticle.results.map(article => ({
+                articles: {
+                    author: article.author,
+                    biasRating: article.biasRating,
+                    description: article.description,
+                    datePublished: new Date(article.publishedAt),
+                    source: article.source.name,
+                    title: article.title,
+                    url: article.url,
+                    readTime: article.readTime,
+                }
+            }))
+        }));
+        
+        // Save to MongoDB
+        TopicsArticlesModel.insertMany(formattedTopicsArticles)
+            .then(() => console.log("Data successfully inserted"))
+            .catch(error => console.error("Error inserting data:", error));
+
+        res.json(topics_articles_response.data);
+
+    } catch (error: any) {
+        console.error("Error retrieving user topics", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 // @route POST /search/topics
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
@@ -704,7 +776,11 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
             search_preferences
         });
 
-        res.json(topics_articles.data);
+        console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
+
+        const formatted_topics_articles = 
+
+        res.json(topics_articles_response.data);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
         res.status(500).json({ error: "Internal server error" });
