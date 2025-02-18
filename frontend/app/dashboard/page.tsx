@@ -228,7 +228,7 @@ const DashboardPage: React.FC = () => {
 
         {/* Your + Local Topics */}
         <div className="w-full md:w-[30%] flex flex-col space-y-4">
-            <div className="fixed space-y-4 pr-4">
+            <div className="fixed space-y-4 pr-4 max-w-full md:max-w-[30%]">
             <TopicsArticles />
             <LocalNews />
             </div>

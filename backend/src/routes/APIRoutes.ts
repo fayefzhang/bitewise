@@ -803,7 +803,7 @@ router.post('/user/signin', async (req: Request, res: Response): Promise<void> =
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
-        // const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
 
         // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
         //     topics,
@@ -811,14 +811,23 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
         // });
 
         // had to modify because topics was null
-        const { search_preferences } = req.body; // topics: [string], search_preferences: 
-        const topics = "technology";
+        // const { search_preferences } = req.body; // topics: [string], search_preferences: 
+        // const topics = "technology";
 
-        const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
-            topics,
-            search_preferences
-        });
-        res.json(topics_articles.data);
+        const existingTopicsArticles = await TopicsArticlesModel.find({
+            topic: { $in: topics }
+        }).lean();
+
+        const formattedTopicsArticles = existingTopicsArticles.reduce((acc: any, topicArticle: any) => {
+            acc[topicArticle.topic] = topicArticle.results;
+            return acc;
+        }, {});
+
+        // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics,
+        //     search_preferences
+        // });
+        res.json(formattedTopicsArticles);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
         res.status(500).json({ error: "Internal server error" });

@@ -29,9 +29,7 @@ const TopicsArticles = () => {
                     throw new Error("Failed to get existing user preferences");
                 }
                 const userPreferences = await userPrefResponse.json();
-                console.log("user pref", userPreferences);
-                const data = userPreferences;
-                setPreferences(data);
+                setPreferences(userPreferences);
 
                 const fromDate = new Date();
                 fromDate.setDate(fromDate.getDate() - 2);
@@ -45,7 +43,7 @@ const TopicsArticles = () => {
                     read_time: null,
                     bias: null,
                 };
-                console.log("data.topics: " + data.topics);
+                console.log("data.topics: " + userPreferences.topics);
                 console.log("Fetching topic articles...");
                 const topicsResponse = await fetch(`${BASE_URL}/api/search/topics`, {
                     method: 'POST',
@@ -53,13 +51,20 @@ const TopicsArticles = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        topics: data.topics,
+                        topics: userPreferences.topics,
                         ...searchPreferences,
                     }),
                 });
 
                 const rawTopicsData = await topicsResponse.text();
                 console.log("Raw topic articles response:", rawTopicsData);
+
+                if (!rawTopicsData) {
+                    console.warn("Received empty response from topic articles API.");
+                    setTopicArticles([]); // Avoid error
+                    return;
+                }
+                
                 const topicsData = JSON.parse(rawTopicsData);
                 console.log("Topic Articles:", topicsData);
                 setTopicArticles(topicsData);
@@ -76,29 +81,31 @@ const TopicsArticles = () => {
 
         return (
             <Tab.Group>
-                <Tab.List className="flex space-x-1 p-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                    {topicArticles.map((topic: any) => (
-                        <Tab
-                            key={topic.topic}
-                            className={({ selected }: { selected: boolean }) =>
-                                `px-4 py-2.5 text-sm leading-5 font-bold rounded-lg flex-shrink-0
-                                ${selected ? 'bg-white shadow' : 'hover:bg-white/[0.12] hover:text-white'}
-                                focus:outline-none`
-                            }
-                        >
-                            {topic.topic}
-                        </Tab>
-                    ))}
-                </Tab.List>
+                <div className="w-full overflow-hidden">
+                    <Tab.List className="flex space-x-1 p-1 overflow-x-auto whitespace-nowrap scrollbar-hide max-w-full flex-nowrap">
+                        {topicArticles.map((topic: any) => (
+                            <Tab
+                                key={topic.topic}
+                                className={({ selected }: { selected: boolean }) =>
+                                    `px-4 py-2.5 text-sm leading-5 font-bold rounded-lg flex-shrink-0
+                                    ${selected ? 'bg-white shadow' : 'hover:bg-white/[0.12] hover:text-white'}
+                                    focus:outline-none`
+                                }
+                            >
+                                {topic.topic}
+                            </Tab>
+                        ))}
+                    </Tab.List>
+                </div>
                 <Tab.Panels className="mt-2">
                     {topicArticles.map((topic: any) => (
                         <Tab.Panel key={topic.topic}>
-                            {topic.results.map((article: any) => (
+                            {topic.results.map((articles: any, articleIndex: number) => (
                                 <ArticleEntry 
-                                    key={article.title}
-                                    title={article.title}
-                                    description={article.description}
-                                    link={article.url}
+                                    key={articles.articles.title || `${topic.topic}-${articleIndex}`}
+                                    title={articles.articles.title}
+                                    description={articles.articles.description}
+                                    link={articles.articles.url}
                                 />
                             ))}
                         </Tab.Panel>
