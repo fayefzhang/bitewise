@@ -13,37 +13,49 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const [searchInterestsQuery, setSearchInterestsQuery] = useState<string>("");
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [selectedSources, setSelectedSources] = useState<string[]>([]);
 
-  const handleOptionClick = (interest: string) => {
-    if (selectedInterests.includes(interest)) {
-      setSelectedInterests(selectedInterests.filter((i) => i !== interest));
+  const handleOptionClick = (interest: string, isTopics: boolean) => {
+    if (isTopics) {
+      // topics
+      if (selectedTopics.includes(interest))
+        setSelectedTopics(selectedTopics.filter((i) => i !== interest));
+      else setSelectedTopics([...selectedTopics, interest]);
     } else {
-      setSelectedInterests([...selectedInterests, interest]);
+      // sources
+      if (selectedSources.includes(interest))
+        setSelectedSources(selectedSources.filter((i) => i !== interest));
+      else setSelectedSources([...selectedSources, interest]);
     }
   };
 
+  // handle searching for topics
+  const [searchInterestsQuery, setSearchInterestsQuery] = useState<string>("");
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInterestsQuery(event.target.value);
   };
-
   const filteredInterests = interests.filter((interest) =>
     interest.toLowerCase().includes(searchInterestsQuery.toLowerCase())
   );
+
+  // TODO: implement searching for sources
+  // (not sure if we even need this if we only have like 5-7 options)
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header onSearch={handleSearch} placeholder="Search topic..." />
 
       <div className="flex-grow flex flex-col items-start bg-white p-8">
-        <div className="flex flex-col items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-700">Good evening, GUEST.</h1>
+        <div className="flex flex-col items-center mb-4">
+          <h1 className="text-2xl font-bold text-gray-700">
+            Your Persistent User Preferences
+          </h1>
         </div>
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center mb-4">
           <h1 className="text-xl font-bold text-gray-600">Your Topics</h1>
         </div>
-        <div className="mb-12">
+        <div className="mb-4">
           <input
             type="text"
             placeholder="Search..."
@@ -57,24 +69,29 @@ const ProfilePage: React.FC = () => {
             <button
               key={interest}
               className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium hover:bg-blue-500 hover:text-white focus:outline-none ${
-                selectedInterests.includes(interest)
+                selectedTopics.includes(interest)
                   ? "bg-blue-500 text-white"
                   : "bg-white"
               }`}
-              onClick={() => handleOptionClick(interest)}
+              onClick={() => handleOptionClick(interest, true)}
             >
               {interest}
             </button>
           ))}
         </div>
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center mb-4">
           <h1 className="text-xl font-bold text-gray-600">Your Sources</h1>
         </div>
         <div className="w-full flex flex-wrap gap-4 mb-8">
           {sources.map((source) => (
             <button
               key={source}
-              className={`border-2 rounded-full px-4 py-2 font-medium hover:bg-blue-500 hover:text-white focus:outline-none bg-blue-500 text-white`}
+              className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium hover:bg-blue-500 hover:text-white focus:outline-none ${
+                selectedSources.includes(source)
+                  ? "bg-blue-500 text-white"
+                  : "bg-white"
+              }`}
+              onClick={() => handleOptionClick(source, false)}
             >
               {source}
             </button>
