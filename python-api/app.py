@@ -205,7 +205,7 @@ def summarize_article():
     if not article:
         return jsonify({"error": "Article is required"}), 400
     
-    full_content = article.get("fullContent")
+    full_content = article.get("content")
     title = article.get("title")
     url = article.get("url")
 
@@ -213,8 +213,8 @@ def summarize_article():
     
     # only retrieve full content if we didn't already get it
     if not full_content:
-        fetched_data = get_contents({url: {"title": title, "fullContent": None}})
-        full_content = fetched_data[url]["fullContent"]
+        fetched_data = get_contents({url: {"title": title, "content": None}})
+        full_content = fetched_data[url]["content"]
 
     # generate summary
     ai_preferences = data.get('ai_preferences')
@@ -260,7 +260,6 @@ def summarize_articles():
         enriched_articles.append({
             "url": url,
             "title": article_result.get("title", ""),
-            "fullContent": article_result.get("fullContent", ""),
             "content": article_result.get("content", ""),
             "imageUrl": article_result.get("imageUrl", ""),
             "readTime": article_result.get("readTime", ""),
@@ -344,14 +343,6 @@ def topic_search():
             print("The file exists but is empty.")
 
             results = get_topics_articles(topics, search_preferences)
-
-            # Save the fresh news to the cache
-            with open(json_file_path, 'w') as f:
-                json.dump({
-                    'timestamp': datetime.now().isoformat(),
-                    'news': results
-                }, f)
-
             return jsonify(results), 200
         else: # file is not empty
             print("The file exists and is not empty.")

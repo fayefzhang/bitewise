@@ -129,7 +129,7 @@ const DashboardPage: React.FC = () => {
           const articleBody = {
             article: {
               title: selectedArticle.title,
-              fullContent: selectedArticle.fullContent,
+              content: selectedArticle.content,
               url: selectedArticle.url,
             },
             ai_preferences: defaultAIPreferences,
