@@ -260,24 +260,6 @@ const Header: React.FC<HeaderProps> = ({
           </div>
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">
-              Date Published To
-            </label>
-            <div className="flex space-x-2">
-              <input
-                type="date"
-                value={searchPreferences.to_date}
-                onChange={(e) =>
-                  setSearchPreferences((prev) => ({
-                    ...prev,
-                    to_date: e.target.value,
-                  }))
-                }
-                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">
               Clustering
             </label>
             <div className="flex items-center space-x-2">
