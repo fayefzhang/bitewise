@@ -1,6 +1,6 @@
 // src/common/utils.ts
 
-import { Preferences } from "./interfaces";
+import { AdvancedSearchPreferences } from "./interfaces";
 
 // make search titles look nice
 export function toTitleCase(input: string): string {
@@ -90,16 +90,12 @@ export const sources = [
   // ... add more sources here
 ];
 
-export const defaultSearchPreferences: Preferences = {
-  sources: [],
-  domains: [],
-  exclude_domains: [],
+export const defaultSearchPreferences: AdvancedSearchPreferences = {
   from_date: "",
   to_date: "",
   read_time: [],
   bias: [],
   clustering: false,
-  topics: [],
 };
 
 export const defaultAIPreferences = {

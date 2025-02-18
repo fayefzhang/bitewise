@@ -153,10 +153,10 @@ const ProfilePage: React.FC = () => {
             onChange={(e) => setReadTime(Number(e.target.value))}
             className="border-2 rounded-full px-4 py-2 text-blue-500 font-medium"
           >
-            <option value="">Select Read Time</option>
-            <option value={5}>Short</option>
-            <option value={10}>Medium</option>
-            <option value={15}>Long</option>
+            <option value={0}>Select Read Time</option>
+            <option value={1}>Short</option>
+            <option value={2}>Medium</option>
+            <option value={3}>Long</option>
           </select>
         </div>
 
@@ -168,9 +168,10 @@ const ProfilePage: React.FC = () => {
             onChange={(e) => setBias(Number(e.target.value))}
             className="border-2 rounded-full px-4 py-2 text-blue-500 font-medium"
           >
-            <option value={0}>Center</option>
-            <option value={-1}>Left</option>
-            <option value={1}>Right</option>
+            <option value={0}>Select Bias</option>
+            <option value={1}>Center</option>
+            <option value={2}>Left</option>
+            <option value={3}>Right</option>
           </select>
           <div className="relative group">
             <svg
