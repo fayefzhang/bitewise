@@ -254,7 +254,7 @@ def get_topics_articles(topics, search_preferences):
         topic_search_results = user_search(topic, search_preferences, "")
         topic_result = {
             "topic": topic,
-            "results": topic_search_results[:3] # arbitrary amount, can change
+            "results": topic_search_results # arbitrary amount, can change
         }
     
         results.append(topic_result)
