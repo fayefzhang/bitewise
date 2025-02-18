@@ -4,7 +4,7 @@ import { Preferences } from "../common/interfaces";
 import SignInPopUp from "./signinpopup";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultSearchPreferences } from "../common/utils";
 
 interface HeaderProps {
@@ -68,6 +68,13 @@ const Header: React.FC<HeaderProps> = ({
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
+  const [isSignedIn, setisSignedIn] = useState(false);
+  useEffect(() => {
+    // check if user already signed in
+    const userEmail = localStorage.getItem("userEmail"); // check against localstorage (this is the scuffed way)
+    if (userEmail != null) setisSignedIn(true);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
@@ -103,15 +110,21 @@ const Header: React.FC<HeaderProps> = ({
         )}
       </div>
       <div className="flex space-x-4 absolute right-4">
-        <Link href="/profile">
-          <button className="p-3 rounded-full bg-white text-2xl">☰</button>
-        </Link>
-        <button
-          className="p-3 rounded-full bg-white text-2xl"
-          onClick={openPopup}
-        >
-          👤
-        </button>
+        {isSignedIn && ( // only show profile if user is signed in
+          <div className="flex space-x-4">
+            <Link href="/profile">
+              <button className="p-3 rounded-full bg-white text-2xl text-black">☰</button>
+            </Link>
+          </div>
+        )}
+        {!isSignedIn && ( // only show sign in if user is not signed in
+          <button
+            className="p-3 rounded-full bg-white text-2xl"
+            onClick={openPopup}
+          >
+            👤
+          </button>
+        )}
       </div>
 
       {/* Sign In Sign Up Pop Up */}

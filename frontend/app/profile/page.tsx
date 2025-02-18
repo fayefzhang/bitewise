@@ -73,6 +73,11 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  const handleLogOut = async () => {
+    localStorage.clear();
+    router.push("/dashboard");
+  };
+
   const handleOptionClick = (interest: string, isTopics: boolean) => {
     if (isTopics) {
       // topics
@@ -171,6 +176,15 @@ const ProfilePage: React.FC = () => {
             onClick={() => updateUserProfile(selectedTopics, selectedSources)}
           >
             Save Sources
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center mb-6">
+          <button
+            className="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            onClick={() => handleLogOut()}
+          >
+            Log Out
           </button>
         </div>
       </div>
