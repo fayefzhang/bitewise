@@ -16,7 +16,7 @@ const SourcesPage = () => {
     <StepSelection
       title="Step 3 of 3: Choose sources"
       options={sources}
-      nextPage="/dashboard"
+      nextPage="/profile"
       stepNo={3}
     />
   );
