@@ -9,11 +9,7 @@ const DashboardSchema: Schema = new Schema<IDashboard>({
             articles: [{
                 content: { type: String },
                 datePublished: { type: Date },
-<<<<<<< HEAD
                 authors: [{ type: String }],
-=======
-                authors: { type: [String] },
->>>>>>> origin/main
                 source: { type: String },
                 url: { type: String, required: true },
                 title: { type: String, required: true },
