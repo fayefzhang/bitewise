@@ -102,10 +102,10 @@ const TopicsArticles = () => {
                         <Tab.Panel key={topic.topic}>
                             {topic.results.map((articles: any, articleIndex: number) => (
                                 <ArticleEntry 
-                                    key={articles.articles.title || `${topic.topic}-${articleIndex}`}
-                                    title={articles.articles.title}
-                                    description={articles.articles.description}
-                                    link={articles.articles.url}
+                                    key={articles.article.title || `${topic.topic}-${articleIndex}`}
+                                    title={articles.article.title}
+                                    description={articles.article.description}
+                                    link={articles.article.url}
                                 />
                             ))}
                         </Tab.Panel>

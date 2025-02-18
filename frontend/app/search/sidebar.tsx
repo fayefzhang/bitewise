@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <ul className="mt-4 list-disc space-y-2">
             {selectedArticle.summaries.map((detail, index) => (
               <li key={index} className="text-gray-700 text-sm">
-                {detail}
+                {typeof detail === "string" ? detail : JSON.stringify(detail)}
               </li>
             ))}
           </ul>
