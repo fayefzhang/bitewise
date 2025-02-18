@@ -75,7 +75,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles, ha
                 <div>
                   <div className="flex justify-between mt-1">
                   <p className="text-xs">{article.source}</p>
-                  <p className="text-xs">{article.authors}</p>
+                  <p className="text-xs">{article.authors[0]}</p>
                   </div>
                   <div className="flex justify-between mt-1">
                   <p className="text-xs">{article.biasRating !== "5" && biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
@@ -129,7 +129,7 @@ const DashboardPage: React.FC = () => {
           const articleBody = {
             article: {
               title: selectedArticle.title,
-              fullContent: selectedArticle.fullContent,
+              content: selectedArticle.content,
               url: selectedArticle.url,
             },
             ai_preferences: defaultAIPreferences,

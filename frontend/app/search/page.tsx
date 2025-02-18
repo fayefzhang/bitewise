@@ -87,7 +87,7 @@ const SearchPage: React.FC = () => {
         const articleBody = {
           article: {
             title: selectedArticle.title,
-            fullContent: selectedArticle.fullContent,
+            content: selectedArticle.content,
             url: selectedArticle.url,
           },
           ai_preferences: defaultAIPreferences,
@@ -193,7 +193,6 @@ const SearchPage: React.FC = () => {
         readTime: entry.readTime,
         relatedSources: entry.relatedSources,
         summaries: [],
-        fullContent: entry.fullContent,
         cluster: entry.cluster,
       }));
 

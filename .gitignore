@@ -8,3 +8,7 @@ __pycache__/
 /python-api/myenv
 .env
 node_modules
+myenv
+*/venv/
+*/env/
+*/.venv/

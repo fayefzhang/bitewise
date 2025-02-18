@@ -80,16 +80,10 @@ def get_source_and_bias(source):
     bias = bias_translation[bias_lookup.get(cleaned_source, "Unknown")]
     return cleaned_source, bias
 
+# for daily news dashboard, we already have scraped content
 def char_length(content):
-    if not content:
-        return None
-    match = re.search(r"\[\+(\d+)\s+chars\]", content)
-    additional_chars = 0
-    if match:
-        additional_chars = int(match.group(1))
-    intro_text_length = len(content.split("[+")[0].strip())
-    total_character_count = intro_text_length + additional_chars
-    return total_character_count
+    print(len(content))
+    return len(content)
 
 def estimate_reading_time(char_length):
     if not char_length:

@@ -9,9 +9,9 @@ const DashboardSchema: Schema = new Schema<IDashboard>({
             articles: [{
                 content: { type: String },
                 datePublished: { type: Date },
-                authors: { type: String },
+                authors: [{ type: String }],
                 source: { type: String },
-                url: { type: String, required: true, unique: true },
+                url: { type: String, required: true },
                 title: { type: String, required: true },
                 readTime: { type: Number, enum: [0, 1, 2] },
                 biasRating: { type: Number, enum: [0, 1, 2, 3, 4, 5] },
