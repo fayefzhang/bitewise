@@ -5,7 +5,11 @@ const ArticleSchema: Schema = new Schema<IArticle>({
   url: { type: String, required: true, unique: true },
   content: { type: String },
   datePublished: { type: Date },
+<<<<<<< HEAD
   authors: [{ type: String }],
+=======
+  authors: { type: [String] },
+>>>>>>> origin/main
   source: { type: String },
   title: { type: String, required: true },
   readTime: { type: Number, enum: [0, 1, 2]},
