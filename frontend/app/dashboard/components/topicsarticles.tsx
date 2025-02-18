@@ -14,19 +14,23 @@ const TopicsArticles = () => {
     const [preferences, setPreferences] = useState(null);
     const [topicArticles, setTopicArticles] = useState<any[]>([]);
     
+    
     useEffect(() => {
+        const userEmail = localStorage.getItem("userEmail");
+
         const getTopicsArticles = async () => {
             try {
+
                 console.log("Fetching user preferences...");
-                const preferencesResponse = await fetch(`${BASE_URL}/api/user/preferences?userID=TEST`, { // NEED TO CHANGE TO ACTUAL USER
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const rawData = await preferencesResponse.text();
-                console.log("Raw user preferences response:", rawData);
-                const data = JSON.parse(rawData);
+                const userPrefResponse = await fetch(
+                    `${BASE_URL}/api/user/preferences?email=${userEmail}`
+                );
+                if (!userPrefResponse.ok) {
+                    throw new Error("Failed to get existing user preferences");
+                }
+                const userPreferences = await userPrefResponse.json();
+                console.log("user pref", userPreferences);
+                const data = userPreferences;
                 setPreferences(data);
 
                 const fromDate = new Date();

@@ -106,7 +106,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                     articles: Object.fromEntries(
                         articles.slice(0, 5).map((article: any) => [
                             article.url,
-                            { title: article.title, fullContent: article.content }
+                            { title: article.title, content: article.content }
                         ])
                     ),
                     ai_preferences,
@@ -164,7 +164,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
             acc[article.url] = {
                 title: article.title,
-                fullContent: article.fullContent,
+                content: article.content,
                 imageUrl: article.imageUrl,
                 readTime: article.readTime,
                 biasRating: article.bias,
@@ -332,7 +332,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
                 const formattedArticles = (articles as any[]).reduce((acc, article) => {
                     acc[article.url] = {
                         title: article.title,
-                        fullContent: article.content,
+                        content: article.content,
                         imageUrl: article.imageUrl,
                         readTime: article.readTime,
                         biasRating: article.biasRating,
@@ -731,13 +731,21 @@ router.post('/user/signin', async (req: Request, res: Response): Promise<void> =
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+        // const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+
+        // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics,
+        //     search_preferences
+        // });
+
+        // had to modify because topics was null
+        const { search_preferences } = req.body; // topics: [string], search_preferences: 
+        const topics = "technology";
 
         const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
             topics,
             search_preferences
         });
-
         res.json(topics_articles.data);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
