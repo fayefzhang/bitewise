@@ -104,6 +104,12 @@ const ProfilePage: React.FC = () => {
   // TODO: implement searching for sources
   // (not sure if we even need this if we only have like 5-7 options)
 
+  useEffect(() => {
+    // if user is not signed in, push back to dashboard
+    const userEmail = localStorage.getItem("userEmail"); // check against localstorage (this is the scuffed way)
+    if (userEmail == null) router.push("/dashboard");
+  });
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header onSearch={handleSearch} placeholder="Search topic..." />
