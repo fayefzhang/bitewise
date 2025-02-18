@@ -4,7 +4,7 @@ export interface IArticle extends Document {
     url: string; // primary key
     content?: string;
     datePublished?: Date;
-    authors?: string;
+    authors?: string[];
     source: string;
     title: string;
     readTime?: number; // approx 0 = <2 min, 1 = 2-7 min, 2 = 7+ min

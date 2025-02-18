@@ -82,6 +82,7 @@ def get_source_and_bias(source):
 
 # for daily news dashboard, we already have scraped content
 def char_length(content):
+    print(len(content))
     return len(content)
 
 def estimate_reading_time(char_length):
