@@ -59,7 +59,8 @@ const Header: React.FC<HeaderProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim()) {
       onSearch(searchTerm.trim());
-      setPreferences(searchPreferences);
+      if (setPreferences)
+        setPreferences(searchPreferences);
     }
   };
 
@@ -102,8 +103,6 @@ const Header: React.FC<HeaderProps> = ({
             clustering: userPreferences.clustering || false,
           };
 
-          console.log(userPreferences.bias);
-          console.log(transformedPreferences.bias);
           // Update the search preferences state
           setSearchPreferences(transformedPreferences);
         } catch (error) {
