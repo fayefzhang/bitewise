@@ -1,5 +1,6 @@
 import express, { Router, Request, Response, RequestHandler } from "express";
 import axios from 'axios';
+import { deleteOldDocuments } from "./Helpers/DeleteFiles";
 import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
@@ -733,8 +734,13 @@ router.post('/generate/topics', async (req: Request, res: Response): Promise<voi
 
         console.log("filteredRemainingTopics: " + filteredRemainingTopics)
 
+        // const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics: filteredRemainingTopics,
+        //     search_preferences
+        // });
+
         const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
-            topics: filteredRemainingTopics,
+            topics: ["NFL","History"],
             search_preferences
         });
 
@@ -742,10 +748,10 @@ router.post('/generate/topics', async (req: Request, res: Response): Promise<voi
 
         // convert to TopicsArticles schema
         const formattedTopicsArticles = topics_articles_response.data.map((topicArticle: { topic: any; results: any[]; }) => ({
-            date: new Date(), // Current date
+            date: new Date().getDate() - 10, // Current date
             topic: topicArticle.topic,
             results: topicArticle.results.map(article => ({
-                articles: {
+                article: {
                     author: article.author,
                     biasRating: article.biasRating,
                     description: article.description,
@@ -873,6 +879,18 @@ router.post('/crawl/local', async (req: Request, res: Response): Promise<void> =
             res.status(500).json({ error: "Internal server error" });
         }
     }
+});
+
+router.post('/delete/week', async (req: Request, res: Response): Promise<void> => {
+    try {
+        deleteOldDocuments(TopicsArticlesModel)
+    } catch (error) {
+        res.status(500)
+        return;
+    }
+
+    res.status(200);
+    return;
 });
 
 export default router;
