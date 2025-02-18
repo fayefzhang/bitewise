@@ -8,6 +8,7 @@ import textstat
 from pathlib import Path
 from podcastfy.client import generate_podcast
 import boto3
+import uuid
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 OpenAI.api_key = config.OPENAI_API_KEY 
@@ -125,11 +126,15 @@ def generate_summary_individual(input_text, user_preferences):
             presence_penalty=presence_penalty,
             max_tokens=max_tokens
         )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        return f"An error occurred: {str(e)}"
+        summary = response.choices[0].message.content.strip()
 
-    return response.choices[0].message.content.strip()
+        filename= f"{uuid.uuid4()}.mp3"
+        result = generate_audio_from_article(summary, filename)
+
+        result["summary"] = summary
+        return result
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
 
 # Summarizes multiple articles and gives an overview based on user preferences
 def generate_summary_collection(input_text, user_preferences):
@@ -220,14 +225,17 @@ def generate_summary_collection(input_text, user_preferences):
 def generate_audio_from_article(text: str, filename: str = "text-to-speech.mp3"):
     
     audio_dir = Path(__file__).parent.parent / "data/tts"
-    speech_file_path = audio_dir / filename
+    speech_file_path = str(audio_dir / filename)
     response = client.audio.speech.create(
         model="tts-1",
         voice="echo",
         input=text,
     )
+    
+    # TODO: change to stream to buffer instead of saving locally
     response.stream_to_file(speech_file_path)
-    return str(speech_file_path)
+    s3_url = upload_to_s3(speech_file_path, "ai-summaries") if speech_file_path else None
+    return {"audio_file": speech_file_path, "s3_url": s3_url}
 
 
 # Generates a podcast based on a collection of articles (URLs)

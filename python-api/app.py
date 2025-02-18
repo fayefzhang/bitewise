@@ -221,7 +221,12 @@ def summarize_article():
     if not ai_preferences:
         return jsonify({"error": "AI preferences are required"}), 400
 
-    summary_output = generate_summary_individual(full_content, ai_preferences)
+    summary_output_full = generate_summary_individual(full_content, ai_preferences)
+    if "error" in summary_output_full:
+        summary_output = summary_output_full["error"]
+    else:
+        summary_output = summary_output_full["summary"]
+    print("HEREE",summary_output)
     if "**Reading Difficulty**:" in summary_output:
         summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)
         summary = summary.replace("**Summary**:", "").strip()
@@ -235,6 +240,7 @@ def summarize_article():
     return jsonify({
         "summary": summary,
         "difficulty": difficulty_int,
+        "s3_url": summary_output_full.get("s3_url", None)
     }), 200
 
 # For summarizing multiple articles into one summary
