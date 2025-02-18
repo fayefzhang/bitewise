@@ -651,6 +651,7 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
             return
         }
 
+        // TODO: do hashing on password
         const updatedUser = await UserModel.findOneAndUpdate(
             { email: user.email },
             { 
@@ -697,6 +698,34 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+// @route POST /user/signin
+// @description Validates the user's email and password
+router.post('/user/signin', async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body;
+  
+    try {
+      // Find the user by email
+      const user = await UserModel.findOne({ email: email });
+  
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+  
+      // TODO: do hashing on password
+      const passwordMatch = (password == user.password);
+      if (!passwordMatch) {
+        res.status(401).json({ message: "Incorrect password" });
+        return;
+      }
+
+      res.json({ message: "Sign-in successful", preferences: user.preferences });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 
 // @route POST /search/topics
 // @description Gets articles related to the user's topics.

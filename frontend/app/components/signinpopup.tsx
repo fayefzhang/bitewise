@@ -28,22 +28,38 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
+
+    if (!email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
     if (isSignIn) {
       // handle sign in
-    } else {
-      // handle sign up
-      console.log("signing up...");
+      const response = await fetch(`${BASE_URL}/api/user/signin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-      const email = (document.getElementById("email") as HTMLInputElement)
-        .value;
-      const password = (document.getElementById("password") as HTMLInputElement)
-        .value;
-
-      if (!email || !password) {
-        alert("Please fill in all fields");
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message);
         return;
       }
 
+      const data = await response.json();
+      console.log("Sign-in successful", data);
+
+      // Store user email
+      localStorage.setItem("userEmail", email);
+      router.push("/profile");
+    } else {
+      // handle sign up
       try {
         const response = await fetch(`${BASE_URL}/api/user/update`, {
           method: "POST",
@@ -58,7 +74,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 
         const data = await response.json();
         console.log("User created/updated:", data);
-        localStorage.setItem('userEmail', email);
+        localStorage.setItem("userEmail", email);
         router.push("/interests"); // Redirect to interests page
       } catch (error) {
         console.error("Error signing up:", error);
