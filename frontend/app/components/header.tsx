@@ -1,15 +1,17 @@
 "use client";
 
-import { Preferences } from "../common/interfaces";
+import { AdvancedSearchPreferences } from "../common/interfaces";
 import SignInPopUp from "./signinpopup";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultSearchPreferences } from "../common/utils";
+
+const BASE_URL = "http://localhost:3000";
 
 interface HeaderProps {
   onSearch: (term: string) => void;
-  setPreferences?: (preferences: Preferences) => void;
+  setPreferences?: (preferences: AdvancedSearchPreferences) => void;
   placeholder?: string;
   isSearchPage?: boolean;
 }
@@ -23,9 +25,8 @@ const Header: React.FC<HeaderProps> = ({
   // SEARCH FUNCTIONAL SETUP
   const [searchTerm, setSearchTerm] = useState("");
   const [showSettings, setShowSettings] = useState(false);
-  const [searchPreferences, setSearchPreferences] = useState<Preferences>(
-    defaultSearchPreferences
-  );
+  const [searchPreferences, setSearchPreferences] =
+    useState<AdvancedSearchPreferences>(defaultSearchPreferences);
 
   const toggleReadTime = (time: string) => {
     setSearchPreferences((prev) => {
@@ -68,6 +69,52 @@ const Header: React.FC<HeaderProps> = ({
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
+  const [isSignedIn, setisSignedIn] = useState(false);
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail"); // Check if user is signed in
+    if (userEmail) {
+      setisSignedIn(true);
+
+      // Fetch user preferences from backend
+      const fetchUserPreferences = async () => {
+        try {
+          const response = await fetch(
+            `${BASE_URL}/api/user/preferences?email=${userEmail}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch user preferences");
+          }
+
+          const userPreferences = await response.json();
+          // Transform the fetched user preferences into the search preferences format
+          const transformedPreferences = {
+            from_date: userPreferences.from_date || "",
+            to_date: "", // NOT IN DATABASE
+            read_time: userPreferences.read_time
+              // EXTREMELY SCUFFED taken from the database on how we store read_time
+              ? [userPreferences.read_time == 1 ? "Short" :
+                (userPreferences.read_time == 2? "Medium" : "Long")]
+              : [],
+            bias: userPreferences.bias
+              // similarly EXTREMELY SCUFFED taken from the database on how we store bias
+              ? [userPreferences.bias == 1 ? "Center" :
+                (userPreferences.bias == 2 ? "Left" : "Right")] : [],
+            clustering: userPreferences.clustering || false,
+          };
+
+          console.log(userPreferences.bias);
+          console.log(transformedPreferences.bias);
+          // Update the search preferences state
+          setSearchPreferences(transformedPreferences);
+        } catch (error) {
+          console.error("Error fetching user preferences:", error);
+        }
+      };
+
+      fetchUserPreferences();
+    }
+  }, []); // Empty dependency array to run this effect once when the component mounts
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
@@ -103,15 +150,23 @@ const Header: React.FC<HeaderProps> = ({
         )}
       </div>
       <div className="flex space-x-4 absolute right-4">
-        <Link href="/profile">
-          <button className="p-3 rounded-full bg-white text-2xl">☰</button>
-        </Link>
-        <button
-          className="p-3 rounded-full bg-white text-2xl"
-          onClick={openPopup}
-        >
-          👤
-        </button>
+        {isSignedIn && ( // only show profile if user is signed in
+          <div className="flex space-x-4">
+            <Link href="/profile">
+              <button className="p-3 rounded-full bg-white text-2xl text-black">
+                ☰
+              </button>
+            </Link>
+          </div>
+        )}
+        {!isSignedIn && ( // only show sign in if user is not signed in
+          <button
+            className="p-3 rounded-full bg-white text-2xl"
+            onClick={openPopup}
+          >
+            👤
+          </button>
+        )}
       </div>
 
       {/* Sign In Sign Up Pop Up */}
@@ -197,24 +252,6 @@ const Header: React.FC<HeaderProps> = ({
                   setSearchPreferences((prev) => ({
                     ...prev,
                     from_date: e.target.value,
-                  }))
-                }
-                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">
-              Date Published To
-            </label>
-            <div className="flex space-x-2">
-              <input
-                type="date"
-                value={searchPreferences.to_date}
-                onChange={(e) =>
-                  setSearchPreferences((prev) => ({
-                    ...prev,
-                    to_date: e.target.value,
                   }))
                 }
                 className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

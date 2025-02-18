@@ -669,6 +669,7 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
             return
         }
 
+        // TODO: do hashing on password
         const updatedUser = await UserModel.findOneAndUpdate(
             { email: user.email },
             { 
@@ -692,24 +693,57 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
 })
 
 // @route GET user/preferences
-// @description Gets the user's preferences.
+// @description Gets the user's preferences by email.
 router.get('/user/preferences', async (req: Request, res: Response): Promise<void> => {
     try {
-        const userID = req.query.userID as string; // Explicitly cast to string if using TypeScript
-        if (!userID) {
-            res.status(400).json({ message: 'No user is logged in' });
+        const userEmail = req.query.email as string; // Get the email from query parameters
+        if (!userEmail) {
+            res.status(400).json({ message: 'No user email provided' });
+            return;
         }
 
-        const preferencesResponse = await axios.get("http://127.0.0.1:5000/user/preferences", {
-            params: { userID }, // Pass query parameters to Flask
-        });
+        // Find the user by email in the database
+        const user = await UserModel.findOne({ email: userEmail });
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
 
-        res.json(preferencesResponse.data);
+        // Return the user's preferences
+        res.json(user.preferences);
     } catch (error: any) {
         console.error("Error retrieving user preferences:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+// @route POST /user/signin
+// @description Validates the user's email and password
+router.post('/user/signin', async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body;
+  
+    try {
+      // Find the user by email
+      const user = await UserModel.findOne({ email: email });
+  
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+  
+      // TODO: do hashing on password
+      const passwordMatch = (password == user.password);
+      if (!passwordMatch) {
+        res.status(401).json({ message: "Incorrect password" });
+        return;
+      }
+
+      res.json({ message: "Sign-in successful", preferences: user.preferences });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 
 // @route POST /search/topics
 // @description Gets articles related to the user's topics.

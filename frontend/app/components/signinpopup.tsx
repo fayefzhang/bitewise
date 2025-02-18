@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+const BASE_URL = "http://localhost:3000";
+
 interface SignInSignUpPopupProps {
   onClose: () => void;
   isOpen: boolean;
@@ -26,13 +28,58 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock signup process
-    const signupSuccess = true; // Replace with actual signup logic
 
-    if (signupSuccess) {
-      router.push("/interests"); // Redirect to the /interests page
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
+
+    if (!email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    if (isSignIn) {
+      // handle sign in
+      const response = await fetch(`${BASE_URL}/api/user/signin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message);
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Sign-in successful", data);
+
+      // Store user email
+      localStorage.setItem("userEmail", email);
+      router.push("/profile");
     } else {
-      // Handle signup error (e.g., show error message)
+      // handle sign up
+      try {
+        const response = await fetch(`${BASE_URL}/api/user/update`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: { email, password, preferences: {} } }), // Empty preferences for now
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Signup failed");
+        }
+
+        const data = await response.json();
+        console.log("User created/updated:", data);
+        localStorage.setItem("userEmail", email);
+        router.push("/interests"); // Redirect to interests page
+      } catch (error) {
+        console.error("Error signing up:", error);
+        alert("An error occurred. Please try again.");
+      }
     }
   };
 
@@ -56,17 +103,6 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
             {isSignIn ? "Sign In" : "Sign Up"}
           </h2>
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            {!isSignIn && (
-              <div>
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-            )}
             <div>
               <label htmlFor="email">Email</label>
               <input
