@@ -223,18 +223,14 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         }
 
         // store query in database
-        // const duplicateQuery = await QueryModel.findOne({ query });  // check duplicate
+        const newQuery = new QueryModel({
+            query,
+            date: new Date(),
+            articles: articlesData.map((article: { url: string }) => article.url)
+        });
 
-        // if (!duplicateQuery) {
-        //     const newQuery = new QueryModel({
-        //         query,
-        //         date: new Date(),
-        //         articles: articlesData.map((article: { url: string }) => article.url)
-        //     });
-
-        //     const savedQuery = await newQuery.save();
-        //     console.log("saved query:", savedQuery);
-        // }
+        const savedQuery = await newQuery.save();
+        console.log("saved query:", savedQuery);
 
         res.json(result);
     } catch (error: any) {
