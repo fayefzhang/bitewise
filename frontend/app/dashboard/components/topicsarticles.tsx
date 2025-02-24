@@ -79,7 +79,6 @@ const TopicsArticles = () => {
 
   const renderArticles = () => {
     if (!topicArticles) return null;
-    console.log("topicArticles:", topicArticles);
 
     return (
       <Tab.Group>
