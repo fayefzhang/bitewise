@@ -136,8 +136,14 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // Step 1: fetch articles
         const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
+        // filter out irrelevant articles
+        const fetchedArticles = articlesResponse.data.results.filter((entry: any) => entry.title !== "[Removed]");
+
+        // 🔹 Call AI filtering before proceeding
+        const filteredArticles = await fetchRelevantArticles(fetchedArticles, query);
+
         // format and write articles to database
-        const filteredResults = articlesResponse.data.results
+        const filteredResults = filteredArticles
             .filter((entry: any) => entry.title !== "[Removed]")
             .map((entry: any) => ({
                 url: entry.url,  // Primary key
@@ -283,6 +289,58 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
     }
 });
 
+// @route POST /relevant-articles
+// @description Filters relevant articles based on a given search query
+// @returns list of relevant articles
+async function fetchRelevantArticles(articles: any[], query: string) {
+    try {
+        console.log("Article count before filtering irrelevant:", articles.length);
+
+        // Convert articles into the expected format for the Python API
+        const formattedArticles = articles.map((article, index) => ({
+            index,
+            text: article.title
+        }));
+
+        // Call the Python `/filter-articles` API
+        const response = await axios.post(`${BASE_URL}/irrelevant-articles`, {
+            articles: formattedArticles,
+            query: query
+        });
+
+        const { relevant_indices } = response.data;
+
+        if (!relevant_indices || !Array.isArray(relevant_indices)) {
+            console.error("Invalid response from Python API");
+            return articles; // Return original articles if filtering fails
+        }
+
+        // Identify removed articles
+        const irrelevantArticles = articles.filter((_article, index) => !relevant_indices.includes(index));
+
+        // Log removed article titles
+        // if (irrelevantArticles.length > 0) {
+        //     console.log("🔻 Removed Articles:");
+        //     irrelevantArticles.forEach((article) => console.log(`- ${article.title}`));
+        // } else {
+        //     console.log("✅ No articles were filtered out.");
+        // }
+
+        // Filter out only the relevant articles
+        const relevantArticles = articles.filter((_article, index) => relevant_indices.includes(index));
+
+        console.log("Article count before filtering irrelevant:", relevantArticles.length);
+
+        const sortedArticles = [...relevantArticles, ...irrelevantArticles];
+
+
+
+        return sortedArticles;
+    } catch (error) {
+        console.error("Error calling filter-articles API", error);
+        return articles; // If error occurs, return the original articles
+    }
+};
 
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
@@ -453,12 +511,12 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 
         if (existingArticle) {
             // frontend not passing it in this format
-            console.log(ai_preferences);
-            console.log("ai pref length:", ai_preferences.AILength);
-            console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
-            console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
-            console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
-            console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
+            // console.log(ai_preferences);
+            // console.log("ai pref length:", ai_preferences.AILength);
+            // console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
+            // console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
+            // console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
+            // console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
 
             // should be AILength, AITone, AIFormat, AIJargonAllowed
             // const existingSummary = existingArticle.summaries?.find((summary) =>

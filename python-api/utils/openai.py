@@ -317,3 +317,35 @@ def daily_news_summary(input_text):
         return f"An error occurred: {str(e)}"
 
     return response.choices[0].message.content.strip()
+
+# Filters out irrelevant articles using OpenAI
+def filter_irrelevant_articles(articles, query):
+    formatted_articles = "\n".join([f"{article['index']}: {article['text']}" for article in articles])
+
+    prompt = f"""
+    You are an intelligent news classifier. Your task is to filter out articles that do not make sense, based on the given search query, given their title or first sentence.
+
+    Here is the search query:
+    "{query}"
+
+    Below is a list of articles with their index and a short description:
+
+    {formatted_articles}
+
+    Return a **comma-separated list** of the indices of articles that are relevant. Do not include any text, spaces, or additional characters.
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+        )
+
+        # Extracting the list of relevant indices from the response
+        relevant_indices = response.choices[0].message.content.strip()
+
+        # Convert the response from string to a list of integers
+        return [int(idx) for idx in relevant_indices.split(",") if idx.strip().isdigit()]
+
+    except Exception as e:
+        return {"error": f"OpenAI API error: {str(e)}"}
