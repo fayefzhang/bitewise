@@ -7,6 +7,7 @@ interface ArticleEntryProps {
   title: string;
   description: string;
   link?: string;
+  source: string;
 }
 
 const TopicsArticles = () => {
@@ -82,7 +83,7 @@ const TopicsArticles = () => {
 
     return (
       <Tab.Group>
-        <div className="w-full overflow-hidden">
+        <div className="sticky top-10 bg-blue-50 z-10">
           <Tab.List className="flex space-x-1 p-1 overflow-x-auto whitespace-nowrap scrollbar-hide max-w-full flex-nowrap">
             {Object.entries(topicArticles).map(
               ([topic, articles]: [string, any[]]) => (
@@ -104,29 +105,34 @@ const TopicsArticles = () => {
             )}
           </Tab.List>
         </div>
-        <Tab.Panels className="mt-2">
-          {Object.entries(topicArticles).map(
-            ([topic, articles]: [string, any[]]) => (
-              <Tab.Panel key={topic}>
-                {articles.map((articles: any, articleIndex: number) => (
-                  <ArticleEntry
-                    key={articles.article.title || `${topic}-${articleIndex}`}
-                    title={articles.article.title}
-                    description={articles.article.description}
-                    link={articles.article.url}
-                  />
-                ))}
-              </Tab.Panel>
-            )
-          )}
-        </Tab.Panels>
+        <div className="overflow-y-auto mt-2 max-h-[35vh] pb-4">
+          <Tab.Panels className="mt-2 mb-2">
+            {Object.entries(topicArticles).map(
+              ([topic, articles]: [string, any[]]) => (
+                <Tab.Panel key={topic}>
+                  {articles.map((articles: any, articleIndex: number) => (
+                    <ArticleEntry
+                      key={articles.article.title || `${topic}-${articleIndex}`}
+                      title={articles.article.title}
+                      description={articles.article.description}
+                      link={articles.article.url}
+                      source={articles.article.source}
+                    />
+                  ))}
+                </Tab.Panel>
+              )
+            )}
+          </Tab.Panels>
+        </div>
       </Tab.Group>
     );
   };
 
   return (
-    <aside className="bg-blue-50 p-4 rounded-lg max-h-[50vh] overflow-y-auto">
-      <h2 className="text-lg font-bold mb-4">Your Topics</h2>
+    <aside className="bg-blue-50 p-4 rounded-lg max-h-[50vh] overflow-hidden">
+      <div className="sticky top-0 bg-blue-50 z-10">
+        <h2 className="text-lg font-bold mb-4">Your Topics</h2>
+      </div>
       {renderArticles()}
     </aside>
   );
@@ -136,6 +142,7 @@ const ArticleEntry: React.FC<ArticleEntryProps> = ({
   title,
   description,
   link,
+  source,
 }) => {
   return (
     <div className="bg-white p-4 rounded-md shadow mb-4">
@@ -148,7 +155,7 @@ const ArticleEntry: React.FC<ArticleEntryProps> = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          MORE
+          Read on {source}
         </Link>
       )}
     </div>
