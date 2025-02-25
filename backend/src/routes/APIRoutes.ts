@@ -294,7 +294,6 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
 // @returns list of relevant articles
 async function fetchRelevantArticles(articles: any[], query: string) {
     try {
-        console.log("Article count before filtering irrelevant:", articles.length);
 
         // Convert articles into the expected format for the Python API
         const formattedArticles = articles.map((article, index) => ({
@@ -318,22 +317,20 @@ async function fetchRelevantArticles(articles: any[], query: string) {
         // Identify removed articles
         const irrelevantArticles = articles.filter((_article, index) => !relevant_indices.includes(index));
 
-        // Log removed article titles
-        // if (irrelevantArticles.length > 0) {
-        //     console.log("🔻 Removed Articles:");
-        //     irrelevantArticles.forEach((article) => console.log(`- ${article.title}`));
-        // } else {
-        //     console.log("✅ No articles were filtered out.");
-        // }
-
         // Filter out only the relevant articles
         const relevantArticles = articles.filter((_article, index) => relevant_indices.includes(index));
 
-        console.log("Article count before filtering irrelevant:", relevantArticles.length);
+
+        // Log relevant article titles
+        if (relevantArticles.length > 0) {
+            console.log("🔻 Relevant Articles:");
+            relevantArticles.forEach((article) => console.log(`- ${article.title}`));
+        } else {
+            console.log("✅ No articles were deemed irrelevant.");
+        }
+
 
         const sortedArticles = [...relevantArticles, ...irrelevantArticles];
-
-
 
         return sortedArticles;
     } catch (error) {
