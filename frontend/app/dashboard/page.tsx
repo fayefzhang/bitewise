@@ -17,7 +17,7 @@ import {
 
 const BASE_URL = "http://localhost:3000";
 
-const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
+const readTimeLabels = ["Short", "Medium", "Long"];
 const biasRatingLabels = [
   "Left",
   "Left-Center",
@@ -64,8 +64,9 @@ const NewsSection: React.FC<NewsSectionProps> = ({
       <p className="mb-4">{summary}</p>
       <div className="flex space-x-4">
         <div className="flex w-full">
-          <div className="w-2/5 pr-4 flex items-center">
-            <div className="relative w-full h-full mb-2 flex items-center justify-center">
+          {/* Image Section */}
+          <div className="w-1/3 pr-4 flex items-center">
+            <div className="relative w-full h-full flex items-center justify-center">
               <Image
                 src={articles[1].imageUrl}
                 alt={articles[1].title}
@@ -75,19 +76,21 @@ const NewsSection: React.FC<NewsSectionProps> = ({
               />
             </div>
           </div>
-          <div className="w-3/5 flex flex-col space-y-4">
-            {articles.slice(0, 3).map((article, index) => (
+
+          {/* Scrollable Articles Section */}
+          <div className="w-2/3 flex flex-col space-y-2 overflow-y-auto max-h-[15rem]">
+            {articles.map((article, index) => (
               <div
                 key={index}
-                className="bg-white p-2 rounded-md shadow cursor-pointer"
+                className="bg-white p-1 rounded-md shadow cursor-pointer hover:bg-blue-50"
                 onClick={() => handleArticleClick(article)}
               >
+                <div className="flex justify-between mt-1">
+                  <p className="text-xs">{article.source}</p>
+                  <p className="text-xs">{article.authors[0]}</p>
+                </div>
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
-                  <div className="flex justify-between mt-1">
-                    <p className="text-xs">{article.source}</p>
-                    <p className="text-xs">{article.authors[0]}</p>
-                  </div>
                   <div className="flex justify-between mt-1">
                     <p className="text-xs">
                       {article.biasRating !== "5" &&
@@ -208,7 +211,7 @@ const DashboardPage: React.FC = () => {
               : "evening"}
             !
           </h1>
-          <p className="text-lg mt-4 mb-4">{dailySummary}</p>
+          <p className="mt-4 mb-4">{dailySummary}</p>
 
           {/* Audio Summary */}
           <audio controls className="mt-2 w-full">
@@ -240,7 +243,7 @@ const DashboardPage: React.FC = () => {
                   key={index}
                   header={dailyNews.clusterLabels[index]}
                   summary={dailyNews.clusterSummaries[index]}
-                  articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
+                  articles={cluster.articles}
                   handleArticleClick={handleArticleClick}
                 />
               ) : null
