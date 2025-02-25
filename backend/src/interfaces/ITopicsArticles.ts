@@ -3,7 +3,14 @@ import { IArticle } from './IArticle';
 export interface ITopicsArticles {
     date?: Date;
     results?: {
-        article: IArticle;
+        article: {
+            biasRating?: number;
+            description: string;
+            datePublished?: Date;
+            source: string;
+            title: string;
+            url: string;
+        };
     }[];
     topic?: string;
 }

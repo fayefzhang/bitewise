@@ -1,8 +1,8 @@
 "use client";
 
 import Header from "../components/header";
-import TopicsArticles from './components/topicsarticles';
-import LocalNews from './components/localnews';
+import TopicsArticles from "./components/topicsarticles";
+import LocalNews from "./components/localnews";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -17,12 +17,18 @@ import {
 
 const BASE_URL = "http://localhost:3000";
 
-const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
-const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
+const readTimeLabels = ["Short", "Medium", "Long"];
+const biasRatingLabels = [
+  "Left",
+  "Left-Center",
+  "Center",
+  "Right-Center",
+  "Right",
+  "Unknown",
+];
 const difficultyLabels = ["Easy", "Medium", "Hard"];
 
 const fetchDailyNews = async () => {
-
   try {
     const response = await fetch(`${BASE_URL}/api/daily-news`, {
       method: "POST",
@@ -46,43 +52,56 @@ interface NewsSectionProps {
   handleArticleClick: (article: Article) => void;
 }
 
-const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles, handleArticleClick }) => {
+const NewsSection: React.FC<NewsSectionProps> = ({
+  header,
+  summary,
+  articles,
+  handleArticleClick,
+}) => {
   return (
     <section className="mb-8">
       <h2 className="text-xl font-bold mb-2">{header}</h2>
-      <p className="mb-4">{summary}</p>  
+      <p className="mb-4">{summary}</p>
       <div className="flex space-x-4">
         <div className="flex w-full">
-            <div className="w-2/5 pr-4 flex items-center">
-            <div className="relative w-full h-full mb-2 flex items-center justify-center">
+          {/* Image Section */}
+          <div className="w-1/3 pr-4 flex items-center">
+            <div className="relative w-full h-full flex items-center justify-center">
               <Image
-              src={articles[1].imageUrl}
-              alt={articles[1].title}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="rounded-md object-cover"
+                src={articles[1].imageUrl}
+                alt={articles[1].title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="rounded-md object-cover"
               />
             </div>
-            </div>
-          <div className="w-3/5 flex flex-col space-y-4">
-            {articles.slice(0, 3).map((article, index) => (
-                <div
+          </div>
+
+          {/* Scrollable Articles Section */}
+          <div className="w-2/3 flex flex-col space-y-2 overflow-y-auto max-h-[15rem]">
+            {articles.map((article, index) => (
+              <div
                 key={index}
-                className="bg-white p-2 rounded-md shadow cursor-pointer"
+                className="bg-white p-1 rounded-md shadow cursor-pointer hover:bg-blue-50"
                 onClick={() => handleArticleClick(article)}
-                >
+              >
+                <div className="flex justify-between mt-1">
+                  <p className="text-xs">{article.source}</p>
+                  <p className="text-xs">{article.authors[0]}</p>
+                </div>
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
                   <div className="flex justify-between mt-1">
-                  <p className="text-xs">{article.source}</p>
-                  <p className="text-xs">{article.authors[0]}</p>
-                  </div>
-                  <div className="flex justify-between mt-1">
-                  <p className="text-xs">{article.biasRating !== "5" && biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
-                  <p className="text-xs">{readTimeLabels[parseInt(article.readTime, 10)]}</p>
+                    <p className="text-xs">
+                      {article.biasRating !== "5" &&
+                        biasRatingLabels[parseInt(article.biasRating, 10)]}
+                    </p>
+                    <p className="text-xs">
+                      {readTimeLabels[parseInt(article.readTime, 10)]}
+                    </p>
                   </div>
                 </div>
-                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -90,7 +109,6 @@ const NewsSection: React.FC<NewsSectionProps> = ({ header, summary, articles, ha
     </section>
   );
 };
-
 
 const DashboardPage: React.FC = () => {
   const router = useRouter();
@@ -107,7 +125,6 @@ const DashboardPage: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
-
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
       closePanel();
@@ -123,45 +140,45 @@ const DashboardPage: React.FC = () => {
   }
 
   useEffect(() => {
-      // Get article summary if not already done
-      const fetchArticleSummary = async () => {
-        if (selectedArticle?.summaries.length === 0) {
-          const articleBody = {
-            article: {
-              title: selectedArticle.title,
-              content: selectedArticle.content,
-              url: selectedArticle.url,
+    // Get article summary if not already done
+    const fetchArticleSummary = async () => {
+      if (selectedArticle?.summaries.length === 0) {
+        const articleBody = {
+          article: {
+            title: selectedArticle.title,
+            content: selectedArticle.content,
+            url: selectedArticle.url,
+          },
+          ai_preferences: defaultAIPreferences,
+        };
+
+        try {
+          const response = await fetch(`${BASE_URL}/api/summarize/article`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-            ai_preferences: defaultAIPreferences,
-          };
-  
-          try {
-            const response = await fetch(`${BASE_URL}/api/summarize/article`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(articleBody),
-            });
-            const data = await response.json();
-  
-            console.log("summary", data);
-  
-            setSelectedArticle((prevArticle) => {
-              if (!prevArticle) return null;
-              return {
-                ...prevArticle,
-                summaries: [...prevArticle.summaries, data.summary],
-              };
-            });
-          } catch (error) {
-            console.error("Error processing article summary request", error);
-          }
+            body: JSON.stringify(articleBody),
+          });
+          const data = await response.json();
+
+          console.log("summary", data);
+
+          setSelectedArticle((prevArticle) => {
+            if (!prevArticle) return null;
+            return {
+              ...prevArticle,
+              summaries: [...prevArticle.summaries, data.summary],
+            };
+          });
+        } catch (error) {
+          console.error("Error processing article summary request", error);
         }
-      };
-  
-      fetchArticleSummary();
-    }, [selectedArticle]);
+      }
+    };
+
+    fetchArticleSummary();
+  }, [selectedArticle]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -170,13 +187,12 @@ const DashboardPage: React.FC = () => {
       console.log(news);
 
       setDailyNews(news);
-      setDailySummary(news.summary)
+      setDailySummary(news.summary);
       setIsLoading(false);
     };
 
     fetchNews();
   }, []);
-
 
   return (
     <div className="w-full min-h-screen mx-auto bg-white text-black">
@@ -186,14 +202,23 @@ const DashboardPage: React.FC = () => {
       <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Main Section */}
         <div className="flex-1 flex-col">
-            <h1 className="text-2xl font-bold">
-            Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}!
-            </h1>
-          <p className="text-lg mt-4 mb-4">{dailySummary}</p>
+          <h1 className="text-2xl font-bold">
+            Good{" "}
+            {new Date().getHours() < 12
+              ? "morning"
+              : new Date().getHours() < 18
+              ? "afternoon"
+              : "evening"}
+            !
+          </h1>
+          <p className="mt-4 mb-4">{dailySummary}</p>
 
           {/* Audio Summary */}
           <audio controls className="mt-2 w-full">
-            <source src="http://localhost:3000/api/audio?filename=podcast_aefd727d6bbc48c69712aaee79f4114d.mp3" type="audio/mpeg" />
+            <source
+              src="http://localhost:3000/api/audio?filename=podcast_aefd727d6bbc48c69712aaee79f4114d.mp3"
+              type="audio/mpeg"
+            />
             {/* Replace with actual audio file */}
             Your browser does not support the audio element.
           </audio>
@@ -211,15 +236,15 @@ const DashboardPage: React.FC = () => {
           {/* Dynamically Render News Sections */}
           {isLoading || !dailyNews ? (
             <p>Loading...</p>
-            ) : (
+          ) : (
             dailyNews.clusters.map((cluster: any, index: any) =>
               cluster.cluster !== -1 ? (
-              <NewsSection
-                key={index}
-                header={dailyNews.clusterLabels[index]}
-                summary={dailyNews.clusterSummaries[index]}
-                articles={cluster.articles.slice(0, 3)} // Use the first 3 articles
-                handleArticleClick={handleArticleClick}
+                <NewsSection
+                  key={index}
+                  header={dailyNews.clusterLabels[index]}
+                  summary={dailyNews.clusterSummaries[index]}
+                  articles={cluster.articles}
+                  handleArticleClick={handleArticleClick}
                 />
               ) : null
             )
@@ -228,10 +253,10 @@ const DashboardPage: React.FC = () => {
 
         {/* Your + Local Topics */}
         <div className="w-full md:w-[30%] flex flex-col space-y-4">
-            <div className="fixed space-y-4 pr-4 max-w-full md:max-w-[30%]">
+          <div className="fixed space-y-4 pr-4 max-w-full md:max-w-[30%]">
             <TopicsArticles />
             <LocalNews />
-            </div>
+          </div>
         </div>
 
         <Sidebar

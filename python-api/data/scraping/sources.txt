@@ -36,7 +36,6 @@ https://www.washingtontimes.com/
 https://www.wired.com
 https://www.wsj.com
 https://news.yahoo.com
-https://www.csmonitor.com
 https://www.foreignpolicy.com
 https://www.theatlantic.com
 https://www.vox.com

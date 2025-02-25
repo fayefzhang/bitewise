@@ -44,3 +44,10 @@ export interface Summary {
   title: string;
   summary: string;
 }
+
+// TopicsArticle Interface
+export interface TopicArticles {
+  date: string;
+  topic: string;
+  results: Article[];
+}
