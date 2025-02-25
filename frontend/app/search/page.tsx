@@ -80,7 +80,7 @@ const SearchPage: React.FC = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const BASE_URL: string = "http://localhost:3000";
 
-  useEffect(() => {
+  useEffect(() => { // loads summary for selectedArticle
     // Get article summary if not already done
     const fetchArticleSummary = async () => {
       if (selectedArticle?.summaries.length === 0) {
@@ -188,8 +188,16 @@ const SearchPage: React.FC = () => {
         summaries: [],
         cluster: entry.cluster,
       }));
-
+      
+      // update articles array
       setArticles(articlesData);
+
+      if (articlesData.length > 4) {
+        fetchSummariesForFirstFive(articlesData);
+      } else {
+        console.log("No articles found");
+      }
+
       setSummary({
         title: toTitleCase(term),
         summary: searchData.summary.summary,
@@ -198,6 +206,45 @@ const SearchPage: React.FC = () => {
       console.error("Error processing search request", error);
     }
   }
+  
+  const fetchSummariesForFirstFive = async (articlesToProcess: Article[]) => {
+    const updatedArticles = [...articlesToProcess]; // Clone to avoid mutating state directly
+  
+    const requests = updatedArticles.slice(0, 5).map(async (article, index) => {
+      if (article.summaries.length === 0) {
+        const articleBody = {
+          article: {
+            title: article.title,
+            content: article.content,
+            url: article.url,
+          },
+          ai_preferences: defaultAIPreferences,
+        };
+  
+        try {
+          const response = await fetch(`${BASE_URL}/api/summarize/article`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(articleBody),
+          });
+  
+          const data = await response.json();
+  
+          updatedArticles[index] = {
+            ...article,
+            summaries: [...article.summaries, data.summary || data],
+          };
+        } catch (error) {
+          console.error("Error processing article summary request", error);
+        }
+      }
+    });
+  
+    await Promise.all(requests); // Wait for all requests to finish
+    setArticles(updatedArticles);
+  };
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
