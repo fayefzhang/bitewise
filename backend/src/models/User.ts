@@ -12,7 +12,8 @@ const UserSchema: Schema = new Schema<IUser>({
         read_time: { type: Number, default: null },
         bias: { type: Number, default: 0 },
         clustering: { type: Boolean, default: false },
-        topics: { type: [String], default: [] }
+        topics: { type: [String], default: [] },
+        location: { type: String, default: "" }
     }
 });
 

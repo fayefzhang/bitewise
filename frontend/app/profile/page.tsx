@@ -4,7 +4,6 @@ import Header from "../components/header";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { interests, sources } from "../common/utils";
-import cluster from "cluster";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -22,6 +21,7 @@ const ProfilePage: React.FC = () => {
   const [bias, setBias] = useState<number>(0);
   const [fromDate, setFromDate] = useState<string>("");
   const [clustering, setClustering] = useState<boolean>(false);
+  const [location, setLocation] = useState<string>("");
 
   // Fetch user preferences on page load
   useEffect(() => {
@@ -43,6 +43,7 @@ const ProfilePage: React.FC = () => {
         setBias(userPreferences.bias);
         setFromDate(userPreferences.from_date);
         setClustering(userPreferences.clustering);
+        setLocation(userPreferences.location || "");
       } catch (error) {
         console.error("Error fetching user preferences:", error);
       }
@@ -57,7 +58,8 @@ const ProfilePage: React.FC = () => {
     updatedReadTime: number | null,
     updatedBias: number,
     updatedFromDate: string,
-    updatedClustering: boolean
+    updatedClustering: boolean,
+    updatedLocation: string
   ) => {
     try {
       const userEmail = localStorage.getItem("userEmail");
@@ -74,6 +76,7 @@ const ProfilePage: React.FC = () => {
               bias: updatedBias,
               from_date: updatedFromDate,
               clustering: updatedClustering,
+              location: updatedLocation,
             },
           },
         }),
@@ -219,7 +222,7 @@ const ProfilePage: React.FC = () => {
 
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -227,7 +230,8 @@ const ProfilePage: React.FC = () => {
                 readTime,
                 bias,
                 fromDate,
-                clustering
+                clustering,
+                location
               )
             }
           >
@@ -236,8 +240,11 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Topics Section */}
-        <div className="flex flex-col items-center mb-4">
-          <h1 className="text-xl font-bold text-gray-600">Your Topics</h1>
+        <div className="flex-col items-center mb-4">
+          <h1 className="text-2xl font-bold text-gray-600">Dashboard Preferences</h1>
+        </div>
+        <div className="flex-col items-center mb-4">
+          <h1 className="text-xl font-bold text-gray-600">Followed Topics</h1>
         </div>
         <div className="mb-4">
           <input
@@ -265,7 +272,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -273,7 +280,41 @@ const ProfilePage: React.FC = () => {
                 readTime,
                 bias,
                 fromDate,
-                clustering
+                clustering,
+                location
+              )
+            }
+          >
+            Save Preferences
+          </button>
+        </div>
+
+        {/* Location */}
+        <div className="flex flex-col items-center mb-4">
+          <h1 className="text-xl font-bold text-gray-600">Local News Location</h1>
+        </div>
+        <div className="flex flex-row items-center gap-4 mb-2 text-gray-800">
+          <label>Location</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="border-2 rounded-full px-4 py-2 text-blue-500 font-medium"
+            placeholder="Enter your location"
+          />
+        </div>
+        <div className="flex flex-col items-center mb-6">
+          <button
+            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            onClick={() =>
+              updateUserProfile(
+                selectedTopics,
+                selectedSources,
+                readTime,
+                bias,
+                fromDate,
+                clustering,
+                location
               )
             }
           >
@@ -302,7 +343,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -310,7 +351,8 @@ const ProfilePage: React.FC = () => {
                 readTime,
                 bias,
                 fromDate,
-                clustering
+                clustering,
+                location
               )
             }
           >
@@ -320,7 +362,7 @@ const ProfilePage: React.FC = () => {
 
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-800 hover:bg-blue-900 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
             onClick={() => handleLogOut()}
           >
             Log Out
