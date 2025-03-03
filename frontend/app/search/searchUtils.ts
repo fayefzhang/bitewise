@@ -55,12 +55,12 @@ export async function handleSearch(
   closePanel();
 
   try {
-    const response = await fetch(`${BASE_URL}/api/search`, {
+    const articlesResponse = await fetch(`${BASE_URL}/api/search`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
-    const searchData = await response.json();
+    const searchData = await articlesResponse.json();
 
     console.log("Raw search results (no filtering): ", searchData);
 
@@ -101,15 +101,28 @@ export async function handleSearch(
       cluster: entry.cluster,
     }));
 
-    setArticles(articlesData);
+    setArticles(articlesData); // updates the articles on the frontend
 
     if (articlesData.length > 4) {
       fetchSummariesForFirstFive(articlesData, setArticles);
     }
 
-    setSummary({
+    const summaryRequestBody = { // passing in the first 5 articles
+        articles: articlesData.slice(0, 5),
+            ai_preferences: defaultAIPreferences,
+      };
+
+    const summaryResponse = await fetch(`${BASE_URL}/api/search/query-summary`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(summaryRequestBody),
+      });
+
+    const summaryData = await summaryResponse.json()
+
+    setSummary({ // updates the summary on the frontend
       title: toTitleCase(term),
-      summary: searchData.summary.summary,
+      summary: summaryData.summary,
     });
   } catch (error) {
     console.error("Error processing search request", error);

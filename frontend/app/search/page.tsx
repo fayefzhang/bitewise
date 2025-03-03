@@ -67,6 +67,8 @@ const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Righ
 //   });
 // };
 
+
+
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -87,6 +89,20 @@ const SearchPage: React.FC = () => {
   async function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
   }
+
+  // Log timestamp when articles array gets updated
+  useEffect(() => {
+    if (articles.length > 0) {
+      console.log(`[${new Date().toISOString()}] Articles updated:`, articles);
+    }
+  }, [articles]);
+
+  // Log timestamp when summary gets updated
+  useEffect(() => {
+    if (summary) {
+      console.log(`[${new Date().toISOString()}] Summary updated:`, summary);
+    }
+  }, [summary]);
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
@@ -130,64 +146,51 @@ const SearchPage: React.FC = () => {
             isPanelOpen ? "w-[70%]" : "w-full"
           }`}
         >
-          {summary && articles.length > 0 ? (
-            <>
-              <section className="mb-8">
-                <h1 className="text-2xl font-bold text-black">
-                  {summary.title}
-                </h1>
+          <section className="mb-8">
+            {summary ? (
+              <>
+                <h1 className="text-2xl font-bold text-black">{summary.title}</h1>
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
-              </section>
-              <section>
-                {articles
-                // .filter((article) => {
-                //   let readTime = true;
-                //   if (headerPreferences && headerPreferences.read_time != "") {
-                //     readTime = ((headerPreferences?.read_time == "Short" && article.readTime == "<2 min") || 
-                //     (headerPreferences?.read_time == "Medium" && article.readTime == "2-7 min") || 
-                //     (headerPreferences?.read_time == "Long" && article.readTime == ">7 min"));
-                //   }
-                //   return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime && (!headerPreferences.clustering || article.cluster != -1));
-                // })
-                .map((article) => (
-                  <div
-                    key={article.url}
-                    className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
-                      selectedArticleUrl === article.url
-                        ? "border-blue-500 bg-blue-100"
-                        : "border-transparent"
-                    }`}
-                    onClick={() => handleArticleClick(article)}
-                    onDoubleClick={() => handleArticleDoubleClick(article)}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <Image
-                        src={article.imageUrl || "/bitewise_logo.png"}
-                        alt="article thumbnail"
-                        width={80}
-                        height={50}
-                        className="rounded-lg"
-                        style={{ width: "80px", height: "50px", objectFit: "cover" }}
-                      />
-                      <div>
-                        <h2 className="font-bold text-lg text-black">
-                          {article.title}
-                        </h2>
-                        <p className="text-gray-500">{article.source} • {article.time}</p>
-                        <p className="text-gray-500 text-sm">
-                          {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
-                        </p>
-                      </div>
+              </>
+            ) : articles.length > 0 && (
+              <p className="text-gray-400 italic">Loading summary...</p>
+            )}
+          </section>
+
+          <section>
+            {articles.length > 0 ? (
+              articles.map((article) => (
+                <div
+                  key={article.url}
+                  className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
+                    selectedArticleUrl === article.url ? "border-blue-500 bg-blue-100" : "border-transparent"
+                  }`}
+                  onClick={() => handleArticleClick(article)}
+                  onDoubleClick={() => handleArticleDoubleClick(article)}
+                >
+                  <div className="flex items-center space-x-4">
+                    <Image
+                      src={article.imageUrl || "/bitewise_logo.png"}
+                      alt="article thumbnail"
+                      width={80}
+                      height={50}
+                      className="rounded-lg"
+                      style={{ width: "80px", height: "50px", objectFit: "cover" }}
+                    />
+                    <div>
+                      <h2 className="font-bold text-lg text-black">{article.title}</h2>
+                      <p className="text-gray-500">{article.source} • {article.time}</p>
+                      <p className="text-gray-500 text-sm">
+                        {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </section>
-            </>
-          ) : (
-            <p className="text-gray-500 text-center mt-16">
-              No results yet. Start by typing a search query.
-            </p>
-          )}
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center mt-16">No articles.</p>
+            )}
+          </section>
         </section>
 
         <Sidebar
