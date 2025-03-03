@@ -1,15 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { AdvancedSearchPreferences, Article, Summary } from "../common/interfaces";
-import {
-  defaultAIPreferences,
-  defaultSearchPreferences,
-  toTitleCase,
-} from "../common/utils";
+import { defaultSearchPreferences } from "../common/utils";
 import Header from "../components/header";
 import Sidebar from "../search/sidebar";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import {
+  fetchArticleSummary,
+  handleSearch,
+} from "./searchUtils";
 
 const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
 const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
@@ -80,178 +80,13 @@ const SearchPage: React.FC = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const BASE_URL: string = "http://localhost:3000";
 
-  useEffect(() => { // loads summary for selectedArticle
-    // Get article summary if not already done
-    const fetchArticleSummary = async () => {
-      if (selectedArticle?.summaries.length === 0) {
-        const articleBody = {
-          article: {
-            title: selectedArticle.title,
-            content: selectedArticle.content,
-            url: selectedArticle.url,
-          },
-          ai_preferences: defaultAIPreferences,
-        };
-
-        try {
-          const response = await fetch(`${BASE_URL}/api/summarize/article`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(articleBody),
-          });
-          const data = await response.json();
-
-          setSelectedArticle((prevArticle) => {
-            if (!prevArticle) return null;
-            return {
-              ...prevArticle,
-              summaries: [...prevArticle.summaries, data.summary || data],
-            };
-          });
-        } catch (error) {
-          console.error("Error processing article summary request", error);
-        }
-      }
-    };
-
-    fetchArticleSummary();
+  useEffect(() => {
+    fetchArticleSummary(selectedArticle, setSelectedArticle);
   }, [selectedArticle]);
 
   async function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
   }
-
-  async function handleSearch(term: string) {
-    const requestBody = {
-      query: term,
-      search_preferences: headerPreferences,
-      ai_preferences: defaultAIPreferences,
-      cluster: headerPreferences?.clustering,
-    };
-
-    // Clear existing content
-    setArticles([]); // Clear articles
-    setSummary(null); // Clear summary
-
-    // Close article details sidebar
-    closePanel();
-
-    try {
-      // Send search request to backend
-      const response = await fetch(`${BASE_URL}/api/search`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-      const searchData = await response.json();
-
-      console.log("Raw search results (no filtering): ", searchData);
-
-      const { bias, read_time, from_date } = headerPreferences || {};
-      const hasFilters = (bias?.length || 0) > 0 || (read_time?.length || 0) > 0 || from_date;
-
-      let filteredArticles = searchData || [];
-
-      if (hasFilters) {
-        const filterRequestBody = {
-          articles: searchData.articles,
-          filter_preferences: {
-            bias: headerPreferences?.bias,
-            maxReadTime: headerPreferences?.read_time,
-            dateRange: headerPreferences?.from_date,
-          },
-        };
-        console.log("Filtering", filterRequestBody);
-
-        const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(filterRequestBody),
-        });
-    
-        const filteredData = await filterResponse.json();
-        filteredArticles = filteredData;
-
-        console.log("Filtered search results: ", filteredArticles);
-      }
-
-      // Process search results
-      const articlesData = filteredArticles.articles.map((entry: any) => ({
-        id: entry.id,  // NO ID?
-        url: entry.url,
-        authors: entry.authors,
-        imageUrl: entry.imageUrl,
-        title: entry.title,
-        source: entry.source,
-        content: entry.content,
-        time: entry.datePublished,
-        biasRating: entry.biasRating,
-        readTime: entry.readTime,
-        relatedSources: entry.relatedSources,
-        summaries: [],
-        cluster: entry.cluster,
-      }));
-      
-      // update articles array
-      setArticles(articlesData);
-
-      if (articlesData.length > 4) {
-        fetchSummariesForFirstFive(articlesData);
-      } else {
-        console.log("No articles found");
-      }
-
-      setSummary({
-        title: toTitleCase(term),
-        summary: searchData.summary.summary,
-      });
-    } catch (error) {
-      console.error("Error processing search request", error);
-    }
-  }
-  
-  const fetchSummariesForFirstFive = async (articlesToProcess: Article[]) => {
-    const updatedArticles = [...articlesToProcess]; // Clone to avoid mutating state directly
-  
-    const requests = updatedArticles.slice(0, 5).map(async (article, index) => {
-      if (article.summaries.length === 0) {
-        const articleBody = {
-          article: {
-            title: article.title,
-            content: article.content,
-            url: article.url,
-          },
-          ai_preferences: defaultAIPreferences,
-        };
-  
-        try {
-          const response = await fetch(`${BASE_URL}/api/summarize/article`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(articleBody),
-          });
-  
-          const data = await response.json();
-  
-          updatedArticles[index] = {
-            ...article,
-            summaries: [...article.summaries, data.summary || data],
-          };
-        } catch (error) {
-          console.error("Error processing article summary request", error);
-        }
-      }
-    });
-  
-    await Promise.all(requests); // Wait for all requests to finish
-    setArticles(updatedArticles);
-  };
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
@@ -282,8 +117,8 @@ const SearchPage: React.FC = () => {
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
       <Header
-        onSearch={handleSearch}
-        setPreferences={setPreferences}
+        onSearch={(term) => handleSearch(term, headerPreferences, setArticles, setSummary, () => closePanel())}
+        setPreferences={(preferences) => setPreferences(preferences)}
         placeholder="Search topic..."
         isSearchPage={true}
       />
