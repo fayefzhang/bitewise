@@ -167,54 +167,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         const articlesData = filteredResults;
         // console.log("search step 1, found articles:", articlesData);
 
-        // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
-        const summaryRequestBody = {
-            articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
-            acc[article.url] = {
-                title: article.title,
-                content: article.content,
-                imageUrl: article.imageUrl,
-                readTime: article.readTime,
-                biasRating: article.bias,
-                source: article.source,
-                time: article.date,
-                authors: article.authors,
-            };
-            return acc;
-            }, {}),
-            ai_preferences,
-        };
-
-        const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
-        const { title, summary, enriched_articles } = summaryResponse.data;
-
-        // update articles with scraped content in database
-        const bulkOperations = enriched_articles.map((article: any) => ({
-            updateOne: {
-                filter: { url: article.url, content: "" },
-                update: { $set: { content: article.content } },
-                upsert: false // don't create a new document if it doesn't exist
-            }
-        }));
-        if (bulkOperations.length > 0) {
-            await ArticleModel.bulkWrite(bulkOperations)
-            .then(() => {
-                console.log("Successfully updated articles with full content");
-            })
-            .catch((error: any) => {
-                console.error("Error updating articles with full content:", error);
-            });
-        } else {
-            console.log("No articles required content update.");
-        }
-
         // Step 4: Combine articles and summaries into a single response
-        const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
+        const result: { articles: any; clusters?: any } = {
             articles: articlesData,
-            summary: {
-                title: query,
-                summary: summary,
-            },
         };
 
         // Add clusters to the response if clustering was requested
@@ -246,6 +201,59 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
     }
 });
 
+// @route POST /search/query-summary
+// @description Given a list of articles relating to the same query, generates a summary regarding the contents in the articles
+// @returns title of summary and the summary itself
+router.post("/search/query-summary", async (req: Request, res: Response): Promise<void> => {
+
+    const { articles, ai_preferences } = req.body;
+    
+    const summaryRequestBody = {
+        articles: articles.reduce((acc: any, article: any) => {
+        acc[article.url] = {
+            title: article.title,
+            content: article.content,
+            imageUrl: article.imageUrl,
+            readTime: article.readTime,
+            biasRating: article.bias,
+            source: article.source,
+            time: article.date,
+            authors: article.authors,
+        };
+        return acc;
+        }, {}),
+        ai_preferences,
+    };
+
+    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
+    const { title, summary, enriched_articles } = summaryResponse.data;
+
+    // update articles with scraped content in database
+    const bulkOperations = enriched_articles.map((article: any) => ({
+        updateOne: {
+            filter: { url: article.url, content: "" },
+            update: { $set: { content: article.content } },
+            upsert: false // don't create a new document if it doesn't exist
+        }
+    }));
+    if (bulkOperations.length > 0) {
+        await ArticleModel.bulkWrite(bulkOperations)
+        .then(() => {
+            console.log("Successfully updated articles with full content");
+        })
+        .catch((error: any) => {
+            console.error("Error updating articles with full content:", error);
+        });
+    } else {
+        console.log("No articles required content update.");
+    }
+
+    const result: { summary: string } = {
+        summary: summary,
+    };
+
+    res.json(result);
+})
 
 // @route POST /search/filter
 // @description Processes a news search query and filters based on user preferences for bias, read time, and date range
