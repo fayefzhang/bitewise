@@ -1,7 +1,14 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
+<<<<<<< HEAD
 from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results, get_topics_articles
+=======
+from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article, filter_irrelevant_articles
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources, get_topics_articles
+from utils.openai import generate_summary_individual, generate_summary_collection, daily_news_summary
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
+>>>>>>> 02d2b4df5110242223536bbcbc748023b750d90b
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
@@ -341,5 +348,19 @@ def crawl_local():
         app.logger.error(f"Error occurred: {str(e)}")
         return jsonify({"error": "An error occurred"}), 500
 
+@app.route('/irrelevant-articles', methods=['POST'])
+def filter_irrelevant():
+    data = request.get_json()
+    articles = data.get('articles')
+    query = data.get('query')
+    if not articles:
+        return jsonify({"error": "Articles are required"}), 400
+    relevant_indices = filter_irrelevant_articles(articles, query)
+    app.logger.info("Articles were filtered: ", relevant_indices)
+    return jsonify({"relevant_indices": relevant_indices}), 200
+
 if __name__ == '__main__':
     app.run(port=5000)
+
+
+    
