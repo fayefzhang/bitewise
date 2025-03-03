@@ -411,7 +411,8 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
                 try {
                     const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
                         articles: formattedArticles,
-                        ai_preferences: ai_preferences
+                        ai_preferences: ai_preferences,
+                        is_dashboard: true
                     });
 
                     const summaryData = summaryResponse.data;
@@ -597,18 +598,22 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 // this would only be called by frontend for REFRESHING summary such as updating params
 router.post('/summarize/articles', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { articles, ai_preferences } = req.body;
+        const { articles, ai_preferences, is_dashboard} = req.body;
         if (!articles) {
             res.status(400).json({ message: 'Articles are required' });
         }
         if (!ai_preferences) {
             res.status(400).json({ message: 'AI preferences are required' });
         }
+        // if (!is_dashboard) {
+        //     res.status(400).json({ message: 'is_dashboard is required' });
+        // }
 
         // send articles and user prefs to the Python backend
         const response = await axios.post(`${BASE_URL}/summarize-articles`, {
             articles,
-            ai_preferences
+            ai_preferences,
+            // is_dashboard
         });
 
         const { title, summary, enriched_articles } = response.data;

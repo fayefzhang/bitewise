@@ -1,14 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
-<<<<<<< HEAD
 from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results, get_topics_articles
-=======
-from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article, filter_irrelevant_articles
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources, get_topics_articles
-from utils.openai import generate_summary_individual, generate_summary_collection, daily_news_summary
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
->>>>>>> 02d2b4df5110242223536bbcbc748023b750d90b
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
@@ -69,11 +62,13 @@ def refresh_helper(file_path='articles_data.json'):
             article["readTime"] = estimate_reading_time(char_length(article.get("content", None)))
 
     # take 3 articles from each cluster for overall summary
+    # for now only using top 7 clusters
+    top_clusters = list(cluster_dict["clustered_articles"].items())[:7]
     top_articles = []
     max_articles_per_cluster = 3
-    for articles in cluster_dict["clustered_articles"].values():
+    for _, articles in top_clusters[:7]:
         top_articles.extend(articles[:max_articles_per_cluster])
-    top_articles = top_articles[:max_articles_per_cluster * len(cluster_dict["clustered_articles"])]
+    top_articles = top_articles[:max_articles_per_cluster * 7]
 
     # **Generate summary from daily news articles**
     articles_text = "\n\n".join([
@@ -81,7 +76,7 @@ def refresh_helper(file_path='articles_data.json'):
     ])
 
     daily_summary = daily_news_summary(articles_text)  # Calling the summary function
-  
+
     # **Build the final response**
     response = {
         "overall_summary": daily_summary,  # Daily news summary
@@ -91,11 +86,18 @@ def refresh_helper(file_path='articles_data.json'):
                 "title": cluster_articles[0].get("title", "Untitled"),  # Using first article title as cluster title
                 "articles": list(cluster_articles)
             }
-            for cluster_id, cluster_articles in cluster_dict["clustered_articles"].items()
+            for cluster_id, cluster_articles in top_clusters
         ]
     }
 
-    print("response", response)
+    print("Overall Summary:", response["overall_summary"][:500])  # First 500 chars
+    print("\nClusters Preview:")
+    for cluster in response.get("clusters", [])[:3]:  # First 3 clusters only
+        print(f"- Cluster ID: {cluster.get('cluster_id', 'N/A')}")
+        print(f"  Title: {cluster.get('title', 'Untitled')}")
+        print(f"  Articles Count: {len(cluster.get('articles', []))}")
+        print(f"  Sample Article: {cluster['articles'][0] if cluster.get('articles') else 'No articles'}\n")
+    
     return jsonify(response)
 
 
@@ -229,7 +231,12 @@ def summarize_articles():
         return jsonify({"error": "Articles are required"}), 400
     
     # dict mapping urls to summary
-    contents_mapping = get_contents(articles)
+    is_dashboard = data.get('is_dashboard', False)
+    if not is_dashboard:
+        contents_mapping = get_contents(articles)
+    else:
+        contents_mapping = articles
+        
     # print(contents_mapping)
 
     # enrich articles with full scraped content

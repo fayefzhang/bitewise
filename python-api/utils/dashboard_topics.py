@@ -77,6 +77,11 @@ def filter_topics(article_data, topic_model):
     filtered_topics = []
     for topic in top_topics:
 
+        # eliminate -1 topic
+        if topic == -1:
+            print(f"Removed topic: {topic} due to outliers/noise")
+            continue
+
         # eliminate topics where most articles are from same source
         articles_in_topic = article_data[article_data["topic"] == topic]
         source_counts = articles_in_topic["source"].value_counts(normalize=True)
@@ -133,12 +138,14 @@ def format_response(rep_article_urls, article_data):
         filtered_article = {key: article[key] for key in fields_to_keep if key in article}
         cluster_groups[cluster_id].append(filtered_article)
 
+    # sorted_cluster_groups = sorted(cluster_groups.items(), key=lambda x: len(x[1]), reverse=True)
+    # sorted_cluster_groups = {cluster_id: articles for cluster_id, articles in sorted_cluster_groups}
+
     # first three articles per cluster are representatives
     for cluster_id, articles in cluster_groups.items():
         rep_for_cluster = [article for article in articles if article["url"] in rep_article_urls]
         non_rep_articles = [article for article in articles if article["url"] not in rep_article_urls]
         cluster_groups[cluster_id] = rep_for_cluster[:3] + non_rep_articles
-
     # response format for app.py
     response = {
         "clustered_articles": cluster_groups
@@ -150,9 +157,12 @@ def news_pipeline(file):
     article_data = load_data(file)
     cleaned_data = clean_df(article_data)
     cleaned_data, topic_model = find_topics(cleaned_data)
+
+    # make sure we get top 10 not just first 10
     filtered_topics = filter_topics(cleaned_data, topic_model)
-    rep_articles = find_rep_article(filtered_topics, topic_model, cleaned_data)
-    resp = format_response(rep_articles, cleaned_data)
+    cleaned_data = cleaned_data[cleaned_data["topic"].isin(filtered_topics[:10])]
+    rep_articles = find_rep_article(filtered_topics[:10], topic_model, cleaned_data)
+    resp = format_response(rep_articles, cleaned_data)    
     return resp
 
 def main():
