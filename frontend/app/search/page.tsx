@@ -90,20 +90,6 @@ const SearchPage: React.FC = () => {
     setHeaderPreferences(preferences);
   }
 
-  // Log timestamp when articles array gets updated
-  useEffect(() => {
-    if (articles.length > 0) {
-      console.log(`[${new Date().toISOString()}] Articles updated:`, articles);
-    }
-  }, [articles]);
-
-  // Log timestamp when summary gets updated
-  useEffect(() => {
-    if (summary) {
-      console.log(`[${new Date().toISOString()}] Summary updated:`, summary);
-    }
-  }, [summary]);
-
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
       closePanel();
