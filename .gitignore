@@ -6,6 +6,7 @@
 *.pyc
 __pycache__/
 /python-api/myenv
+/python-api/data/tts/*
 .env
 node_modules
 myenv
