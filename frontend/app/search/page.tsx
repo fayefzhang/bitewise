@@ -2,14 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { AdvancedSearchPreferences, Article, Summary } from "../common/interfaces";
+import Spinner from "../common/Spinner";
 import { defaultSearchPreferences } from "../common/utils";
 import Header from "../components/header";
 import Sidebar from "../search/sidebar";
 import Image from "next/image";
-import {
-  fetchArticleSummary,
-  handleSearch,
-} from "./searchUtils";
+import { fetchArticleSummary, handleSearch } from "./searchUtils";
 
 const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
 const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
@@ -80,6 +78,7 @@ const SearchPage: React.FC = () => {
     defaultSearchPreferences
   );
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const BASE_URL: string = "http://localhost:3000";
 
   useEffect(() => {
@@ -88,6 +87,14 @@ const SearchPage: React.FC = () => {
 
   async function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
+  }
+
+  async function handleSearchWithLoading(term: string) {
+    setIsLoading(true);
+    await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
+      closePanel()
+    );
+    setIsLoading(false);
   }
 
   function handleArticleClick(article: Article) {
@@ -114,12 +121,10 @@ const SearchPage: React.FC = () => {
     setIsPanelOpen(false); // Close panel
   }
 
-  // const filteredArticles = filterArticles(articles, headerPreferences);
-
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
       <Header
-        onSearch={(term) => handleSearch(term, headerPreferences, setArticles, setSummary, () => closePanel())}
+        onSearch={(term) => handleSearchWithLoading(term)}
         setPreferences={(preferences) => setPreferences(preferences)}
         placeholder="Search topic..."
         isSearchPage={true}
@@ -139,12 +144,16 @@ const SearchPage: React.FC = () => {
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
               </>
             ) : articles.length > 0 && (
-              <p className="text-gray-400 italic">Loading summary...</p>
+              <p className="text-gray-400 italic flex"><Spinner /> Loading summary...</p>
             )}
           </section>
 
           <section>
-            {articles.length > 0 ? (
+            {isLoading ? (
+              <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
+                <Spinner /> Searching...
+              </p>
+            ) : articles.length > 0 ? (
               articles.map((article) => (
                 <div
                   key={article.url}
