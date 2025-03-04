@@ -13,3 +13,6 @@ myenv
 */venv/
 */env/
 */.venv/
+/python-api/data/podcasts/audio/
+/python-api/data/podcasts/transcripts/
+/python-api/data/tts

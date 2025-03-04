@@ -469,6 +469,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
             clusterSummaries: clusterSummaries.map(cs => cs.summary),
             clusterLabels: clusterSummaries.map(cs => cs.title),
             location: location,
+            podcast: "",  // leave blank to start (before generation)
         });
 
         if (timeDifference < 12 * 3600 * 1000) {  // save new dashboard only if crawl done
@@ -685,6 +686,18 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
 
         if (!response.data.s3_url) {
             res.status(500).json({ error: 'Podcast failed to upload to S3' });
+        }
+
+        // update dashboard
+
+        const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
+        const existingDashboard = await DashboardModel.findOne({ date: today, location: "" });
+        if (existingDashboard) {
+            await DashboardModel.updateOne(
+                { _id: existingDashboard._id }, 
+                { $set: { podcast: response.data.s3_url } }, // Update only the podcast field
+                { new: true }
+            );        
         }
 
         res.json(response.data);

@@ -78,18 +78,19 @@ def refresh_helper(file_path='articles_data.json'):
 
     # **Build the final response**
     response = {
-        "overall_summary": daily_summary,  # Daily news summary
+        "overall_summary": daily_summary.to_dict() if isinstance(daily_summary, pd.Series) else daily_summary,
         "clusters": [
             {
                 "cluster_id": cluster_id,
-                "title": cluster_articles[0].get("title", "Untitled"),  # Using first article title as cluster title
-                "articles": list(cluster_articles)
+                "title": cluster_articles[0].get("title", "Untitled"),  
+                "articles": [article.to_dict() if isinstance(article, pd.Series) else article for article in cluster_articles]
             }
             for cluster_id, cluster_articles in top_clusters
         ]
     }
 
-    return jsonify(response)
+    return jsonify(response)  
+
 
 
 @app.route('/search', methods=['POST'])
