@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
-from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article
+from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article, filter_irrelevant_articles
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results, get_topics_articles
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
