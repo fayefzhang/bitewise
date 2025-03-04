@@ -9,8 +9,8 @@ import Sidebar from "../search/sidebar";
 import Image from "next/image";
 import { fetchArticleSummary, handleSearch } from "./searchUtils";
 
-const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
-const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
+const readTimeLabels = ["Short", "Medium", "Long"];
+const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", ""];
 
 // const filterArticles = (
 //   articles: Article[],

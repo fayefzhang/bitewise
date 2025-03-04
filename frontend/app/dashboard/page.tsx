@@ -24,7 +24,7 @@ const biasRatingLabels = [
   "Center",
   "Right-Center",
   "Right",
-  "Unknown",
+  "",
 ];
 const difficultyLabels = ["Easy", "Medium", "Hard"];
 

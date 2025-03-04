@@ -9,7 +9,7 @@ type SidebarProps = {
   isPanelOpen: boolean;
 };
 
-const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
+const readTimeLabels = ["Short", "Medium", "Long"];
 const readTimeOptions = ["short", "medium", "long"];
 const biasRatingLabels = [
   "Left",
@@ -17,7 +17,7 @@ const biasRatingLabels = [
   "Center",
   "Right-Center",
   "Right",
-  "Unknown",
+  "",
 ];
 const toneOptions = ["formal", "conversational", "technical", "analytical"];
 const formatOptions = ["highlights", "bullets", "analysis", "quotes"];
