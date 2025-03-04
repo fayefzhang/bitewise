@@ -98,6 +98,18 @@ export const defaultSearchPreferences: AdvancedSearchPreferences = {
   clustering: false,
 };
 
+export const defaultUserPreferences = {
+  sources: [],
+  domains: [],
+  exclude_domains: [],
+  from_date: "",
+  read_time: [],
+  bias: [],
+  clustering: false,
+  topics: ["Climate Change", "Politics", "Technology"],
+  location: "",
+}
+
 export const defaultAIPreferences = {
   length: "short", // options: {"short", "medium", "long"}
   tone: "formal", // options: {"formal", "conversational", "technical", "analytical"}

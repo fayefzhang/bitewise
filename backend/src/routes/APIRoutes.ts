@@ -522,7 +522,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         const existingArticle = await ArticleModel.findOne({ url: article.url });
 
         if (existingArticle) {
-            console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
+            // console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
             // frontend not passing it in this format
             // console.log(ai_preferences);
             // console.log("ai pref length:", ai_preferences.AILength);
@@ -569,13 +569,14 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                     AILength: ReversePrefDictionary['AILength'][ai_preferences.length],
                     AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
                     AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
-                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                    s3Url: response.data.s3_url
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []
                 }
                 existingArticle.summaries.push(newSummary);
-                console.log("pushed new summary to existing article:", existingArticle);
+                // console.log("pushed new summary to existing article:", existingArticle);
                 // @Sanya add in later when we merge branches
                 // existingArticle.difficulty = readingDifficulty; 
                 await existingArticle.save();

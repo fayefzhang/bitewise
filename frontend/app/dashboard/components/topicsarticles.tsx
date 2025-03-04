@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Tab } from "@headlessui/react";
 import { TopicArticles } from "../../common/interfaces";
+import { defaultUserPreferences } from "@/app/common/utils";
 
 interface ArticleEntryProps {
   title: string;
@@ -12,7 +13,7 @@ interface ArticleEntryProps {
 
 const TopicsArticles = () => {
   const BASE_URL: string = "http://localhost:3000";
-  const [preferences, setPreferences] = useState(null);
+  const [preferences, setPreferences] = useState(defaultUserPreferences);
   const [topicArticles, setTopicArticles] = useState<TopicArticles>();
 
   useEffect(() => {
@@ -20,15 +21,18 @@ const TopicsArticles = () => {
 
     const getTopicsArticles = async () => {
       try {
-        console.log("Fetching user preferences...");
-        const userPrefResponse = await fetch(
-          `${BASE_URL}/api/user/preferences?email=${userEmail}`
-        );
-        if (!userPrefResponse.ok) {
-          throw new Error("Failed to get existing user preferences");
+        if (userEmail) {
+          // user is logged in
+          console.log("Fetching user preferences...");
+          const userPrefResponse = await fetch(
+            `${BASE_URL}/api/user/preferences?email=${userEmail}`
+          );
+          if (!userPrefResponse.ok) {
+            throw new Error("Failed to get existing user preferences");
+          }
+          const userPreferences = await userPrefResponse.json();
+          setPreferences(userPreferences);
         }
-        const userPreferences = await userPrefResponse.json();
-        setPreferences(userPreferences);
 
         const fromDate = new Date();
         fromDate.setDate(fromDate.getDate() - 2);
@@ -42,7 +46,7 @@ const TopicsArticles = () => {
           read_time: null,
           bias: null,
         };
-        console.log("data.topics: " + userPreferences.topics);
+        console.log("data.topics: " + preferences.topics);
         console.log("Fetching topic articles...");
         const topicsResponse = await fetch(`${BASE_URL}/api/search/topics`, {
           method: "POST",
@@ -50,7 +54,7 @@ const TopicsArticles = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            topics: userPreferences.topics,
+            topics: preferences.topics,
             ...searchPreferences,
           }),
         });
