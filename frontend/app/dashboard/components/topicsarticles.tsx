@@ -56,7 +56,7 @@ const TopicsArticles = () => {
         });
 
         const rawTopicsData = await topicsResponse.text();
-        console.log("Raw topic articles response:", rawTopicsData);
+        // console.log("Raw topic articles response:", rawTopicsData);
 
         if (!rawTopicsData) {
           console.warn("Received empty response from topic articles API.");
@@ -146,7 +146,7 @@ const ArticleEntry: React.FC<ArticleEntryProps> = ({
 }) => {
   return (
     <div className="bg-white p-4 rounded-md shadow mb-4">
-      <h4 className="font-semibold">{title}</h4>
+      <h4 className="font-bold">{title}</h4>
       <p className="text-sm">{description}</p>
       {link && (
         <Link

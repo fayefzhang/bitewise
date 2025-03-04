@@ -53,7 +53,7 @@ const LocalNews = () => {
     <aside className="bg-blue-50 p-4 rounded-lg max-h-[30vh]">
       <div className="sticky top-0 bg-blue-50 z-10 pb-2">
         <h2 className="text-lg font-bold mb-2">Local News</h2>
-        <h4 className="font-semibold italic">{location}</h4>
+        <h4 className="font-bold italic">{location}</h4>
       </div>
 
       <div className="overflow-y-auto flex-grow pb-4 max-h-[20vh]">

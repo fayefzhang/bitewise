@@ -61,7 +61,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   return (
     <section className="mb-8">
       <h2 className="text-xl font-bold mb-2">{header}</h2>
-      <p className="mb-4">{summary}</p>
+      <p className="mb-4 text-justify">{summary}</p>
       <div className="flex space-x-4">
         <div className="flex w-full">
           {/* Image Section */}
@@ -121,9 +121,54 @@ const DashboardPage: React.FC = () => {
   const [dailyNews, setDailyNews] = useState<any>(null);
   const [dailySummary, setDailySummary] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [dailyPodcast, setDailyPodcast] = useState<string>("");
 
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+  const fetchDailyPodcast = async (articles: string[]) => {
+    console.log("generating daily podcast...");
+    try {
+      const response = await fetch(`${BASE_URL}/api/generate/podcast`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+        body: JSON.stringify({ articles }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to generate podcast");
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchPodcast = async () => {
+      if (!dailyNews) return; // wait for daily news to load
+
+      if (dailyNews.podcast) {
+        setDailyPodcast(dailyNews.podcast);
+        return;
+      }
+
+      const articles = dailyNews.clusters.flatMap((cluster: any) =>
+        cluster.articles.slice(0, 3).map((article: Article) => article.url)
+      );
+
+      const podcast = await fetchDailyPodcast(articles);
+      setDailyPodcast(podcast.s3_url);
+
+      console.log("PODCAST", podcast);
+    };
+
+    fetchPodcast();
+  }, [dailyNews]);
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
@@ -174,6 +219,25 @@ const DashboardPage: React.FC = () => {
         } catch (error) {
           console.error("Error processing article summary request", error);
         }
+
+        // generate audio summary
+        // try {
+        //   const response = await fetch(`${BASE_URL}/api/generate/audio`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       title: selectedArticle.title,
+        //       summary: selectedArticle.summaries[0],
+        //     }),
+        //   });
+
+        //   const data = await response.json();
+        //   console.log("summary podcast", data);
+        // } catch (error) {
+        //   console.error("Error processing article podcast request", error);
+        // }
       }
     };
 
@@ -202,36 +266,40 @@ const DashboardPage: React.FC = () => {
       <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Main Section */}
         <div className="flex-1 flex-col">
-          <h1 className="text-2xl font-bold">
-            Good{" "}
-            {new Date().getHours() < 12
-              ? "morning"
-              : new Date().getHours() < 18
-              ? "afternoon"
-              : "evening"}
-            !
-          </h1>
-          <p className="mt-4 mb-4">{dailySummary}</p>
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold">
+              Good{" "}
+              {new Date().getHours() < 12
+                ? "morning"
+                : new Date().getHours() < 18
+                ? "afternoon"
+                : "evening"}
+              !
+            </h1>
+            <p className="text-right italic">
+              {new Date().toLocaleDateString("en-US", {
+                month: "long",
+                day: "2-digit",
+                year: "numeric",
+              })}
+            </p>
+          </div>
+          <p className="mt-4 mb-4 text-justify">{dailySummary}</p>
 
           {/* Audio Summary */}
-          <audio controls className="mt-2 w-full">
-            <source
-              src="http://localhost:3000/api/audio?filename=podcast_aefd727d6bbc48c69712aaee79f4114d.mp3"
+            {dailyPodcast ? (
+            <audio controls className="mt-2 w-full">
+              <source
+              src={dailyPodcast}
               type="audio/mpeg"
-            />
-            {/* Replace with actual audio file */}
-            Your browser does not support the audio element.
-          </audio>
-          <button className="flex items-center hover:underline mb-8">
-            <svg
-              className="w-6 h-6 mr-2"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 3v10.55a4 4 0 1 0 2 0V3h-2zm-7 6.5v2h2V9.5a7 7 0 1 1 10 0v2h2v-2a9 9 0 1 0-14 0z" />
-            </svg>
-            Listen to your daily bites: 4:41 min
-          </button>
+              />
+              Listen to your daily bites: 4:41 min
+            </audio>
+            ) : (
+            <div className="flex mt-2 mb-4 italic">
+              Loading your daily bites...
+            </div>
+            )}
 
           {/* Dynamically Render News Sections */}
           {isLoading || !dailyNews ? (

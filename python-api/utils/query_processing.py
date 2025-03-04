@@ -8,6 +8,9 @@ from nltk.stem import WordNetLemmatizer
 from nltk.data import find
 import string
 
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
