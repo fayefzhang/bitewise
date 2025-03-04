@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
-from utils.openai import generate_summary_individual, generate_summary_collection, generate_podcast_collection, generate_audio_from_article, filter_irrelevant_articles
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources, get_topics_articles
-from utils.openai import generate_summary_individual, generate_summary_collection, daily_news_summary
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results
+from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article
+from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results, get_topics_articles
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
@@ -16,6 +14,7 @@ import pandas as pd
 import re
 from datetime import datetime
 from threading import Thread
+from utils.dashboard_topics import news_pipeline
 
 
 app = Flask(__name__)
@@ -52,50 +51,23 @@ def refresh_helper(file_path='articles_data.json'):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_file_path = os.path.join(current_dir, 'data', file_path)
 
-    # apply clustering and get top 4 clusters
-    cluster_dict = cluster_daily_news_titles(json_file_path)
-    # print(set(cluster_dict.values()))
+    # get trending topics
+    cluster_dict = news_pipeline(json_file_path)
 
-    # add cluster label to articles
-    with open(json_file_path, 'r', encoding='utf-8') as f:
-        articles_data = json.load(f)
-    articles_df = pd.DataFrame(articles_data)
-    articles_df['cluster'] = articles_df.index.map(cluster_dict)
+    # add additional information (source, bias, readtime)
+    for cluster_id, articles in cluster_dict["clustered_articles"].items():
+        for article in articles:
+            # source and bias
+            article["source"], article["biasRating"] = get_source_and_bias(article.get("source", {}))
+            article["readTime"] = estimate_reading_time(char_length(article.get("content", None)))
 
-    def process_article(article):
-        article['source'], article['biasRating'] = get_source_and_bias(article.get('source', {}))
-        article['readTime'] = estimate_reading_time(char_length(article.get('content', None)))
-        article['time'] = article.get('time', None)
-        article['authors'] = article.get('authors', None)
-        article['imageUrl'] = article.get('imageUrl', None)
-        return article
-    
-    articles_df = articles_df.apply(lambda x: process_article(x), axis=1)
-
-    # get top clusters
-    top_clusters = (
-        articles_df['cluster']
-        .loc[articles_df['cluster'] != -1]
-        .value_counts()
-        .nlargest(min(4, articles_df['cluster'].nunique() - 1))
-        .index
-    )
-
-    # get articles for top clusters
-    top_articles = articles_df[articles_df['cluster'].isin(top_clusters)].to_dict(orient="records")
-    # response = (
-    #     top_articles
-    #     .groupby('cluster')
-    #     .apply(lambda x: x.to_dict(orient='records'))
-    #     .to_dict()
-    # )
-
-    cluster_groups = {}
-    for article in top_articles:
-        cluster_id = article["cluster"]
-        if cluster_id not in cluster_groups:
-            cluster_groups[cluster_id] = []
-        cluster_groups[cluster_id].append(article)
+    # take 3 articles from each cluster for overall summary
+    top_clusters = sorted(cluster_dict["clustered_articles"].items(), key=lambda x: len(x[1]), reverse=True)
+    top_articles = []
+    max_articles_per_cluster = 3
+    for cluster, articles in top_clusters:
+        print(f"Cluster ID: {cluster}, Articles Count: {len(articles)}")
+        top_articles.extend(articles[:max_articles_per_cluster])
 
     # **Generate summary from daily news articles**
     articles_text = "\n\n".join([
@@ -111,16 +83,13 @@ def refresh_helper(file_path='articles_data.json'):
             {
                 "cluster_id": cluster_id,
                 "title": cluster_articles[0].get("title", "Untitled"),  # Using first article title as cluster title
-                "articles": cluster_articles
+                "articles": list(cluster_articles)
             }
-            for cluster_id, cluster_articles in cluster_groups.items()
+            for cluster_id, cluster_articles in top_clusters
         ]
     }
 
     return jsonify(response)
-
-
-    # return jsonify(response)
 
 
 @app.route('/search', methods=['POST'])
@@ -250,9 +219,12 @@ def summarize_articles():
         return jsonify({"error": "Articles are required"}), 400
     
     # dict mapping urls to summary
-    contents_mapping = get_contents(articles)
-    # print(contents_mapping)
-
+    is_dashboard = data.get('is_dashboard', False)
+    if not is_dashboard:
+        contents_mapping = get_contents(articles)
+    else:
+        contents_mapping = articles
+        
     # enrich articles with full scraped content
     enriched_articles = []
     for url, article_data in articles.items():
@@ -270,7 +242,13 @@ def summarize_articles():
             "sentiment": article_result.get("sentiment", ""),
     })
 
-    articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])
+    # only use the first 10 articles for summarization (3 full, next 7 thirds) @Sanya verify
+    articles_text = "\n\n".join([
+    f"### {article['title']} ###\n{article['content']}" if i < 3 
+    else f"### {article['title']} ###\n{article['content'][:len(article['content']) // 3]}" 
+    for i, article in enumerate(enriched_articles[:10])
+    ])
+    # articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles[:7]])
     summary_output = generate_summary_collection(articles_text, ai_preferences)
     title, summary = summary_output.split("**Summary**:", 1)  # Splitting based on "**Summary**:"
     title = title.replace("**Title**:", "").strip()
