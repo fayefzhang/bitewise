@@ -79,10 +79,10 @@ def generate_summary_individual(input_text, user_preferences):
     if (not user_preferences.get('jargon_allowed', True)):
       summary_instruction += " Use clear, simple language and avoid complicated jargon."
 
-    if (user_preferences['length'] == 'medium'):
-        max_tokens = 250
-    elif (user_preferences['length'] == 'long'):
-        max_tokens = 500
+    # if (user_preferences['length'] == 'medium'):
+    #     max_tokens = 250
+    # elif (user_preferences['length'] == 'long'):
+    #     max_tokens = 500
     
     prompt = f"""
       Summarize the following article based on user preferences:
@@ -124,7 +124,7 @@ def generate_summary_individual(input_text, user_preferences):
             top_p=top_p,
             frequency_penalty=frequency_penalty,
             presence_penalty=presence_penalty,
-            max_tokens=max_tokens
+            # max_tokens=max_tokens
         )
         summary = response.choices[0].message.content.strip()
 
@@ -195,15 +195,10 @@ def generate_summary_collection(input_text, user_preferences):
       prompt += " Use clear, simple language and avoid complicated jargon."
     prompt += f":\n\n{input_text}"
     
-    
-    # @ Sanya it may be clear to the GPT but I think we should have some sort of marker that divides articles (like some char/sequence) so GPT can easily distinguish between them
-    # and if we implement this, we should mention it in prompt
-    # ^^DONE (added more detail to prompt to specify input format)
-    
-    if (user_preferences['length'] == 'medium'):
-        max_tokens = 250
-    elif (user_preferences['length'] == 'long'):
-        max_tokens = 500
+    # if (user_preferences['length'] == 'medium'):
+    #     max_tokens = 250
+    # elif (user_preferences['length'] == 'long'):
+    #     max_tokens = 500
     
     try:
         response = client.chat.completions.create(
@@ -213,7 +208,7 @@ def generate_summary_collection(input_text, user_preferences):
             top_p=top_p,
             frequency_penalty=frequency_penalty,
             presence_penalty=presence_penalty,
-            max_tokens=max_tokens
+            # max_tokens=max_tokens
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
@@ -325,3 +320,35 @@ def daily_news_summary(input_text):
         return f"An error occurred: {str(e)}"
 
     return response.choices[0].message.content.strip()
+
+# Filters out irrelevant articles using OpenAI
+def filter_irrelevant_articles(articles, query):
+    formatted_articles = "\n".join([f"{article['index']}: {article['text']}" for article in articles])
+
+    prompt = f"""
+    You are an intelligent news classifier. Your task is to filter out articles that do not make sense, based on the given search query, given their title or first sentence.
+
+    Here is the search query:
+    "{query}"
+
+    Below is a list of articles with their index and a short description:
+
+    {formatted_articles}
+
+    Return a **comma-separated list** of the indices of articles that are relevant. Do not include any text, spaces, or additional characters.
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+        )
+
+        # Extracting the list of relevant indices from the response
+        relevant_indices = response.choices[0].message.content.strip()
+
+        # Convert the response from string to a list of integers
+        return [int(idx) for idx in relevant_indices.split(",") if idx.strip().isdigit()]
+
+    except Exception as e:
+        return {"error": f"OpenAI API error: {str(e)}"}

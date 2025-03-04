@@ -121,7 +121,7 @@ def extract_links(html, base_url, delay=0.5):
             link = base_url + link  # handle relative links
             
         title = a_tag.get_text(strip=True)  # TODO: fix title -- extract h1 from scraping article
-        if len(link) - len(base_url) < 20 or len(title) < 20:  # avoid non-article links
+        if len(link) - len(base_url) < 30 or len(title) < 30:  # avoid non-article links
             continue
 
         article = Article(url=link, source=base_url)
@@ -183,7 +183,6 @@ def crawl_seeds(sources, output_file='articles_data.json'):
                 "title": article.title,
                 "source": article.source,
                 "content": article.content,
-                "content": article.content[:200] + "...",
                 "imageUrl": article.imageUrl,
                 "authors": article.authors,
                 "time": None
@@ -197,7 +196,7 @@ def crawl_seeds(sources, output_file='articles_data.json'):
             articles_list.append(articles_data)
 
     if articles_list:
-        articles_list = articles_list * 2  # double the articles for better clustering
+        # articles_list = articles_list * 2  # double the articles for better clustering
         with open("data/" + output_file, 'w', encoding='utf-8') as json_file:
             json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
         
@@ -225,7 +224,7 @@ def crawl_location(location="Philadelphia, PA"):
 
 
 def main():
-    crawl_all()
+    crawl_location()
 
 if __name__ == "__main__":
     main()

@@ -1,12 +1,13 @@
 import express, { Router, Request, Response, RequestHandler } from "express";
 import axios from 'axios';
+import { deleteOldDocuments } from "./Helpers/DeleteFiles";
 import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
 import UserModel from '../models/User';
 import TopicsArticlesModel from '../models/TopicsArticles'
 
-const AIDictionary = {
+const PrefDictionary = {
     AILength: {
         0: 'short',
         1: 'medium',
@@ -27,20 +28,32 @@ const AIDictionary = {
     AIJargonAllowed: {
         0: 'true',
         1: 'false',
+    },
+    FilterBias: {
+        0: 'Left',
+        1: 'Left-Center',
+        2: 'Center',
+        3: 'Right-Center',
+        4: 'Right',
+    },
+    FilterReadTime: {
+        0: 'Short',
+        1: 'Medium',
+        2: 'Long',
     }
 };
 
 // bi-directional dictionary
-interface AIDictionaryType {
+interface PrefDictionaryType {
     [key: string]: { [key: number]: string };
 }
 
-interface ReverseAIDictionaryType {
+interface ReversePrefDictionaryType {
     [key: string]: { [key: string]: number };
 }
 
-function createReverseMapping(dictionary: AIDictionaryType): ReverseAIDictionaryType {
-    const reversed: ReverseAIDictionaryType = {};
+function createReverseMapping(dictionary: PrefDictionaryType): ReversePrefDictionaryType {
+    const reversed: ReversePrefDictionaryType = {};
     for (const key in dictionary) {
         reversed[key] = Object.fromEntries(
             Object.entries(dictionary[key]).map(([k, v]) => [v, Number(k)])
@@ -49,7 +62,7 @@ function createReverseMapping(dictionary: AIDictionaryType): ReverseAIDictionary
     return reversed;
 }
 
-const ReverseAIDictionary = createReverseMapping(AIDictionary);
+const ReversePrefDictionary = createReverseMapping(PrefDictionary);
 
 const router: Router = express.Router();
 const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
@@ -60,18 +73,6 @@ import { readCache, writeCache } from "../utils/cache";
 const fs = require('fs');
 const path = require('path');
 
-const FILTER_DICT = {
-    bias: {
-        "left": 0,
-        "center": 1,
-        "right": 2
-    },
-    readTime: {
-        "<2 min": 0,
-        "2-7 min": 1,
-        ">7 min": 2
-    }
-};
 
 // @route POST /search
 // @description Processes a news search query
@@ -135,8 +136,14 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // Step 1: fetch articles
         const articlesResponse = await axios.post(`${BASE_URL}/search`, { query, search_preferences, cluster });
 
+        // filter out irrelevant articles
+        const fetchedArticles = articlesResponse.data.results.filter((entry: any) => entry.title !== "[Removed]");
+
+        // 🔹 Call AI filtering before proceeding
+        const filteredArticles = await fetchRelevantArticles(fetchedArticles, query);
+
         // format and write articles to database
-        const filteredResults = articlesResponse.data.results
+        const filteredResults = filteredArticles
             .filter((entry: any) => entry.title !== "[Removed]")
             .map((entry: any) => ({
                 url: entry.url,  // Primary key
@@ -160,54 +167,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         const articlesData = filteredResults;
         // console.log("search step 1, found articles:", articlesData);
 
-        // Step 2: Generate summaries for the top 5 relevant articles (in future will use clustering results)
-        const summaryRequestBody = {
-            articles: articlesData.slice(0, 5).reduce((acc: any, article: any) => {
-            acc[article.url] = {
-                title: article.title,
-                content: article.content,
-                imageUrl: article.imageUrl,
-                readTime: article.readTime,
-                biasRating: article.bias,
-                source: article.source,
-                time: article.date,
-                authors: article.authors,
-            };
-            return acc;
-            }, {}),
-            ai_preferences,
-        };
-
-        const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
-        const { title, summary, enriched_articles } = summaryResponse.data;
-
-        // update articles with scraped content in database
-        const bulkOperations = enriched_articles.map((article: any) => ({
-            updateOne: {
-                filter: { url: article.url, content: "" },
-                update: { $set: { content: article.content } },
-                upsert: false // don't create a new document if it doesn't exist
-            }
-        }));
-        if (bulkOperations.length > 0) {
-            await ArticleModel.bulkWrite(bulkOperations)
-            .then(() => {
-                console.log("Successfully updated articles with full content");
-            })
-            .catch((error: any) => {
-                console.error("Error updating articles with full content:", error);
-            });
-        } else {
-            console.log("No articles required content update.");
-        }
-
         // Step 4: Combine articles and summaries into a single response
-        const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
+        const result: { articles: any; clusters?: any } = {
             articles: articlesData,
-            summary: {
-                title: query,
-                summary: summary,
-            },
         };
 
         // Add clusters to the response if clustering was requested
@@ -230,7 +192,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         });
 
         const savedQuery = await newQuery.save();
-        console.log("saved query:", savedQuery);
+        // console.log("saved query:", savedQuery);
 
         res.json(result);
     } catch (error: any) {
@@ -239,6 +201,59 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
     }
 });
 
+// @route POST /search/query-summary
+// @description Given a list of articles relating to the same query, generates a summary regarding the contents in the articles
+// @returns title of summary and the summary itself
+router.post("/search/query-summary", async (req: Request, res: Response): Promise<void> => {
+
+    const { articles, ai_preferences } = req.body;
+    
+    const summaryRequestBody = {
+        articles: articles.reduce((acc: any, article: any) => {
+        acc[article.url] = {
+            title: article.title,
+            content: article.content,
+            imageUrl: article.imageUrl,
+            readTime: article.readTime,
+            biasRating: article.bias,
+            source: article.source,
+            time: article.date,
+            authors: article.authors,
+        };
+        return acc;
+        }, {}),
+        ai_preferences,
+    };
+
+    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
+    const { title, summary, enriched_articles } = summaryResponse.data;
+
+    // update articles with scraped content in database
+    const bulkOperations = enriched_articles.map((article: any) => ({
+        updateOne: {
+            filter: { url: article.url, content: "" },
+            update: { $set: { content: article.content } },
+            upsert: false // don't create a new document if it doesn't exist
+        }
+    }));
+    if (bulkOperations.length > 0) {
+        await ArticleModel.bulkWrite(bulkOperations)
+        .then(() => {
+            console.log("Successfully updated articles with full content");
+        })
+        .catch((error: any) => {
+            console.error("Error updating articles with full content:", error);
+        });
+    } else {
+        console.log("No articles required content update.");
+    }
+
+    const result: { summary: string } = {
+        summary: summary,
+    };
+
+    res.json(result);
+})
 
 // @route POST /search/filter
 // @description Processes a news search query and filters based on user preferences for bias, read time, and date range
@@ -257,31 +272,85 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
             return;
         }
 
-        const { bias, readTime, dateRange } = filter_preferences;
+        const { bias = [], maxReadTime = [], dateRange = null } = filter_preferences;
 
-        const biasIntArray = bias.map((b: keyof typeof FILTER_DICT.bias) => FILTER_DICT.bias[b]);
-        const readTimeIntArray = readTime.map((rt: keyof typeof FILTER_DICT.readTime) => FILTER_DICT.readTime[rt]);
+        console.log("Received filter preferences:", filter_preferences);
+
+        const biasIntArray = bias.map((b: string) => ReversePrefDictionary["FilterBias"][b]).filter((b: string) => b !== undefined);
+        const readTimeIntArray = maxReadTime.map((rt: string) => ReversePrefDictionary["FilterReadTime"][rt]).filter((rt: string) => rt !== undefined);
+
+        const dateFilter = dateRange ? new Date(dateRange) : null;
 
 
-        console.log("Filtering with preferences:", filter_preferences);
+
+        // console.log("Filtering with preferences:", filter_preferences);
 
         const filteredArticles = articles.filter((article: any) => {
-            const biasMatches = !bias || biasIntArray.includes(article.bias);
-            const readTimeMatches = !readTime || readTimeIntArray.includes(article.readTime);
-            const dateMatches = !dateRange || (article.date && new Date(article.date) >= new Date(dateRange));
+            const biasMatches = biasIntArray.length === 0 || biasIntArray.includes(article.biasRating);
+            const readTimeMatches = readTimeIntArray.length === 0 || readTimeIntArray.includes(article.readTime);
+            const dateMatches = !dateFilter || (article.datePublished && new Date(article.datePublished) >= dateFilter);
 
             return biasMatches && readTimeMatches && dateMatches;
         });
 
-        console.log("Filtered articles count:", filteredArticles.length);
+        // console.log("Filtered articles count:", filteredArticles.length);
 
-        res.json({ filtered_articles: filteredArticles });
+        res.json({"articles": filteredArticles});
     } catch (error) {
         console.error("Error filtering search results", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
 
+// @route POST /relevant-articles
+// @description Filters relevant articles based on a given search query
+// @returns list of relevant articles
+async function fetchRelevantArticles(articles: any[], query: string) {
+    try {
+
+        // Convert articles into the expected format for the Python API
+        const formattedArticles = articles.map((article, index) => ({
+            index,
+            text: article.title
+        }));
+
+        // Call the Python `/filter-articles` API
+        const response = await axios.post(`${BASE_URL}/irrelevant-articles`, {
+            articles: formattedArticles,
+            query: query
+        });
+
+        const { relevant_indices } = response.data;
+
+        if (!relevant_indices || !Array.isArray(relevant_indices)) {
+            console.error("Invalid response from Python API");
+            return articles; // Return original articles if filtering fails
+        }
+
+        // Identify removed articles
+        const irrelevantArticles = articles.filter((_article, index) => !relevant_indices.includes(index));
+
+        // Filter out only the relevant articles
+        const relevantArticles = articles.filter((_article, index) => relevant_indices.includes(index));
+
+
+        // Log relevant article titles
+        if (relevantArticles.length > 0) {
+            console.log("🔻 Relevant Articles:");
+            relevantArticles.forEach((article) => console.log(`- ${article.title}`));
+        } else {
+            console.log("✅ No articles were deemed irrelevant.");
+        }
+
+
+        const sortedArticles = [...relevantArticles, ...irrelevantArticles];
+
+        return sortedArticles;
+    } catch (error) {
+        console.error("Error calling filter-articles API", error);
+        return articles; // If error occurs, return the original articles
+    }
+};
 
 // @route POST /daily-news
 // @description Fetches top clusters of daily news articles
@@ -342,7 +411,8 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
                 try {
                     const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, {
                         articles: formattedArticles,
-                        ai_preferences: ai_preferences
+                        ai_preferences: ai_preferences,
+                        is_dashboard: true
                     });
 
                     const summaryData = summaryResponse.data;
@@ -451,26 +521,27 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         const existingArticle = await ArticleModel.findOne({ url: article.url });
 
         if (existingArticle) {
+            console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
             // frontend not passing it in this format
-            console.log(ai_preferences);
-            console.log("ai pref length:", ai_preferences.AILength);
-            console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
-            console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
-            console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
-            console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
+            // console.log(ai_preferences);
+            // console.log("ai pref length:", ai_preferences.AILength);
+            // console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
+            // console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
+            // console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
+            // console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
 
             // should be AILength, AITone, AIFormat, AIJargonAllowed
             // const existingSummary = existingArticle.summaries?.find((summary) =>
-            //     summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.AILength] &&
-            //     summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.AITone] &&
-            //     summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat] &&
-            //     summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+            //     summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.AILength] &&
+            //     summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.AITone] &&
+            //     summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.AIFormat] &&
+            //     summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
             // );
-            const existingSummary = existingArticle.summaries?.find((summary) =>
-                summary.AILength === ReverseAIDictionary['AILength'][ai_preferences.length] &&
-                summary.AITone === ReverseAIDictionary['AITone'][ai_preferences.tone] &&
-                summary.AIFormat === ReverseAIDictionary['AIFormat'][ai_preferences.format] &&
-                summary.AIJargonAllowed === ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+            const existingSummary = existingArticle.summaries?.find((summary: any) =>
+                summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.length] &&
+                summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.tone] &&
+                summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.format] &&
+                summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
             );
 
             if (existingSummary) {
@@ -487,17 +558,17 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 // should switch to this format once frontend fixed
                 // const newSummary = {
                 //     summary: response.data.summary, // The generated summary
-                //     AILength: ReverseAIDictionary['AILength'][ai_preferences.AILength],
-                //     AITone: ReverseAIDictionary['AITone'][ai_preferences.AITone],
-                //     AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat],
-                //     AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
+                //     AILength: ReversePrefDictionary['AILength'][ai_preferences.AILength],
+                //     AITone: ReversePrefDictionary['AITone'][ai_preferences.AITone],
+                //     AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.AIFormat],
+                //     AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
                 // };
                 const newSummary = {
                     summary: response.data.summary, // The generated summary
-                    AILength: ReverseAIDictionary['AILength'][ai_preferences.length],
-                    AITone: ReverseAIDictionary['AITone'][ai_preferences.tone],
-                    AIFormat: ReverseAIDictionary['AIFormat'][ai_preferences.format],
-                    AIJargonAllowed: ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+                    AILength: ReversePrefDictionary['AILength'][ai_preferences.length],
+                    AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
+                    AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
+                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []
@@ -511,11 +582,13 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 res.json(newSummary);
             }
         } else {
+            console.log("ARTICLE: " + article.url + " DOES NOT EXIST MONGO")
             throw new Error("No existing article in database");
         }
 
     } catch (error: any) {
-        console.error("Error processing summarize article request", error);
+        // console.error("Error processing summarize article request", error);
+        console.error("Error processing summarize article request");
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -525,18 +598,22 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 // this would only be called by frontend for REFRESHING summary such as updating params
 router.post('/summarize/articles', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { articles, ai_preferences } = req.body;
+        const { articles, ai_preferences, is_dashboard} = req.body;
         if (!articles) {
             res.status(400).json({ message: 'Articles are required' });
         }
         if (!ai_preferences) {
             res.status(400).json({ message: 'AI preferences are required' });
         }
+        // if (!is_dashboard) {
+        //     res.status(400).json({ message: 'is_dashboard is required' });
+        // }
 
         // send articles and user prefs to the Python backend
         const response = await axios.post(`${BASE_URL}/summarize-articles`, {
             articles,
-            ai_preferences
+            ai_preferences,
+            // is_dashboard
         });
 
         const { title, summary, enriched_articles } = response.data;
@@ -711,37 +788,42 @@ router.post('/generate/topics', async (req: Request, res: Response): Promise<voi
                 const existingTopicsArticles = await TopicsArticlesModel.findOne({
                     date: { $gte: startOfDay, $lte: endOfDay }, topic
                 });
-                console.log(`Checking topic: ${topic}, Found:`, existingTopicsArticles);
+                // console.log(`Checking topic: ${topic}, Found:`, existingTopicsArticles);
                 return existingTopicsArticles ? null : topic; // Return topic only if it doesn't exist
             })
         );
 
-        console.log("existingTopics: " + existingTopics)
+        // console.log("existingTopics: " + existingTopics)
         
         // Filter out null values
         const filteredRemainingTopics = existingTopics.filter(topic => topic !== null);
 
         if (filteredRemainingTopics.length === 0) {
-            console.log("topics for " + today + "already loaded")
+            // console.log("topics for " + today + "already loaded")
             res.status(200).json({ error: "topics for " + today + "already loaded" })
             return;
         }
 
-        console.log("filteredRemainingTopics: " + filteredRemainingTopics)
+        // console.log("filteredRemainingTopics: " + filteredRemainingTopics)
+
+        // const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics: filteredRemainingTopics,
+        //     search_preferences
+        // });
 
         const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
-            topics: filteredRemainingTopics,
+            topics: ["NFL","History"],
             search_preferences
         });
 
-        console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
+        // console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
 
         // convert to TopicsArticles schema
         const formattedTopicsArticles = topics_articles_response.data.map((topicArticle: { topic: any; results: any[]; }) => ({
-            date: new Date(), // Current date
+            date: new Date().getDate() - 10, // Current date
             topic: topicArticle.topic,
             results: topicArticle.results.map(article => ({
-                articles: {
+                article: {
                     author: article.author,
                     biasRating: article.biasRating,
                     description: article.description,
@@ -799,7 +881,7 @@ router.post('/user/signin', async (req: Request, res: Response): Promise<void> =
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
-        // const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
+        const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
 
         // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
         //     topics,
@@ -807,14 +889,23 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
         // });
 
         // had to modify because topics was null
-        const { search_preferences } = req.body; // topics: [string], search_preferences: 
-        const topics = "technology";
+        // const { search_preferences } = req.body; // topics: [string], search_preferences: 
+        // const topics = "technology";
 
-        const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
-            topics,
-            search_preferences
-        });
-        res.json(topics_articles.data);
+        const existingTopicsArticles = await TopicsArticlesModel.find({
+            topic: { $in: topics }
+        }).lean();
+
+        const formattedTopicsArticles = existingTopicsArticles.reduce((acc: any, topicArticle: any) => {
+            acc[topicArticle.topic] = topicArticle.results;
+            return acc;
+        }, {});
+
+        // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
+        //     topics,
+        //     search_preferences
+        // });
+        res.json(formattedTopicsArticles);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
         res.status(500).json({ error: "Internal server error" });
@@ -869,6 +960,18 @@ router.post('/crawl/local', async (req: Request, res: Response): Promise<void> =
             res.status(500).json({ error: "Internal server error" });
         }
     }
+});
+
+router.post('/delete/week', async (req: Request, res: Response): Promise<void> => {
+    try {
+        deleteOldDocuments(TopicsArticlesModel)
+    } catch (error) {
+        res.status(500)
+        return;
+    }
+
+    res.status(200);
+    return;
 });
 
 export default router;

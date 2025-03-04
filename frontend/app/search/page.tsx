@@ -1,15 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { AdvancedSearchPreferences, Article, Summary } from "../common/interfaces";
-import {
-  defaultAIPreferences,
-  defaultSearchPreferences,
-  toTitleCase,
-} from "../common/utils";
+import { defaultSearchPreferences } from "../common/utils";
 import Header from "../components/header";
 import Sidebar from "../search/sidebar";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import {
+  fetchArticleSummary,
+  handleSearch,
+} from "./searchUtils";
 
 const readTimeLabels = ["<2 min", "2-7 min", "7+ min"];
 const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", "Unknown"];
@@ -67,6 +67,8 @@ const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Righ
 //   });
 // };
 
+
+
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -81,122 +83,11 @@ const SearchPage: React.FC = () => {
   const BASE_URL: string = "http://localhost:3000";
 
   useEffect(() => {
-    // Get article summary if not already done
-    const fetchArticleSummary = async () => {
-      if (selectedArticle?.summaries.length === 0) {
-        const articleBody = {
-          article: {
-            title: selectedArticle.title,
-            content: selectedArticle.content,
-            url: selectedArticle.url,
-          },
-          ai_preferences: defaultAIPreferences,
-        };
-
-        try {
-          const response = await fetch(`${BASE_URL}/api/summarize/article`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(articleBody),
-          });
-          const data = await response.json();
-
-          setSelectedArticle((prevArticle) => {
-            if (!prevArticle) return null;
-            return {
-              ...prevArticle,
-              summaries: [...prevArticle.summaries, data.summary || data],
-            };
-          });
-        } catch (error) {
-          console.error("Error processing article summary request", error);
-        }
-      }
-    };
-
-    fetchArticleSummary();
+    fetchArticleSummary(selectedArticle, setSelectedArticle);
   }, [selectedArticle]);
 
   async function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
-  }
-
-  async function handleSearch(term: string) {
-    const requestBody = {
-      query: term,
-      search_preferences: headerPreferences,
-      ai_preferences: defaultAIPreferences,
-      cluster: headerPreferences?.clustering,
-    };
-
-    // Clear existing content
-    setArticles([]); // Clear articles
-    setSummary(null); // Clear summary
-
-    // Close article details sidebar
-    closePanel();
-
-    try {
-      // Send search request to backend
-      const response = await fetch(`${BASE_URL}/api/search`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-      const searchData = await response.json();
-
-      console.log(searchData);
-
-      const filterRequestBody = {
-        articles: searchData.articles,
-        filter_preferences: {
-          bias: headerPreferences?.bias,
-          maxReadTime: headerPreferences?.read_time,
-          dateRange: headerPreferences?.from_date,
-        },
-      };
-
-      // const filterResponse = await fetch(`${BASE_URL}/api/search/filter`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(filterRequestBody),
-      // });
-  
-      // const filteredArticles = await filterResponse.json();
-      const filteredArticles = searchData;
-
-      console.log(searchData);
-
-
-      // Process search results
-      const articlesData = filteredArticles.articles.map((entry: any) => ({
-        id: entry.id,  // NO ID?
-        url: entry.url,
-        authors: entry.authors,
-        imageUrl: entry.imageUrl,
-        title: entry.title,
-        source: entry.source,
-        content: entry.content,
-        time: entry.datePublished,
-        biasRating: entry.biasRating,
-        readTime: entry.readTime,
-        relatedSources: entry.relatedSources,
-        summaries: [],
-        cluster: entry.cluster,
-      }));
-
-      setArticles(articlesData);
-      setSummary({
-        title: toTitleCase(term),
-        summary: searchData.summary.summary,
-      });
-    } catch (error) {
-      console.error("Error processing search request", error);
-    }
   }
 
   function handleArticleClick(article: Article) {
@@ -228,8 +119,8 @@ const SearchPage: React.FC = () => {
   return (
     <div className="w-full min-h-screen mx-auto bg-white">
       <Header
-        onSearch={handleSearch}
-        setPreferences={setPreferences}
+        onSearch={(term) => handleSearch(term, headerPreferences, setArticles, setSummary, () => closePanel())}
+        setPreferences={(preferences) => setPreferences(preferences)}
         placeholder="Search topic..."
         isSearchPage={true}
       />
@@ -241,64 +132,51 @@ const SearchPage: React.FC = () => {
             isPanelOpen ? "w-[70%]" : "w-full"
           }`}
         >
-          {summary && articles.length > 0 ? (
-            <>
-              <section className="mb-8">
-                <h1 className="text-2xl font-bold text-black">
-                  {summary.title}
-                </h1>
+          <section className="mb-8">
+            {summary ? (
+              <>
+                <h1 className="text-2xl font-bold text-black">{summary.title}</h1>
                 <p className="text-gray-600 mt-2">{summary.summary}</p>
-              </section>
-              <section>
-                {articles
-                // .filter((article) => {
-                //   let readTime = true;
-                //   if (headerPreferences && headerPreferences.read_time != "") {
-                //     readTime = ((headerPreferences?.read_time == "Short" && article.readTime == "<2 min") || 
-                //     (headerPreferences?.read_time == "Medium" && article.readTime == "2-7 min") || 
-                //     (headerPreferences?.read_time == "Long" && article.readTime == ">7 min"));
-                //   }
-                //   return (headerPreferences?.bias == null || article.bias.includes(headerPreferences.bias.toLowerCase()) && readTime && (!headerPreferences.clustering || article.cluster != -1));
-                // })
-                .map((article) => (
-                  <div
-                    key={article.url}
-                    className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
-                      selectedArticleUrl === article.url
-                        ? "border-blue-500 bg-blue-100"
-                        : "border-transparent"
-                    }`}
-                    onClick={() => handleArticleClick(article)}
-                    onDoubleClick={() => handleArticleDoubleClick(article)}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <Image
-                        src={article.imageUrl || "/bitewise_logo.png"}
-                        alt="article thumbnail"
-                        width={80}
-                        height={50}
-                        className="rounded-lg"
-                        style={{ width: "80px", height: "50px", objectFit: "cover" }}
-                      />
-                      <div>
-                        <h2 className="font-bold text-lg text-black">
-                          {article.title}
-                        </h2>
-                        <p className="text-gray-500">{article.source} • {article.time}</p>
-                        <p className="text-gray-500 text-sm">
-                          {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
-                        </p>
-                      </div>
+              </>
+            ) : articles.length > 0 && (
+              <p className="text-gray-400 italic">Loading summary...</p>
+            )}
+          </section>
+
+          <section>
+            {articles.length > 0 ? (
+              articles.map((article) => (
+                <div
+                  key={article.url}
+                  className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
+                    selectedArticleUrl === article.url ? "border-blue-500 bg-blue-100" : "border-transparent"
+                  }`}
+                  onClick={() => handleArticleClick(article)}
+                  onDoubleClick={() => handleArticleDoubleClick(article)}
+                >
+                  <div className="flex items-center space-x-4">
+                    <Image
+                      src={article.imageUrl || "/bitewise_logo.png"}
+                      alt="article thumbnail"
+                      width={80}
+                      height={50}
+                      className="rounded-lg"
+                      style={{ width: "80px", height: "50px", objectFit: "cover" }}
+                    />
+                    <div>
+                      <h2 className="font-bold text-lg text-black">{article.title}</h2>
+                      <p className="text-gray-500">{article.source} • {article.time}</p>
+                      <p className="text-gray-500 text-sm">
+                        {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </section>
-            </>
-          ) : (
-            <p className="text-gray-500 text-center mt-16">
-              No results yet. Start by typing a search query.
-            </p>
-          )}
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center mt-16">No articles.</p>
+            )}
+          </section>
         </section>
 
         <Sidebar
