@@ -6,5 +6,6 @@ export interface IPreference {
     read_time?: number,
     bias?: number,
     clustering?: boolean,
-    topics?: string[]
+    topics?: string[],
+    location?: string
 }
