@@ -55,20 +55,19 @@ def refresh_helper(file_path='articles_data.json'):
     cluster_dict = news_pipeline(json_file_path)
 
     # add additional information (source, bias, readtime)
-    for _, articles in cluster_dict["clustered_articles"].items():
+    for cluster_id, articles in cluster_dict["clustered_articles"].items():
         for article in articles:
             # source and bias
             article["source"], article["biasRating"] = get_source_and_bias(article.get("source", {}))
             article["readTime"] = estimate_reading_time(char_length(article.get("content", None)))
 
     # take 3 articles from each cluster for overall summary
-    # for now only using top 7 clusters
-    top_clusters = list(cluster_dict["clustered_articles"].items())[:7]
+    top_clusters = sorted(cluster_dict["clustered_articles"].items(), key=lambda x: len(x[1]), reverse=True)
     top_articles = []
     max_articles_per_cluster = 3
-    for _, articles in top_clusters[:7]:
+    for cluster, articles in top_clusters:
+        print(f"Cluster ID: {cluster}, Articles Count: {len(articles)}")
         top_articles.extend(articles[:max_articles_per_cluster])
-    top_articles = top_articles[:max_articles_per_cluster * 7]
 
     # **Generate summary from daily news articles**
     articles_text = "\n\n".join([
@@ -90,18 +89,7 @@ def refresh_helper(file_path='articles_data.json'):
         ]
     }
 
-    print("Overall Summary:", response["overall_summary"][:500])  # First 500 chars
-    print("\nClusters Preview:")
-    for cluster in response.get("clusters", [])[:3]:  # First 3 clusters only
-        print(f"- Cluster ID: {cluster.get('cluster_id', 'N/A')}")
-        print(f"  Title: {cluster.get('title', 'Untitled')}")
-        print(f"  Articles Count: {len(cluster.get('articles', []))}")
-        print(f"  Sample Article: {cluster['articles'][0] if cluster.get('articles') else 'No articles'}\n")
-    
     return jsonify(response)
-
-
-    # return jsonify(response)
 
 
 @app.route('/search', methods=['POST'])
@@ -237,8 +225,6 @@ def summarize_articles():
     else:
         contents_mapping = articles
         
-    # print(contents_mapping)
-
     # enrich articles with full scraped content
     enriched_articles = []
     for url, article_data in articles.items():
@@ -256,7 +242,13 @@ def summarize_articles():
             "sentiment": article_result.get("sentiment", ""),
     })
 
-    articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles])
+    # only use the first 10 articles for summarization (3 full, next 7 thirds) @Sanya verify
+    articles_text = "\n\n".join([
+    f"### {article['title']} ###\n{article['content']}" if i < 3 
+    else f"### {article['title']} ###\n{article['content'][:len(article['content']) // 3]}" 
+    for i, article in enumerate(enriched_articles[:10])
+    ])
+    # articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles[:7]])
     summary_output = generate_summary_collection(articles_text, ai_preferences)
     title, summary = summary_output.split("**Summary**:", 1)  # Splitting based on "**Summary**:"
     title = title.replace("**Title**:", "").strip()

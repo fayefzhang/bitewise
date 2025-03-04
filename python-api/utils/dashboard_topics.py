@@ -13,6 +13,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 nltk.download('stopwords')
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
+NUM_TOPICS = 5
 
 
 # loads data and returns a pandas dataframe
@@ -67,6 +68,7 @@ def filter_topics(article_data, topic_model):
 
     topic_info = topic_model.get_topic_info()
     top_topics = topic_info.sort_values(by="Count", ascending=False).index
+    print(f"Top topics: {top_topics}")
 
     # garbage key words that the crawler can fail on
     crossword_words = ['newsletter', 'book', 'atlantic', 'best', 'the', 'weekday', 'puzzle', 'new york', 'crossword']   
@@ -106,26 +108,28 @@ def filter_topics(article_data, topic_model):
             
         # else add the topic-passed validations
         filtered_topics.append(topic)
-    return filtered_topics
+
+
+    # filter out articles that are not in the top topics
+    article_data = article_data[article_data["topic"].isin(filtered_topics[:NUM_TOPICS])]
+
+    return filtered_topics[:NUM_TOPICS], article_data
 
 def find_rep_article(filtered_topics, topic_model, article_data):
     representative_articles = {}
 
     # Retrieve representative articles for each top 10 topic
-    for topic in filtered_topics[:10]:
+    for topic in filtered_topics:
         representative_docs = topic_model.get_representative_docs(topic)
-        rep_articles_info = article_data[article_data['snippet'].isin(representative_docs)][['title', 'url', 'source', 'topic']]
-        representative_articles[topic] = rep_articles_info
+        rep_articles_info = article_data[article_data['snippet'].isin(representative_docs)]
+        rep_articles_info = rep_articles_info[["url", "title", "source", "content", "imageUrl", "authors", "time"]]
+        representative_articles[topic] = rep_articles_info.to_dict(orient="records")
 
-    rep_article_urls = {
-        article["url"]
-        for articles in representative_articles.values()
-        for _, article in articles.iterrows()
-    }
-    return rep_article_urls
+    return representative_articles
 
 def format_response(rep_article_urls, article_data):
     fields_to_keep = {"url", "title", "source", "content", "imageUrl", "authors", "time"}
+    article_data = article_data[fields_to_keep]
     cluster_groups = {}
 
     # Organize articles by cluster
@@ -133,19 +137,14 @@ def format_response(rep_article_urls, article_data):
         cluster_id = article["topic"]
         if cluster_id not in cluster_groups:
             cluster_groups[cluster_id] = []
-        
-        # filter fields not needed
-        filtered_article = {key: article[key] for key in fields_to_keep if key in article}
-        cluster_groups[cluster_id].append(filtered_article)
-
-    # sorted_cluster_groups = sorted(cluster_groups.items(), key=lambda x: len(x[1]), reverse=True)
-    # sorted_cluster_groups = {cluster_id: articles for cluster_id, articles in sorted_cluster_groups}
+        cluster_groups[cluster_id].append(article)
 
     # first three articles per cluster are representatives
     for cluster_id, articles in cluster_groups.items():
-        rep_for_cluster = [article for article in articles if article["url"] in rep_article_urls]
-        non_rep_articles = [article for article in articles if article["url"] not in rep_article_urls]
+        rep_for_cluster = rep_article_urls.get(cluster_id, []) 
+        non_rep_articles = [article for article in articles if article["url"] not in rep_for_cluster]
         cluster_groups[cluster_id] = rep_for_cluster[:3] + non_rep_articles
+
     # response format for app.py
     response = {
         "clustered_articles": cluster_groups
@@ -157,11 +156,8 @@ def news_pipeline(file):
     article_data = load_data(file)
     cleaned_data = clean_df(article_data)
     cleaned_data, topic_model = find_topics(cleaned_data)
-
-    # make sure we get top 10 not just first 10
-    filtered_topics = filter_topics(cleaned_data, topic_model)
-    cleaned_data = cleaned_data[cleaned_data["topic"].isin(filtered_topics[:10])]
-    rep_articles = find_rep_article(filtered_topics[:10], topic_model, cleaned_data)
+    filtered_topics, cleaned_data = filter_topics(cleaned_data, topic_model) # applies num topics param
+    rep_articles = find_rep_article(filtered_topics, topic_model, cleaned_data)
     resp = format_response(rep_articles, cleaned_data)    
     return resp
 
