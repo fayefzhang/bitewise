@@ -67,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       } overflow-y-auto`}
       style={{ zIndex: 50 }}
     >
-      <button onClick={closePanel} className="p-2 text-gray-500 rounded-md">
+      <button onClick={closePanel} className="p-2 text-blue-700 rounded-md">
         Close
       </button>
       {selectedArticle && (
@@ -87,30 +87,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             </a>
             <button
               onClick={togglePreferencesPanel}
-              className="p-2 text-gray-500 rounded-md"
+              className="p-2 text-blue-700 rounded-md"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v1m0 14v1m8-8h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
-                />
-              </svg>
+              ⚙️ AI Preferences
             </button>
           </div>
 
           {/* Advanced AI Preferences */}
           {isPreferencesPanelOpen && (
-            <div className="mt-4 p-3 bg-white shadow rounded-lg">
-              <label className="block font-semibold">Read Time</label>
-              <div className="flex space-x-2 mt-1">
+            <div className="mt-4 bg-white shadow rounded-lg p-4">
+              <div className="flex justify-start items-center space-x-2">
+                <label className="block font-semibold">Read Time</label>
                 {readTimeOptions.map((option) => (
                   <button
                     key={option}
@@ -130,62 +117,71 @@ const Sidebar: React.FC<SidebarProps> = ({
                   </button>
                 ))}
               </div>
-              <label className="block font-semibold mt-2">Format</label>
-              <select
-                className="w-full p-2 border rounded"
-                value={tempPreferences.format}
-                onChange={(e) =>
-                  setTempPreferences((prev) => ({
-                    ...prev,
-                    format: e.target.value,
-                  }))
-                }
-              >
-                {formatOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <label className="block font-semibold mt-2">Tone</label>
-              <select
-                className="w-full p-2 border rounded"
-                value={tempPreferences.tone}
-                onChange={(e) =>
-                  setTempPreferences((prev) => ({
-                    ...prev,
-                    tone: e.target.value,
-                  }))
-                }
-              >
-                {toneOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <div className="flex items-center mt-2">
-                <input
-                  type="checkbox"
-                  id="jargon"
-                  checked={tempPreferences.jargon_allowed}
+
+              <div className="flex items-center mt-4 space-x-2">
+                <label className="block font-semibold">Format</label>
+                <select
+                  className="w-50% p-2 border rounded"
+                  value={tempPreferences.format}
                   onChange={(e) =>
                     setTempPreferences((prev) => ({
                       ...prev,
-                      jargon_allowed: e.target.checked,
+                      format: e.target.value,
                     }))
                   }
-                />
-                <label htmlFor="jargon" className="ml-2">
-                  Allow Jargon
-                </label>
+                >
+                  {formatOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <button
-                onClick={applyPreferences}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                Apply
-              </button>
+
+              <div className="flex items-center mt-4 space-x-2">
+                <label className="block font-semibold">Tone</label>
+                <select
+                  className="w-25% p-2 border rounded"
+                  value={tempPreferences.tone}
+                  onChange={(e) =>
+                    setTempPreferences((prev) => ({
+                      ...prev,
+                      tone: e.target.value,
+                    }))
+                  }
+                >
+                  {toneOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex justify-between items-center mt-4 space-x-2">
+                <div className="flex items-center space-x-2">
+                  <label htmlFor="jargon" className="block font-semibold">
+                    Allow Jargon
+                  </label>
+                  <input
+                    type="checkbox"
+                    id="jargon"
+                    checked={tempPreferences.jargon_allowed}
+                    onChange={(e) =>
+                      setTempPreferences((prev) => ({
+                        ...prev,
+                        jargon_allowed: e.target.checked,
+                      }))
+                    }
+                  />
+                </div>
+                <button
+                  onClick={applyPreferences}
+                  className="mt-4 bg-blue-500 text-white px-4 rounded"
+                >
+                  Apply
+                </button>
+              </div>
             </div>
           )}
 
@@ -207,7 +203,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           )}
 
-          <ul className="mt-4 list-disc space-y-2">
+          <ul className="mt-4 list-disc space-y-2 p-4">
             {selectedArticle.summaries &&
               selectedArticle.summaries.map((detail, index) => (
                 <li key={index} className="text-gray-700 text-sm">
