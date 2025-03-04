@@ -78,10 +78,10 @@ def generate_summary_individual(input_text, user_preferences):
     if (not user_preferences.get('jargon_allowed', True)):
       summary_instruction += " Use clear, simple language and avoid complicated jargon."
 
-    if (user_preferences['length'] == 'medium'):
-        max_tokens = 250
-    elif (user_preferences['length'] == 'long'):
-        max_tokens = 500
+    # if (user_preferences['length'] == 'medium'):
+    #     max_tokens = 250
+    # elif (user_preferences['length'] == 'long'):
+    #     max_tokens = 500
     
     prompt = f"""
       Summarize the following article based on user preferences:
@@ -123,7 +123,7 @@ def generate_summary_individual(input_text, user_preferences):
             top_p=top_p,
             frequency_penalty=frequency_penalty,
             presence_penalty=presence_penalty,
-            max_tokens=max_tokens
+            # max_tokens=max_tokens
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
@@ -190,10 +190,10 @@ def generate_summary_collection(input_text, user_preferences):
       prompt += " Use clear, simple language and avoid complicated jargon."
     prompt += f":\n\n{input_text}"
     
-    if (user_preferences['length'] == 'medium'):
-        max_tokens = 250
-    elif (user_preferences['length'] == 'long'):
-        max_tokens = 500
+    # if (user_preferences['length'] == 'medium'):
+    #     max_tokens = 250
+    # elif (user_preferences['length'] == 'long'):
+    #     max_tokens = 500
     
     try:
         response = client.chat.completions.create(
@@ -203,7 +203,7 @@ def generate_summary_collection(input_text, user_preferences):
             top_p=top_p,
             frequency_penalty=frequency_penalty,
             presence_penalty=presence_penalty,
-            max_tokens=max_tokens
+            # max_tokens=max_tokens
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
