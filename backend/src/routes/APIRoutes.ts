@@ -568,7 +568,8 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                     AILength: ReversePrefDictionary['AILength'][ai_preferences.length],
                     AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
                     AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
-                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                    s3Url: response.data.s3_url
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []

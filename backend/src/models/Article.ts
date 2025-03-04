@@ -18,6 +18,7 @@ const ArticleSchema: Schema = new Schema<IArticle>({
     AITone: { type: Number, enum: [0, 1, 2, 3] },
     AIFormat: { type: Number, enum: [0, 1, 2, 3] },
     AIJargonAllowed: { type: Number, enum: [0, 1] },
+    s3Url: { type: String, default: "" }
   }]
 });
 
