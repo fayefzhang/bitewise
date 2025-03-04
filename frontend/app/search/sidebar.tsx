@@ -40,6 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       storedPreferences.jargon_allowed ?? defaultAIPreferences.jargon_allowed,
   });
 
+  const [tempPreferences, setTempPreferences] = useState(aiPreferences);
   const [isPreferencesPanelOpen, setIsPreferencesPanelOpen] = useState(false);
 
   useEffect(() => {
@@ -53,6 +54,10 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const togglePreferencesPanel = () => {
     setIsPreferencesPanelOpen(!isPreferencesPanelOpen);
+  };
+
+  const applyPreferences = () => {
+    setAIPreferences(tempPreferences);
   };
 
   return (
@@ -71,49 +76,37 @@ const Sidebar: React.FC<SidebarProps> = ({
           <p className="text-gray-500">
             {selectedArticle.source} • {selectedArticle.time}
           </p>
-          <a
-            href={selectedArticle.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block mt-4 text-blue-500 hover:underline"
-          >
-            Read Full Article
-          </a>
-          <audio controls className="mt-2 w-full">
-            <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
-            {/* Replace with actual audio file */}
-            Your browser does not support the audio element.
-          </audio>
-          <button
-            onClick={togglePreferencesPanel}
-            className="p-2 mt-2 text-gray-500 rounded-md"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <div className="flex justify-between items-center mt-4">
+            <a
+              href={selectedArticle.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 4v1m0 14v1m8-8h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
-              />
-            </svg>
-          </button>
-          {selectedArticle.imageUrl && (
-            <div className="mt-4">
-              <Image
-                src={selectedArticle.imageUrl}
-                alt={selectedArticle.title}
-                width={600}
-                height={400}
-                className="rounded-lg"
-              />
-            </div>
-          )}
+              Read Full Article
+            </a>
+            <button
+              onClick={togglePreferencesPanel}
+              className="p-2 text-gray-500 rounded-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v1m0 14v1m8-8h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Advanced AI Preferences */}
           {isPreferencesPanelOpen && (
             <div className="mt-4 p-3 bg-white shadow rounded-lg">
               <label className="block font-semibold">Read Time</label>
@@ -122,12 +115,15 @@ const Sidebar: React.FC<SidebarProps> = ({
                   <button
                     key={option}
                     className={`px-3 py-1 rounded ${
-                      aiPreferences.length === option
+                      tempPreferences.length === option
                         ? "bg-blue-500 text-white"
                         : "bg-gray-200"
                     }`}
                     onClick={() =>
-                      setAIPreferences((prev) => ({ ...prev, length: option }))
+                      setTempPreferences((prev) => ({
+                        ...prev,
+                        length: option,
+                      }))
                     }
                   >
                     {option}
@@ -137,9 +133,9 @@ const Sidebar: React.FC<SidebarProps> = ({
               <label className="block font-semibold mt-2">Format</label>
               <select
                 className="w-full p-2 border rounded"
-                value={aiPreferences.format}
+                value={tempPreferences.format}
                 onChange={(e) =>
-                  setAIPreferences((prev) => ({
+                  setTempPreferences((prev) => ({
                     ...prev,
                     format: e.target.value,
                   }))
@@ -154,9 +150,9 @@ const Sidebar: React.FC<SidebarProps> = ({
               <label className="block font-semibold mt-2">Tone</label>
               <select
                 className="w-full p-2 border rounded"
-                value={aiPreferences.tone}
+                value={tempPreferences.tone}
                 onChange={(e) =>
-                  setAIPreferences((prev) => ({
+                  setTempPreferences((prev) => ({
                     ...prev,
                     tone: e.target.value,
                   }))
@@ -172,9 +168,9 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <input
                   type="checkbox"
                   id="jargon"
-                  checked={aiPreferences.jargon_allowed}
+                  checked={tempPreferences.jargon_allowed}
                   onChange={(e) =>
-                    setAIPreferences((prev) => ({
+                    setTempPreferences((prev) => ({
                       ...prev,
                       jargon_allowed: e.target.checked,
                     }))
@@ -184,6 +180,30 @@ const Sidebar: React.FC<SidebarProps> = ({
                   Allow Jargon
                 </label>
               </div>
+              <button
+                onClick={applyPreferences}
+                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Apply
+              </button>
+            </div>
+          )}
+
+          {/* Article Content */}
+          <audio controls className="mt-2 w-full">
+            <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
+            {/* Replace with actual audio file */}
+            Your browser does not support the audio element.
+          </audio>
+          {selectedArticle.imageUrl && (
+            <div className="mt-4">
+              <Image
+                src={selectedArticle.imageUrl}
+                alt={selectedArticle.title}
+                width={600}
+                height={400}
+                className="rounded-lg"
+              />
             </div>
           )}
 
