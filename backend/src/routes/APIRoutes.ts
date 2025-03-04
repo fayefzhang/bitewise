@@ -521,7 +521,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         const existingArticle = await ArticleModel.findOne({ url: article.url });
 
         if (existingArticle) {
-            console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
+            // console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
             // frontend not passing it in this format
             // console.log(ai_preferences);
             // console.log("ai pref length:", ai_preferences.AILength);
@@ -574,7 +574,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                     existingArticle.summaries = []
                 }
                 existingArticle.summaries.push(newSummary);
-                console.log("pushed new summary to existing article:", existingArticle);
+                // console.log("pushed new summary to existing article:", existingArticle);
                 // @Sanya add in later when we merge branches
                 // existingArticle.difficulty = readingDifficulty; 
                 await existingArticle.save();

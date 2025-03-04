@@ -335,7 +335,7 @@ def filter_irrelevant_articles(articles, query):
 
     {formatted_articles}
 
-    Return a **comma-separated list** of the indices of articles that are relevant. Do not include any text, spaces, or additional characters.
+    Return a **comma-separated list** of the indices of articles that are relevant. Order the list based on relevancy to the original search query. Do not include any text, spaces, or additional characters.
     """
 
     try:
