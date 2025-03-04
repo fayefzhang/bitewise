@@ -196,7 +196,7 @@ def crawl_seeds(sources, output_file='articles_data.json'):
             articles_list.append(articles_data)
 
     if articles_list:
-        articles_list = articles_list * 2  # double the articles for better clustering
+        # articles_list = articles_list * 2  # double the articles for better clustering
         with open("data/" + output_file, 'w', encoding='utf-8') as json_file:
             json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
         
