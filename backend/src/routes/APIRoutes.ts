@@ -584,8 +584,40 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 res.json(newSummary);
             }
         } else {
-            console.log("ARTICLE: " + article.url + " DOES NOT EXIST MONGO")
-            throw new Error("No existing article in database");
+            // generate summary
+            const response = await axios.post(`${BASE_URL}/summarize-article`, {
+                article,
+                ai_preferences
+            });
+
+            const summary = {
+                summary: response.data.summary, // The generated summary
+                AILength: ReversePrefDictionary['AILength'][ai_preferences.length],
+                AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
+                AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
+                AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                s3Url: response.data.s3_url
+            };
+            
+            // save to mongo
+            const newArticle = new ArticleModel({
+                url: article.url,
+                content: article.content,
+                datePublished: article.datePublished,
+                authors: article.authors,
+                source: article.source,
+                title: article.title,
+                readTime: article.readTime,
+                biasRating: article.biasRating,
+                difficulty: article.difficulty,
+                imageUrl: article.imageUrl,
+                summaries: summary,
+            });
+    
+            const savedArticle = await newArticle.save();
+            res.json(summary);
+            
+            // throw new Error("No existing article in database");
         }
 
     } catch (error: any) {

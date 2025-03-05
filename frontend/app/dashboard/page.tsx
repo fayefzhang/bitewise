@@ -213,31 +213,12 @@ const DashboardPage: React.FC = () => {
             if (!prevArticle) return null;
             return {
               ...prevArticle,
-              summaries: [...prevArticle.summaries, data.summary],
+              summaries: [...prevArticle.summaries, data.summary || data],
             };
           });
         } catch (error) {
           console.error("Error processing article summary request", error);
         }
-
-        // generate audio summary
-        // try {
-        //   const response = await fetch(`${BASE_URL}/api/generate/audio`, {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       title: selectedArticle.title,
-        //       summary: selectedArticle.summaries[0],
-        //     }),
-        //   });
-
-        //   const data = await response.json();
-        //   console.log("summary podcast", data);
-        // } catch (error) {
-        //   console.error("Error processing article podcast request", error);
-        // }
       }
     };
 
