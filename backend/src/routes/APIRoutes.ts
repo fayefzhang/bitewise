@@ -356,8 +356,30 @@ async function fetchRelevantArticles(articles: any[], query: string) {
 // @description Fetches top clusters of daily news articles
 // @returns grouped articles by cluster
 
-router.post('/daily-news', (req: Request, res: Response) => {
-    generateNewsDashboard('daily-news', '', path.join(__dirname, '../../../python-api/data/articles_data.json'), res);
+router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
+    const { date } = req.body; // get date
+    const today = new Date().toISOString().slice(0, 10); // current date
+    if (date != today) {
+        try {
+            // check if dashboard already exists for this date
+            const existingDashboard = await DashboardModel.findOne({ date: date, location: "" });
+
+            if (existingDashboard) {
+                console.log(`News dashboard found for ${date}`);
+                res.json(existingDashboard);
+            } else {  // return null if no news found for specified date
+                console.log(`No news dashboard found for ${date}, returning empty.`);
+                res.json({
+                    summary: null,
+                    clusters: []
+                });
+            }
+        } catch (error: any) {
+            console.error("Error fetching daily news:", error);
+        }    
+    } else {
+        generateNewsDashboard('daily-news', '', path.join(__dirname, '../../../python-api/data/articles_data.json'), res);
+    }
 });
 
 router.post('/local-news', (req: Request, res: Response) => {
@@ -486,6 +508,16 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+router.get("/valid-dates", async (req: Request, res: Response) => {
+    try {
+      const validDates = await DashboardModel.distinct("date"); // fetch distinct dates from database
+      res.json(validDates);
+    } catch (error) {
+      console.error("Error fetching valid dates:", error);
+      res.status(500).json({ error: "Failed to fetch valid dates" });
+    }
+  });
 
 
 router.post('/retrieve-article', async (req: Request, res: Response): Promise<void> => {

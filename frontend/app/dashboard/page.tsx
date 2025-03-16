@@ -4,6 +4,8 @@ import Header from "../components/header";
 import TopicsArticles from "./components/topicsarticles";
 import LocalNews from "./components/localnews";
 import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,10 +30,12 @@ const biasRatingLabels = [
 ];
 const difficultyLabels = ["Easy", "Medium", "Hard"];
 
-const fetchDailyNews = async () => {
+const fetchDailyNews = async (date?: string) => {
   try {
     const response = await fetch(`${BASE_URL}/api/daily-news`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date }),
       cache: "no-store",
     });
     if (!response.ok) {
@@ -118,6 +122,7 @@ const DashboardPage: React.FC = () => {
     }
   };
 
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [dailyNews, setDailyNews] = useState<any>(null);
   const [dailySummary, setDailySummary] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -125,6 +130,7 @@ const DashboardPage: React.FC = () => {
 
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+
 
   const fetchDailyPodcast = async (articles: string[]) => {
     console.log("generating daily podcast...");
@@ -150,10 +156,11 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     const fetchPodcast = async () => {
-      if (!dailyNews) return; // wait for daily news to load
+      if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
 
       if (dailyNews.podcast) {
         setDailyPodcast(dailyNews.podcast);
+        console.log("set podcast from daily news", dailyNews.podcast);
         return;
       }
 
@@ -227,17 +234,21 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const news = await fetchDailyNews();
+        setIsLoading(true);
+        const formattedDate = selectedDate
+          ? selectedDate.toISOString().split("T")[0]
+          : undefined;
 
-      console.log(news);
+        const news = await fetchDailyNews(formattedDate);
+        setDailyNews(news);
+        setDailySummary(news?.summary || null);
 
-      setDailyNews(news);
-      setDailySummary(news.summary);
-      setIsLoading(false);
+        console.log("daily news", news);
+        setIsLoading(false);
     };
 
     fetchNews();
-  }, []);
+  }, [selectedDate]);
 
   return (
     <div className="w-full min-h-screen mx-auto bg-white text-black">
@@ -257,35 +268,35 @@ const DashboardPage: React.FC = () => {
                 : "evening"}
               !
             </h1>
-            <p className="text-right italic">
-              {new Date().toLocaleDateString("en-US", {
-                month: "long",
-                day: "2-digit",
-                year: "numeric",
-              })}
-            </p>
+            <div className="flex justify-end p-4">
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date: Date | null) => setSelectedDate(date)}
+                dateFormat="MMMM d, yyyy"
+                maxDate={new Date()} // Prevent selecting future dates
+                className="border p-2 rounded-md"
+              />
+            </div>
           </div>
           <p className="mt-4 mb-4 text-justify">{dailySummary}</p>
 
           {/* Audio Summary */}
-            {dailyPodcast ? (
-            <audio controls className="mt-2 w-full">
-              <source
-              src={dailyPodcast}
-              type="audio/mpeg"
-              />
-              Listen to your daily bites: 4:41 min
-            </audio>
+          {dailyNews && dailyNews.summary ? (
+            dailyPodcast ? (
+              <audio controls className="mt-2 w-full">
+                <source src={dailyPodcast} type="audio/mpeg" />
+              </audio>
             ) : (
-            <div className="flex mt-2 mb-4 italic">
-              Loading your daily bites...
-            </div>
-            )}
+              <div className="flex mt-2 mb-4 italic">
+                Loading your daily bites...
+              </div>
+            )
+          ) : null}
 
           {/* Dynamically Render News Sections */}
           {isLoading || !dailyNews ? (
             <p>Loading...</p>
-          ) : (
+          ) : dailyNews.clusters && dailyNews.clusters.length > 0 ? (
             dailyNews.clusters.map((cluster: any, index: any) =>
               cluster.cluster !== -1 ? (
                 <NewsSection
@@ -297,6 +308,10 @@ const DashboardPage: React.FC = () => {
                 />
               ) : null
             )
+          ): (
+            <p className="text-center text-gray-500 italic">
+              No daily news dashboard for this date.
+            </p>
           )}
         </div>
 
