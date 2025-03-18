@@ -4,7 +4,7 @@ export interface IPreference {
     exclude_domains?: string[],
     from_date?: string,
     read_time?: number,
-    bias?: number,
+    bias?: string[],
     clustering?: boolean,
     topics?: string[],
     location?: string

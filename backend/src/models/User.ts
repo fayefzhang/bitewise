@@ -10,7 +10,7 @@ const UserSchema: Schema = new Schema<IUser>({
         exclude_domains: { type: [String], default: [] },
         from_date: { type: String, default: "" },
         read_time: { type: Number, default: null },
-        bias: { type: Number, default: 0 },
+        bias: { type: [String], default: []},
         clustering: { type: Boolean, default: false },
         topics: { type: [String], default: [] },
         location: { type: String, default: "" }

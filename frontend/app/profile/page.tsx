@@ -3,7 +3,7 @@
 import Header from "../components/header";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { interests, sources } from "../common/utils";
+import { interests, sources, biasRatingLabels } from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -18,7 +18,7 @@ const ProfilePage: React.FC = () => {
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
   const [readTime, setReadTime] = useState<number | null>(null);
-  const [bias, setBias] = useState<number>(0);
+  const [bias, setBias] = useState<string[]>([]);
   const [fromDate, setFromDate] = useState<string>("");
   const [clustering, setClustering] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("");
@@ -40,7 +40,7 @@ const ProfilePage: React.FC = () => {
         setSelectedTopics(userPreferences.topics || []);
         setSelectedSources(userPreferences.sources || []);
         setReadTime(userPreferences.read_time);
-        setBias(userPreferences.bias);
+        setBias(userPreferences.bias || []);
         setFromDate(userPreferences.from_date);
         setClustering(userPreferences.clustering);
         setLocation(userPreferences.location || "");
@@ -56,7 +56,7 @@ const ProfilePage: React.FC = () => {
     updatedTopics: string[],
     updatedSources: string[],
     updatedReadTime: number | null,
-    updatedBias: number,
+    updatedBias: string[],
     updatedFromDate: string,
     updatedClustering: boolean,
     updatedLocation: string
@@ -166,18 +166,27 @@ const ProfilePage: React.FC = () => {
         {/* Bias */}
         <div className="flex flex-row items-center gap-4 text-gray-800">
           <label>Bias</label>
-          <select
-            value={bias}
-            onChange={(e) => setBias(Number(e.target.value))}
-            className="border-2 rounded-full px-4 py-2 text-blue-500 font-medium"
-          >
-            <option value={0}>Select Bias</option>
-            <option value={1}>Center</option>
-            <option value={2}>Left</option>
-            <option value={3}>Left-Center</option>
-            <option value={4}>Right</option>
-            <option value={5}>Right-Center</option>
-          </select>
+          <div className="flex flex-wrap gap-2">
+            {biasRatingLabels.map((label, index) => (
+              label && (
+                <button
+                  key={index}
+                  className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium ${
+                    bias.includes(label) ? "bg-blue-500 text-white" : "bg-white"
+                  }`}
+                  onClick={() => {
+                    if (bias.includes(label)) {
+                      setBias(bias.filter((b) => b !== label));
+                    } else {
+                      setBias([...bias, label]);
+                    }
+                  }}
+                >
+                  {label}
+                </button>
+              )
+            ))}
+          </div>
           <div className="relative group">
             <svg
               className="transform translate-y-3 w-4 h-4 text-blue-500 hover:text-gray-700 cursor-pointer"
