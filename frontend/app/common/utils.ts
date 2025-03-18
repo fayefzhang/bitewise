@@ -125,3 +125,5 @@ export const biasRatingLabels = [
   "Right",
   "",
 ];
+
+export const readTimeLabels = ["Short", "Medium", "Long"];

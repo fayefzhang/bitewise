@@ -5,7 +5,7 @@ import TopicsArticles from "./components/topicsarticles";
 import LocalNews from "./components/localnews";
 import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { biasRatingLabels } from "../common/utils";
+import { biasRatingLabels, readTimeLabels } from "../common/utils";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -20,7 +20,6 @@ import {
 
 const BASE_URL = "http://localhost:3000";
 
-const readTimeLabels = ["Short", "Medium", "Long"];
 const difficultyLabels = ["Easy", "Medium", "Hard"];
 
 const fetchDailyNews = async (date?: string) => {
