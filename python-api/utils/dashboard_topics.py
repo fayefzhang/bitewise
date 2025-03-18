@@ -156,7 +156,7 @@ def format_response(rep_article_urls, article_data):
     return response
 
 
-def news_pipeline(file):
+def news_pipeline(file, city=None):
     article_data = load_data(file)
     cleaned_data = clean_df(article_data)
     cleaned_data, topic_model = find_topics(cleaned_data)

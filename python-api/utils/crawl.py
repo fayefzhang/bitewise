@@ -160,7 +160,7 @@ def process_seed(seed, timeout=120):
 
 
 # crawl websites inputted by sources
-def crawl_seeds(sources, output_file='articles_data.json'):
+def crawl_seeds(sources, city=None):
     articles_list = []
 
     for seed in sources:
@@ -185,46 +185,47 @@ def crawl_seeds(sources, output_file='articles_data.json'):
                 "content": article.content,
                 "imageUrl": article.imageUrl,
                 "authors": article.authors,
-                "time": None
-            }
+                "time": article.time.strftime('%Y-%m-%dT%H:%M:%S') if article.time else "unknown"
 
-            if article.time is not None:
-                articles_data["time"] = article.time.strftime('%Y-%m-%dT%H:%M:%S')
-            else:
-                articles_data["time"] = "unknown"
+            }
+            if city:
+                articles_data["city"] = city
 
             articles_list.append(articles_data)
 
-    if articles_list:
-        # articles_list = articles_list * 2  # double the articles for better clustering
-        with open("data/" + output_file, 'w', encoding='utf-8') as json_file:
-            json.dump(articles_list, json_file, ensure_ascii=False, indent=4)
-        
-    print(f"Visited {len(all_links)} pages and saved data to {output_file}")
+    return articles_list
 
 def crawl_all():
     with open(seeds_path, 'r') as file:
         seeds = file.read()
         seed_list = [seed.rstrip('/') + '/' for seed in seeds.splitlines()]
 
-    crawl_seeds(sources=seed_list)
-
+    articles = crawl_seeds(sources=seed_list)
+    if articles:
+        with open("data/articles_data.json", 'w', encoding='utf-8') as json_file:
+            json.dump(articles, json_file, ensure_ascii=False, indent=4)
+    print(f"Crawling complete for all sources. Crawled {len(articles)} articles.")
 
 # crawl local sources
-def crawl_location(location="Philadelphia, PA"):
+def crawl_location():
     # get local news sources
     with open(local_sources_path, "r") as file:
         data = json.load(file)
-    local_seed_list = data.get(location, None)
+    all_articles = {}
+    for city, sources in data.items():
+        print(f"Crawling sources for {city}...")
+        articles = crawl_seeds(sources, city=city)
+        if articles:
+            all_articles[city] = articles
 
-    for source in local_seed_list:
-        print(source)
-
-    crawl_seeds(sources=local_seed_list, output_file='local_articles_data.json')
-
+    if all_articles:   
+        with open("data/local_articles_data.json", 'w', encoding='utf-8') as json_file:
+            json.dump(all_articles, json_file, ensure_ascii=False, indent=4)
+    print(f"completed crawling all local sources. Crawled {len(all_articles)} cities.")
 
 def main():
     crawl_all()
+    crawl_location()
 
 if __name__ == "__main__":
     main()

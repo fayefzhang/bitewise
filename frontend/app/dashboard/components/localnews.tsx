@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const location = "Philadelphia, PA";
+const location = "Philadelphia";
 
 interface ArticleEntryProps {
   title: string;
@@ -10,7 +10,7 @@ interface ArticleEntryProps {
   link?: string;
 }
 
-const fetchLocalNews = async () => {
+const fetchLocalNews = async (location: string) => {
   const BASE_URL = "http://localhost:3000";
 
   try {
@@ -20,6 +20,9 @@ const fetchLocalNews = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        city: location,
+      }),
     });
     if (!response.ok) {
       throw new Error("Failed to fetch local news");
@@ -39,7 +42,7 @@ const LocalNews = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const news = await fetchLocalNews();
+      const news = await fetchLocalNews(location);
 
       console.log(news);
       setLocalNews(news);
