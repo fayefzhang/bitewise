@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Article } from "../common/interfaces";
 import Image from "next/image";
+import Link from "next/link";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SpeedIcon from '@mui/icons-material/Speed';
 import { defaultAIPreferences } from "../common/utils";
 
 type SidebarProps = {
@@ -62,20 +65,47 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-[36%] bg-white p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
+      className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-[34%] bg-white p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
         isPanelOpen ? "translate-x-0" : "translate-x-full"
       } overflow-y-auto`}
       style={{ zIndex: 50 }}
     >
-      <button onClick={closePanel} className="p-2 text-blue-700 rounded-md">
-        Close
-      </button>
+      <div className="p-5">
+        <div className="p-2">
+          <button
+          onClick={closePanel}
+          className="absolute top-4 right-4 p-2 text-darkBlue rounded-full hover:bg-lightBlue text-xl font-bold"
+          aria-label="Close"
+            >
+            X
+            </button>
+        </div>
       {selectedArticle && (
         <>
-          <h2 className="font-bold">{selectedArticle.title}</h2>
-          <p className="text-gray-500">
-            {selectedArticle.source} • {selectedArticle.time}
-          </p>
+            <h2 className="font-bold hover:underline text-xl mb-4">
+            <a href={selectedArticle.url} target="_blank" rel="noopener noreferrer">
+              {selectedArticle.title}
+            </a>
+            </h2>
+            <div className="flex justify-between">
+            <span>{selectedArticle.source}</span>
+            <span>{selectedArticle.authors[0]}</span>
+            </div>
+
+          <div>
+                <div className="flex justify-between mt-1">
+                  {selectedArticle.biasRating !== "5" &&
+                  <div className="flex items-center space-x-1">
+                    <SpeedIcon fontSize="small" />
+                    <p>{biasRatingLabels[parseInt(selectedArticle.biasRating, 10)]}</p>
+                  </div>
+                  }
+                  <div className="flex items-center space-x-1">
+                    <AccessTimeIcon fontSize="small" />
+                    <p>{readTimeLabels[parseInt(selectedArticle.readTime, 10)]}</p>
+                  </div>
+                </div>
+              </div>
           <div className="flex justify-between items-center mt-4">
             <a
               href={selectedArticle.url}
@@ -87,7 +117,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </a>
             <button
               onClick={togglePreferencesPanel}
-              className="p-2 text-blue-700 rounded-md"
+              className="text-darkBlue rounded-md"
             >
               ⚙️ AI Preferences
             </button>
@@ -191,7 +221,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             {/* Replace with actual audio file */}
             Your browser does not support the audio element.
           </audio>
-          {selectedArticle.imageUrl && (
+          {/* {selectedArticle.imageUrl && (
             <div className="mt-4">
               <Image
                 src={selectedArticle.imageUrl}
@@ -201,19 +231,22 @@ const Sidebar: React.FC<SidebarProps> = ({
                 className="rounded-lg"
               />
             </div>
-          )}
+          )} */}
 
-          <ul className="mt-4 list-disc space-y-2 p-4">
+          <ul className="mt-6 list-disc space-y-2 mb-8">
             {selectedArticle.summaries &&
               selectedArticle.summaries.map((detail, index) => (
-                <li key={index} className="text-gray-700 text-sm">
-                  {typeof detail === "string" ? detail : JSON.stringify(detail)}
-                </li>
+                <p key={index} className="text-sm">
+                  {typeof detail === "string"
+                    ? detail.replace(/^[^\w]+/, '') 
+                    : JSON.stringify(detail).replace(/^[^\w]+/, '')}
+                </p>
               ))}
           </ul>
           {/* Related Articles */}
         </>
       )}
+    </div>
     </aside>
   );
 };

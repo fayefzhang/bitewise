@@ -110,7 +110,7 @@ const TopicsArticles = () => {
               )}
             </Tab.List>
           </div>
-          <div className="overflow-y-auto mt-2 max-h-[30vh] pb-4">
+          <div className="overflow-y-auto mt-2 max-h-[26vh] pb-4">
             <Tab.Panels className="mt-2 mb-2">
               {Object.entries(topicArticles).map(
                 ([topic, articles]: [string, any[]]) => (

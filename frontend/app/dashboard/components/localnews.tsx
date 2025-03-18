@@ -54,7 +54,7 @@ const LocalNews = () => {
       <div className="sticky top-0 z-10 pb-2">
         <div className="flex justify-between items-center px-2">
           <h2 className="text-xl font-bold mb-2">Local News</h2>
-          <h4 className="text-sm italic">{location}</h4>
+          <h4 className="text-sm">📍 {location}</h4>
         </div>
         <div className="border-b-2 border-veryLightBlue mb-2 w-full"></div>
       </div>
