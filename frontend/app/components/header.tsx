@@ -141,21 +141,21 @@ const Header: React.FC<HeaderProps> = ({
   }, []); // Empty dependency array to run this effect once when the component mounts
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
+    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-mediumBlue to-darkBlue p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
         <Link href="/dashboard">
-          <div className="bg-white p-2 rounded-full cursor-pointer">
+          <div className="p-2 rounded-full cursor-pointer">
             <Image
               src="/bitewise_logo.png"
               alt="logo"
-              width={40}
-              height={30}
+              width={50}
+              height={40}
               className="rounded-lg"
             />
           </div>
         </Link>
       </div>
-      <div className="flex items-center space-x-2 bg-white p-2 rounded-md">
+      <div className="flex items-center space-x-2 bg-white p-2 rounded-md h-12">
         <span className="text-xl">🔍</span>
         <input
           type="text"
@@ -163,7 +163,7 @@ const Header: React.FC<HeaderProps> = ({
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="p-2 w-full md:w-80 text-black focus:outline-none"
+          className="p-2 w-[300px] md:w-[450px] lg:w-[550px] text-black focus:outline-none"
         />
         {isSearchPage && (
           <button

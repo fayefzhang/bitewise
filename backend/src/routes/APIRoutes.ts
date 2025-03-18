@@ -407,6 +407,27 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
 
         const response = await axios.post(`${BASE_URL}/${newsType}`);
 
+        if (response == null) {  // currently crawling -- load previous days dashboard
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            let existingDashboard = null;
+            let dateToCheck = yesterday;
+
+            while (!existingDashboard) {  // possibility of infinite loop?
+                const dateString = dateToCheck.toISOString().slice(0, 10);
+                existingDashboard = await DashboardModel.findOne({ date: dateString, location: location });
+
+                if (existingDashboard) {
+                    console.log(`News dashboard found for ${dateString}`);
+                    res.json(existingDashboard);
+                    return;
+                }
+                
+                dateToCheck.setDate(dateToCheck.getDate() - 1);
+            }
+        }
+
         const { clusters, overall_summary } = response.data;
 
         // summarizing each cluster

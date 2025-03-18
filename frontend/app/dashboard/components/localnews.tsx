@@ -50,13 +50,13 @@ const LocalNews = () => {
   }, []);
 
   return (
-    <aside className="bg-blue-50 p-4 rounded-lg max-h-[30vh]">
-      <div className="sticky top-0 bg-blue-50 z-10 pb-2">
+    <aside className="bg-white shadow p-4 rounded-lg max-h-[35vh]">
+      <div className="sticky top-0 z-10 pb-2">
         <h2 className="text-lg font-bold mb-2">Local News</h2>
         <h4 className="font-bold italic">{location}</h4>
       </div>
 
-      <div className="overflow-y-auto flex-grow pb-4 max-h-[20vh]">
+      <div className="overflow-y-auto flex-grow pb-4 max-h-[22vh]">
         {isLoading || !localNews ? (
           <p>Loading...</p>
         ) : (
@@ -79,8 +79,8 @@ const ArticleEntry: React.FC<ArticleEntryProps> = ({
   link,
 }) => {
   return (
-    <div className="bg-white p-4 rounded-md shadow mb-4">
-      <h4 className="font-semibold">{title}</h4>
+    <div className="bg-white p-4 rounded-md shadow mb-4 hover:bg-veryLightBlue">
+      <h4 className="font-bold text-sm mb-2">{title}</h4>
       <p className="text-sm">{description}</p>
     </div>
   );

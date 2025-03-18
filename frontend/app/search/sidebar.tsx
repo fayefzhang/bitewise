@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-full md:w-[42%] lg:w-[32%] bg-blue-50 p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
+      className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-[36%] bg-blue-50 p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
         isPanelOpen ? "translate-x-0" : "translate-x-full"
       } overflow-y-auto`}
       style={{ zIndex: 50 }}
