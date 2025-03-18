@@ -9,6 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SpeedIcon from '@mui/icons-material/Speed';
+
 import { Article } from "../common/interfaces";
 import Sidebar from "../search/sidebar";
 import {
@@ -65,7 +68,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   
   return (
     <section className="mb-8 bg-white p-5 rounded-md shadow cursor-pointer">
-      <h2 className="text-xl font-bold mb-2 big-shoulders-stencil">{header}</h2>
+      <h2 className="text-xl font-bold mb-2">{header}</h2>
       <div className="border-b-2 border-veryLightBlue mb-4 w-full"></div>
       <p className="mb-4 text-sm">{summary}</p>
       <div className="flex space-x-4">
@@ -98,13 +101,20 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
                   <div className="flex justify-between mt-1">
-                    <p className="text-xs">
-                      {article.biasRating !== "5" &&
-                        biasRatingLabels[parseInt(article.biasRating, 10)]}
-                    </p>
-                    <p className="text-xs">
+                    {article.biasRating !== "5" &&
+                    <div className="flex items-center space-x-1">
+                      <SpeedIcon fontSize="10px" />
+                      <p className="text-xs">
+                        {biasRatingLabels[parseInt(article.biasRating, 10)]}
+                      </p>
+                    </div>
+                    }
+                    <div className="flex items-center space-x-1">
+                      <AccessTimeIcon fontSize="10px" />
+                      <p className="text-xs">
                       {readTimeLabels[parseInt(article.readTime, 10)]}
-                    </p>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

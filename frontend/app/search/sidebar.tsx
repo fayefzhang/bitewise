@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-[36%] bg-blue-50 p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
+      className={`text-black fixed right-0 top-24 h-[calc(100vh-4rem)] w-[36%] bg-white p-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out ${
         isPanelOpen ? "translate-x-0" : "translate-x-full"
       } overflow-y-auto`}
       style={{ zIndex: 50 }}
@@ -81,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               href={selectedArticle.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
+              className="text-darkBlue hover:underline"
             >
               Read Full Article
             </a>
@@ -95,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
           {/* Advanced AI Preferences */}
           {isPreferencesPanelOpen && (
-            <div className="mt-4 bg-white shadow rounded-lg p-4">
+            <div className="mt-4 bg-veryLightBlue shadow rounded-lg p-4">
               <div className="flex justify-start items-center space-x-2">
                 <label className="block font-semibold">Read Time</label>
                 {readTimeOptions.map((option) => (
@@ -103,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     key={option}
                     className={`px-3 py-1 rounded ${
                       tempPreferences.length === option
-                        ? "bg-blue-500 text-white"
+                        ? "bg-darkBlue text-white"
                         : "bg-gray-200"
                     }`}
                     onClick={() =>
@@ -177,7 +177,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 <button
                   onClick={applyPreferences}
-                  className="mt-4 bg-blue-500 text-white px-4 rounded"
+                  className="mt-4 bg-darkBlue text-white px-4 rounded"
                 >
                   Apply
                 </button>

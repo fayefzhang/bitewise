@@ -140,7 +140,8 @@ const TopicsArticles = () => {
   return (
     <aside className="bg-white shadow p-4 rounded-lg max-h-[45vh] overflow-hidden">
       <div className="sticky top-0 z-10">
-        <h2 className="text-lg font-bold mb-2">Your Topics</h2>
+        <h2 className="text-xl font-bold mb-2 px-2">Your Topics</h2>
+        <div className="border-b-2 border-veryLightBlue mb-4 w-full"></div>
       </div>
       {renderArticles()}
     </aside>
