@@ -116,3 +116,16 @@ export const defaultAIPreferences = {
   format: "highlights", // options: {"highlights", "bullets", "analysis", "quotes"}
   jargon_allowed: true, // options: {True, False}
 };
+
+export const biasRatingLabels = [
+  "Left",
+  "Left-Center",
+  "Center",
+  "Right-Center",
+  "Right",
+  "",
+];
+
+export const readTimeLabels = ["Short", "Medium", "Long"];
+
+export const difficultyLabels = ["Easy", "Medium", "Hard", ""];

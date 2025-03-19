@@ -5,7 +5,7 @@ import SignInPopUp from "./signinpopup";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { defaultSearchPreferences } from "../common/utils";
+import { defaultSearchPreferences, biasRatingLabels, readTimeLabels } from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -69,40 +69,6 @@ const Header: React.FC<HeaderProps> = ({
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
-  const transformReadTime = (read_time: number): string[] => {
-    if (!read_time)
-      return [];
-    switch (read_time) {
-      case 1:
-        return ["Short"];
-      case 2:
-        return ["Medium"];
-      case 3:
-        return ["Long"];
-      default:
-        return [];
-    }
-  };
-
-  const transformBias = (bias: number): string[] => {
-    if (!bias)
-      return [];
-    switch (bias) {
-      case 1:
-        return ["Center"];
-      case 2:
-        return ["Left"];
-      case 3:
-        return ["Left", "Center"];
-      case 4:
-        return ["Right"];
-      case 5:
-        return ["Right", "Center"];
-      default:
-        return [];
-    }
-  };
-
   const [isSignedIn, setisSignedIn] = useState(false);
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail"); // Check if user is signed in
@@ -124,8 +90,8 @@ const Header: React.FC<HeaderProps> = ({
           const transformedPreferences = {
             from_date: userPreferences.from_date || "",
             to_date: "", // NOT IN DATABASE
-            read_time: transformReadTime(userPreferences.read_time),
-            bias: transformBias(userPreferences.bias),
+            read_time: userPreferences.read_time || [],
+            bias: userPreferences.bias || [],
             clustering: userPreferences.clustering || false,
           };
 
@@ -200,7 +166,7 @@ const Header: React.FC<HeaderProps> = ({
       {/* Advanced Search */}
       {showSettings && (
         <div
-          className="absolute bg-white shadow-lg rounded-lg p-6 w-96 top-20 mx-auto left-1/2 transform -translate-x-1/2 text-black"
+          className="absolute bg-white shadow-lg rounded-lg p-6 w-120 top-20 mx-auto left-1/2 transform -translate-x-1/2 text-black"
           style={{ zIndex: 50 }}
         >
           <h3 className="text-lg font-bold mb-4">Advanced Settings</h3>
@@ -209,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({
               Read Time
             </label>
             <div className="flex space-x-2">
-              {["Short", "Medium", "Long"].map((time) => {
+              {readTimeLabels.map((time) => {
                 const isSelected = searchPreferences.read_time?.includes(time);
                 return (
                   <button
@@ -249,7 +215,8 @@ const Header: React.FC<HeaderProps> = ({
               </div>
             </label>
             <div className="flex space-x-2">
-              {["Left", "Center", "Right"].map((bias) => {
+              {biasRatingLabels.map((bias) => {
+                if (!bias) return null; // Skip empty bias
                 const isSelected = searchPreferences.bias?.includes(bias);
                 return (
                   <button

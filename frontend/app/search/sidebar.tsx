@@ -8,6 +8,7 @@ import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Tooltip from '@mui/material/Tooltip';
 import Spinner from "../common/Spinner";
 import { defaultAIPreferences } from "../common/utils";
+import { biasRatingLabels, readTimeLabels, difficultyLabels } from "../common/utils";
 
 type SidebarProps = {
   selectedArticle: Article | null;
@@ -15,16 +16,6 @@ type SidebarProps = {
   isPanelOpen: boolean;
 };
 
-const readTimeLabels = ["Short", "Medium", "Long"];
-const biasRatingLabels = [
-  "Left",
-  "Left-Center",
-  "Center",
-  "Right-Center",
-  "Right",
-  "",
-];
-const difficultyLabels = ["Easy", "Medium", "Hard", ""];
 const toneOptions = ["Formal", "Conversational", "Technical", "Analytical"];
 const formatOptions = ["Highlights", "Bullets", "Analysis", "Quotes"];
 

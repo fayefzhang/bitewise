@@ -3,7 +3,12 @@
 import Header from "../components/header";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { interests, sources } from "../common/utils";
+import {
+  interests,
+  sources,
+  biasRatingLabels,
+  readTimeLabels,
+} from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -17,11 +22,11 @@ const ProfilePage: React.FC = () => {
 
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
-  const [readTime, setReadTime] = useState<number | null>(null);
-  const [bias, setBias] = useState<number>(0);
+  const [readTime, setReadTime] = useState<string[]>([]);
+  const [bias, setBias] = useState<string[]>([]);
   const [fromDate, setFromDate] = useState<string>("");
   const [clustering, setClustering] = useState<boolean>(false);
-  const [location, setLocation] = useState<string>("");
+  const [location, setLocation] = useState<string>("Philadelphia");
 
   // Fetch user preferences on page load
   useEffect(() => {
@@ -39,8 +44,8 @@ const ProfilePage: React.FC = () => {
         // Set the initial state based on fetched preferences
         setSelectedTopics(userPreferences.topics || []);
         setSelectedSources(userPreferences.sources || []);
-        setReadTime(userPreferences.read_time);
-        setBias(userPreferences.bias);
+        setReadTime(userPreferences.read_time || []);
+        setBias(userPreferences.bias || []);
         setFromDate(userPreferences.from_date);
         setClustering(userPreferences.clustering);
         setLocation(userPreferences.location || "");
@@ -55,8 +60,8 @@ const ProfilePage: React.FC = () => {
   const updateUserProfile = async (
     updatedTopics: string[],
     updatedSources: string[],
-    updatedReadTime: number | null,
-    updatedBias: number,
+    updatedReadTime: string[],
+    updatedBias: string[],
     updatedFromDate: string,
     updatedClustering: boolean,
     updatedLocation: string
@@ -151,33 +156,54 @@ const ProfilePage: React.FC = () => {
         {/* Read Time */}
         <div className="flex flex-row items-center gap-4">
           <label>Read Time</label>
-          <select
-            value={readTime || ""}
-            onChange={(e) => setReadTime(Number(e.target.value))}
-            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
-          >
-            <option value={0}>Select Read Time</option>
-            <option value={1}>Short</option>
-            <option value={2}>Medium</option>
-            <option value={3}>Long</option>
-          </select>
+          <div className="flex flex-wrap gap-2">
+            {readTimeLabels.map((label, index) => (
+              <button
+                key={index}
+                className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium ${
+                  readTime.includes(label) ? "bg-darkBlue text-white" : "bg-white"
+                }`}
+                onClick={() => {
+                  if (readTime.includes(label)) {
+                    setReadTime(readTime.filter((b) => b !== label));
+                  } else {
+                    setReadTime([...readTime, label]);
+                  }
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Bias */}
         <div className="flex flex-row items-center gap-4">
           <label>Bias</label>
-          <select
-            value={bias}
-            onChange={(e) => setBias(Number(e.target.value))}
-            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
-          >
-            <option value={0}>Select Bias</option>
-            <option value={1}>Center</option>
-            <option value={2}>Left</option>
-            <option value={3}>Left-Center</option>
-            <option value={4}>Right</option>
-            <option value={5}>Right-Center</option>
-          </select>
+          <div className="flex flex-wrap gap-2">
+            {biasRatingLabels.map(
+              (label, index) =>
+                label && (
+                  <button
+                    key={index}
+                    className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium ${
+                      bias.includes(label)
+                        ? "bg-darkBlue text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => {
+                      if (bias.includes(label)) {
+                        setBias(bias.filter((b) => b !== label));
+                      } else {
+                        setBias([...bias, label]);
+                      }
+                    }}
+                  >
+                    {label}
+                  </button>
+                )
+            )}
+          </div>
           <div className="relative group">
             <svg
               className="transform translate-y-3 w-4 h-4 text-darkBlue hover:text-gray-700 cursor-pointer"
@@ -232,7 +258,9 @@ const ProfilePage: React.FC = () => {
 
         {/* Topics Section */}
         <div className="flex-col items-center mb-4">
-          <h1 className="text-2xl font-bold">Dashboard Preferences</h1>
+          <h1 className="text-2xl font-bold text-gray-600">
+            Dashboard Preferences
+          </h1>
         </div>
         <div className="flex-col items-center mb-4">
           <h1 className="text-xl font-bold">Followed Topics</h1>
