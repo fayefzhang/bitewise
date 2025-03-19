@@ -20,10 +20,14 @@ NUM_TOPICS = 5
 
 
 # loads data and returns a pandas dataframe
-def load_data(file):
+def load_data(file, city=None):
     with open(file, 'r', encoding='utf-8') as f:
         data = json.load(f)
-        article_data = pd.DataFrame(data)
+        if city:
+            articles = data.get(city, [])
+            article_data = pd.DataFrame(articles)
+        else:
+            article_data = pd.DataFrame(data)
     return article_data 
 
 def clean_df(article_df):
@@ -157,7 +161,7 @@ def format_response(rep_article_urls, article_data):
 
 
 def news_pipeline(file, city=None):
-    article_data = load_data(file)
+    article_data = load_data(file, city)
     cleaned_data = clean_df(article_data)
     cleaned_data, topic_model = find_topics(cleaned_data)
     filtered_topics, cleaned_data = filter_topics(cleaned_data, topic_model) # applies num topics param
