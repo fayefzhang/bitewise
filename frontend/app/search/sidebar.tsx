@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SpeedIcon from '@mui/icons-material/Speed';
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import Tooltip from '@mui/material/Tooltip';
 import { defaultAIPreferences } from "../common/utils";
 
 type SidebarProps = {
@@ -22,6 +24,7 @@ const biasRatingLabels = [
   "Right",
   "",
 ];
+const difficultyLabels = ["Easy", "Medium", "Hard", ""];
 const toneOptions = ["formal", "conversational", "technical", "analytical"];
 const formatOptions = ["highlights", "bullets", "analysis", "quotes"];
 
@@ -93,19 +96,31 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
           <div>
-                <div className="flex justify-between mt-1">
-                  {selectedArticle.biasRating !== "5" &&
+            <div className="flex justify-between mt-1">
+              {selectedArticle.biasRating !== "5" &&
+                <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
                   <div className="flex items-center space-x-1">
                     <SpeedIcon fontSize="small" />
                     <p>{biasRatingLabels[parseInt(selectedArticle.biasRating, 10)]}</p>
                   </div>
-                  }
-                  <div className="flex items-center space-x-1">
-                    <AccessTimeIcon fontSize="small" />
-                    <p>{readTimeLabels[parseInt(selectedArticle.readTime, 10)]}</p>
-                  </div>
+              </Tooltip>
+              }
+              {difficultyLabels[parseInt(selectedArticle.difficulty, 10)] &&
+              <Tooltip title="Reading Difficulty: The complexity of the language (Easy, Medium, or Hard)" arrow>
+                <div className="flex items-center space-x-1">
+                  <PsychologyAltIcon fontSize="small" />
+                  <p>{difficultyLabels[parseInt(selectedArticle.difficulty, 10)]}</p>
                 </div>
-              </div>
+              </Tooltip>
+              }
+              <Tooltip title="Read Time: Estimated time to read the article (Short, Medium, or Long)" arrow>
+                <div className="flex items-center space-x-1">
+                  <AccessTimeIcon fontSize="small" />
+                  <p>{readTimeLabels[parseInt(selectedArticle.readTime, 10)]}</p>
+                </div>
+              </Tooltip>
+            </div>
+          </div>
           <div className="flex justify-between items-center mt-4">
             <a
               href={selectedArticle.url}

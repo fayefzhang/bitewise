@@ -11,6 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SpeedIcon from '@mui/icons-material/Speed';
+import Tooltip from '@mui/material/Tooltip';
 
 import { Article } from "../common/interfaces";
 import Sidebar from "../search/sidebar";
@@ -31,7 +32,7 @@ const biasRatingLabels = [
   "Right",
   "",
 ];
-const difficultyLabels = ["Easy", "Medium", "Hard"];
+const difficultyLabels = ["Easy", "Medium", "Hard", ""];
 
 const fetchDailyNews = async (date?: string) => {
   try {
@@ -100,22 +101,22 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                 </div>
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
-                  <div className="flex justify-between mt-1">
-                    {article.biasRating !== "5" &&
-                    <div className="flex items-center space-x-1">
-                      <SpeedIcon fontSize="10px" />
-                      <p className="text-xs">
-                        {biasRatingLabels[parseInt(article.biasRating, 10)]}
-                      </p>
-                    </div>
-                    }
-                    <div className="flex items-center space-x-1">
+                <div className="flex justify-between mt-1">
+                  {article.biasRating !== "5" &&
+                    <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
+                      <div className="flex items-center space-x-1 text-xs">
+                        <SpeedIcon fontSize="10px" />
+                        <p>{biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
+                      </div>
+                  </Tooltip>
+                  }
+                  <Tooltip title="Read Time: Estimated time to read the article (Short, Medium, or Long)" arrow>
+                    <div className="flex items-center space-x-1 text-xs">
                       <AccessTimeIcon fontSize="10px" />
-                      <p className="text-xs">
-                      {readTimeLabels[parseInt(article.readTime, 10)]}
-                      </p>
+                      <p>{readTimeLabels[parseInt(article.readTime, 10)]}</p>
                     </div>
-                  </div>
+                  </Tooltip>
+                </div>
                 </div>
               </div>
             ))}
@@ -233,8 +234,11 @@ const DashboardPage: React.FC = () => {
             return {
               ...prevArticle,
               summaries: [...prevArticle.summaries, data.summary || data],
+              difficulty: data.difficulty,
             };
           });
+
+          
         } catch (error) {
           console.error("Error processing article summary request", error);
         }
