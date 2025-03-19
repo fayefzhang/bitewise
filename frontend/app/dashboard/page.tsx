@@ -160,28 +160,28 @@ const DashboardPage: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchPodcast = async () => {
-  //     if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
+  useEffect(() => {
+    const fetchPodcast = async () => {
+      if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
 
-  //     if (dailyNews.podcast) {
-  //       setDailyPodcast(dailyNews.podcast);
-  //       console.log("set podcast from daily news", dailyNews.podcast);
-  //       return;
-  //     }
+      if (dailyNews.podcast) {
+        setDailyPodcast(dailyNews.podcast);
+        console.log("set podcast from daily news", dailyNews.podcast);
+        return;
+      }
 
-  //     const articles = dailyNews.clusters.flatMap((cluster: any) =>
-  //       cluster.articles.slice(0, 3).map((article: Article) => article.url)
-  //     );
+      const articles = dailyNews.clusters.flatMap((cluster: any) =>
+        cluster.articles.slice(0, 3).map((article: Article) => article.url)
+      );
 
-  //     const podcast = await fetchDailyPodcast(articles);
-  //     setDailyPodcast(podcast.s3_url);
+      const podcast = await fetchDailyPodcast(articles);
+      setDailyPodcast(podcast.s3_url);
 
-  //     console.log("PODCAST", podcast);
-  //   };
+      console.log("PODCAST", podcast);
+    };
 
-  //   fetchPodcast();
-  // }, [dailyNews]);
+    fetchPodcast();
+  }, [dailyNews]);
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
@@ -287,12 +287,12 @@ const DashboardPage: React.FC = () => {
                 />
               </div>
             </div>
-            <p className="mt-6 mb-8 text-sm">{dailySummary}</p>
+            <p className="mt-6 mb-6 text-sm">{dailySummary}</p>
 
             {/* Audio Summary */}
             {dailyNews && dailyNews.summary ? (
               dailyPodcast ? (
-                <audio controls className="mt-2 w-full">
+                <audio controls className="w-full mb-4">
                   <source src={dailyPodcast} type="audio/mpeg" />
                 </audio>
               ) : (
