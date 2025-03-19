@@ -33,6 +33,7 @@ def refresh_daily_news():
     time_difference = current_time - last_modified_date
     if time_difference.total_seconds() > 12 * 3600:
         Thread(target=daily_crawl_all).start()
+        return None
     return refresh_helper()
 
 @app.route('/local-news', methods=['POST'])
@@ -43,6 +44,7 @@ def refresh_local_news():
     time_difference = current_time - last_modified_date
     if time_difference.total_seconds() > 12 * 3600:
         Thread(target=daily_crawl_location).start()
+        return None
     return refresh_helper('local_articles_data.json')
 
 # helper function to refresh news and cluster to find main topics
@@ -179,7 +181,7 @@ def summarize_article():
     title = article.get("title")
     url = article.get("url")
 
-    app.logger.info(f"url: {url}, title: {title}, full_content: {full_content}")
+    # app.logger.info(f"url: {url}, title: {title}, full_content: {full_content}")
     
     # only retrieve full content if we didn't already get it
     if not full_content:
@@ -196,7 +198,6 @@ def summarize_article():
         summary_output = summary_output_full["error"]
     else:
         summary_output = summary_output_full["summary"]
-    print("HEREE",summary_output)
     if "**Reading Difficulty**:" in summary_output:
         summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)
         summary = summary.replace("**Summary**:", "").strip()
@@ -204,9 +205,9 @@ def summarize_article():
     else:
         summary = summary_output.replace("**Summary**:", "").strip()
         difficulty = "Unknown"
-    difficulty = difficulty.strip()
+    difficulty = difficulty.replace("\n", "").replace("\r", "").strip()
     # if difficult is easy, then 0, if medium, then 1, if hard, then 2
-    difficulty_int = 0 if difficulty == "Easy" else 1 if difficulty == "Medium" else 2 if difficulty == "Hard" else -1
+    difficulty_int = 0 if "Easy" in difficulty else 1 if "Medium" in difficulty else 2 if "Hard" in difficulty else 3
     return jsonify({
         "summary": summary,
         "difficulty": difficulty_int,

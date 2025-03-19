@@ -138,30 +138,30 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header onSearch={handleSearch} placeholder="Search topic..." />
-
+      <div className="w-[80%] min-h-screen mx-auto text-black">
       <div className="flex-grow flex flex-col items-start bg-white p-8">
         {/* Topics Section */}
         <div className="flex flex-col items-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-700">
-            Your Persistent User Preferences
+          <h1 className="text-2xl font-bold">
+            Persistent User Preferences
           </h1>
         </div>
 
         {/* Advanced Search Section */}
         <div className="flex flex-col items-center mb-4">
-          <h1 className="text-xl font-bold text-gray-600">
+          <h1 className="text-xl font-bold">
             Advanced Search Defaults
           </h1>
         </div>
         {/* Read Time */}
-        <div className="flex flex-row items-center gap-4 text-gray-800">
+        <div className="flex flex-row items-center gap-4">
           <label>Read Time</label>
           <div className="flex flex-wrap gap-2">
             {readTimeLabels.map((label, index) => (
               <button
                 key={index}
-                className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium ${
-                  readTime.includes(label) ? "bg-blue-500 text-white" : "bg-white"
+                className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium ${
+                  readTime.includes(label) ? "bg-darkBlue text-white" : "bg-white"
                 }`}
                 onClick={() => {
                   if (readTime.includes(label)) {
@@ -178,7 +178,7 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Bias */}
-        <div className="flex flex-row items-center gap-4 text-gray-800">
+        <div className="flex flex-row items-center gap-4">
           <label>Bias</label>
           <div className="flex flex-wrap gap-2">
             {biasRatingLabels.map(
@@ -186,9 +186,9 @@ const ProfilePage: React.FC = () => {
                 label && (
                   <button
                     key={index}
-                    className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium ${
+                    className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium ${
                       bias.includes(label)
-                        ? "bg-blue-500 text-white"
+                        ? "bg-darkBlue text-white"
                         : "bg-white"
                     }`}
                     onClick={() => {
@@ -206,7 +206,7 @@ const ProfilePage: React.FC = () => {
           </div>
           <div className="relative group">
             <svg
-              className="transform translate-y-3 w-4 h-4 text-blue-500 hover:text-gray-700 cursor-pointer"
+              className="transform translate-y-3 w-4 h-4 text-darkBlue hover:text-gray-700 cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -225,30 +225,19 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Date Published From */}
-        <div className="flex flex-row items-center gap-4 mb-2 text-gray-800">
+        <div className="flex flex-row items-center gap-4 mb-2">
           <label>Date Published From</label>
           <input
             type="date"
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
-            className="border-2 rounded-full px-4 py-2 text-blue-500 font-medium"
-          />
-        </div>
-
-        {/* Clustering */}
-        <div className="flex flex-row items-center gap-4 mb-2 text-gray-800">
-          <label>Enable Clustering</label>
-          <input
-            type="checkbox"
-            checked={clustering}
-            onChange={() => setClustering(!clustering)}
-            className="border-2 rounded-full px-4 py-2 text-blue-500 font-medium"
+            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
           />
         </div>
 
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -265,6 +254,8 @@ const ProfilePage: React.FC = () => {
           </button>
         </div>
 
+        <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
+
         {/* Topics Section */}
         <div className="flex-col items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-600">
@@ -272,7 +263,7 @@ const ProfilePage: React.FC = () => {
           </h1>
         </div>
         <div className="flex-col items-center mb-4">
-          <h1 className="text-xl font-bold text-gray-600">Followed Topics</h1>
+          <h1 className="text-xl font-bold">Followed Topics</h1>
         </div>
         <div className="mb-4">
           <input
@@ -280,16 +271,16 @@ const ProfilePage: React.FC = () => {
             placeholder="Search..."
             value={searchInterestsQuery}
             onChange={handleSearchChange}
-            className="w-full border-2 rounded-full px-4 py-2 text-blue-500 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border-2 rounded-full px-4 py-2 text-darkBlue font-medium focus:outline-none focus:ring-2 focus:ring-darkBlue"
           />
         </div>
         <div className="w-full flex flex-wrap gap-4 mb-2">
           {filteredInterests.map((interest) => (
             <button
               key={interest}
-              className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium hover:bg-blue-500 hover:text-white focus:outline-none ${
+              className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
                 selectedTopics.includes(interest)
-                  ? "bg-blue-500 text-white"
+                  ? "bg-darkBlue text-white"
                   : "bg-white"
               }`}
               onClick={() => handleOptionClick(interest, true)}
@@ -300,7 +291,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -319,21 +310,21 @@ const ProfilePage: React.FC = () => {
 
         {/* Location */}
         <div className="flex flex-col items-center mb-4">
-          <h1 className="text-xl font-bold text-gray-600">Local News Location</h1>
+          <h1 className="text-xl font-bold">Local News Location</h1>
         </div>
-        <div className="flex flex-row items-center gap-4 mb-2 text-gray-800">
+        <div className="flex flex-row items-center gap-4 mb-2">
           <label>Location</label>
           <input
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="border-2 rounded-full px-4 py-2 text-gray-500 font-medium"
+            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
             placeholder="Enter your location"
           />
         </div>
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -352,15 +343,15 @@ const ProfilePage: React.FC = () => {
 
         {/* Sources Section */}
         <div className="flex flex-col items-center mb-4">
-          <h1 className="text-xl font-bold text-gray-600">Your Sources</h1>
+          <h1 className="text-xl font-bold">Your Sources</h1>
         </div>
         <div className="w-full flex flex-wrap gap-4 mb-2">
           {sources.map((source) => (
             <button
               key={source}
-              className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium hover:bg-blue-500 hover:text-white focus:outline-none ${
+              className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
                 selectedSources.includes(source)
-                  ? "bg-blue-500 text-white"
+                  ? "bg-darkBlue text-white"
                   : "bg-white"
               }`}
               onClick={() => handleOptionClick(source, false)}
@@ -371,7 +362,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-blue-900 hover:bg-blue-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
@@ -388,15 +379,18 @@ const ProfilePage: React.FC = () => {
           </button>
         </div>
 
-        <div className="flex flex-col items-center mb-6">
+        <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
+
+        <div className="flex flex-row justify-end mb-6">
           <button
-            className="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-1 px-6 rounded-full focus:outline-none"
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
             onClick={() => handleLogOut()}
           >
             Log Out
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

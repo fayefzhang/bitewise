@@ -24,6 +24,7 @@ export interface Article {
   biasRating: string;
   sentiment: string;
   readTime: string;
+  difficulty: string;
   relatedSources: RelatedSource[];
   summaries: string[];
   fullContent: string;

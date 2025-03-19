@@ -107,21 +107,21 @@ const Header: React.FC<HeaderProps> = ({
   }, []); // Empty dependency array to run this effect once when the component mounts
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
+    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-mediumBlue to-darkBlue p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
         <Link href="/dashboard">
-          <div className="bg-white p-2 rounded-full cursor-pointer">
+          <div className="p-2 rounded-full cursor-pointer">
             <Image
               src="/bitewise_logo.png"
               alt="logo"
-              width={40}
-              height={30}
+              width={50}
+              height={40}
               className="rounded-lg"
             />
           </div>
         </Link>
       </div>
-      <div className="flex items-center space-x-2 bg-white p-2 rounded-md">
+      <div className="flex items-center space-x-2 bg-white p-2 rounded-md h-12">
         <span className="text-xl">🔍</span>
         <input
           type="text"
@@ -129,16 +129,16 @@ const Header: React.FC<HeaderProps> = ({
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="p-2 w-full md:w-80 text-black focus:outline-none"
+          className="p-2 w-[300px] md:w-[450px] lg:w-[550px] text-black focus:outline-none"
         />
-        {isSearchPage && (
+        {/* {isSearchPage && ( */}
           <button
             className="text-xl text-gray-600 hover:text-black"
             onClick={() => setShowSettings(!showSettings)}
           >
             ⚙️
           </button>
-        )}
+        {/* )} */}
       </div>
       <div className="flex space-x-4 absolute right-4">
         {isSignedIn && ( // only show profile if user is signed in
@@ -181,8 +181,8 @@ const Header: React.FC<HeaderProps> = ({
                   <button
                     key={time}
                     className={`px-4 py-2 rounded-md ${
-                      isSelected ? "bg-blue-500 text-white" : "bg-gray-200"
-                    } hover:bg-gray-300`}
+                      isSelected ? "bg-darkBlue text-white" : "bg-gray-200"
+                    } hover:bg-mediumBlue`}
                     onClick={() => toggleReadTime(time)}
                   >
                     {time}
@@ -196,7 +196,7 @@ const Header: React.FC<HeaderProps> = ({
               <span>Bias</span>
               <div className="relative group">
                 <svg
-                  className="w-4 h-4 text-blue-500 hover:text-gray-700 cursor-pointer"
+                  className="w-4 h-4 text-darkBlue hover:mediumBlue cursor-pointer"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -222,7 +222,7 @@ const Header: React.FC<HeaderProps> = ({
                   <button
                     key={bias}
                     className={`px-4 py-2 rounded-md ${
-                      isSelected ? "bg-blue-500 text-white" : "bg-gray-200"
+                      isSelected ? "bg-darkBlue text-white" : "bg-gray-200"
                     } hover:bg-gray-300`}
                     onClick={() => toggleBias(bias)}
                   >
@@ -246,7 +246,7 @@ const Header: React.FC<HeaderProps> = ({
                     from_date: e.target.value,
                   }))
                 }
-                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-darkBlue"
               />
             </div>
           </div>

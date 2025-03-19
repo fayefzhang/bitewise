@@ -5,11 +5,15 @@ import TopicsArticles from "./components/topicsarticles";
 import LocalNews from "./components/localnews";
 import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { biasRatingLabels, readTimeLabels } from "../common/utils";
+import { biasRatingLabels, readTimeLabels, difficultyLabels } from "../common/utils";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SpeedIcon from '@mui/icons-material/Speed';
+import Tooltip from '@mui/material/Tooltip';
+
 import { Article } from "../common/interfaces";
 import Sidebar from "../search/sidebar";
 import {
@@ -19,8 +23,6 @@ import {
 } from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
-
-const difficultyLabels = ["Easy", "Medium", "Hard"];
 
 const fetchDailyNews = async (date?: string) => {
   try {
@@ -54,10 +56,12 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   articles,
   handleArticleClick,
 }) => {
+  
   return (
-    <section className="mb-8">
+    <section className="mb-8 bg-white p-5 rounded-md shadow cursor-pointer">
       <h2 className="text-xl font-bold mb-2">{header}</h2>
-      <p className="mb-4 text-justify">{summary}</p>
+      <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
+      <p className="mb-4 text-sm">{summary}</p>
       <div className="flex space-x-4">
         <div className="flex w-full">
           {/* Image Section */}
@@ -78,7 +82,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
             {articles.map((article, index) => (
               <div
                 key={index}
-                className="bg-white p-1 rounded-md shadow cursor-pointer hover:bg-blue-50"
+                className="bg-white p-1 px-4  rounded-md shadow cursor-pointer hover:bg-veryLightBlue"
                 onClick={() => handleArticleClick(article)}
               >
                 <div className="flex justify-between mt-1">
@@ -87,15 +91,25 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                 </div>
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
-                  <div className="flex justify-between mt-1">
-                    <p className="text-xs">
-                      {article.biasRating !== "5" &&
-                        biasRatingLabels[parseInt(article.biasRating, 10)]}
-                    </p>
-                    <p className="text-xs">
-                      {readTimeLabels[parseInt(article.readTime, 10)]}
-                    </p>
-                  </div>
+                <div className="flex justify-between mt-1">
+                  {biasRatingLabels[parseInt(article.biasRating, 10)] ? (
+                    <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
+                      <div className="flex items-center space-x-1 text-xs">
+                      <SpeedIcon sx={{ fontSize: "10px" }} />
+                      <p>{biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
+                      </div>
+                    </Tooltip>
+                    ) : (
+                    <div className="flex items-center space-x-1 text-xs"></div>
+                    )
+                  }
+                  <Tooltip title="Read Time: Estimated time to read the article (Short, Medium, or Long)" arrow>
+                    <div className="flex items-center space-x-1 text-xs">
+                      <AccessTimeIcon sx={{ fontSize: "10px" }} />
+                      <p>{readTimeLabels[parseInt(article.readTime, 10)]}</p>
+                    </div>
+                  </Tooltip>
+                </div>
                 </div>
               </div>
             ))}
@@ -146,28 +160,28 @@ const DashboardPage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPodcast = async () => {
-      if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
+  // useEffect(() => {
+  //   const fetchPodcast = async () => {
+  //     if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
 
-      if (dailyNews.podcast) {
-        setDailyPodcast(dailyNews.podcast);
-        console.log("set podcast from daily news", dailyNews.podcast);
-        return;
-      }
+  //     if (dailyNews.podcast) {
+  //       setDailyPodcast(dailyNews.podcast);
+  //       console.log("set podcast from daily news", dailyNews.podcast);
+  //       return;
+  //     }
 
-      const articles = dailyNews.clusters.flatMap((cluster: any) =>
-        cluster.articles.slice(0, 3).map((article: Article) => article.url)
-      );
+  //     const articles = dailyNews.clusters.flatMap((cluster: any) =>
+  //       cluster.articles.slice(0, 3).map((article: Article) => article.url)
+  //     );
 
-      const podcast = await fetchDailyPodcast(articles);
-      setDailyPodcast(podcast.s3_url);
+  //     const podcast = await fetchDailyPodcast(articles);
+  //     setDailyPodcast(podcast.s3_url);
 
-      console.log("PODCAST", podcast);
-    };
+  //     console.log("PODCAST", podcast);
+  //   };
 
-    fetchPodcast();
-  }, [dailyNews]);
+  //   fetchPodcast();
+  // }, [dailyNews]);
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
@@ -213,8 +227,11 @@ const DashboardPage: React.FC = () => {
             return {
               ...prevArticle,
               summaries: [...prevArticle.summaries, data.summary || data],
+              difficulty: data.difficulty,
             };
           });
+
+          
         } catch (error) {
           console.error("Error processing article summary request", error);
         }
@@ -243,84 +260,83 @@ const DashboardPage: React.FC = () => {
   }, [selectedDate]);
 
   return (
-    <div className="w-full min-h-screen mx-auto bg-white text-black">
+    <div className="bg-veryLightBlue">
       <Header onSearch={handleSearch} placeholder="Search topic..." />
+      <div className="w-[80%] min-h-screen mx-auto text-black">
+        {/* Main Content */}
+        <main className="py-2 md:py-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-12">
+          {/* Main Section */}
+          <div className="flex-1 flex-col">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold">
+                Good{" "}
+                {new Date().getHours() < 12
+                  ? "morning"
+                  : new Date().getHours() < 18
+                  ? "afternoon"
+                  : "evening"}
+                !
+              </h1>
+              <div className="flex justify-end">
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date: Date | null) => setSelectedDate(date)}
+                  dateFormat="MMMM d, yyyy"
+                  maxDate={new Date()} // Prevent selecting future dates
+                  className="border p-2 rounded-md"
+                />
+              </div>
+            </div>
+            <p className="mt-6 mb-8 text-sm">{dailySummary}</p>
 
-      {/* Main Content */}
-      <main className="p-4 md:p-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-        {/* Main Section */}
-        <div className="flex-1 flex-col">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold">
-              Good{" "}
-              {new Date().getHours() < 12
-                ? "morning"
-                : new Date().getHours() < 18
-                ? "afternoon"
-                : "evening"}
-              !
-            </h1>
-            <div className="flex justify-end p-4">
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date: Date | null) => setSelectedDate(date)}
-                dateFormat="MMMM d, yyyy"
-                maxDate={new Date()} // Prevent selecting future dates
-                className="border p-2 rounded-md"
-              />
+            {/* Audio Summary */}
+            {dailyNews && dailyNews.summary ? (
+              dailyPodcast ? (
+                <audio controls className="mt-2 w-full">
+                  <source src={dailyPodcast} type="audio/mpeg" />
+                </audio>
+              ) : (
+                null
+              )
+            ) : null}
+
+            {/* Dynamically Render News Sections */}
+            {isLoading || !dailyNews ? (
+              <p>Loading...</p>
+            ) : dailyNews.clusters && dailyNews.clusters.length > 0 ? (
+              dailyNews.clusters.map((cluster: any, index: any) =>
+                cluster.cluster !== -1 ? (
+                  <NewsSection
+                    key={index}
+                    header={dailyNews.clusterLabels[index]}
+                    summary={dailyNews.clusterSummaries[index]}
+                    articles={cluster.articles}
+                    handleArticleClick={handleArticleClick}
+                  />
+                ) : null
+              )
+            ): (
+              <p className="text-center text-gray-500 italic">
+                No daily news dashboard for this date.
+              </p>
+            )}
+          </div>
+
+          {/* Your + Local Topics */}
+          <div className="w-full md:w-[30%] flex flex-col space-y-4">
+            <div className="fixed w-[24%] flex flex-col space-y-4"> 
+              <TopicsArticles />
+              <LocalNews />
             </div>
           </div>
-          <p className="mt-4 mb-4 text-justify">{dailySummary}</p>
 
-          {/* Audio Summary */}
-          {dailyNews && dailyNews.summary ? (
-            dailyPodcast ? (
-              <audio controls className="mt-2 w-full">
-                <source src={dailyPodcast} type="audio/mpeg" />
-              </audio>
-            ) : (
-              <div className="flex mt-2 mb-4 italic">
-                Loading your daily bites...
-              </div>
-            )
-          ) : null}
-
-          {/* Dynamically Render News Sections */}
-          {isLoading || !dailyNews ? (
-            <p>Loading...</p>
-          ) : dailyNews.clusters && dailyNews.clusters.length > 0 ? (
-            dailyNews.clusters.map((cluster: any, index: any) =>
-              cluster.cluster !== -1 ? (
-                <NewsSection
-                  key={index}
-                  header={dailyNews.clusterLabels[index]}
-                  summary={dailyNews.clusterSummaries[index]}
-                  articles={cluster.articles}
-                  handleArticleClick={handleArticleClick}
-                />
-              ) : null
-            )
-          ): (
-            <p className="text-center text-gray-500 italic">
-              No daily news dashboard for this date.
-            </p>
-          )}
-        </div>
-
-        {/* Your + Local Topics */}
-        <div className="w-full md:w-[30%] flex flex-col space-y-4">
-          <div className="fixed space-y-4 pr-4 max-w-full md:max-w-[30%]">
-            <TopicsArticles />
-            <LocalNews />
-          </div>
-        </div>
-
-        <Sidebar
-          selectedArticle={selectedArticle}
-          closePanel={closePanel}
-          isPanelOpen={isPanelOpen}
-        />
-      </main>
+          <Sidebar
+            selectedArticle={selectedArticle}
+            closePanel={closePanel}
+            isPanelOpen={isPanelOpen}
+          />
+        </main>
+      </div>
     </div>
   );
 };

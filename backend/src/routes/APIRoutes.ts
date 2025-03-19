@@ -407,6 +407,27 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
 
         const response = await axios.post(`${BASE_URL}/${newsType}`);
 
+        if (response == null) {  // currently crawling -- load previous days dashboard
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            let existingDashboard = null;
+            let dateToCheck = yesterday;
+
+            while (!existingDashboard) {  // possibility of infinite loop?
+                const dateString = dateToCheck.toISOString().slice(0, 10);
+                existingDashboard = await DashboardModel.findOne({ date: dateString, location: location });
+
+                if (existingDashboard) {
+                    console.log(`News dashboard found for ${dateString}`);
+                    res.json(existingDashboard);
+                    return;
+                }
+                
+                dateToCheck.setDate(dateToCheck.getDate() - 1);
+            }
+        }
+
         const { clusters, overall_summary } = response.data;
 
         // summarizing each cluster
@@ -554,29 +575,14 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         const existingArticle = await ArticleModel.findOne({ url: article.url });
 
         if (existingArticle) {
-            // console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
-            // frontend not passing it in this format
-            // console.log(ai_preferences);
-            // console.log("ai pref length:", ai_preferences.AILength);
-            // console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
-            // console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
-            // console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
-            // console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
-
             // should be AILength, AITone, AIFormat, AIJargonAllowed
-            // const existingSummary = existingArticle.summaries?.find((summary) =>
-            //     summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.AILength] &&
-            //     summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.AITone] &&
-            //     summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.AIFormat] &&
-            //     summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
-            // );
             const existingSummary = existingArticle.summaries?.find((summary: any) =>
                 summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.length] &&
                 summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.tone] &&
                 summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.format] &&
                 summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
             );
-
+            
             if (existingSummary) {
                 console.log("using existing summary from database");
                 res.json(existingSummary.summary);
@@ -602,11 +608,13 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                     AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
                     AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
                     AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                    difficulty: response.data.difficulty,
                     s3Url: response.data.s3_url
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []
                 }
+                existingArticle.difficulty = response.data.difficulty;
                 existingArticle.summaries.push(newSummary);
                 // console.log("pushed new summary to existing article:", existingArticle);
                 // @Sanya add in later when we merge branches
@@ -628,6 +636,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
                 AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
                 AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                difficulty: response.data.difficulty,
                 s3Url: response.data.s3_url
             };
             
@@ -641,7 +650,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 title: article.title,
                 readTime: article.readTime,
                 biasRating: article.biasRating,
-                difficulty: article.difficulty,
+                difficulty: response.data.difficulty,
                 imageUrl: article.imageUrl,
                 summaries: summary,
             });
@@ -654,8 +663,8 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
 
     } catch (error: any) {
         // console.error("Error processing summarize article request", error);
-        console.error("Error processing summarize article request");
-        res.status(500).json({ error: 'Internal server error' });
+        console.error("Error processing summarize article request", error);
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
 

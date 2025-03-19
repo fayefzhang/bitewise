@@ -127,3 +127,5 @@ export const biasRatingLabels = [
 ];
 
 export const readTimeLabels = ["Short", "Medium", "Long"];
+
+export const difficultyLabels = ["Easy", "Medium", "Hard", ""];
