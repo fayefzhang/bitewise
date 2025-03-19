@@ -12,7 +12,7 @@ const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, totalSteps }
         <React.Fragment key={index}>
           <div
             className={`flex items-center justify-center w-8 h-8 rounded-full ${
-              index < currentStep ? 'bg-blue-500 text-white' : 'border-2 border-gray-300 text-gray-500'
+              index < currentStep ? 'bg-darkBlue text-white' : 'border-2 border-gray-300 text-gray-500'
             }`}
           >
             {index < currentStep ? '✓' : index + 1}
@@ -20,7 +20,7 @@ const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, totalSteps }
           {index < totalSteps - 1 && (
             <div
               className={`w-24 h-1 ${
-                index < currentStep - 1 ? 'bg-blue-500' : 'bg-gray-300'
+                index < currentStep - 1 ? 'bg-darkBlue' : 'bg-gray-300'
               }`}
             ></div>
           )}

@@ -70,7 +70,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   return (
     <section className="mb-8 bg-white p-5 rounded-md shadow cursor-pointer">
       <h2 className="text-xl font-bold mb-2">{header}</h2>
-      <div className="border-b-2 border-veryLightBlue mb-4 w-full"></div>
+      <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
       <p className="mb-4 text-sm">{summary}</p>
       <div className="flex space-x-4">
         <div className="flex w-full">
@@ -102,17 +102,20 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                 <p className="text-sm font-bold">{article.title}</p>
                 <div>
                 <div className="flex justify-between mt-1">
-                  {article.biasRating !== "5" &&
+                  {biasRatingLabels[parseInt(article.biasRating, 10)] ? (
                     <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
                       <div className="flex items-center space-x-1 text-xs">
-                        <SpeedIcon fontSize="10px" />
-                        <p>{biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
+                      <SpeedIcon sx={{ fontSize: "10px" }} />
+                      <p>{biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
                       </div>
-                  </Tooltip>
+                    </Tooltip>
+                    ) : (
+                    <div className="flex items-center space-x-1 text-xs"></div>
+                    )
                   }
                   <Tooltip title="Read Time: Estimated time to read the article (Short, Medium, or Long)" arrow>
                     <div className="flex items-center space-x-1 text-xs">
-                      <AccessTimeIcon fontSize="10px" />
+                      <AccessTimeIcon sx={{ fontSize: "10px" }} />
                       <p>{readTimeLabels[parseInt(article.readTime, 10)]}</p>
                     </div>
                   </Tooltip>

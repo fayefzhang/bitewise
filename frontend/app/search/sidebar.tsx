@@ -6,6 +6,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SpeedIcon from '@mui/icons-material/Speed';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Tooltip from '@mui/material/Tooltip';
+import Spinner from "../common/Spinner";
 import { defaultAIPreferences } from "../common/utils";
 
 type SidebarProps = {
@@ -15,7 +16,6 @@ type SidebarProps = {
 };
 
 const readTimeLabels = ["Short", "Medium", "Long"];
-const readTimeOptions = ["short", "medium", "long"];
 const biasRatingLabels = [
   "Left",
   "Left-Center",
@@ -25,8 +25,8 @@ const biasRatingLabels = [
   "",
 ];
 const difficultyLabels = ["Easy", "Medium", "Hard", ""];
-const toneOptions = ["formal", "conversational", "technical", "analytical"];
-const formatOptions = ["highlights", "bullets", "analysis", "quotes"];
+const toneOptions = ["Formal", "Conversational", "Technical", "Analytical"];
+const formatOptions = ["Highlights", "Bullets", "Analysis", "Quotes"];
 
 const Sidebar: React.FC<SidebarProps> = ({
   selectedArticle,
@@ -86,10 +86,11 @@ const Sidebar: React.FC<SidebarProps> = ({
       {selectedArticle && (
         <>
             <h2 className="font-bold hover:underline text-xl mb-4">
-            <a href={selectedArticle.url} target="_blank" rel="noopener noreferrer">
-              {selectedArticle.title}
-            </a>
+              <a href={selectedArticle.url} target="_blank" rel="noopener noreferrer">
+                {selectedArticle.title}
+              </a>
             </h2>
+            <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
             <div className="flex justify-between">
             <span>{selectedArticle.source}</span>
             <span>{selectedArticle.authors[0]}</span>
@@ -97,13 +98,16 @@ const Sidebar: React.FC<SidebarProps> = ({
 
           <div>
             <div className="flex justify-between mt-1">
-              {selectedArticle.biasRating !== "5" &&
+            {biasRatingLabels[parseInt(selectedArticle.biasRating, 10)] ? (
                 <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
-                  <div className="flex items-center space-x-1">
-                    <SpeedIcon fontSize="small" />
-                    <p>{biasRatingLabels[parseInt(selectedArticle.biasRating, 10)]}</p>
+                  <div className="flex items-center space-x-1 text-xs">
+                  <SpeedIcon fontSize="small" />
+                  <p>{biasRatingLabels[parseInt(selectedArticle.biasRating, 10)]}</p>
                   </div>
-              </Tooltip>
+                </Tooltip>
+                ) : (
+                <div className="flex items-center space-x-1 text-xs"></div>
+                )
               }
               {difficultyLabels[parseInt(selectedArticle.difficulty, 10)] &&
               <Tooltip title="Reading Difficulty: The complexity of the language (Easy, Medium, or Hard)" arrow>
@@ -143,10 +147,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="mt-4 bg-veryLightBlue shadow rounded-lg p-4">
               <div className="flex justify-start items-center space-x-2">
                 <label className="block font-semibold">Read Time</label>
-                {readTimeOptions.map((option) => (
+                {readTimeLabels.map((option) => (
                   <button
                     key={option}
-                    className={`px-3 py-1 rounded ${
+                    className={`px-3 py-2 rounded-full ${ 
                       tempPreferences.length === option
                         ? "bg-darkBlue text-white"
                         : "bg-gray-200"
@@ -166,7 +170,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="flex items-center mt-4 space-x-2">
                 <label className="block font-semibold">Format</label>
                 <select
-                  className="w-50% p-2 border rounded"
+                  className="w-50% border-2 rounded-full px-4 py-2"
                   value={tempPreferences.format}
                   onChange={(e) =>
                     setTempPreferences((prev) => ({
@@ -186,7 +190,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="flex items-center mt-4 space-x-2">
                 <label className="block font-semibold">Tone</label>
                 <select
-                  className="w-25% p-2 border rounded"
+                  className="w-25% border-2 rounded-full px-4 py-2"
                   value={tempPreferences.tone}
                   onChange={(e) =>
                     setTempPreferences((prev) => ({
@@ -222,7 +226,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 <button
                   onClick={applyPreferences}
-                  className="mt-4 bg-darkBlue text-white px-4 rounded"
+                  className="mt-4 p-2 bg-darkBlue text-white px-4 rounded-full"
                 >
                   Apply
                 </button>
@@ -249,14 +253,19 @@ const Sidebar: React.FC<SidebarProps> = ({
           )} */}
 
           <ul className="mt-6 list-disc space-y-2 mb-8">
-            {selectedArticle.summaries &&
-              selectedArticle.summaries.map((detail, index) => (
-                <p key={index} className="text-sm">
-                  {typeof detail === "string"
-                    ? detail.replace(/^[^\w]+/, '') 
-                    : JSON.stringify(detail).replace(/^[^\w]+/, '')}
+            {selectedArticle.summaries && selectedArticle.summaries.length > 0 ? (
+              // selectedArticle.summaries.map((detail, index) => (
+              <p className="text-sm">
+                {typeof selectedArticle.summaries[0] === "string"
+                ? selectedArticle.summaries[0].replace(/^[^\w]+/, '') 
+                : JSON.stringify(selectedArticle.summaries[0]).replace(/^[^\w]+/, '')}
+              </p>
+              // ))
+            ) : (
+                <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
+                <Spinner /> Generating summary...
                 </p>
-              ))}
+            )}
           </ul>
           {/* Related Articles */}
         </>
