@@ -41,7 +41,6 @@ const LocalNews = () => {
     const fetchNews = async () => {
       const news = await fetchLocalNews();
 
-      console.log(news);
       setLocalNews(news);
       setIsLoading(false);
     };

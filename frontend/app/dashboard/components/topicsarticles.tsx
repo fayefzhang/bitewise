@@ -19,11 +19,10 @@ const TopicsArticles = () => {
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail");
 
-    const getTopicsArticles = async () => {
+    const getUserPreferences = async () => {
       try {
         if (userEmail) {
-          // user is logged in
-          console.log("Fetching user preferences...");
+          console.log("Fetching user preferences for email: " + userEmail);
           const userPrefResponse = await fetch(
             `${BASE_URL}/api/user/preferences?email=${userEmail}`
           );
@@ -31,9 +30,24 @@ const TopicsArticles = () => {
             throw new Error("Failed to get existing user preferences");
           }
           const userPreferences = await userPrefResponse.json();
-          setPreferences(userPreferences);
+          setPreferences(userPreferences); // Updates state
         }
+      } catch (error) {
+        console.error("Error retrieving user preferences", error);
+      }
+    };
 
+    getUserPreferences();
+  }, []); // Runs only once on mount
+
+  // Watch for changes in `preferences.topics` and fetch articles when it updates
+  useEffect(() => {
+    if (!preferences.topics || preferences.topics.length === 0) return;
+
+    console.log("data.topics: " + preferences.topics);
+
+    const getTopicsArticles = async () => {
+      try {
         const fromDate = new Date();
         fromDate.setDate(fromDate.getDate() - 2);
         const formattedFromDate = fromDate.toISOString().split("T")[0];
@@ -46,7 +60,7 @@ const TopicsArticles = () => {
           read_time: null,
           bias: null,
         };
-        console.log("data.topics: " + preferences.topics);
+
         console.log("Fetching topic articles...");
         const topicsResponse = await fetch(`${BASE_URL}/api/search/topics`, {
           method: "POST",
@@ -54,7 +68,7 @@ const TopicsArticles = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            topics: preferences.topics,
+            topics: preferences.topics, // Use updated topics
             ...searchPreferences,
           }),
         });
@@ -62,9 +76,9 @@ const TopicsArticles = () => {
         const rawTopicsData = await topicsResponse.text();
         // console.log("Raw topic articles response:", rawTopicsData);
 
-        if (!rawTopicsData) {
+        const dataEmpty = Object.keys(JSON.parse(rawTopicsData)).length === 0;
+        if (dataEmpty) {
           console.warn("Received empty response from topic articles API.");
-          //   setTopicArticles(null); // Avoid error
           return;
         }
 
@@ -72,15 +86,12 @@ const TopicsArticles = () => {
         console.log("Topic Articles:", topicsData);
         setTopicArticles(topicsData);
       } catch (error) {
-        console.error(
-          "Error retrieving user preferences or topic articles",
-          error
-        );
+        console.error("Error retrieving topic articles", error);
       }
     };
 
     getTopicsArticles();
-  }, []);
+  }, [preferences.topics]); // Triggers when `preferences.topics` updates
 
   const renderArticles = () => {
     if (!topicArticles) return null;

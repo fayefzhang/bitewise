@@ -10,6 +10,7 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 
+nltk.download('wordnet')
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 

@@ -2,10 +2,10 @@ import requests
 from datetime import datetime, timedelta
 import json
 import re
+import random
 from .query_processing import parse_query
 import pandas as pd
 from . import config 
-
 
 # API key and global vars
 api_key =  config.NEWSAPI_API_KEY
@@ -254,7 +254,7 @@ def get_topics_articles(topics, search_preferences):
         topic_search_results = user_search(topic, search_preferences, "")
         topic_result = {
             "topic": topic,
-            "results": topic_search_results[:3] # arbitrary amount, can change
+            "results": random.sample(topic_search_results, min(3, len(topic_search_results)))
         }
     
         results.append(topic_result)
