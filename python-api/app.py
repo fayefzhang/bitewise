@@ -289,7 +289,10 @@ def generate_podcast():
     articles = data.get('articles')
     if not articles:
         return jsonify({"error": "Articles are required"}), 400
-    result = generate_podcast_collection(articles)
+    
+    articles_formatted = {url: {"url": url, "content": None} for url in articles}
+    articles_content = get_contents(articles_formatted)  # calls exa to scrape links
+    result = generate_podcast_collection(articles_content)
     if not result.get("s3_url"):
         return jsonify({"error": "Failed to upload podcast to S3"}), 500
     return jsonify(result), 200
