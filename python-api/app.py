@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
-from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article
+from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article, filter_irrelevant_articles
 from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results, get_topics_articles
 from utils.exa import get_contents
 from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
@@ -33,6 +33,7 @@ def refresh_daily_news():
     time_difference = current_time - last_modified_date
     if time_difference.total_seconds() > 12 * 3600:
         Thread(target=daily_crawl_all).start()
+        return None
     return refresh_helper()
 
 @app.route('/local-news', methods=['POST'])
@@ -43,6 +44,7 @@ def refresh_local_news():
     time_difference = current_time - last_modified_date
     if time_difference.total_seconds() > 12 * 3600:
         Thread(target=daily_crawl_location).start()
+        return None
     return refresh_helper('local_articles_data.json')
 
 # helper function to refresh news and cluster to find main topics
@@ -78,18 +80,19 @@ def refresh_helper(file_path='articles_data.json'):
 
     # **Build the final response**
     response = {
-        "overall_summary": daily_summary,  # Daily news summary
+        "overall_summary": daily_summary.to_dict() if isinstance(daily_summary, pd.Series) else daily_summary,
         "clusters": [
             {
                 "cluster_id": cluster_id,
-                "title": cluster_articles[0].get("title", "Untitled"),  # Using first article title as cluster title
-                "articles": list(cluster_articles)
+                "title": cluster_articles[0].get("title", "Untitled"),  
+                "articles": [article.to_dict() if isinstance(article, pd.Series) else article for article in cluster_articles]
             }
             for cluster_id, cluster_articles in top_clusters
         ]
     }
 
-    return jsonify(response)
+    return jsonify(response)  
+
 
 
 @app.route('/search', methods=['POST'])
@@ -178,7 +181,7 @@ def summarize_article():
     title = article.get("title")
     url = article.get("url")
 
-    app.logger.info(f"url: {url}, title: {title}, full_content: {full_content}")
+    # app.logger.info(f"url: {url}, title: {title}, full_content: {full_content}")
     
     # only retrieve full content if we didn't already get it
     if not full_content:
@@ -190,7 +193,11 @@ def summarize_article():
     if not ai_preferences:
         return jsonify({"error": "AI preferences are required"}), 400
 
-    summary_output = generate_summary_individual(full_content, ai_preferences)
+    summary_output_full = generate_summary_individual(full_content, ai_preferences)
+    if "error" in summary_output_full:
+        summary_output = summary_output_full["error"]
+    else:
+        summary_output = summary_output_full["summary"]
     if "**Reading Difficulty**:" in summary_output:
         summary, difficulty = summary_output.split("**Reading Difficulty**:", 1)
         summary = summary.replace("**Summary**:", "").strip()
@@ -198,12 +205,13 @@ def summarize_article():
     else:
         summary = summary_output.replace("**Summary**:", "").strip()
         difficulty = "Unknown"
-    difficulty = difficulty.strip()
+    difficulty = difficulty.replace("\n", "").replace("\r", "").strip()
     # if difficult is easy, then 0, if medium, then 1, if hard, then 2
-    difficulty_int = 0 if difficulty == "Easy" else 1 if difficulty == "Medium" else 2 if difficulty == "Hard" else -1
+    difficulty_int = 0 if "Easy" in difficulty else 1 if "Medium" in difficulty else 2 if "Hard" in difficulty else 3
     return jsonify({
         "summary": summary,
         "difficulty": difficulty_int,
+        "s3_url": summary_output_full.get("s3_url", None)
     }), 200
 
 # For summarizing multiple articles into one summary

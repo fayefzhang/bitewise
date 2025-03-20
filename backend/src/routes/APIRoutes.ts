@@ -357,8 +357,30 @@ async function fetchRelevantArticles(articles: any[], query: string) {
 // @description Fetches top clusters of daily news articles
 // @returns grouped articles by cluster
 
-router.post('/daily-news', (req: Request, res: Response) => {
-    generateNewsDashboard('daily-news', '', path.join(__dirname, '../../../python-api/data/articles_data.json'), res);
+router.post('/daily-news', async (req: Request, res: Response): Promise<void> => {
+    const { date } = req.body; // get date
+    const today = new Date().toISOString().slice(0, 10); // current date
+    if (date != today) {
+        try {
+            // check if dashboard already exists for this date
+            const existingDashboard = await DashboardModel.findOne({ date: date, location: "" });
+
+            if (existingDashboard) {
+                console.log(`News dashboard found for ${date}`);
+                res.json(existingDashboard);
+            } else {  // return null if no news found for specified date
+                console.log(`No news dashboard found for ${date}, returning empty.`);
+                res.json({
+                    summary: null,
+                    clusters: []
+                });
+            }
+        } catch (error: any) {
+            console.error("Error fetching daily news:", error);
+        }    
+    } else {
+        generateNewsDashboard('daily-news', '', path.join(__dirname, '../../../python-api/data/articles_data.json'), res);
+    }
 });
 
 router.post('/local-news', (req: Request, res: Response) => {
@@ -387,6 +409,27 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
         };
 
         const response = await axios.post(`${BASE_URL}/${newsType}`);
+
+        if (response == null) {  // currently crawling -- load previous days dashboard
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            let existingDashboard = null;
+            let dateToCheck = yesterday;
+
+            while (!existingDashboard) {  // possibility of infinite loop?
+                const dateString = dateToCheck.toISOString().slice(0, 10);
+                existingDashboard = await DashboardModel.findOne({ date: dateString, location: location });
+
+                if (existingDashboard) {
+                    console.log(`News dashboard found for ${dateString}`);
+                    res.json(existingDashboard);
+                    return;
+                }
+                
+                dateToCheck.setDate(dateToCheck.getDate() - 1);
+            }
+        }
 
         const { clusters, overall_summary } = response.data;
 
@@ -472,6 +515,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
             clusterSummaries: clusterSummaries.map(cs => cs.summary),
             clusterLabels: clusterSummaries.map(cs => cs.title),
             location: location,
+            podcast: "",  // leave blank to start (before generation)
         });
 
         if (timeDifference < 12 * 3600 * 1000) {  // save new dashboard only if crawl done
@@ -488,6 +532,16 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+router.get("/valid-dates", async (req: Request, res: Response) => {
+    try {
+      const validDates = await DashboardModel.distinct("date"); // fetch distinct dates from database
+      res.json(validDates);
+    } catch (error) {
+      console.error("Error fetching valid dates:", error);
+      res.status(500).json({ error: "Failed to fetch valid dates" });
+    }
+  });
 
 
 router.post('/retrieve-article', async (req: Request, res: Response): Promise<void> => {
@@ -524,29 +578,14 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         const existingArticle = await ArticleModel.findOne({ url: article.url });
 
         if (existingArticle) {
-            console.log("ARTICLE: " + article.url + " EXISTS IN MONGO")
-            // frontend not passing it in this format
-            // console.log(ai_preferences);
-            // console.log("ai pref length:", ai_preferences.AILength);
-            // console.log("length:", ReverseAIDictionary['AILength'][ai_preferences.AILength]);
-            // console.log("tone:", ReverseAIDictionary['AITone'][ai_preferences.AITone]);
-            // console.log("format:", ReverseAIDictionary['AIFormat'][ai_preferences.AIFormat]);
-            // console.log("jargon:", ReverseAIDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]);
-
             // should be AILength, AITone, AIFormat, AIJargonAllowed
-            // const existingSummary = existingArticle.summaries?.find((summary) =>
-            //     summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.AILength] &&
-            //     summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.AITone] &&
-            //     summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.AIFormat] &&
-            //     summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.AIJargonAllowed)]
-            // );
             const existingSummary = existingArticle.summaries?.find((summary: any) =>
                 summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.length] &&
                 summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.tone] &&
                 summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.format] &&
                 summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
             );
-
+            
             if (existingSummary) {
                 console.log("using existing summary from database");
                 res.json(existingSummary.summary);
@@ -571,13 +610,16 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                     AILength: ReversePrefDictionary['AILength'][ai_preferences.length],
                     AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
                     AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
-                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+                    AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                    difficulty: response.data.difficulty,
+                    s3Url: response.data.s3_url
                 };
                 if (!existingArticle.summaries) {
                     existingArticle.summaries = []
                 }
+                existingArticle.difficulty = response.data.difficulty;
                 existingArticle.summaries.push(newSummary);
-                console.log("pushed new summary to existing article:", existingArticle);
+                // console.log("pushed new summary to existing article:", existingArticle);
                 // @Sanya add in later when we merge branches
                 // existingArticle.difficulty = readingDifficulty; 
                 await existingArticle.save();
@@ -585,14 +627,47 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 res.json(newSummary);
             }
         } else {
-            console.log("ARTICLE: " + article.url + " DOES NOT EXIST MONGO")
-            throw new Error("No existing article in database");
+            // generate summary
+            const response = await axios.post(`${BASE_URL}/summarize-article`, {
+                article,
+                ai_preferences
+            });
+
+            const summary = {
+                summary: response.data.summary, // The generated summary
+                AILength: ReversePrefDictionary['AILength'][ai_preferences.length],
+                AITone: ReversePrefDictionary['AITone'][ai_preferences.tone],
+                AIFormat: ReversePrefDictionary['AIFormat'][ai_preferences.format],
+                AIJargonAllowed: ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)],
+                difficulty: response.data.difficulty,
+                s3Url: response.data.s3_url
+            };
+            
+            // save to mongo
+            const newArticle = new ArticleModel({
+                url: article.url,
+                content: article.content,
+                datePublished: article.datePublished,
+                authors: article.authors,
+                source: article.source,
+                title: article.title,
+                readTime: article.readTime,
+                biasRating: article.biasRating,
+                difficulty: response.data.difficulty,
+                imageUrl: article.imageUrl,
+                summaries: summary,
+            });
+    
+            const savedArticle = await newArticle.save();
+            res.json(summary);
+            
+            // throw new Error("No existing article in database");
         }
 
     } catch (error: any) {
         // console.error("Error processing summarize article request", error);
-        console.error("Error processing summarize article request");
-        res.status(500).json({ error: 'Internal server error' });
+        console.error("Error processing summarize article request", error);
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
 
@@ -687,6 +762,18 @@ router.post('/generate/podcast', async (req: Request, res: Response): Promise<vo
 
         if (!response.data.s3_url) {
             res.status(500).json({ error: 'Podcast failed to upload to S3' });
+        }
+
+        // update dashboard
+
+        const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
+        const existingDashboard = await DashboardModel.findOne({ date: today, location: "" });
+        if (existingDashboard) {
+            await DashboardModel.updateOne(
+                { _id: existingDashboard._id }, 
+                { $set: { podcast: response.data.s3_url } }, // Update only the podcast field
+                { new: true }
+            );        
         }
 
         res.json(response.data);

@@ -10,7 +10,7 @@ const ArticleSchema: Schema = new Schema<IArticle>({
   title: { type: String, required: true },
   readTime: { type: Number, enum: [0, 1, 2]},
   biasRating: { type: Number, enum: [0, 1, 2, 3, 4, 5] },
-  difficulty: { type: Number, enum: [0, 1, 2] },
+  difficulty: { type: Number, enum: [0, 1, 2, 3] },
   imageUrl: { type: String },
   summaries: [{
     summary: { type: String },
@@ -18,6 +18,8 @@ const ArticleSchema: Schema = new Schema<IArticle>({
     AITone: { type: Number, enum: [0, 1, 2, 3] },
     AIFormat: { type: Number, enum: [0, 1, 2, 3] },
     AIJargonAllowed: { type: Number, enum: [0, 1] },
+    difficulty: { type: Number, enum: [0, 1, 2, 3] },
+    s3Url: { type: String, default: "" }
   }]
 });
 

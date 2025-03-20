@@ -10,7 +10,13 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 
+<<<<<<< HEAD
 nltk.download('wordnet')
+=======
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+>>>>>>> main
 nltk.download('stopwords')
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
@@ -72,7 +78,7 @@ def filter_topics(article_data, topic_model):
     print(f"Top topics: {top_topics}")
 
     # garbage key words that the crawler can fail on
-    crossword_words = ['newsletter', 'book', 'atlantic', 'best', 'the', 'weekday', 'puzzle', 'new york', 'crossword']   
+    crossword_words = ['newsletter', 'book', 'signup', 'sign-up', 'daily', 'time', 'bbc', 'sign up', 'crossword', 'atlantic', 'best', 'the', 'weekday', 'puzzle', 'new york']
     ad_words = ['ad', 'video', 'content', 'video content', 'loading video', 'ad audio', 'relevant ad', 'advertisement']
     advice_words = ['time', 'dear', 'life', 'question', 'advice', 'prudence']
     bad_sets = [crossword_words, ad_words, advice_words]
@@ -122,6 +128,8 @@ def find_rep_article(filtered_topics, topic_model, article_data):
     # Retrieve representative articles for each top 10 topic
     for topic in filtered_topics:
         representative_docs = topic_model.get_representative_docs(topic)
+        if representative_docs is None:
+            representative_docs = []
         rep_articles_info = article_data[article_data['snippet'].isin(representative_docs)]
         rep_articles_info = rep_articles_info[["url", "title", "source", "content", "imageUrl", "authors", "time"]]
         representative_articles[topic] = rep_articles_info.to_dict(orient="records")
@@ -129,8 +137,7 @@ def find_rep_article(filtered_topics, topic_model, article_data):
     return representative_articles
 
 def format_response(rep_article_urls, article_data):
-    fields_to_keep = {"url", "title", "source", "content", "imageUrl", "authors", "time"}
-    article_data = article_data[fields_to_keep]
+    fields_to_keep = ["url", "title", "source", "content", "imageUrl", "authors", "time"]
     cluster_groups = {}
 
     # Organize articles by cluster
@@ -138,7 +145,7 @@ def format_response(rep_article_urls, article_data):
         cluster_id = article["topic"]
         if cluster_id not in cluster_groups:
             cluster_groups[cluster_id] = []
-        cluster_groups[cluster_id].append(article)
+        cluster_groups[cluster_id].append(article[fields_to_keep])
 
     # first three articles per cluster are representatives
     for cluster_id, articles in cluster_groups.items():

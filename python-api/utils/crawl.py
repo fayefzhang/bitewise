@@ -224,7 +224,7 @@ def crawl_location(location="Philadelphia, PA"):
 
 
 def main():
-    crawl_location()
+    crawl_all()
 
 if __name__ == "__main__":
     main()

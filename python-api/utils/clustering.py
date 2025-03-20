@@ -11,6 +11,9 @@ from sentence_transformers import SentenceTransformer
 from sklearn.cluster import DBSCAN
 from transformers import pipeline
 
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
