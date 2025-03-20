@@ -106,7 +106,7 @@ export const defaultUserPreferences = {
   read_time: [],
   bias: [],
   clustering: false,
-  topics: ["Climate Change", "Politics", "Technology"],
+  topics: [],
   location: "",
 }
 

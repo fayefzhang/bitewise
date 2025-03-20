@@ -12,3 +12,5 @@ export async function deleteOldDocuments<T>(model: Model<T>): Promise<void> {
     console.error("Error deleting old documents:", error);
   }
 }
+
+export default deleteOldDocuments

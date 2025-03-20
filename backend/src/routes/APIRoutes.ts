@@ -1,6 +1,7 @@
 import express, { Router, Request, Response, RequestHandler } from "express";
 import axios from 'axios';
-import { deleteOldDocuments } from "./Helpers/DeleteFiles";
+import deleteOldDocuments from "./Helpers/DeleteFiles";
+import generateTopics from "./Helpers/GenerateTopics"
 import ArticleModel from "../models/Article";
 import DashboardModel from '../models/Dashboard';
 import QueryModel from '../models/Queries';
@@ -369,7 +370,9 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
     try {
         // if the dashboard has already been created, read and return it from the database      
         const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
-        const existingDashboard = await DashboardModel.findOne({ date: today, location: location });
+        const targetDate = '2025-03-04';
+
+        const existingDashboard = await DashboardModel.findOne({ date: targetDate, location: location });
         if (existingDashboard) {
             console.log("daily news dashboard already exists for this date");
             res.json(existingDashboard);
@@ -481,7 +484,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
         // OLD JSON FOR REFERENCE
         // res.json({overall_summary, clusterSummaries});
     } catch (error: any) {
-        console.error("error processing search request", error);
+        console.error("error fulfilling dashboard request", error);
         res.status(500).json({ error: 'Internal server error' });
     }
 }
@@ -804,19 +807,10 @@ router.post('/generate/topics', async (req: Request, res: Response): Promise<voi
             return;
         }
 
-        // console.log("filteredRemainingTopics: " + filteredRemainingTopics)
-
-        // const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
-        //     topics: filteredRemainingTopics,
-        //     search_preferences
-        // });
-
         const topics_articles_response = await axios.post('http://127.0.0.1:5000/search/topics', {
-            topics: ["NFL","History"],
+            topics: filteredRemainingTopics,
             search_preferences
         });
-
-        // console.log("topics_articles.data structure: " + JSON.stringify(topics_articles_response.data, null, 2))
 
         // convert to TopicsArticles schema
         const formattedTopicsArticles = topics_articles_response.data.map((topicArticle: { topic: any; results: any[]; }) => ({
@@ -881,6 +875,9 @@ router.post('/user/signin', async (req: Request, res: Response): Promise<void> =
 // @description Gets articles related to the user's topics.
 router.post('/search/topics', async (req: Request, res: Response): Promise<void> => {
     try {
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
         const { topics, search_preferences } = req.body; // topics: [string], search_preferences: 
 
         // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
@@ -892,7 +889,11 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
         // const { search_preferences } = req.body; // topics: [string], search_preferences: 
         // const topics = "technology";
 
+        // generates the topics articles and uploads to mongo
+        const generated = await generateTopics(topics, search_preferences) // generated: Bool (whether the given topics where generated)
+
         const existingTopicsArticles = await TopicsArticlesModel.find({
+            date: { $gte: startOfDay, $lte: endOfDay },
             topic: { $in: topics }
         }).lean();
 
@@ -901,10 +902,6 @@ router.post('/search/topics', async (req: Request, res: Response): Promise<void>
             return acc;
         }, {});
 
-        // const topics_articles = await axios.post('http://127.0.0.1:5000/search/topics', {
-        //     topics,
-        //     search_preferences
-        // });
         res.json(formattedTopicsArticles);
     } catch (error: any) {
         console.error("Error retrieving user topics", error);
