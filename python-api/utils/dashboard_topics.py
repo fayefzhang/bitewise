@@ -10,13 +10,10 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 
-<<<<<<< HEAD
 nltk.download('wordnet')
-=======
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
->>>>>>> main
 nltk.download('stopwords')
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
