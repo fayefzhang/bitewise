@@ -588,7 +588,10 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
             
             if (existingSummary) {
                 console.log("using existing summary from database");
-                res.json(existingSummary.summary);
+                res.json({
+                    summary: existingSummary.summary,
+                    s3Url: existingSummary.s3Url || null,  // return s3Url
+                });
             } else {
                 // send article and user prefs to the Python backend
                 const response = await axios.post(`${BASE_URL}/summarize-article`, {
@@ -655,7 +658,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 biasRating: article.biasRating,
                 difficulty: response.data.difficulty,
                 imageUrl: article.imageUrl,
-                summaries: summary,
+                summaries: [summary],
             });
     
             const savedArticle = await newArticle.save();

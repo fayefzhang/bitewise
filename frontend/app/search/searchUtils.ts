@@ -29,6 +29,7 @@ export async function fetchArticleSummary(selectedArticle: Article | null, setSe
       return {
         ...prevArticle,
         summaries: [...prevArticle.summaries, data.summary || data],
+        s3Url: data.s3Url || null,
       };
     });
   } catch (error) {

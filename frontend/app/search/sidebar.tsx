@@ -226,11 +226,16 @@ const Sidebar: React.FC<SidebarProps> = ({
           )}
 
           {/* Article Content */}
-          <audio controls className="mt-2 w-full">
-            <source src="/audio-summary.mp3" type="audio/mpeg" />{" "}
-            {/* Replace with actual audio file */}
-            Your browser does not support the audio element.
-          </audio>
+          {selectedArticle?.s3Url ? (
+            <audio controls className="mt-2 w-full">
+              <source src={selectedArticle.s3Url} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          ) : (
+            <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
+              Generating summary audio...
+            </p>
+          )}
           {/* {selectedArticle.imageUrl && (
             <div className="mt-4">
               <Image
