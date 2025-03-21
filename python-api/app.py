@@ -33,7 +33,7 @@ def refresh_daily_news():
     time_difference = current_time - last_modified_date
     if time_difference.total_seconds() > 12 * 3600:
         Thread(target=daily_crawl_all).start()
-        return None
+        return jsonify({"message": "Crawl initiated"}), 202
     return refresh_helper()
 
 @app.route('/local-news', methods=['POST'])
@@ -44,7 +44,7 @@ def refresh_local_news():
     time_difference = current_time - last_modified_date
     if time_difference.total_seconds() > 12 * 3600:
         Thread(target=daily_crawl_location).start()
-        return None
+        return jsonify({"message": "Crawl initiated"}), 202
     return refresh_helper('local_articles_data.json')
 
 # helper function to refresh news and cluster to find main topics

@@ -396,7 +396,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
 
         const existingDashboard = await DashboardModel.findOne({ date: today, location: location });
         if (existingDashboard) {
-            console.log("daily news dashboard already exists for this date");
+            console.log(location, " daily news dashboard already exists for this date");
             res.json(existingDashboard);
             return;
         }
@@ -410,7 +410,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
 
         const response = await axios.post(`${BASE_URL}/${newsType}`);
 
-        if (response == null) {  // currently crawling -- load previous days dashboard
+        if (response.status == 202) {  // currently crawling -- load previous days dashboard
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
 
@@ -495,21 +495,21 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
                     // Check for missing title or url and log if any are missing
                     if (!article.title || !article.url) {
                         console.warn('Missing title or URL for article:', article);
+                    } else {
+                        return {
+                            content: article.content,
+                            datePublished: article.datePublished,
+                            authors: article.authors,
+                            source: article.source,
+                            url: article.url,
+                            title: article.title,
+                            readTime: article.readTime,
+                            biasRating: article.biasRating,
+                            difficulty: article.difficulty,
+                            imageUrl: article.imageUrl,
+                            summaries: []
+                        };
                     }
-        
-                    return {
-                        content: article.content,
-                        datePublished: article.datePublished,
-                        authors: article.authors,
-                        source: article.source,
-                        url: article.url,
-                        title: article.title,
-                        readTime: article.readTime,
-                        biasRating: article.biasRating,
-                        difficulty: article.difficulty,
-                        imageUrl: article.imageUrl,
-                        summaries: []
-                    };
                 })
             })),
             clusterSummaries: clusterSummaries.map(cs => cs.summary),
