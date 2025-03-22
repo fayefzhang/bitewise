@@ -160,28 +160,28 @@ const DashboardPage: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchPodcast = async () => {
-  //     if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
+  useEffect(() => {
+    const fetchPodcast = async () => {
+      if (!dailyNews || !dailyNews.clusters || !dailyNews.summary) return; // wait for daily news to load
 
-  //     if (dailyNews.podcast) {
-  //       setDailyPodcast(dailyNews.podcast);
-  //       console.log("set podcast from daily news", dailyNews.podcast);
-  //       return;
-  //     }
+      if (dailyNews.podcast) {
+        setDailyPodcast(dailyNews.podcast);
+        console.log("set podcast from daily news", dailyNews.podcast);
+        return;
+      }
 
-  //     const articles = dailyNews.clusters.flatMap((cluster: any) =>
-  //       cluster.articles.slice(0, 3).map((article: Article) => article.url)
-  //     );
+      const articles = dailyNews.clusters.flatMap((cluster: any) =>
+        cluster.articles.slice(0, 3).map((article: Article) => article.url)
+      );
 
-  //     const podcast = await fetchDailyPodcast(articles);
-  //     setDailyPodcast(podcast.s3_url);
+      const podcast = await fetchDailyPodcast(articles);
+      setDailyPodcast(podcast.s3_url);
 
-  //     console.log("PODCAST", podcast);
-  //   };
+      console.log("PODCAST", podcast);
+    };
 
-  //   fetchPodcast();
-  // }, [dailyNews]);
+    fetchPodcast();
+  }, [dailyNews]);
 
   function handleArticleClick(article: Article) {
     if (isPanelOpen) {
@@ -323,7 +323,7 @@ const DashboardPage: React.FC = () => {
           </div>
 
           {/* Your + Local Topics */}
-          <div className="w-full md:w-[30%] flex flex-col space-y-4">
+          <div className="w-[30%] y-[80%] flex flex-col space-y-4">
             <div className="fixed w-[24%] flex flex-col space-y-4"> 
               <TopicsArticles />
               <LocalNews />
@@ -332,6 +332,7 @@ const DashboardPage: React.FC = () => {
 
           <Sidebar
             selectedArticle={selectedArticle}
+            setSelectedArticle={setSelectedArticle}
             closePanel={closePanel}
             isPanelOpen={isPanelOpen}
           />

@@ -180,9 +180,9 @@ const Header: React.FC<HeaderProps> = ({
                 return (
                   <button
                     key={time}
-                    className={`px-4 py-2 rounded-md ${
+                    className={`px-4 py-2 rounded-full ${
                       isSelected ? "bg-darkBlue text-white" : "bg-gray-200"
-                    } hover:bg-mediumBlue`}
+                    } hover:bg-lightBlue`}
                     onClick={() => toggleReadTime(time)}
                   >
                     {time}
@@ -192,11 +192,11 @@ const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2 flex items-center space-x-1">
+            <label className="block text-sm font-semibold mb-2 flex items-center space-x-1 ">
               <span>Bias</span>
               <div className="relative group">
                 <svg
-                  className="w-4 h-4 text-darkBlue hover:mediumBlue cursor-pointer"
+                  className="w-4 h-4 text-darkBlue hover:lightBlue cursor-pointer"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -221,9 +221,9 @@ const Header: React.FC<HeaderProps> = ({
                 return (
                   <button
                     key={bias}
-                    className={`px-4 py-2 rounded-md ${
+                    className={`px-4 py-2 rounded-full ${
                       isSelected ? "bg-darkBlue text-white" : "bg-gray-200"
-                    } hover:bg-gray-300`}
+                    } hover:bg-lightBlue`}
                     onClick={() => toggleBias(bias)}
                   >
                     {bias}
@@ -246,30 +246,8 @@ const Header: React.FC<HeaderProps> = ({
                     from_date: e.target.value,
                   }))
                 }
-                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-darkBlue"
+                className="px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-darkBlue"
               />
-            </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">
-              Clustering
-            </label>
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="clustering"
-                className="w-4 h-4"
-                checked={searchPreferences.clustering}
-                onChange={(e) =>
-                  setSearchPreferences((prev) => ({
-                    ...prev,
-                    clustering: e.target.checked,
-                  }))
-                }
-              />
-              <label htmlFor="clustering" className="text-sm">
-                Enable Clustering
-              </label>
             </div>
           </div>
         </div>

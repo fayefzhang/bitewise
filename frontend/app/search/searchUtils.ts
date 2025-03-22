@@ -3,8 +3,9 @@ import { defaultAIPreferences, toTitleCase } from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
 
-export async function fetchArticleSummary(selectedArticle: Article | null, setSelectedArticle: Function) {
-  if (!selectedArticle || selectedArticle.summaries.length > 0) return;
+export async function fetchArticleSummary(selectedArticle: Article | null, setSelectedArticle: Function, aiPreferences: any) {
+  // if (!selectedArticle || selectedArticle.summaries.length > 0) return;
+  if (!selectedArticle) return;
 
   const articleBody = {
     article: {
@@ -12,10 +13,10 @@ export async function fetchArticleSummary(selectedArticle: Article | null, setSe
       content: selectedArticle.content,
       url: selectedArticle.url,
     },
-    ai_preferences: defaultAIPreferences,
+    ai_preferences: aiPreferences,
   };
 
-  try {
+  try {    
     const response = await fetch(`${BASE_URL}/api/summarize/article`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -24,11 +25,13 @@ export async function fetchArticleSummary(selectedArticle: Article | null, setSe
 
     const data = await response.json();
 
+    console.log("fetched article summary: ", aiPreferences, data);
+
     setSelectedArticle((prevArticle: Article | null) => {
       if (!prevArticle) return null;
       return {
         ...prevArticle,
-        summaries: [...prevArticle.summaries, data.summary || data],
+        summaries: [data.summary || data, ...prevArticle.summaries],
         s3Url: data.s3Url || null,
       };
     });

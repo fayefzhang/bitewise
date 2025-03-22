@@ -49,7 +49,7 @@ const LocalNews = () => {
   }, []);
 
   return (
-    <aside className="bg-white shadow p-4 rounded-lg max-h-[35vh]">
+    <aside className="bg-white shadow p-4 rounded-lg max-h-[40vh]">
       <div className="sticky top-0 z-10 pb-2">
         <div className="flex justify-between items-center px-2">
           <h2 className="text-xl font-bold mb-2">Local News</h2>
@@ -58,7 +58,7 @@ const LocalNews = () => {
         <div className="border-b-2 border-veryLightBlue mb-2 w-full"></div>
       </div>
 
-      <div className="overflow-y-auto flex-grow pb-4 max-h-[22vh]">
+      <div className="overflow-y-auto flex-grow pb-4 max-h-[28vh]">
         {isLoading || !localNews ? (
           <p>Loading...</p>
         ) : (

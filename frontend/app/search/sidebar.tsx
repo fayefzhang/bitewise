@@ -7,11 +7,13 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Tooltip from '@mui/material/Tooltip';
 import Spinner from "../common/Spinner";
+import { fetchArticleSummary } from "./searchUtils";
 import { defaultAIPreferences } from "../common/utils";
 import { biasRatingLabels, readTimeLabels, difficultyLabels } from "../common/utils";
 
 type SidebarProps = {
   selectedArticle: Article | null;
+  setSelectedArticle: Function;
   closePanel: () => void;
   isPanelOpen: boolean;
 };
@@ -21,6 +23,7 @@ const formatOptions = ["Highlights", "Bullets", "Analysis", "Quotes"];
 
 const Sidebar: React.FC<SidebarProps> = ({
   selectedArticle,
+  setSelectedArticle,
   closePanel,
   isPanelOpen,
 }) => {
@@ -48,6 +51,10 @@ const Sidebar: React.FC<SidebarProps> = ({
       );
     }
   }, [aiPreferences, userEmail]);
+
+  useEffect(() => {
+    fetchArticleSummary(selectedArticle, setSelectedArticle, aiPreferences);
+  }, [aiPreferences]);
 
   const togglePreferencesPanel = () => {
     setIsPreferencesPanelOpen(!isPreferencesPanelOpen);
@@ -216,7 +223,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                   />
                 </div>
                 <button
-                  onClick={applyPreferences}
+                  onClick={() => {
+                    applyPreferences();
+                    togglePreferencesPanel();
+                  }}
                   className="mt-4 p-2 bg-darkBlue text-white px-4 rounded-full"
                 >
                   Apply
@@ -233,35 +243,33 @@ const Sidebar: React.FC<SidebarProps> = ({
             </audio>
           ) : (
             <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
-              Generating summary audio...
+              <Spinner/> Generating summary audio...
             </p>
           )}
-          {/* {selectedArticle.imageUrl && (
-            <div className="mt-4">
-              <Image
-                src={selectedArticle.imageUrl}
-                alt={selectedArticle.title}
-                width={600}
-                height={400}
-                className="rounded-lg"
-              />
-            </div>
-          )} */}
-
           <ul className="mt-6 list-disc space-y-2 mb-8">
-            {selectedArticle.summaries && selectedArticle.summaries.length > 0 ? (
-              // selectedArticle.summaries.map((detail, index) => (
-              <p className="text-sm">
-                {typeof selectedArticle.summaries[0] === "string"
-                ? selectedArticle.summaries[0].replace(/^[^\w]+/, '') 
-                : JSON.stringify(selectedArticle.summaries[0]).replace(/^[^\w]+/, '')}
-              </p>
-              // ))
+          {selectedArticle?.summaries && selectedArticle.summaries.length > 0 ? (
+            typeof selectedArticle.summaries[0] === "string" ? (
+              selectedArticle.summaries[0]
+                .split("- ")
+                .map((part, index) => (
+                  <p key={index} className="text-sm">
+                    {part.trim()}
+                  </p>
+                ))
             ) : (
-                <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
-                <Spinner /> Generating summary...
-                </p>
-            )}
+              JSON.stringify(selectedArticle.summaries[0])
+                .split(" - ")
+                .map((part, index) => (
+                  <p key={index} className="text-sm">
+                    {part.trim().replace(/^[^\w]+/, "")} 
+                  </p>
+                ))
+            )
+          ) : (
+            <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
+              <Spinner /> Generating summary...
+            </p>
+          )}
           </ul>
           {/* Related Articles */}
         </>

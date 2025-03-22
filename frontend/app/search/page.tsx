@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AdvancedSearchPreferences, Article, Summary } from "../common/interfaces";
 import Spinner from "../common/Spinner";
 import { defaultSearchPreferences } from "../common/utils";
@@ -8,6 +8,7 @@ import Header from "../components/header";
 import Sidebar from "../search/sidebar";
 import Image from "next/image";
 import { fetchArticleSummary, handleSearch } from "./searchUtils";
+import { defaultAIPreferences } from "../common/utils";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SpeedIcon from '@mui/icons-material/Speed';
 import Tooltip from '@mui/material/Tooltip';
@@ -69,7 +70,6 @@ const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Righ
 // };
 
 
-
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -84,8 +84,27 @@ const SearchPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const BASE_URL: string = "http://localhost:3000";
 
+  const previousSelectedArticle = useRef(selectedArticle ? selectedArticle.url : "");
+
+  const userEmail = localStorage.getItem("userEmail");
+    const storedPreferences = userEmail
+      ? JSON.parse(localStorage.getItem(`preferences_${userEmail}`) || "{}")
+      : {};
+  
+    const [aiPreferences, setAIPreferences] = useState({
+      length: storedPreferences.length || defaultAIPreferences.length,
+      tone: storedPreferences.tone || defaultAIPreferences.tone,
+      format: storedPreferences.format || defaultAIPreferences.format,
+      jargon_allowed:
+        storedPreferences.jargon_allowed ?? defaultAIPreferences.jargon_allowed,
+    });
+
   useEffect(() => {
-    fetchArticleSummary(selectedArticle, setSelectedArticle);
+    if (selectedArticle && selectedArticle.url !== previousSelectedArticle.current) {
+      console.log("fetch from search");
+      fetchArticleSummary(selectedArticle, setSelectedArticle, aiPreferences);
+      previousSelectedArticle.current = selectedArticle.url;
+    }
   }, [selectedArticle]);
 
   async function setPreferences(preferences: AdvancedSearchPreferences) {
@@ -105,8 +124,6 @@ const SearchPage: React.FC = () => {
       closePanel();
     } else {
       setSelectedArticle(article);
-      console.log("SELECT ARTICLE", article);
-      console.log("SELECT ARTICLE ID", article.url);
       setSelectedArticleUrl(article.url);
       setIsPanelOpen(true); // Open panel
     }
@@ -204,41 +221,16 @@ const SearchPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-                // <div
-                //   key={article.url}
-                //   className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
-                //     selectedArticleUrl === article.url ? "border-darkBlue bg-blue-100" : "border-transparent"
-                //   }`}
-                //   onClick={() => handleArticleClick(article)}
-                //   onDoubleClick={() => handleArticleDoubleClick(article)}
-                // >
-                //   <div className="flex items-center space-x-4">
-                //     <Image
-                //       src={article.imageUrl || "/bitewise_logo.png"}
-                //       alt="article thumbnail"
-                //       width={80}
-                //       height={50}
-                //       className="rounded-lg"
-                //       style={{ width: "80px", height: "50px", objectFit: "cover" }}
-                //     />
-                //     <div>
-                //       <h2 className="font-bold text-lg text-black">{article.title}</h2>
-                //       <p>{article.source} • {article.time}</p>
-                //       <p>
-                //         {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
-                //       </p>
-                //     </div>
-                //   </div>
-                // </div>
               ))
             ) : (
-              <p className="text-center mt-16">No articles.</p>
+              <p className="text-center mt-16"></p>
             )}
           </section>
         </section>
 
         <Sidebar
           selectedArticle={selectedArticle}
+          setSelectedArticle={setSelectedArticle}
           closePanel={closePanel}
           isPanelOpen={isPanelOpen}
         />

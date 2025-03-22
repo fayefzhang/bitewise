@@ -87,8 +87,8 @@ def generate_summary_individual(input_text, user_preferences):
     
     prompt = f"""
       Summarize the following article based on user preferences:
-      - Length: {user_preferences.get('length', 'short')}
-      - Tone: {user_preferences.get('tone', 'formal')}
+      - Length: {user_preferences.get('length', 'Short')}
+      - Tone: {user_preferences.get('tone', 'Formal')}
 
       {summary_instruction}
 

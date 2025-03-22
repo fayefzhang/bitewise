@@ -577,22 +577,24 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
         // NEED URL FROM FRONTEND 
         const existingArticle = await ArticleModel.findOne({ url: article.url });
 
+        ai_preferences.format = ai_preferences.format.toLowerCase();
+
         if (existingArticle) {
             // should be AILength, AITone, AIFormat, AIJargonAllowed
-            const existingSummary = existingArticle.summaries?.find((summary: any) =>
-                summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.length] &&
-                summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.tone] &&
-                summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.format] &&
-                summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
-            );
+            // const existingSummary = existingArticle.summaries?.find((summary: any) =>
+            //     summary.AILength === ReversePrefDictionary['AILength'][ai_preferences.length] &&
+            //     summary.AITone === ReversePrefDictionary['AITone'][ai_preferences.tone] &&
+            //     summary.AIFormat === ReversePrefDictionary['AIFormat'][ai_preferences.format] &&
+            //     summary.AIJargonAllowed === ReversePrefDictionary['AIJargonAllowed'][String(ai_preferences.jargon_allowed)]
+            // );
             
-            if (existingSummary) {
-                console.log("using existing summary from database");
-                res.json({
-                    summary: existingSummary.summary,
-                    s3Url: existingSummary.s3Url || null,  // return s3Url
-                });
-            } else {
+            // if (existingSummary) {
+            //     console.log("existing summary from database");
+            //     res.json({
+            //         summary: existingSummary.summary,
+            //         s3Url: existingSummary.s3Url || null,  // return s3Url
+            //     });
+            // } else {
                 // send article and user prefs to the Python backend
                 const response = await axios.post(`${BASE_URL}/summarize-article`, {
                     article,
@@ -628,7 +630,7 @@ router.post('/summarize/article', async (req: Request, res: Response): Promise<v
                 await existingArticle.save();
 
                 res.json(newSummary);
-            }
+            // }
         } else {
             // generate summary
             const response = await axios.post(`${BASE_URL}/summarize-article`, {
