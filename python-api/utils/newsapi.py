@@ -208,7 +208,7 @@ def get_topics_articles(topics, search_preferences):
     results = []
 
     for topic in topics:
-        topic_search_results = user_search(topic, search_preferences, "")
+        topic_search_results = user_search(topic, search_preferences)
         topic_result = {
             "topic": topic,
             "results": random.sample(topic_search_results, min(3, len(topic_search_results)))
