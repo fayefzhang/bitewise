@@ -48,7 +48,7 @@ const ProfilePage: React.FC = () => {
         setBias(userPreferences.bias || []);
         setFromDate(userPreferences.from_date);
         setClustering(userPreferences.clustering);
-        setLocation(userPreferences.location || "");
+        setLocation(userPreferences.location || "Philadelphia");
       } catch (error) {
         console.error("Error fetching user preferences:", error);
       }

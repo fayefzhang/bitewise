@@ -1,17 +1,7 @@
 import StepSelection from "../components/stepselection";
+import { sources } from "../common/utils";
 
 const SourcesPage = () => {
-  const sources = [
-    "CNN",
-    "BBC",
-    "Reuters",
-    "The New York Times",
-    "The Guardian",
-    "Al Jazeera",
-    "Fox News",
-    // ... add more sources here
-  ];
-
   return (
     <StepSelection
       title="Step 3 of 3: Choose sources"
