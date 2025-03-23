@@ -175,14 +175,11 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 ### SEARCH PROCEDURE ###
 
 # get user params
-def user_search(question, user_preferences, filename):
+def user_search(question, user_preferences):
     # step 1: parse question
     question = parse_query(question)
 
     # step 2: set API args
-    # for now, setting default variables
-    # from_date = user_preferences.get("from_date", (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d')) # results in past week
-    # will apply filtering later
     from_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d') # results in past week
     language = "en" # defaulting english
     domains = user_preferences.get("domains", None)
@@ -197,53 +194,13 @@ def user_search(question, user_preferences, filename):
     responses = [response_popularity, response_relevancy]
     aggregated_results = aggregate_eliminate_dups(responses, response_domains)
 
-    # step 5: write jsons to file for test data
-    # try:
-    #     with open(filename, 'w') as json_file:
-    #         json.dump(aggregated_results, json_file, indent=4)
-    # except Exception as e:
-    #     print(f"Error writing to file: {e}")
-
     return aggregated_results
 
 ### GET SOURCES ###
 # these correspond to top headlines (in US) but we can probably use them too for filt/pref in search page
 def get_sources(filename):
     response_sources = fetch_sources(country='us')
-    # with open(filename, 'w') as json_file:
-    #     json.dump(response_sources, json_file, indent=4)
     return response_sources
-
-### DAILY NEWS DASHBOARD ###
-# unfortunately top headlines doesn't return that many results, so we'll have to do extra API calls for now
-def daily_news(user_preferences, filename, question=None):
-    sources = user_preferences.get("sources", None)
-    country='us' # defaulting this because need to set at least one param
-    categories = ['general', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'] 
-    # the problem with this is that we want mostly politics/curr events- most categories not very "breaking news"
-
-    responses = []
-    for category in categories:
-        responses.append(fetch_top_headlines(category=category, country=country))
-    response_sources = None
-
-    if sources:
-        response_sources = fetch_top_headlines(query=question, sources=sources)
-
-    aggregated_results = aggregate_eliminate_dups(responses, response_sources)
-    
-    # try:
-    #     with open(filename, 'w') as json_file:
-    #         json.dump(aggregated_results, json_file, indent=4)
-    # except Exception as e:
-    #     print(f"Error writing to file: {e}")
-
-    return aggregated_results
-
-def generate_filename(question):
-    sanitized_question = re.sub(r'[^a-zA-Z0-9]', '_', question.lower()).strip('_')
-    time = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return f"{sanitized_question}_{time}.json"
 
 ### GETS DAILY ARTICLES BASED ON USER'S TOPICS OF INTEREST ###
 def get_topics_articles(topics, search_preferences):
@@ -260,10 +217,3 @@ def get_topics_articles(topics, search_preferences):
         results.append(topic_result)
 
     return results
-
-''' Running questions
-How to sort results- what if we did two queries - one by relevancy and one by popularity and then aggregated results
-Is there any way to use time of upload for breaking news - how would we categorize breaking news -> should look into this
-Should we exclude certain sources like reddit - should we do this after
-How to get good daily news- top headlines api isn't too great
-'''

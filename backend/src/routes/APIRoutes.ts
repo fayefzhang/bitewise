@@ -66,8 +66,6 @@ function createReverseMapping(dictionary: PrefDictionaryType): ReversePrefDictio
 const ReversePrefDictionary = createReverseMapping(PrefDictionary);
 
 const router: Router = express.Router();
-const EXAMPLE_SEARCH_QUERY = "donald trump 2024 presidential election";
-// const BASE_URL = "http://localhost:5000";
 const BASE_URL = "http://127.0.0.1:5000";
 import { readCache, writeCache } from "../utils/cache";
 
@@ -383,8 +381,14 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
     }
 });
 
+// @route POST /local-news
+// @description Fetches top clusters of daily news articles in a given location
+// @returns grouped articles by cluster
 router.post('/local-news', (req: Request, res: Response) => {
-    generateNewsDashboard('local-news', 'Philadelphia', path.join(__dirname, '../../../python-api/data/local_articles_data.json'), res);
+    const { location } = req.body;
+    // log location
+    console.log("Location: " + location);
+    generateNewsDashboard('local-news', location, path.join(__dirname, '../../../python-api/data/local_articles_data.json'), res);
 });
 
 // helper
@@ -408,7 +412,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
             jargon_allowed: true, // options: {True, False}
         };
 
-        const response = await axios.post(`${BASE_URL}/${newsType}`);
+        const response = await axios.post(`${BASE_URL}/${newsType}`, { location });
 
         if (response.status == 202) {  // currently crawling -- load previous days dashboard
             const yesterday = new Date();

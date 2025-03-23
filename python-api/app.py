@@ -1,9 +1,8 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
 from utils.openai_utils import generate_summary_individual, generate_summary_collection, daily_news_summary, generate_podcast_collection, generate_audio_from_article, filter_irrelevant_articles
-from utils.newsapi import generate_filename, daily_news, user_search, get_sources, fetch_search_results, get_topics_articles
+from utils.newsapi import user_search, get_sources, fetch_search_results, get_topics_articles
 from utils.exa import get_contents
-from utils.clustering import cluster_articles, cluster_daily_news, cluster_daily_news_titles
 from utils.crawl import crawl_all as daily_crawl_all
 from utils.crawl import crawl_location as daily_crawl_location
 from utils.features import get_source_and_bias, char_length, estimate_reading_time
@@ -38,23 +37,56 @@ def refresh_daily_news():
 
 @app.route('/local-news', methods=['POST'])
 def refresh_local_news():
-    last_modified_timestamp = os.path.getmtime("data/local_articles_data.json")
-    last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
-    current_time = datetime.now()
-    time_difference = current_time - last_modified_date
-    if time_difference.total_seconds() > 12 * 3600:
-        Thread(target=daily_crawl_location).start()
-        return jsonify({"message": "Crawl initiated"}), 202
-    return refresh_helper('local_articles_data.json')
+    data = request.get_json()
+    city = data.get("location", None)
+    print("city: ", city)
+    if not city:
+        return jsonify({"error": "City is required"}), 400
+    
+    # check if city is in local sources; if so, crawl if needed. else, use news search api
+    with open("data/scraping/local_sources.json", "r") as file:
+        local_sources_data = json.load(file)
+    if city not in local_sources_data.keys():
+        app.logger.info(f"City '{city}' not found in local sources, using search route.")
+        search_preferences = {
+            "from_date": "",
+            "to_date": "",
+            "read_time": [],
+            "bias": [],
+            "clustering": False,
+        }
+        search_results = user_search(question=city, user_preferences=search_preferences)
+        formatted_results = []
+        for item in search_results:
+            formatted_results.append({
+                "url": item["url"],
+                "title": item["title"],
+                "source": item["source"]["name"],
+                "content": item["content"],
+                "imageUrl": item.get("urlToImage", ""),
+                "authors": [item["author"]] if item["author"] else [],
+                "time": item.get("publishedAt", "unknown")
+            })
+        with open("data/search_results.json", "w", encoding="utf-8") as file:
+            json.dump(formatted_results, file, ensure_ascii=False, indent=4)
+        return refresh_helper('search_results.json')
+    else:
+        last_modified_timestamp = os.path.getmtime("data/local_articles_data.json")
+        last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
+        current_time = datetime.now()
+        time_difference = current_time - last_modified_date
+        if time_difference.total_seconds() > 12 * 3600:
+            Thread(target=daily_crawl_location).start()
+        return refresh_helper('local_articles_data.json', city)
 
 # helper function to refresh news and cluster to find main topics
-def refresh_helper(file_path='articles_data.json'):
+def refresh_helper(file_path='articles_data.json', city=None):
     # get filepath for daily newws data
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_file_path = os.path.join(current_dir, 'data', file_path)
 
     # get trending topics
-    cluster_dict = news_pipeline(json_file_path)
+    cluster_dict = news_pipeline(json_file_path, city)
 
     # add additional information (source, bias, readtime)
     for cluster_id, articles in cluster_dict["clustered_articles"].items():
@@ -94,7 +126,6 @@ def refresh_helper(file_path='articles_data.json'):
     return jsonify(response)  
 
 
-
 @app.route('/search', methods=['POST'])
 def search():
     try:
@@ -102,15 +133,13 @@ def search():
         app.logger.info(f"Received data: {data}")
         query = data.get("query", "")
         search_preferences = data.get("search_preferences", {})
-        cluster = data.get("cluster", False)
 
         if not query:
             return jsonify({"error": "Query is required"}), 400
         if not search_preferences:
             return jsonify({"error": "User preferences are required"}), 400
         
-        filename = os.path.join("data", generate_filename(query))
-        search_results = user_search(query, search_preferences, filename)
+        search_results = user_search(query, search_preferences)
         search_results = "" if search_results is None else search_results
         if search_results != "":
             print("search results not empty")
@@ -120,42 +149,12 @@ def search():
         response = {
             "query": query,
             "results": search_results,
-            "filename": filename
         }
-
-        # add clustering results if requested
-        if cluster and search_results:
-            cluster_dict = cluster_articles(search_results)
-            print(set(cluster_dict.values()))
-            for article in search_results:
-                article_id = article.get("id")
-                article["cluster"] = cluster_dict.get(article_id, None)
-                if article["cluster"] != -1:
-                    print(article["title"], article["cluster"])
 
         return jsonify(response), 200
     except Exception as e:
         app.logger.error(f"Unexpected error: {str(e)}")
         return {"error": "Internal Server Error"}, 500
-
-
-# @app.route('/daily-news', methods=['POST'])
-# def refresh_daily_news():
-#     data = request.json
-#     search_preferences = data.get("search_preferences", {})
-#     if not search_preferences:
-#         return jsonify({"error": "User preferences are required"}), 400
-    
-#     filename = os.path.join("data", generate_filename("daily news"))
-#     news = daily_news(search_preferences, filename) # this could also take in query, but don't see how we'd use this
-#     news = [] if news is None else news
-
-#     response = {
-#         "results": news,
-#         "filename": filename
-#     }
-
-#     return jsonify(response), 200
 
 # this will only be called once to get sources
 @app.route('/sources', methods=['POST'])
@@ -336,27 +335,6 @@ def topic_search():
 
     return jsonify(results), 200
 
-@app.route('/crawl/all', methods=['POST'])
-def crawl_all():
-    try:
-        daily_crawl_all()
-        return jsonify({"message": "ok"}), 200 
-    except Exception as e:
-        app.logger.error(f"Error occurred: {str(e)}")
-        return jsonify({"error": "An error occurred"}), 500
-
-
-@app.route('/crawl/local', methods=['POST'])
-def crawl_local():
-
-    # TODO: pass in location
-
-    try:
-        daily_crawl_location()
-        return jsonify({"message": "ok"}), 200 
-    except Exception as e:
-        app.logger.error(f"Error occurred: {str(e)}")
-        return jsonify({"error": "An error occurred"}), 500
 
 @app.route('/irrelevant-articles', methods=['POST'])
 def filter_irrelevant():
