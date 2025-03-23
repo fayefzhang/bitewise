@@ -9,6 +9,7 @@ from pathlib import Path
 from podcastfy.client import generate_podcast
 import boto3
 import uuid
+from typing import Dict
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 OpenAI.api_key = config.OPENAI_API_KEY 
@@ -86,8 +87,8 @@ def generate_summary_individual(input_text, user_preferences):
     
     prompt = f"""
       Summarize the following article based on user preferences:
-      - Length: {user_preferences.get('length', 'short')}
-      - Tone: {user_preferences.get('tone', 'formal')}
+      - Length: {user_preferences.get('length', 'Short')}
+      - Tone: {user_preferences.get('tone', 'Formal')}
 
       {summary_instruction}
 
@@ -236,7 +237,7 @@ def generate_audio_from_article(text: str, filename: str = "text-to-speech.mp3")
 # Generates a podcast based on a collection of articles (URLs)
 # Input: list of URLs of articles to be included in the podcast
 # Output: paths to the generated audio file and transcript file
-def generate_podcast_collection(links: [str]):
+def generate_podcast_collection(articles: Dict[str, Dict[str, str]]):
     PROJECT_ROOT = Path(__file__).parent.parent
 
     custom_config = {
@@ -252,12 +253,29 @@ def generate_podcast_collection(links: [str]):
       }
     }
 
+    article_texts = []
+    for url, article_data in articles.items():
+        if "content" in article_data and article_data["content"]:
+            text = f"Title: {article_data['title']}\n"
+            if article_data.get("authors"):
+                text += f"By {', '.join(article_data['authors'])}\n"
+            if article_data.get("date"):
+                text += f"Published on {article_data['date']}\n\n"
+            text += article_data["content"] + "\n\n"
+            article_texts.append(text)
+
+    if not article_texts:
+        raise Exception("No valid articles were extracted.")
+
+    # merge all articles into one text input for podcastfy function
+    merged_text = "\n\n".join(article_texts)
+
     stdout_backup = sys.stdout  # backup original stdout
     sys.stdout = io.StringIO()  # redirect to a StringIO object
 
 
     audio_path = generate_podcast(
-        urls=links,
+        text=merged_text,
         llm_model_name="gpt-4o-mini",
         api_key_label="OPENAI_API_KEY",
         conversation_config=custom_config

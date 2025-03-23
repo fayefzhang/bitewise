@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AdvancedSearchPreferences, Article, Summary } from "../common/interfaces";
 import Spinner from "../common/Spinner";
 import { defaultSearchPreferences } from "../common/utils";
@@ -8,6 +8,10 @@ import Header from "../components/header";
 import Sidebar from "../search/sidebar";
 import Image from "next/image";
 import { fetchArticleSummary, handleSearch } from "./searchUtils";
+import { defaultAIPreferences } from "../common/utils";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SpeedIcon from '@mui/icons-material/Speed';
+import Tooltip from '@mui/material/Tooltip';
 
 const readTimeLabels = ["Short", "Medium", "Long"];
 const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", ""];
@@ -66,7 +70,6 @@ const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Righ
 // };
 
 
-
 const SearchPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -81,8 +84,27 @@ const SearchPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const BASE_URL: string = "http://localhost:3000";
 
+  const previousSelectedArticle = useRef(selectedArticle ? selectedArticle.url : "");
+
+  const userEmail = localStorage.getItem("userEmail");
+    const storedPreferences = userEmail
+      ? JSON.parse(localStorage.getItem(`preferences_${userEmail}`) || "{}")
+      : {};
+  
+    const [aiPreferences, setAIPreferences] = useState({
+      length: storedPreferences.length || defaultAIPreferences.length,
+      tone: storedPreferences.tone || defaultAIPreferences.tone,
+      format: storedPreferences.format || defaultAIPreferences.format,
+      jargon_allowed:
+        storedPreferences.jargon_allowed ?? defaultAIPreferences.jargon_allowed,
+    });
+
   useEffect(() => {
-    fetchArticleSummary(selectedArticle, setSelectedArticle);
+    if (selectedArticle && selectedArticle.url !== previousSelectedArticle.current) {
+      console.log("fetch from search");
+      fetchArticleSummary(selectedArticle, setSelectedArticle, aiPreferences);
+      previousSelectedArticle.current = selectedArticle.url;
+    }
   }, [selectedArticle]);
 
   async function setPreferences(preferences: AdvancedSearchPreferences) {
@@ -102,8 +124,6 @@ const SearchPage: React.FC = () => {
       closePanel();
     } else {
       setSelectedArticle(article);
-      console.log("SELECT ARTICLE", article);
-      console.log("SELECT ARTICLE ID", article.url);
       setSelectedArticleUrl(article.url);
       setIsPanelOpen(true); // Open panel
     }
@@ -122,7 +142,7 @@ const SearchPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen mx-auto bg-white">
+    <div className="w-full min-h-screen mx-auto bg-veryLightBlue">
       <Header
         onSearch={(term) => handleSearchWithLoading(term)}
         setPreferences={(preferences) => setPreferences(preferences)}
@@ -131,6 +151,7 @@ const SearchPage: React.FC = () => {
       />
 
       {/* Main Content */}
+      <div className="w-[80%] min-h-screen mx-auto text-black">
       <main className="p-4 md:p-8 main-content flex">
         <section
           className={`transition-all duration-300 ease-in-out ${
@@ -140,30 +161,28 @@ const SearchPage: React.FC = () => {
           <section className="mb-8">
             {summary ? (
               <>
-                <h1 className="text-2xl font-bold text-black">{summary.title}</h1>
-                <p className="text-gray-600 mt-2">{summary.summary}</p>
+                <h1 className="text-2xl font-bold">{summary.title}</h1>
+                <p className="mt-6 mb-8 text-sm">{summary.summary}</p>
               </>
             ) : articles.length > 0 && (
-              <p className="text-gray-400 italic flex"><Spinner /> Loading summary...</p>
+              <p className="flex"><Spinner /> Loading summary...</p>
             )}
           </section>
 
           <section>
             {isLoading ? (
-              <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
+              <p className="text-center mt-16 flex items-center justify-center">
                 <Spinner /> Searching...
               </p>
             ) : articles.length > 0 ? (
-              articles.map((article) => (
+              articles.map((article, index) => (
                 <div
-                  key={article.url}
-                  className={`mt-6 cursor-pointer border-2 rounded-lg transition-colors duration-300 ${
-                    selectedArticleUrl === article.url ? "border-blue-500 bg-blue-100" : "border-transparent"
-                  }`}
-                  onClick={() => handleArticleClick(article)}
-                  onDoubleClick={() => handleArticleDoubleClick(article)}
+                key={index}
+                className="bg-white p-1 px-4 rounded-md shadow cursor-pointer hover:bg-veryLightBlue mb-2"
+                onClick={() => handleArticleClick(article)}
+                onDoubleClick={() => handleArticleDoubleClick(article)}
                 >
-                  <div className="flex items-center space-x-4">
+                <div className="flex grow items-center space-x-4">
                     <Image
                       src={article.imageUrl || "/bitewise_logo.png"}
                       alt="article thumbnail"
@@ -172,28 +191,51 @@ const SearchPage: React.FC = () => {
                       className="rounded-lg"
                       style={{ width: "80px", height: "50px", objectFit: "cover" }}
                     />
+                    <div className="flex-grow">
+                    <div className="flex justify-between mt-1">
+                      <p className="text-xs">{article.source}</p>
+                      <p className="text-xs">{article.authors[0]}</p>
+                    </div>
+                    <p className="text-sm font-bold">{article.title}</p>
                     <div>
-                      <h2 className="font-bold text-lg text-black">{article.title}</h2>
-                      <p className="text-gray-500">{article.source} • {article.time}</p>
-                      <p className="text-gray-500 text-sm">
-                        {biasRatingLabels[parseInt(article.biasRating, 10)]} • {readTimeLabels[parseInt(article.readTime, 10)]}
-                      </p>
+                    <div className="flex justify-between mt-1">
+                        {biasRatingLabels[parseInt(article.biasRating, 10)] ? (
+                        <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
+                          <div className="flex items-center space-x-1 text-xs">
+                          <SpeedIcon sx={{ fontSize: "10px" }}/>
+                          <p>{biasRatingLabels[parseInt(article.biasRating, 10)]}</p>
+                          </div>
+                        </Tooltip>
+                        ) : (
+                        <div className="flex items-center space-x-1 text-xs"></div>
+                        )
+                      }
+                      <Tooltip title="Read Time: Estimated time to read the article (Short, Medium, or Long)" arrow>
+                        <div className="flex items-center space-x-1 text-xs">
+                          <AccessTimeIcon sx={{ fontSize: "10px" }} />
+                          <p>{readTimeLabels[parseInt(article.readTime, 10)]}</p>
+                        </div>
+                      </Tooltip>
                     </div>
                   </div>
+                  </div>
                 </div>
+              </div>
               ))
             ) : (
-              <p className="text-gray-500 text-center mt-16">No articles.</p>
+              <p className="text-center mt-16"></p>
             )}
           </section>
         </section>
 
         <Sidebar
           selectedArticle={selectedArticle}
+          setSelectedArticle={setSelectedArticle}
           closePanel={closePanel}
           isPanelOpen={isPanelOpen}
         />
       </main>
+      </div>
     </div>
   );
 };

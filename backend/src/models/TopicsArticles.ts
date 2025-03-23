@@ -11,7 +11,7 @@ const TopicsArticlesSchema: Schema = new Schema<ITopicsArticles>({
                 datePublished: { type: Date },
                 source: { type: String },
                 title: { type: String, required: true },
-                url: { type: String, required: true, unique: true },
+                url: { type: String, required: true, unique: false },
                 readTime: { type: Number, enum: [0, 1, 2] },
             }
         }]

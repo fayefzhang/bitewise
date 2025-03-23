@@ -95,7 +95,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
         <div className="bg-white rounded-lg shadow-lg p-6 w-96 relative">
           <button
             onClick={onClose}
-            className="text-5xl absolute top-4 right-4 text-gray-500 hover:text-blue-700"
+            className="text-5xl absolute top-4 right-4 text-gray-500 hover:text-mediumBlue"
           >
             ×
           </button>
@@ -108,7 +108,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
               <input
                 type="email"
                 id="email"
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-darkBlue"
                 required
               />
             </div>
@@ -117,13 +117,13 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
               <input
                 type="password"
                 id="password"
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-darkBlue"
                 required
               />
             </div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-darkBlue hover:bg-mediumBlue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               {isSignIn ? "Sign In" : "Sign Up"}
             </button>
@@ -136,7 +136,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsSignIn(false)}
-                    className="text-blue-500 hover:underline"
+                    className="text-darkBlue hover:underline"
                   >
                     Sign Up
                   </button>
@@ -147,7 +147,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsSignIn(true)}
-                    className="text-blue-500 hover:underline"
+                    className="text-darkBlue hover:underline"
                   >
                     Sign In
                   </button>

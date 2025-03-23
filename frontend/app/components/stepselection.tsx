@@ -108,16 +108,16 @@ const StepSelection: React.FC<StepSelectionProps> = ({
               placeholder="Search..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-full border-2 rounded-full px-4 py-2 text-blue-500 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border-2 rounded-full px-4 py-2 text-darkBlue font-medium focus:outline-none focus:ring-2 focus:ring-darkBlue"
             />
           </div>
           <div className="w-full flex flex-wrap justify-center gap-4 mb-8">
             {filteredOptions.map((option) => (
               <button
                 key={option}
-                className={`border-2 rounded-full px-4 py-2 text-blue-500 font-medium hover:bg-blue-500 hover:text-white focus:outline-none ${
+                className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
                   selectedOptions.includes(option)
-                    ? "bg-blue-500 text-white"
+                    ? "bg-darkBlue text-white"
                     : "bg-white"
                 }`}
                 onClick={() => handleOptionClick(option)}
@@ -129,14 +129,14 @@ const StepSelection: React.FC<StepSelectionProps> = ({
           <div className="flex flex-col items-center">
             <Link href={nextPage}>
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
+                className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
                 onClick={() => handleContinue()}
               >
                 Continue
               </button>
             </Link>
             <Link href="/profile">
-              <button className="mt-4 text-blue-500 underline">Skip</button>
+              <button className="mt-4 text-darkBlue underline">Skip</button>
             </Link>
           </div>
         </div>
