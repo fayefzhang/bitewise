@@ -385,6 +385,8 @@ router.post('/daily-news', async (req: Request, res: Response): Promise<void> =>
 // @returns grouped articles by cluster
 router.post('/local-news', (req: Request, res: Response) => {
     const { location } = req.body;
+    // log location
+    console.log("Location: " + location);
     generateNewsDashboard('local-news', location, path.join(__dirname, '../../../python-api/data/local_articles_data.json'), res);
 });
 

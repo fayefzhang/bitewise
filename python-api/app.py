@@ -38,6 +38,7 @@ def refresh_daily_news():
 def refresh_local_news():
     data = request.get_json()
     city = data.get("location", None)
+    print("city: ", city)
     if not city:
         return jsonify({"error": "City is required"}), 400
     
@@ -54,16 +55,27 @@ def refresh_local_news():
             "clustering": False,
         }
         search_results = user_search(question=city, user_preferences=search_preferences)
+        formatted_results = []
+        for item in search_results:
+            formatted_results.append({
+                "url": item["url"],
+                "title": item["title"],
+                "source": item["source"]["name"],
+                "content": item["content"],
+                "imageUrl": item.get("urlToImage", ""),
+                "authors": [item["author"]] if item["author"] else [],
+                "time": item.get("publishedAt", "unknown")
+            })
         with open("data/search_results.json", "w", encoding="utf-8") as file:
-            json.dump(search_results, file, ensure_ascii=False, indent=4)
+            json.dump(formatted_results, file, ensure_ascii=False, indent=4)
         return refresh_helper('search_results.json')
     else:
-        # last_modified_timestamp = os.path.getmtime("data/local_articles_data.json")
-        # last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
-        # current_time = datetime.now()
-        # time_difference = current_time - last_modified_date
-        # if time_difference.total_seconds() > 12 * 3600:
-        Thread(target=daily_crawl_location).start()
+        last_modified_timestamp = os.path.getmtime("data/local_articles_data.json")
+        last_modified_date = datetime.fromtimestamp(last_modified_timestamp)
+        current_time = datetime.now()
+        time_difference = current_time - last_modified_date
+        if time_difference.total_seconds() > 12 * 3600:
+            Thread(target=daily_crawl_location).start()
         return refresh_helper('local_articles_data.json', city)
 
 # helper function to refresh news and cluster to find main topics

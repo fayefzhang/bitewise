@@ -21,7 +21,7 @@ const fetchLocalNews = async (location: string) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        city: location,
+        location: location,
       }),
     });
     if (!response.ok) {
