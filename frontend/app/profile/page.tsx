@@ -21,6 +21,7 @@ const ProfilePage: React.FC = () => {
   };
 
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [customTopic, setCustomTopic] = useState<string>("");
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
   const [readTime, setReadTime] = useState<string[]>([]);
   const [bias, setBias] = useState<string[]>([]);
@@ -125,6 +126,7 @@ const ProfilePage: React.FC = () => {
   const filteredInterests = interests.filter((interest) =>
     interest.toLowerCase().includes(searchInterestsQuery.toLowerCase())
   );
+  const combinedInterests = Array.from(new Set([...filteredInterests, ...selectedTopics]));
 
   // TODO: implement searching for sources
   // (not sure if we even need this if we only have like 5-7 options)
@@ -265,22 +267,49 @@ const ProfilePage: React.FC = () => {
         <div className="flex-col items-center mb-4">
           <h1 className="text-xl font-bold">Followed Topics</h1>
         </div>
-        <div className="mb-4">
+        <div className="flex flex-row items-center gap-4 mb-4">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search Topics..."
             value={searchInterestsQuery}
             onChange={handleSearchChange}
             className="w-full border-2 rounded-full px-4 py-2 text-darkBlue font-medium focus:outline-none focus:ring-2 focus:ring-darkBlue"
           />
+          <input
+            type="text"
+            placeholder="Add custom topic..."
+            value={customTopic}
+            onChange={(e) => setCustomTopic(e.target.value)}
+            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium focus:outline-none focus:ring-2 focus:ring-darkBlue"
+          />
+          <button
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-4 rounded-full focus:outline-none"
+            onClick={() => {
+              if (customTopic && !selectedTopics.includes(customTopic)) {
+                setSelectedTopics([...selectedTopics, customTopic]);
+                setCustomTopic("");
+                updateUserProfile(
+                  [...selectedTopics, customTopic],
+                  selectedSources,
+                  readTime,
+                  bias,
+                  fromDate,
+                  clustering,
+                  location
+                );
+              }
+            }}
+          >
+            Add
+          </button>
         </div>
         <div className="w-full flex flex-wrap gap-4 mb-2">
-          {filteredInterests.map((interest) => (
+          {combinedInterests.map((interest) => (
             <button
               key={interest}
               className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
                 selectedTopics.includes(interest)
-                  ? "bg-darkBlue text-white"
+                  ? (interests.includes(interest) ? "bg-darkBlue text-white" : "bg-lightBlue text-darkBlue")
                   : "bg-white"
               }`}
               onClick={() => handleOptionClick(interest, true)}
