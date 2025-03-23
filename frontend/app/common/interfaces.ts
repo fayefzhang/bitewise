@@ -24,8 +24,10 @@ export interface Article {
   biasRating: string;
   sentiment: string;
   readTime: string;
+  difficulty: string;
   relatedSources: RelatedSource[];
   summaries: string[];
+  s3Url?: string;
   fullContent: string;
   cluster: number;
 }

@@ -22,10 +22,10 @@ export default function Home() {
             .
           </li>
           <li>Save and see your changes instantly.</li>
-          <li className="mt-4 text-blue-500 hover:underline"><Link href="/search">
+          <li className="mt-4 text-darkBlue hover:underline"><Link href="/search">
         Go to Search Page
           </Link></li>
-          <li className="mt-4 text-blue-500 hover:underline"><Link href="/dashboard">
+          <li className="mt-4 text-darkBlue hover:underline"><Link href="/dashboard">
             Go to Dashboard Page
           </Link></li>
             </ol>

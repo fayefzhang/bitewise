@@ -5,7 +5,7 @@ import SignInPopUp from "./signinpopup";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { defaultSearchPreferences } from "../common/utils";
+import { defaultSearchPreferences, biasRatingLabels, readTimeLabels } from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -69,40 +69,6 @@ const Header: React.FC<HeaderProps> = ({
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
-  const transformReadTime = (read_time: number): string[] => {
-    if (!read_time)
-      return [];
-    switch (read_time) {
-      case 1:
-        return ["Short"];
-      case 2:
-        return ["Medium"];
-      case 3:
-        return ["Long"];
-      default:
-        return [];
-    }
-  };
-
-  const transformBias = (bias: number): string[] => {
-    if (!bias)
-      return [];
-    switch (bias) {
-      case 1:
-        return ["Center"];
-      case 2:
-        return ["Left"];
-      case 3:
-        return ["Left", "Center"];
-      case 4:
-        return ["Right"];
-      case 5:
-        return ["Right", "Center"];
-      default:
-        return [];
-    }
-  };
-
   const [isSignedIn, setisSignedIn] = useState(false);
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail"); // Check if user is signed in
@@ -124,8 +90,8 @@ const Header: React.FC<HeaderProps> = ({
           const transformedPreferences = {
             from_date: userPreferences.from_date || "",
             to_date: "", // NOT IN DATABASE
-            read_time: transformReadTime(userPreferences.read_time),
-            bias: transformBias(userPreferences.bias),
+            read_time: userPreferences.read_time || [],
+            bias: userPreferences.bias || [],
             clustering: userPreferences.clustering || false,
           };
 
@@ -141,21 +107,21 @@ const Header: React.FC<HeaderProps> = ({
   }, []); // Empty dependency array to run this effect once when the component mounts
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex justify-center items-center">
+    <header className="sticky top-0 z-50 bg-white shadow-md bg-gradient-to-r from-mediumBlue to-darkBlue p-4 flex justify-center items-center">
       <div className="flex space-x-4 absolute left-4">
         <Link href="/dashboard">
-          <div className="bg-white p-2 rounded-full cursor-pointer">
+          <div className="p-2 rounded-full cursor-pointer">
             <Image
               src="/bitewise_logo.png"
               alt="logo"
-              width={40}
-              height={30}
+              width={50}
+              height={40}
               className="rounded-lg"
             />
           </div>
         </Link>
       </div>
-      <div className="flex items-center space-x-2 bg-white p-2 rounded-md">
+      <div className="flex items-center space-x-2 bg-white p-2 rounded-md h-12">
         <span className="text-xl">🔍</span>
         <input
           type="text"
@@ -163,16 +129,16 @@ const Header: React.FC<HeaderProps> = ({
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="p-2 w-full md:w-80 text-black focus:outline-none"
+          className="p-2 w-[300px] md:w-[450px] lg:w-[550px] text-black focus:outline-none"
         />
-        {isSearchPage && (
+        {/* {isSearchPage && ( */}
           <button
             className="text-xl text-gray-600 hover:text-black"
             onClick={() => setShowSettings(!showSettings)}
           >
             ⚙️
           </button>
-        )}
+        {/* )} */}
       </div>
       <div className="flex space-x-4 absolute right-4">
         {isSignedIn && ( // only show profile if user is signed in
@@ -200,7 +166,7 @@ const Header: React.FC<HeaderProps> = ({
       {/* Advanced Search */}
       {showSettings && (
         <div
-          className="absolute bg-white shadow-lg rounded-lg p-6 w-96 top-20 mx-auto left-1/2 transform -translate-x-1/2 text-black"
+          className="absolute bg-white shadow-lg rounded-lg p-6 w-120 top-20 mx-auto left-1/2 transform -translate-x-1/2 text-black"
           style={{ zIndex: 50 }}
         >
           <h3 className="text-lg font-bold mb-4">Advanced Settings</h3>
@@ -209,14 +175,14 @@ const Header: React.FC<HeaderProps> = ({
               Read Time
             </label>
             <div className="flex space-x-2">
-              {["Short", "Medium", "Long"].map((time) => {
+              {readTimeLabels.map((time) => {
                 const isSelected = searchPreferences.read_time?.includes(time);
                 return (
                   <button
                     key={time}
-                    className={`px-4 py-2 rounded-md ${
-                      isSelected ? "bg-blue-500 text-white" : "bg-gray-200"
-                    } hover:bg-gray-300`}
+                    className={`px-4 py-2 rounded-full ${
+                      isSelected ? "bg-darkBlue text-white" : "bg-gray-200"
+                    } hover:bg-lightBlue`}
                     onClick={() => toggleReadTime(time)}
                   >
                     {time}
@@ -226,11 +192,11 @@ const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2 flex items-center space-x-1">
+            <label className="block text-sm font-semibold mb-2 flex items-center space-x-1 ">
               <span>Bias</span>
               <div className="relative group">
                 <svg
-                  className="w-4 h-4 text-blue-500 hover:text-gray-700 cursor-pointer"
+                  className="w-4 h-4 text-darkBlue hover:lightBlue cursor-pointer"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -249,14 +215,15 @@ const Header: React.FC<HeaderProps> = ({
               </div>
             </label>
             <div className="flex space-x-2">
-              {["Left", "Center", "Right"].map((bias) => {
+              {biasRatingLabels.map((bias) => {
+                if (!bias) return null; // Skip empty bias
                 const isSelected = searchPreferences.bias?.includes(bias);
                 return (
                   <button
                     key={bias}
-                    className={`px-4 py-2 rounded-md ${
-                      isSelected ? "bg-blue-500 text-white" : "bg-gray-200"
-                    } hover:bg-gray-300`}
+                    className={`px-4 py-2 rounded-full ${
+                      isSelected ? "bg-darkBlue text-white" : "bg-gray-200"
+                    } hover:bg-lightBlue`}
                     onClick={() => toggleBias(bias)}
                   >
                     {bias}
@@ -279,30 +246,8 @@ const Header: React.FC<HeaderProps> = ({
                     from_date: e.target.value,
                   }))
                 }
-                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-darkBlue"
               />
-            </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">
-              Clustering
-            </label>
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="clustering"
-                className="w-4 h-4"
-                checked={searchPreferences.clustering}
-                onChange={(e) =>
-                  setSearchPreferences((prev) => ({
-                    ...prev,
-                    clustering: e.target.checked,
-                  }))
-                }
-              />
-              <label htmlFor="clustering" className="text-sm">
-                Enable Clustering
-              </label>
             </div>
           </div>
         </div>
