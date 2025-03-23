@@ -7,6 +7,7 @@ import { defaultSearchPreferences } from "../common/utils";
 import Header from "../components/header";
 import Sidebar from "../search/sidebar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { fetchArticleSummary, handleSearch } from "./searchUtils";
 import { defaultAIPreferences } from "../common/utils";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -71,12 +72,15 @@ const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Righ
 
 
 const SearchPage: React.FC = () => {
+  const router = useRouter();
+
   const [articles, setArticles] = useState<Article[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [selectedArticleUrl, setSelectedArticleUrl] = useState<string | null>(
     null
   );
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [headerPreferences, setHeaderPreferences] = useState<AdvancedSearchPreferences>(
     defaultSearchPreferences
   );
@@ -107,16 +111,31 @@ const SearchPage: React.FC = () => {
     }
   }, [selectedArticle]);
 
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search).get("query");
+    if (query) {
+      console.log("searching query: ", query);
+      handleSearchWithLoading(query);
+    }
+  }, []);
+
   async function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
   }
 
   async function handleSearchWithLoading(term: string) {
     setIsLoading(true);
-    await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
-      closePanel()
-    );
-    setIsLoading(false);
+    try {
+      await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
+        closePanel()
+      );
+    } catch (error) {
+      console.error("Error during search:", error);
+      // Provide feedback to the user
+      alert("An error occurred while processing your request. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function handleArticleClick(article: Article) {
