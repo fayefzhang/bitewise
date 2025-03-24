@@ -28,6 +28,7 @@ const ProfilePage: React.FC = () => {
   const [fromDate, setFromDate] = useState<string>("");
   const [clustering, setClustering] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("Philadelphia");
+  const [isLocationEdited, setIsLocationEdited] = useState<boolean>(false);
 
   // Fetch user preferences on page load
   useEffect(() => {
@@ -370,17 +371,22 @@ const ProfilePage: React.FC = () => {
           <h1 className="text-xl font-bold">Local News Location</h1>
         </div>
         <div className="flex flex-row items-center gap-4 mb-4">
-          <label>Location</label>
+          <label>
+            Location {isLocationEdited && <span className="text-red-500">*</span>}
+          </label>
           <input
             type="text"
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={(e) => {
+              setLocation(e.target.value);
+              setIsLocationEdited(true); // Mark as edited
+            }}
             className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
             placeholder="Enter your location"
           />
           <button
             className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
-            onClick={() =>
+            onClick={() => {
               updateUserProfile(
                 selectedTopics,
                 selectedSources,
@@ -389,8 +395,9 @@ const ProfilePage: React.FC = () => {
                 fromDate,
                 clustering,
                 location
-              )
-            }
+              );
+              setIsLocationEdited(false); // Reset the edited state
+            }}
           >
             Set
           </button>
