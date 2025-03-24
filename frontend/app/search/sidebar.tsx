@@ -144,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           {isPreferencesPanelOpen && (
             <div className="mt-4 bg-veryLightBlue shadow rounded-lg p-4">
               <div className="flex justify-start items-center space-x-2">
-                <label className="block font-semibold">Read Time</label>
+                <label className="block font-semibold">Length</label>
                 {readTimeLabels.map((option) => (
                   <button
                     key={option}
