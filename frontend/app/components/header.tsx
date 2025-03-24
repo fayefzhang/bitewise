@@ -25,8 +25,14 @@ const Header: React.FC<HeaderProps> = ({
   // SEARCH FUNCTIONAL SETUP
   const [searchTerm, setSearchTerm] = useState("");
   const [showSettings, setShowSettings] = useState(false);
-  const [searchPreferences, setSearchPreferences] =
-    useState<AdvancedSearchPreferences>(defaultSearchPreferences);
+  const [searchPreferences, setSearchPreferences] = useState<AdvancedSearchPreferences>(defaultSearchPreferences);
+
+  // Update parent component whenever searchPreferences change
+  useEffect(() => {
+    if (setPreferences) {
+      setPreferences(searchPreferences);
+    }
+  }, [searchPreferences, setPreferences]);
 
   const toggleReadTime = (time: string) => {
     setSearchPreferences((prev) => {
@@ -59,7 +65,6 @@ const Header: React.FC<HeaderProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim()) {
       onSearch(searchTerm.trim());
-      if (setPreferences) setPreferences(searchPreferences);
     }
   };
 
@@ -121,6 +126,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </Link>
       </div>
+
       <div className="flex items-center space-x-2 bg-white p-2 rounded-md h-12">
         <span className="text-xl">🔍</span>
         <input
@@ -131,6 +137,7 @@ const Header: React.FC<HeaderProps> = ({
           placeholder={placeholder}
           className="p-2 w-[300px] md:w-[450px] lg:w-[550px] text-black focus:outline-none"
         />
+
         {/* {isSearchPage && ( */}
           <button
             className="text-xl text-gray-600 hover:text-black"
@@ -140,6 +147,7 @@ const Header: React.FC<HeaderProps> = ({
           </button>
         {/* )} */}
       </div>
+      
       <div className="flex space-x-4 absolute right-4">
         {isSignedIn && ( // only show profile if user is signed in
           <div className="flex space-x-4">

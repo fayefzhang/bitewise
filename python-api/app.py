@@ -257,9 +257,20 @@ def summarize_articles():
     ])
     # articles_text = "\n\n".join([f"### {article['title']} ###\n{article['content']}" for article in enriched_articles[:7]])
     summary_output = generate_summary_collection(articles_text, ai_preferences)
-    title, summary = summary_output.split("**Summary**:", 1)  # Splitting based on "**Summary**:"
-    title = title.replace("**Title**:", "").strip()
-    summary = summary.strip()
+    
+    # Default values in case of failure
+    title, summary = "Untitled", "Summary not available"
+    try:
+        if "**Summary**:" in summary_output:
+            title, summary = summary_output.split("**Summary**:", 1)
+            title = title.replace("**Title**:", "").strip() if "**Title**:" in title else "Untitled"
+            summary = summary.strip()
+        else:
+            print("Warning: '**Summary**:' keyword not found in the response.")
+    except Exception as e:
+        print(f"Error processing summary output: {e}")
+
+    print(f"Title: {title}\nSummary: {summary}")
     return jsonify({
         "title": title,
         "summary": summary,

@@ -396,7 +396,7 @@ async function generateNewsDashboard(newsType: string, location: string, filePat
     try {
         // if the dashboard has already been created, read and return it from the database      
         const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd part
-        // const targetDate = '2025-03-04';
+        // const targetDate = '2025-03-23'; // used to load prev dashboard
 
         const existingDashboard = await DashboardModel.findOne({ date: today, location: location });
         if (existingDashboard) {

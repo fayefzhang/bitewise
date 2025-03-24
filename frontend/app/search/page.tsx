@@ -17,60 +17,6 @@ import Tooltip from '@mui/material/Tooltip';
 const readTimeLabels = ["Short", "Medium", "Long"];
 const biasRatingLabels = ["Left", "Left-Center", "Center", "Right-Center", "Right", ""];
 
-// const filterArticles = (
-//   articles: Article[],
-//   headerPreferences: Preferences | null
-// ) => {
-//   if (!headerPreferences) return articles;
-//   return articles.filter((article) => {
-//     let readTime = true;
-//     let biasMatch = true;
-//     let dateMatch = true;
-
-//     // Read Time Filtering (Supports Multiple Selections)
-//     if (headerPreferences?.read_time?.length > 0) {
-//       readTime = headerPreferences.read_time.some(
-//         (time) =>
-//           (time === "Short" && article.readTime === "<2 min") ||
-//           (time === "Medium" && article.readTime === "2-7 min") ||
-//           (time === "Long" && article.readTime === ">7 min")
-//       );
-//     }
-
-//     // Bias Filtering (Supports Multiple Selections)
-//     if (headerPreferences?.bias?.length > 0) {
-//       biasMatch = headerPreferences.bias.some((bias) =>
-//         article.biasRating.includes(bias.toLowerCase())
-//       );
-//     }
-
-//     // Date Filtering (Supports From and To Dates)
-//     if (headerPreferences?.from_date) {
-//       const articleDate = new Date(article.time).getTime();
-//       const fromDate = new Date(headerPreferences.from_date).getTime();
-//       if (articleDate < fromDate) {
-//         dateMatch = false;
-//       }
-//     }
-
-//     if (headerPreferences?.to_date) {
-//       const articleDate = new Date(article.time).getTime();
-//       const toDate = new Date(headerPreferences.to_date).getTime();
-//       if (articleDate > toDate) {
-//         dateMatch = false;
-//       }
-//     }
-
-//     return (
-//       biasMatch &&
-//       readTime &&
-//       dateMatch &&
-//       (!headerPreferences?.clustering || article.cluster !== -1)
-//     );
-//   });
-// };
-
-
 const SearchPage: React.FC = () => {
   const router = useRouter();
 
@@ -112,23 +58,62 @@ const SearchPage: React.FC = () => {
   }, [selectedArticle]);
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search).get("query");
+    const queryParams = new URLSearchParams(window.location.search)
+
+    const query = queryParams.get("query");
+
+    const fromDate = queryParams.get("from_date");
+    const toDate = queryParams.get("to_date");
+    const readTime = queryParams.get("read_time")?.split(",") || [];
+    const bias = queryParams.get("bias")?.split(",") || [];
+    const clustering = queryParams.get("clustering") === "true"; // Expecting "true" or "false"
+
+    console.log("DEBUG 1")
+
+    const preferences = {
+      from_date: fromDate || "",
+      to_date: toDate || "",
+      read_time: readTime,
+      bias: bias,
+      clustering: clustering,
+    };
+
+    console.log("DEBUG 2")
+
     if (query) {
       console.log("searching query: ", query);
-      handleSearchWithLoading(query);
+      if (preferences) {
+        console.log("DEBUG 3")
+        handleSearchWithLoading(query, preferences);
+      } else {
+        console.log("DEBUG 4")
+        handleSearchWithLoading(query);
+      }
     }
   }, []);
 
-  async function setPreferences(preferences: AdvancedSearchPreferences) {
+  // Debug log to see when preferences change
+  useEffect(() => {
+    console.log("headerPreferences updated:", headerPreferences);
+  }, [headerPreferences]);
+
+  function setPreferences(preferences: AdvancedSearchPreferences) {
     setHeaderPreferences(preferences);
   }
 
-  async function handleSearchWithLoading(term: string) {
+  async function handleSearchWithLoading(term: string, preferences?: AdvancedSearchPreferences) {
     setIsLoading(true);
     try {
-      await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
-        closePanel()
-      );
+      // console.log("headerPreferences in handleSearchWithLoading():, ", headerPreferences);
+      if (preferences) {
+        await handleSearch(term, preferences, setArticles, setSummary, () =>
+          closePanel()
+        );
+      } else {
+        await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
+          closePanel()
+        );
+      }
     } catch (error) {
       console.error("Error during search:", error);
       // Provide feedback to the user
@@ -164,7 +149,7 @@ const SearchPage: React.FC = () => {
     <div className="w-full min-h-screen mx-auto bg-veryLightBlue">
       <Header
         onSearch={(term) => handleSearchWithLoading(term)}
-        setPreferences={(preferences) => setPreferences(preferences)}
+        setPreferences={setPreferences}
         placeholder="Search topic..."
         isSearchPage={true}
       />
