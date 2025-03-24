@@ -341,7 +341,7 @@ const ProfilePage: React.FC = () => {
         <div className="flex flex-col items-center mb-4">
           <h1 className="text-xl font-bold">Your Sources</h1>
         </div>
-        <div className="w-full flex flex-wrap gap-4 mb-2">
+        <div className="w-full flex flex-wrap gap-4 mb-4">
           {sources.map((source) => (
             <button
               key={source}
@@ -357,14 +357,6 @@ const ProfilePage: React.FC = () => {
               {source}
             </button>
           ))}
-        </div>
-        <div className="flex flex-col items-center mb-6">
-          <button
-            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
-            onClick={() => updateUserProfile(userPreferences)}
-          >
-            Save Preferences
-          </button>
         </div>
 
         <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
