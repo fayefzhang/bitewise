@@ -249,21 +249,29 @@ const Sidebar: React.FC<SidebarProps> = ({
           <ul className="mt-6 list-disc space-y-2 mb-8">
           {selectedArticle?.summaries && selectedArticle.summaries.length > 0 ? (
             typeof selectedArticle.summaries[0] === "string" ? (
-              selectedArticle.summaries[0]
-                .split("- ")
-                .map((part, index) => (
-                  <p key={index} className="text-sm">
-                    {part.trim()}
-                  </p>
-                ))
+              selectedArticle.summaries[0] === '{"error":"Internal server error","details":"Request failed with status code 500"}' ? (
+                <p className="text-red-500 text-sm">Unable to generate summary.</p>
+              ) : (
+                selectedArticle.summaries[0]
+                  .split("- ")
+                  .map((part, index) => (
+                    <p key={index} className="text-sm">
+                      {part.trim().replace(/^-+/, "").trim()}
+                    </p>
+                  ))
+              )
             ) : (
-              JSON.stringify(selectedArticle.summaries[0])
-                .split(" - ")
-                .map((part, index) => (
-                  <p key={index} className="text-sm">
-                    {part.trim().replace(/^[^\w]+/, "")} 
-                  </p>
-                ))
+              JSON.stringify(selectedArticle.summaries[0]) === '{"error":"Internal server error","details":"Request failed with status code 500"}' ? (
+                <p className="text-red-500 text-sm">Unable to generate summary.</p>
+              ) : (
+                JSON.stringify(selectedArticle.summaries[0])
+                  .split("- ")
+                  .map((part, index) => (
+                    <p key={index} className="text-sm">
+                      {part.trim().replace(/^-+/, "").trim()}
+                    </p>
+                  ))
+              )
             )
           ) : (
             <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
