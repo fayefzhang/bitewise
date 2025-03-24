@@ -47,6 +47,9 @@ export async function handleSearch(
   setSummary: Function,
   closePanel: Function,
 ) {
+
+  console.log("headerPreferences in handleSearch(): ", headerPreferences);
+
   const requestBody = {
     query: term,
     search_preferences: headerPreferences,
@@ -66,7 +69,7 @@ export async function handleSearch(
     });
     const searchData = await articlesResponse.json();
 
-    console.log("Raw search results (no filtering): ", searchData);
+    console.log("Raw search results: ", searchData);
 
     let filteredArticles = searchData.articles || [];
 
@@ -85,7 +88,7 @@ export async function handleSearch(
       });
 
       const filteredData = await filterResponse.json();
-      filteredArticles = filteredData;
+      filteredArticles = filteredData.articles;
       console.log("Filtered search results: ", filteredArticles);
     }
 
