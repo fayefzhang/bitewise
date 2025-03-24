@@ -124,7 +124,18 @@ const DashboardPage: React.FC = () => {
   const router = useRouter();
   const handleSearch = (term: string) => {
     if (term) {
-      router.push(`/search?query=${encodeURIComponent(term)}`);
+      const queryParams = new URLSearchParams({ query: term });
+  
+      if (headerPreferences) {
+        if (headerPreferences.from_date) queryParams.append("from_date", headerPreferences.from_date);
+        if (headerPreferences.to_date) queryParams.append("to_date", headerPreferences.to_date);
+        if (headerPreferences.read_time.length) queryParams.append("read_time", headerPreferences.read_time.join(","));
+        if (headerPreferences.bias.length) queryParams.append("bias", headerPreferences.bias.join(","));
+        queryParams.append("clustering", String(headerPreferences.clustering)); // Convert boolean to string
+      }
+  
+      console.log("about to push router")
+      router.push(`/search?${queryParams.toString()}`);
     }
   };
 
@@ -133,7 +144,9 @@ const DashboardPage: React.FC = () => {
   const [dailySummary, setDailySummary] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dailyPodcast, setDailyPodcast] = useState<string>("");
-
+  const [headerPreferences, setHeaderPreferences] = useState<AdvancedSearchPreferences>(
+    defaultSearchPreferences
+  );
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
@@ -196,6 +209,14 @@ const DashboardPage: React.FC = () => {
     setSelectedArticle(null);
     setIsPanelOpen(false); // Close panel
   }
+
+  function setPreferences(preferences: AdvancedSearchPreferences) {
+    setHeaderPreferences(preferences);
+  }
+
+  useEffect(() => {
+    console.log("headerPreferences updated:", headerPreferences);
+  }, [headerPreferences]);
 
   useEffect(() => {
     // Get article summary if not already done
@@ -261,7 +282,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="bg-veryLightBlue">
-      <Header onSearch={handleSearch} placeholder="Search topic..." />
+      <Header onSearch={handleSearch} setPreferences={setPreferences} placeholder="Search topic..." />
       <div className="w-[80%] min-h-screen mx-auto text-black">
         {/* Main Content */}
         <main className="py-2 md:py-8 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-12">

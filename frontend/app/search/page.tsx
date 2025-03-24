@@ -58,10 +58,37 @@ const SearchPage: React.FC = () => {
   }, [selectedArticle]);
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search).get("query");
+    const queryParams = new URLSearchParams(window.location.search)
+
+    const query = queryParams.get("query");
+
+    const fromDate = queryParams.get("from_date");
+    const toDate = queryParams.get("to_date");
+    const readTime = queryParams.get("read_time")?.split(",") || [];
+    const bias = queryParams.get("bias")?.split(",") || [];
+    const clustering = queryParams.get("clustering") === "true"; // Expecting "true" or "false"
+
+    console.log("DEBUG 1")
+
+    const preferences = {
+      from_date: fromDate || "",
+      to_date: toDate || "",
+      read_time: readTime,
+      bias: bias,
+      clustering: clustering,
+    };
+
+    console.log("DEBUG 2")
+
     if (query) {
       console.log("searching query: ", query);
-      handleSearchWithLoading(query);
+      if (preferences) {
+        console.log("DEBUG 3")
+        handleSearchWithLoading(query, preferences);
+      } else {
+        console.log("DEBUG 4")
+        handleSearchWithLoading(query);
+      }
     }
   }, []);
 
@@ -74,13 +101,19 @@ const SearchPage: React.FC = () => {
     setHeaderPreferences(preferences);
   }
 
-  async function handleSearchWithLoading(term: string) {
+  async function handleSearchWithLoading(term: string, preferences?: AdvancedSearchPreferences) {
     setIsLoading(true);
     try {
-      console.log("headerPreferences in handleSearchWithLoading():, ", headerPreferences);
-      await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
-        closePanel()
-      );
+      // console.log("headerPreferences in handleSearchWithLoading():, ", headerPreferences);
+      if (preferences) {
+        await handleSearch(term, preferences, setArticles, setSummary, () =>
+          closePanel()
+        );
+      } else {
+        await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
+          closePanel()
+        );
+      }
     } catch (error) {
       console.error("Error during search:", error);
       // Provide feedback to the user
