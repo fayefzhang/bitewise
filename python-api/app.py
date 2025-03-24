@@ -140,8 +140,8 @@ def search():
             return jsonify({"error": "User preferences are required"}), 400
         
         search_results = user_search(query, search_preferences)
-        search_results = "" if search_results is None else search_results
-        if search_results != "":
+        search_results = [] if search_results is None else search_results
+        if len(search_results) > 0:
             print("search results not empty")
         else:
             print ("search results empty")

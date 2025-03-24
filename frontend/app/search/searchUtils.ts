@@ -45,10 +45,9 @@ export async function handleSearch(
   headerPreferences: AdvancedSearchPreferences,
   setArticles: Function,
   setSummary: Function,
+  setIsLoading: Function,
   closePanel: Function,
 ) {
-
-  console.log("headerPreferences in handleSearch(): ", headerPreferences);
 
   const requestBody = {
     query: term,
@@ -109,6 +108,7 @@ export async function handleSearch(
     }));
 
     setArticles(articlesData); // updates the articles on the frontend
+    setIsLoading(false)
 
     if (articlesData.length > 4) {
       fetchSummariesForFirstFive(articlesData, setArticles);

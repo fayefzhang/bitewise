@@ -57,6 +57,7 @@ const SearchPage: React.FC = () => {
     }
   }, [selectedArticle]);
 
+  // programatic search by entering a specific url
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
 
@@ -68,8 +69,6 @@ const SearchPage: React.FC = () => {
     const bias = queryParams.get("bias")?.split(",") || [];
     const clustering = queryParams.get("clustering") === "true"; // Expecting "true" or "false"
 
-    console.log("DEBUG 1")
-
     const preferences = {
       from_date: fromDate || "",
       to_date: toDate || "",
@@ -78,15 +77,11 @@ const SearchPage: React.FC = () => {
       clustering: clustering,
     };
 
-    console.log("DEBUG 2")
-
     if (query) {
       console.log("searching query: ", query);
       if (preferences) {
-        console.log("DEBUG 3")
         handleSearchWithLoading(query, preferences);
       } else {
-        console.log("DEBUG 4")
         handleSearchWithLoading(query);
       }
     }
@@ -106,11 +101,11 @@ const SearchPage: React.FC = () => {
     try {
       // console.log("headerPreferences in handleSearchWithLoading():, ", headerPreferences);
       if (preferences) {
-        await handleSearch(term, preferences, setArticles, setSummary, () =>
+        await handleSearch(term, preferences, setArticles, setSummary, setIsLoading, () =>
           closePanel()
         );
       } else {
-        await handleSearch(term, headerPreferences, setArticles, setSummary, () =>
+        await handleSearch(term, headerPreferences, setArticles, setSummary, setIsLoading, () =>
           closePanel()
         );
       }
@@ -118,8 +113,6 @@ const SearchPage: React.FC = () => {
       console.error("Error during search:", error);
       // Provide feedback to the user
       alert("An error occurred while processing your request. Please try again later.");
-    } finally {
-      setIsLoading(false);
     }
   }
 
