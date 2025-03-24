@@ -98,6 +98,8 @@ const Header: React.FC<HeaderProps> = ({
             read_time: userPreferences.read_time || [],
             bias: userPreferences.bias || [],
             clustering: userPreferences.clustering || false,
+            sources: userPreferences.sources || [],
+            exclude_domains: userPreferences.exclude_domains || [],
           };
 
           // Update the search preferences state

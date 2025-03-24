@@ -141,8 +141,20 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         // 🔹 Call AI filtering before proceeding
         const filteredArticles = await fetchRelevantArticles(fetchedArticles, query);
 
+        let sourceFilteredArticles = filteredArticles;
+        const beforeCount = filteredArticles.length;
+
+        console.log("SEARCH PREFS", search_preferences);
+
+        if (search_preferences && (search_preferences.sources || search_preferences.exclude_domains)) {
+            console.log("Applying source preferences");
+            sourceFilteredArticles = applySourcePreferences(filteredArticles, search_preferences);
+            const afterCount = sourceFilteredArticles.length;
+            console.log(`Filtered articles from ${beforeCount} articles to ${afterCount} articles based on excluded sources.`);
+        } 
+
         // format and write articles to database
-        const filteredResults = filteredArticles
+        const filteredResults = sourceFilteredArticles
             .filter((entry: any) => entry.title !== "[Removed]")
             .map((entry: any) => ({
                 url: entry.url,  // Primary key
@@ -301,7 +313,38 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
     }
 });
 
-// @route POST /relevant-articles
+// Helper function
+// @description Applies user preferences to a list of articles
+// @returns list of articles sorted by user preferences
+function applySourcePreferences(
+    articles: any[],
+    search_preferences: {
+      sources?: string[];
+      exclude_domains?: string[];
+    }
+  ): any[] {
+    const preferredSources = search_preferences?.sources?.map(s => s.toLowerCase()) || [];
+    const excludedSources = search_preferences?.exclude_domains?.map(s => s.toLowerCase()) || [];
+  
+    // Filter out excluded sources
+    const filtered = articles.filter(article => {
+      const source = article.source?.name?.toLowerCase() || "";
+      return !excludedSources.includes(source);
+    });
+  
+    // Prioritize preferred sources
+    const preferred = filtered.filter(article =>
+      preferredSources.includes(article.source?.name?.toLowerCase())
+    );
+    console.log("Preferred sources:", preferred.map(a => a.source?.name));
+    const nonPreferred = filtered.filter(article =>
+      !preferredSources.includes(article.source?.name?.toLowerCase())
+    );
+  
+    return [...preferred, ...nonPreferred];
+  }
+
+// Helper function
 // @description Filters relevant articles based on a given search query
 // @returns list of relevant articles
 async function fetchRelevantArticles(articles: any[], query: string) {
