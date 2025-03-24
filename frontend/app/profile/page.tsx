@@ -23,7 +23,7 @@ const ProfilePage: React.FC = () => {
   const [userPreferences, setUserPreferences] = useState({
     topics: [] as string[],
     sources: [] as string[],
-    excluded_domains: [] as string[],
+    exclude_domains: [] as string[],
     read_time: [] as string[],
     bias: [] as string[],
     from_date: "",
@@ -52,7 +52,7 @@ const ProfilePage: React.FC = () => {
         setUserPreferences({
           topics: userPreferences.topics || [],
           sources: userPreferences.sources || [],
-          excluded_domains: userPreferences.excluded_domains || [],
+          exclude_domains: userPreferences.exclude_domains || [],
           read_time: userPreferences.read_time || [],
           bias: userPreferences.bias || [],
           from_date: userPreferences.from_date,
@@ -60,7 +60,7 @@ const ProfilePage: React.FC = () => {
           location: userPreferences.location || "Philadelphia",
         });
         setIncludedSources(userPreferences.sources || []);
-        setExcludedSources(userPreferences.excluded_domains || []);
+        setExcludedSources(userPreferences.exclude_domains || []);
       } catch (error) {
         console.error("Error fetching user preferences:", error);
       }
@@ -129,13 +129,13 @@ const ProfilePage: React.FC = () => {
     setUserPreferences({
       ...userPreferences,
       sources: updatedSources || includedSources,
-      excluded_domains: updatedExcludedDomains || excludedSources,
+      exclude_domains: updatedExcludedDomains || excludedSources,
     });
 
     updateUserProfile({
       ...userPreferences,
       sources: updatedSources || includedSources,
-      excluded_domains: updatedExcludedDomains || excludedSources,
+      exclude_domains: updatedExcludedDomains || excludedSources,
     });
   };
 
