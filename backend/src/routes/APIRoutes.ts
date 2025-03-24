@@ -144,7 +144,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         let sourceFilteredArticles = filteredArticles;
         const beforeCount = filteredArticles.length;
 
-        if (search_preferences && (search_preferences.preferred_sources || search_preferences.excluded_sources)) {
+        console.log("SEARCH PREFS", search_preferences);
+
+        if (search_preferences && (search_preferences.sources || search_preferences.exclude_domains)) {
             console.log("Applying source preferences");
             sourceFilteredArticles = applySourcePreferences(filteredArticles, search_preferences);
             const afterCount = sourceFilteredArticles.length;
@@ -317,12 +319,12 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
 function applySourcePreferences(
     articles: any[],
     search_preferences: {
-      preferred_sources?: string[];
-      excluded_sources?: string[];
+      sources?: string[];
+      exclude_domains?: string[];
     }
   ): any[] {
-    const preferredSources = search_preferences?.preferred_sources?.map(s => s.toLowerCase()) || [];
-    const excludedSources = search_preferences?.excluded_sources?.map(s => s.toLowerCase()) || [];
+    const preferredSources = search_preferences?.sources?.map(s => s.toLowerCase()) || [];
+    const excludedSources = search_preferences?.exclude_domains?.map(s => s.toLowerCase()) || [];
   
     // Filter out excluded sources
     const filtered = articles.filter(article => {
@@ -334,6 +336,7 @@ function applySourcePreferences(
     const preferred = filtered.filter(article =>
       preferredSources.includes(article.source?.name?.toLowerCase())
     );
+    console.log("Preferred sources:", preferred.map(a => a.source?.name));
     const nonPreferred = filtered.filter(article =>
       !preferredSources.includes(article.source?.name?.toLowerCase())
     );
