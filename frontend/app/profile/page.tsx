@@ -28,6 +28,7 @@ const ProfilePage: React.FC = () => {
   const [fromDate, setFromDate] = useState<string>("");
   const [clustering, setClustering] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("Philadelphia");
+  const [isLocationEdited, setIsLocationEdited] = useState<boolean>(false);
 
   // Fetch user preferences on page load
   useEffect(() => {
@@ -107,14 +108,54 @@ const ProfilePage: React.FC = () => {
   const handleOptionClick = (interest: string, isTopics: boolean) => {
     if (isTopics) {
       // topics
-      if (selectedTopics.includes(interest))
+      if (selectedTopics.includes(interest)) {
         setSelectedTopics(selectedTopics.filter((i) => i !== interest));
-      else setSelectedTopics([...selectedTopics, interest]);
+        updateUserProfile(
+          selectedTopics.filter((i) => i !== interest),
+          selectedSources,
+          readTime,
+          bias,
+          fromDate,
+          clustering,
+          location
+        );
+      } else {
+        setSelectedTopics([...selectedTopics, interest]);
+        updateUserProfile(
+          [...selectedTopics, interest],
+          selectedSources,
+          readTime,
+          bias,
+          fromDate,
+          clustering,
+          location
+        );
+      }
     } else {
       // sources
-      if (selectedSources.includes(interest))
+      if (selectedSources.includes(interest)) {
         setSelectedSources(selectedSources.filter((i) => i !== interest));
-      else setSelectedSources([...selectedSources, interest]);
+        updateUserProfile(
+          selectedTopics,
+          selectedSources.filter((i) => i !== interest),
+          readTime,
+          bias,
+          fromDate,
+          clustering,
+          location
+        );
+      } else {
+        setSelectedSources([...selectedSources, interest]);
+        updateUserProfile(
+          selectedTopics,
+          [...selectedSources, interest],
+          readTime,
+          bias,
+          fromDate,
+          clustering,
+          location
+        );
+      }
     }
   };
 
@@ -144,7 +185,7 @@ const ProfilePage: React.FC = () => {
       <div className="flex-grow flex flex-col items-start bg-white p-8">
         {/* Topics Section */}
         <div className="flex flex-col items-center mb-4">
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-2xl font-bold text-gray-600">
             Persistent User Preferences
           </h1>
         </div>
@@ -168,8 +209,26 @@ const ProfilePage: React.FC = () => {
                 onClick={() => {
                   if (readTime.includes(label)) {
                     setReadTime(readTime.filter((b) => b !== label));
+                    updateUserProfile(
+                      selectedTopics,
+                      selectedSources,
+                      readTime.filter((b) => b !== label),
+                      bias,
+                      fromDate,
+                      clustering,
+                      location
+                    );
                   } else {
                     setReadTime([...readTime, label]);
+                    updateUserProfile(
+                      selectedTopics,
+                      selectedSources,
+                      [...readTime, label],
+                      bias,
+                      fromDate,
+                      clustering,
+                      location
+                    );
                   }
                 }}
               >
@@ -196,8 +255,26 @@ const ProfilePage: React.FC = () => {
                     onClick={() => {
                       if (bias.includes(label)) {
                         setBias(bias.filter((b) => b !== label));
+                        updateUserProfile(
+                          selectedTopics,
+                          selectedSources,
+                          readTime,
+                          bias.filter((b) => b !== label),
+                          fromDate,
+                          clustering,
+                          location
+                        );
                       } else {
                         setBias([...bias, label]);
+                        updateUserProfile(
+                          selectedTopics,
+                          selectedSources,
+                          readTime,
+                          [...bias, label],
+                          fromDate,
+                          clustering,
+                          location
+                        );
                       }
                     }}
                   >
@@ -224,36 +301,6 @@ const ProfilePage: React.FC = () => {
               Bias is determined by the source's rating in our bias database.
             </div>
           </div>
-        </div>
-
-        {/* Date Published From */}
-        <div className="flex flex-row items-center gap-4 mb-2">
-          <label>Date Published From</label>
-          <input
-            type="date"
-            value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)}
-            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
-          />
-        </div>
-
-        <div className="flex flex-col items-center mb-6">
-          <button
-            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
-            onClick={() =>
-              updateUserProfile(
-                selectedTopics,
-                selectedSources,
-                readTime,
-                bias,
-                fromDate,
-                clustering,
-                location
-              )
-            }
-          >
-            Save Preferences
-          </button>
         </div>
 
         <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
@@ -303,7 +350,7 @@ const ProfilePage: React.FC = () => {
             Add
           </button>
         </div>
-        <div className="w-full flex flex-wrap gap-4 mb-2">
+        <div className="w-full flex flex-wrap gap-4 mb-4">
           {combinedInterests.map((interest) => (
             <button
               key={interest}
@@ -318,43 +365,28 @@ const ProfilePage: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="flex flex-col items-center mb-6">
-          <button
-            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
-            onClick={() =>
-              updateUserProfile(
-                selectedTopics,
-                selectedSources,
-                readTime,
-                bias,
-                fromDate,
-                clustering,
-                location
-              )
-            }
-          >
-            Save Preferences
-          </button>
-        </div>
 
         {/* Location */}
         <div className="flex flex-col items-center mb-4">
           <h1 className="text-xl font-bold">Local News Location</h1>
         </div>
-        <div className="flex flex-row items-center gap-4 mb-2">
-          <label>Location</label>
+        <div className="flex flex-row items-center gap-4 mb-4">
+          <label>
+            Location {isLocationEdited && <span className="text-red-500">*</span>}
+          </label>
           <input
             type="text"
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={(e) => {
+              setLocation(e.target.value);
+              setIsLocationEdited(true); // Mark as edited
+            }}
             className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
             placeholder="Enter your location"
           />
-        </div>
-        <div className="flex flex-col items-center mb-6">
           <button
-            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
-            onClick={() =>
+            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
+            onClick={() => {
               updateUserProfile(
                 selectedTopics,
                 selectedSources,
@@ -363,10 +395,11 @@ const ProfilePage: React.FC = () => {
                 fromDate,
                 clustering,
                 location
-              )
-            }
+              );
+              setIsLocationEdited(false); // Reset the edited state
+            }}
           >
-            Save Preferences
+            Set
           </button>
         </div>
 
