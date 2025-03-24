@@ -98,13 +98,13 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="flex justify-between mt-1">
             {biasRatingLabels[parseInt(selectedArticle.biasRating, 10)] ? (
                 <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
-                  <div className="flex items-center space-x-1 text-xs">
+                  <div className="flex items-center space-x-1">
                   <SpeedIcon fontSize="small" />
                   <p>{biasRatingLabels[parseInt(selectedArticle.biasRating, 10)]}</p>
                   </div>
                 </Tooltip>
                 ) : (
-                <div className="flex items-center space-x-1 text-xs"></div>
+                <div className="flex items-center space-x-1"></div>
                 )
               }
               {difficultyLabels[parseInt(selectedArticle.difficulty, 10)] &&
