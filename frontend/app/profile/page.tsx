@@ -20,16 +20,20 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [userPreferences, setUserPreferences] = useState({
+    topics: [] as string[],
+    sources: [] as string[],
+    excluded_domains: [] as string[],
+    read_time: [] as string[],
+    bias: [] as string[],
+    from_date: "",
+    clustering: false,
+    location: "Philadelphia",
+  });
   const [customTopic, setCustomTopic] = useState<string>("");
+  const [isLocationEdited, setIsLocationEdited] = useState<boolean>(false);
   const [includedSources, setIncludedSources] = useState<string[]>([]);
   const [excludedSources, setExcludedSources] = useState<string[]>([]);
-  const [readTime, setReadTime] = useState<string[]>([]);
-  const [bias, setBias] = useState<string[]>([]);
-  const [fromDate, setFromDate] = useState<string>("");
-  const [clustering, setClustering] = useState<boolean>(false);
-  const [location, setLocation] = useState<string>("Philadelphia");
-  const [isLocationEdited, setIsLocationEdited] = useState<boolean>(false);
 
   // Fetch user preferences on page load
   useEffect(() => {
@@ -45,13 +49,18 @@ const ProfilePage: React.FC = () => {
         const userPreferences = await userPrefResponse.json();
 
         // Set the initial state based on fetched preferences
-        setSelectedTopics(userPreferences.topics || []);
+        setUserPreferences({
+          topics: userPreferences.topics || [],
+          sources: userPreferences.sources || [],
+          excluded_domains: userPreferences.excluded_domains || [],
+          read_time: userPreferences.read_time || [],
+          bias: userPreferences.bias || [],
+          from_date: userPreferences.from_date,
+          clustering: userPreferences.clustering,
+          location: userPreferences.location || "Philadelphia",
+        });
         setIncludedSources(userPreferences.sources || []);
-        setReadTime(userPreferences.read_time || []);
-        setBias(userPreferences.bias || []);
-        setFromDate(userPreferences.from_date);
-        setClustering(userPreferences.clustering);
-        setLocation(userPreferences.location || "Philadelphia");
+        setExcludedSources(userPreferences.excluded_domains || []);
       } catch (error) {
         console.error("Error fetching user preferences:", error);
       }
@@ -60,15 +69,7 @@ const ProfilePage: React.FC = () => {
     fetchUserPreferences();
   }, []);
 
-  const updateUserProfile = async (
-    updatedTopics: string[],
-    updatedSources: string[],
-    updatedReadTime: string[],
-    updatedBias: string[],
-    updatedFromDate: string,
-    updatedClustering: boolean,
-    updatedLocation: string
-  ) => {
+  const updateUserProfile = async (updatedPreferences: typeof userPreferences) => {
     try {
       const userEmail = localStorage.getItem("userEmail");
       const response = await fetch(`${BASE_URL}/api/user/update`, {
@@ -77,15 +78,7 @@ const ProfilePage: React.FC = () => {
         body: JSON.stringify({
           user: {
             email: userEmail, // make sure to pass the current user's email
-            preferences: {
-              topics: updatedTopics,
-              sources: updatedSources,
-              read_time: updatedReadTime,
-              bias: updatedBias,
-              from_date: updatedFromDate,
-              clustering: updatedClustering,
-              location: updatedLocation,
-            },
+            preferences: updatedPreferences,
           },
         }),
       });
@@ -94,8 +87,8 @@ const ProfilePage: React.FC = () => {
         throw new Error("Failed to update user preferences");
       }
 
-      const updatedPreferences = await response.json();
-      console.log("Updated preferences:", updatedPreferences);
+      const updatedPreferencesResponse = await response.json();
+      console.log("Updated preferences:", updatedPreferencesResponse);
     } catch (error) {
       console.error("Error updating preferences:", error);
     }
@@ -109,50 +102,67 @@ const ProfilePage: React.FC = () => {
   const handleOptionClick = (interest: string, isTopics: boolean) => {
     if (isTopics) {
       // topics
-      if (selectedTopics.includes(interest)) {
-        setSelectedTopics(selectedTopics.filter((i) => i !== interest));
-        updateUserProfile(
-          selectedTopics.filter((i) => i !== interest),
-          includedSources,
-          readTime,
-          bias,
-          fromDate,
-          clustering,
-          location
-        );
-      } else {
-        setSelectedTopics([...selectedTopics, interest]);
-        updateUserProfile(
-          [...selectedTopics, interest],
-          includedSources,
-          readTime,
-          bias,
-          fromDate,
-          clustering,
-          location
-        );
-      }
+      const updatedTopics = userPreferences.topics.includes(interest)
+        ? userPreferences.topics.filter((i) => i !== interest)
+        : [...userPreferences.topics, interest];
+      setUserPreferences({ ...userPreferences, topics: updatedTopics });
+      updateUserProfile({ ...userPreferences, topics: updatedTopics });
     }
   };
 
   const handleSourceToggle = (source: string) => {
+    let updatedSources;
+    let updatedExcludedDomains;
+
     if (includedSources.includes(source)) {
-      setIncludedSources(includedSources.filter((s) => s !== source));
-      setExcludedSources([...excludedSources, source]);
+      updatedSources = includedSources.filter((s) => s !== source);
+      updatedExcludedDomains = [...excludedSources, source];
     } else if (excludedSources.includes(source)) {
-      setExcludedSources(excludedSources.filter((s) => s !== source));
+      updatedExcludedDomains = excludedSources.filter((s) => s !== source);
     } else {
-      setIncludedSources([...includedSources, source]);
+      updatedSources = [...includedSources, source];
     }
-    updateUserProfile(
-      selectedTopics,
-      [...includedSources, source],
-      readTime,
-      bias,
-      fromDate,
-      clustering,
-      location
-    );
+
+    setIncludedSources(updatedSources || includedSources);
+    setExcludedSources(updatedExcludedDomains || excludedSources);
+
+    setUserPreferences({
+      ...userPreferences,
+      sources: updatedSources || includedSources,
+      excluded_domains: updatedExcludedDomains || excludedSources,
+    });
+
+    updateUserProfile({
+      ...userPreferences,
+      sources: updatedSources || includedSources,
+      excluded_domains: updatedExcludedDomains || excludedSources,
+    });
+  };
+
+  const handleReadTimeToggle = (label: string) => {
+    const updatedReadTime = userPreferences.read_time.includes(label)
+      ? userPreferences.read_time.filter((b) => b !== label)
+      : [...userPreferences.read_time, label];
+    setUserPreferences({ ...userPreferences, read_time: updatedReadTime });
+    updateUserProfile({ ...userPreferences, read_time: updatedReadTime });
+  };
+
+  const handleBiasToggle = (label: string) => {
+    const updatedBias = userPreferences.bias.includes(label)
+      ? userPreferences.bias.filter((b) => b !== label)
+      : [...userPreferences.bias, label];
+    setUserPreferences({ ...userPreferences, bias: updatedBias });
+    updateUserProfile({ ...userPreferences, bias: updatedBias });
+  };
+
+  const handleLocationChange = (newLocation: string) => {
+    setUserPreferences({ ...userPreferences, location: newLocation });
+    setIsLocationEdited(true); // Mark as edited
+  };
+
+  const handleLocationSet = () => {
+    updateUserProfile(userPreferences);
+    setIsLocationEdited(false); // Reset the edited state
   };
 
   // handle searching for topics
@@ -163,10 +173,7 @@ const ProfilePage: React.FC = () => {
   const filteredInterests = interests.filter((interest) =>
     interest.toLowerCase().includes(searchInterestsQuery.toLowerCase())
   );
-  const combinedInterests = Array.from(new Set([...filteredInterests, ...selectedTopics]));
-
-  // TODO: implement searching for sources
-  // (not sure if we even need this if we only have like 5-7 options)
+  const combinedInterests = Array.from(new Set([...filteredInterests, ...userPreferences.topics]));
 
   useEffect(() => {
     // if user is not signed in, push back to dashboard
@@ -200,33 +207,9 @@ const ProfilePage: React.FC = () => {
               <button
                 key={index}
                 className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium ${
-                  readTime.includes(label) ? "bg-darkBlue text-white" : "bg-white"
+                  userPreferences.read_time.includes(label) ? "bg-darkBlue text-white" : "bg-white"
                 }`}
-                onClick={() => {
-                  if (readTime.includes(label)) {
-                    setReadTime(readTime.filter((b) => b !== label));
-                    updateUserProfile(
-                      selectedTopics,
-                      includedSources,
-                      readTime.filter((b) => b !== label),
-                      bias,
-                      fromDate,
-                      clustering,
-                      location
-                    );
-                  } else {
-                    setReadTime([...readTime, label]);
-                    updateUserProfile(
-                      selectedTopics,
-                      includedSources,
-                      [...readTime, label],
-                      bias,
-                      fromDate,
-                      clustering,
-                      location
-                    );
-                  }
-                }}
+                onClick={() => handleReadTimeToggle(label)}
               >
                 {label}
               </button>
@@ -244,35 +227,11 @@ const ProfilePage: React.FC = () => {
                   <button
                     key={index}
                     className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium ${
-                      bias.includes(label)
+                      userPreferences.bias.includes(label)
                         ? "bg-darkBlue text-white"
                         : "bg-white"
                     }`}
-                    onClick={() => {
-                      if (bias.includes(label)) {
-                        setBias(bias.filter((b) => b !== label));
-                        updateUserProfile(
-                          selectedTopics,
-                          includedSources,
-                          readTime,
-                          bias.filter((b) => b !== label),
-                          fromDate,
-                          clustering,
-                          location
-                        );
-                      } else {
-                        setBias([...bias, label]);
-                        updateUserProfile(
-                          selectedTopics,
-                          includedSources,
-                          readTime,
-                          [...bias, label],
-                          fromDate,
-                          clustering,
-                          location
-                        );
-                      }
-                    }}
+                    onClick={() => handleBiasToggle(label)}
                   >
                     {label}
                   </button>
@@ -328,18 +287,11 @@ const ProfilePage: React.FC = () => {
           <button
             className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-4 rounded-full focus:outline-none"
             onClick={() => {
-              if (customTopic && !selectedTopics.includes(customTopic)) {
-                setSelectedTopics([...selectedTopics, customTopic]);
+              if (customTopic && !userPreferences.topics.includes(customTopic)) {
+                const updatedTopics = [...userPreferences.topics, customTopic];
+                setUserPreferences({ ...userPreferences, topics: updatedTopics });
                 setCustomTopic("");
-                updateUserProfile(
-                  [...selectedTopics, customTopic],
-                  includedSources,
-                  readTime,
-                  bias,
-                  fromDate,
-                  clustering,
-                  location
-                );
+                updateUserProfile({ ...userPreferences, topics: updatedTopics });
               }
             }}
           >
@@ -351,7 +303,7 @@ const ProfilePage: React.FC = () => {
             <button
               key={interest}
               className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
-                selectedTopics.includes(interest)
+                userPreferences.topics.includes(interest)
                   ? (interests.includes(interest) ? "bg-darkBlue text-white" : "bg-darkBlue text-blue-100")
                   : "bg-white"
               }`}
@@ -372,28 +324,14 @@ const ProfilePage: React.FC = () => {
           </label>
           <input
             type="text"
-            value={location}
-            onChange={(e) => {
-              setLocation(e.target.value);
-              setIsLocationEdited(true); // Mark as edited
-            }}
+            value={userPreferences.location}
+            onChange={(e) => handleLocationChange(e.target.value)}
             className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
             placeholder="Enter your location"
           />
           <button
             className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
-            onClick={() => {
-              updateUserProfile(
-                selectedTopics,
-                includedSources,
-                readTime,
-                bias,
-                fromDate,
-                clustering,
-                location
-              );
-              setIsLocationEdited(false); // Reset the edited state
-            }}
+            onClick={handleLocationSet}
           >
             Set
           </button>
@@ -423,17 +361,7 @@ const ProfilePage: React.FC = () => {
         <div className="flex flex-col items-center mb-6">
           <button
             className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none mt-2"
-            onClick={() =>
-              updateUserProfile(
-                selectedTopics,
-                includedSources,
-                readTime,
-                bias,
-                fromDate,
-                clustering,
-                location
-              )
-            }
+            onClick={() => updateUserProfile(userPreferences)}
           >
             Save Preferences
           </button>
