@@ -20,15 +20,34 @@ export function toTitleCase(input: string): string {
     "nor",
   ]);
 
+  const majorWords = new Set([
+    "us",
+    "uk",
+    "eu",
+    "usa",
+    "eu",
+    "nato",
+    "un",
+    "nasa",
+    "fbi",
+    "cia",
+    "nfl",
+    "nba",
+    "mlb",
+    "nhl",
+    "ncaa",
+  ]);
+
   return input
     .split(" ")
-    .map((word, index) =>
-      index === 0 ||
-      index === input.split(" ").length - 1 ||
-      !minorWords.has(word.toLowerCase())
-        ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        : word.toLowerCase()
-    )
+    .map((word, index) => {
+      const lowerWord = word.toLowerCase();
+      if (index === 0 || index === input.split(" ").length - 1 || !minorWords.has(lowerWord)) {
+        return majorWords.has(lowerWord) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      } else {
+        return lowerWord;
+      }
+    })
     .join(" ");
 }
 
