@@ -22,7 +22,8 @@ const ProfilePage: React.FC = () => {
 
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [customTopic, setCustomTopic] = useState<string>("");
-  const [selectedSources, setSelectedSources] = useState<string[]>([]);
+  const [includedSources, setIncludedSources] = useState<string[]>([]);
+  const [excludedSources, setExcludedSources] = useState<string[]>([]);
   const [readTime, setReadTime] = useState<string[]>([]);
   const [bias, setBias] = useState<string[]>([]);
   const [fromDate, setFromDate] = useState<string>("");
@@ -45,7 +46,7 @@ const ProfilePage: React.FC = () => {
 
         // Set the initial state based on fetched preferences
         setSelectedTopics(userPreferences.topics || []);
-        setSelectedSources(userPreferences.sources || []);
+        setIncludedSources(userPreferences.sources || []);
         setReadTime(userPreferences.read_time || []);
         setBias(userPreferences.bias || []);
         setFromDate(userPreferences.from_date);
@@ -112,7 +113,7 @@ const ProfilePage: React.FC = () => {
         setSelectedTopics(selectedTopics.filter((i) => i !== interest));
         updateUserProfile(
           selectedTopics.filter((i) => i !== interest),
-          selectedSources,
+          includedSources,
           readTime,
           bias,
           fromDate,
@@ -123,32 +124,7 @@ const ProfilePage: React.FC = () => {
         setSelectedTopics([...selectedTopics, interest]);
         updateUserProfile(
           [...selectedTopics, interest],
-          selectedSources,
-          readTime,
-          bias,
-          fromDate,
-          clustering,
-          location
-        );
-      }
-    } else {
-      // sources
-      if (selectedSources.includes(interest)) {
-        setSelectedSources(selectedSources.filter((i) => i !== interest));
-        updateUserProfile(
-          selectedTopics,
-          selectedSources.filter((i) => i !== interest),
-          readTime,
-          bias,
-          fromDate,
-          clustering,
-          location
-        );
-      } else {
-        setSelectedSources([...selectedSources, interest]);
-        updateUserProfile(
-          selectedTopics,
-          [...selectedSources, interest],
+          includedSources,
           readTime,
           bias,
           fromDate,
@@ -157,6 +133,26 @@ const ProfilePage: React.FC = () => {
         );
       }
     }
+  };
+
+  const handleSourceToggle = (source: string) => {
+    if (includedSources.includes(source)) {
+      setIncludedSources(includedSources.filter((s) => s !== source));
+      setExcludedSources([...excludedSources, source]);
+    } else if (excludedSources.includes(source)) {
+      setExcludedSources(excludedSources.filter((s) => s !== source));
+    } else {
+      setIncludedSources([...includedSources, source]);
+    }
+    updateUserProfile(
+      selectedTopics,
+      [...includedSources, source],
+      readTime,
+      bias,
+      fromDate,
+      clustering,
+      location
+    );
   };
 
   // handle searching for topics
@@ -211,7 +207,7 @@ const ProfilePage: React.FC = () => {
                     setReadTime(readTime.filter((b) => b !== label));
                     updateUserProfile(
                       selectedTopics,
-                      selectedSources,
+                      includedSources,
                       readTime.filter((b) => b !== label),
                       bias,
                       fromDate,
@@ -222,7 +218,7 @@ const ProfilePage: React.FC = () => {
                     setReadTime([...readTime, label]);
                     updateUserProfile(
                       selectedTopics,
-                      selectedSources,
+                      includedSources,
                       [...readTime, label],
                       bias,
                       fromDate,
@@ -257,7 +253,7 @@ const ProfilePage: React.FC = () => {
                         setBias(bias.filter((b) => b !== label));
                         updateUserProfile(
                           selectedTopics,
-                          selectedSources,
+                          includedSources,
                           readTime,
                           bias.filter((b) => b !== label),
                           fromDate,
@@ -268,7 +264,7 @@ const ProfilePage: React.FC = () => {
                         setBias([...bias, label]);
                         updateUserProfile(
                           selectedTopics,
-                          selectedSources,
+                          includedSources,
                           readTime,
                           [...bias, label],
                           fromDate,
@@ -337,7 +333,7 @@ const ProfilePage: React.FC = () => {
                 setCustomTopic("");
                 updateUserProfile(
                   [...selectedTopics, customTopic],
-                  selectedSources,
+                  includedSources,
                   readTime,
                   bias,
                   fromDate,
@@ -356,7 +352,7 @@ const ProfilePage: React.FC = () => {
               key={interest}
               className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
                 selectedTopics.includes(interest)
-                  ? (interests.includes(interest) ? "bg-darkBlue text-white" : "bg-lightBlue text-darkBlue")
+                  ? (interests.includes(interest) ? "bg-darkBlue text-white" : "bg-darkBlue text-blue-100")
                   : "bg-white"
               }`}
               onClick={() => handleOptionClick(interest, true)}
@@ -389,7 +385,7 @@ const ProfilePage: React.FC = () => {
             onClick={() => {
               updateUserProfile(
                 selectedTopics,
-                selectedSources,
+                includedSources,
                 readTime,
                 bias,
                 fromDate,
@@ -411,12 +407,14 @@ const ProfilePage: React.FC = () => {
           {sources.map((source) => (
             <button
               key={source}
-              className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
-                selectedSources.includes(source)
+              className={`border-2 rounded-full px-4 py-2 font-medium focus:outline-none ${
+                includedSources.includes(source)
                   ? "bg-darkBlue text-white"
-                  : "bg-white"
+                  : excludedSources.includes(source)
+                  ? "bg-red-400 text-white"
+                  : "bg-white text-darkBlue"
               }`}
-              onClick={() => handleOptionClick(source, false)}
+              onClick={() => handleSourceToggle(source)}
             >
               {source}
             </button>
@@ -428,7 +426,7 @@ const ProfilePage: React.FC = () => {
             onClick={() =>
               updateUserProfile(
                 selectedTopics,
-                selectedSources,
+                includedSources,
                 readTime,
                 bias,
                 fromDate,
