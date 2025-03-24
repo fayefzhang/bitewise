@@ -98,13 +98,13 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="flex justify-between mt-1">
             {biasRatingLabels[parseInt(selectedArticle.biasRating, 10)] ? (
                 <Tooltip title="Political Bias: The article and source's political leaning (Left, Left-Center, Center, Right-Center, or Right)" arrow>
-                  <div className="flex items-center space-x-1 text-xs">
+                  <div className="flex items-center space-x-1">
                   <SpeedIcon fontSize="small" />
                   <p>{biasRatingLabels[parseInt(selectedArticle.biasRating, 10)]}</p>
                   </div>
                 </Tooltip>
                 ) : (
-                <div className="flex items-center space-x-1 text-xs"></div>
+                <div className="flex items-center space-x-1"></div>
                 )
               }
               {difficultyLabels[parseInt(selectedArticle.difficulty, 10)] &&
@@ -249,21 +249,29 @@ const Sidebar: React.FC<SidebarProps> = ({
           <ul className="mt-6 list-disc space-y-2 mb-8">
           {selectedArticle?.summaries && selectedArticle.summaries.length > 0 ? (
             typeof selectedArticle.summaries[0] === "string" ? (
-              selectedArticle.summaries[0]
-                .split("- ")
-                .map((part, index) => (
-                  <p key={index} className="text-sm">
-                    {part.trim()}
-                  </p>
-                ))
+              selectedArticle.summaries[0] === '{"error":"Internal server error","details":"Request failed with status code 500"}' ? (
+                <p className="text-red-500 text-sm">Unable to generate summary.</p>
+              ) : (
+                selectedArticle.summaries[0]
+                  .split("- ")
+                  .map((part, index) => (
+                    <p key={index} className="text-sm">
+                      {part.trim().replace(/^-+/, "").trim()}
+                    </p>
+                  ))
+              )
             ) : (
-              JSON.stringify(selectedArticle.summaries[0])
-                .split(" - ")
-                .map((part, index) => (
-                  <p key={index} className="text-sm">
-                    {part.trim().replace(/^[^\w]+/, "")} 
-                  </p>
-                ))
+              JSON.stringify(selectedArticle.summaries[0]) === '{"error":"Internal server error","details":"Request failed with status code 500"}' ? (
+                <p className="text-red-500 text-sm">Unable to generate summary.</p>
+              ) : (
+                JSON.stringify(selectedArticle.summaries[0])
+                  .split("- ")
+                  .map((part, index) => (
+                    <p key={index} className="text-sm">
+                      {part.trim().replace(/^-+/, "").trim()}
+                    </p>
+                  ))
+              )
             )
           ) : (
             <p className="text-gray-500 text-center mt-16 flex items-center justify-center">

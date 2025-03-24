@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const location = "Philadelphia";
+const BASE_URL = "http://localhost:3000";
 
 interface ArticleEntryProps {
   title: string;
@@ -11,7 +11,6 @@ interface ArticleEntryProps {
 }
 
 const fetchLocalNews = async (location: string) => {
-  const BASE_URL = "http://localhost:3000";
 
   try {
     const response = await fetch(`${BASE_URL}/api/local-news`, {
@@ -39,6 +38,30 @@ const LocalNews = () => {
 
   const [localNews, setLocalNews] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [location, setLocation] = useState<string>("Philadelphia");
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+
+    const getUserPreferences = async () => {
+      try {
+        if (userEmail) {
+          const userPrefResponse = await fetch(
+            `${BASE_URL}/api/user/preferences?email=${userEmail}`
+          );
+          if (!userPrefResponse.ok) {
+            throw new Error("Failed to get existing user preferences");
+          }
+          const userPreferences = await userPrefResponse.json();
+          setLocation(userPreferences.location);
+        }
+      } catch (error) {
+        console.error("Error retrieving user preferences", error);
+      }
+    };
+
+    getUserPreferences();
+  }, []); // Runs only once on mount
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -49,7 +72,7 @@ const LocalNews = () => {
     };
 
     fetchNews();
-  }, []);
+  }, [location]);
 
   return (
     <aside className="bg-white shadow p-4 rounded-lg max-h-[40vh]">

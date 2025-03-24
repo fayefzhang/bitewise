@@ -14,7 +14,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SpeedIcon from '@mui/icons-material/Speed';
 import Tooltip from '@mui/material/Tooltip';
 
-import { Article } from "../common/interfaces";
+import { Article, AdvancedSearchPreferences } from "../common/interfaces";
 import Sidebar from "../search/sidebar";
 import {
   defaultAIPreferences,
@@ -313,7 +313,7 @@ const DashboardPage: React.FC = () => {
             {/* Audio Summary */}
             {dailyNews && dailyNews.summary ? (
               dailyPodcast ? (
-                <audio controls className="mt-2 w-full">
+                <audio controls className="mb-4 w-full">
                   <source src={dailyPodcast} type="audio/mpeg" />
                 </audio>
               ) : (
