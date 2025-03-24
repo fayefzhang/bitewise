@@ -1,6 +1,6 @@
 export interface IPreference {
     sources?: string[],
-    domains?: string[],
+    domains?: string[], // TODO: remove
     exclude_domains?: string[],
     from_date?: string,
     read_time?: string[],

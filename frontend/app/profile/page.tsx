@@ -30,6 +30,7 @@ const ProfilePage: React.FC = () => {
     clustering: false,
     location: "Philadelphia",
   });
+  const [name, setName] = useState<string>("");
   const [customTopic, setCustomTopic] = useState<string>("");
   const [isLocationEdited, setIsLocationEdited] = useState<boolean>(false);
   const [includedSources, setIncludedSources] = useState<string[]>([]);
@@ -65,8 +66,23 @@ const ProfilePage: React.FC = () => {
         console.error("Error fetching user preferences:", error);
       }
     };
-
     fetchUserPreferences();
+
+    const fetchUserName = async () => {
+      try {
+        const userNameResponse = await fetch(
+          `${BASE_URL}/api/user/name?email=${userEmail}`
+        );
+        if (!userNameResponse) {
+          throw new Error("Failed to get existing user name");
+        }
+        const userName = await userNameResponse.json();
+        setName(userName);
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+      }
+    };
+    fetchUserName();
   }, []);
 
   const updateUserProfile = async (updatedPreferences: typeof userPreferences) => {
@@ -360,7 +376,11 @@ const ProfilePage: React.FC = () => {
         </div>
 
         <div className="border-b-2 border-veryLightBlue mb-4 w-full"/>
-
+        <div className="flex flex-row justify-end mb-1">
+          <h1 className="text-s font-bold text-gray-600">
+            Current user: {localStorage.getItem("userEmail")}
+          </h1>
+        </div>
         <div className="flex flex-row justify-end mb-6">
           <button
             className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"

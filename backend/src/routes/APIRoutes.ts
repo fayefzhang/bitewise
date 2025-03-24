@@ -872,6 +872,7 @@ router.post('/user/update', async (req: Request, res: Response): Promise<void> =
             { email: user.email },
             { 
                 $set: { 
+                    name: user.name,
                     preferences: user.preferences,
                     password: user.password
                 }
@@ -911,6 +912,31 @@ router.get('/user/preferences', async (req: Request, res: Response): Promise<voi
         res.json(user.preferences);
     } catch (error: any) {
         console.error("Error retrieving user preferences:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// @route GET user/name
+// @description Gets the user's name by email.
+router.get('/user/name', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userEmail = req.query.email as string; // Get the email from query parameters
+        if (!userEmail) {
+            res.status(400).json({ message: 'No user email provided' });
+            return;
+        }
+
+        // Find the user by email in the database
+        const user = await UserModel.findOne({ email: userEmail });
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+
+        // Return the user's name
+        res.json(user.name);
+    } catch (error: any) {
+        console.error("Error retrieving user name:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });

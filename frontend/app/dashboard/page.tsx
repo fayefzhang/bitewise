@@ -149,7 +149,27 @@ const DashboardPage: React.FC = () => {
   );
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [name, setName] = useState<string>("");
 
+  useEffect(() => {
+    const fetchUserName = async () => {
+      const userEmail = localStorage.getItem("userEmail");
+      if (!userEmail) return;
+  
+      try {
+        const response = await fetch(`${BASE_URL}/api/user/name?email=${userEmail}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user name");
+        }
+        const data = await response.json();
+        setName(data);
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+      }
+    };
+  
+    fetchUserName();
+  }, []);
 
   const fetchDailyPodcast = async (articles: string[]) => {
     console.log("generating daily podcast...");
@@ -296,7 +316,7 @@ const DashboardPage: React.FC = () => {
                   : new Date().getHours() < 18
                   ? "afternoon"
                   : "evening"}
-                !
+                , {name}!
               </h1>
               <div className="flex justify-end">
                 <DatePicker

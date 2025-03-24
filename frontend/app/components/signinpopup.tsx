@@ -16,6 +16,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 }) => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [animationClass, setAnimationClass] = useState("hidden");
+  const [name, setName] = useState<string>(""); // Add state for name
   const router = useRouter();
 
   useEffect(() => {
@@ -30,10 +31,9 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
     e.preventDefault();
 
     const email = (document.getElementById("email") as HTMLInputElement).value;
-    const password = (document.getElementById("password") as HTMLInputElement)
-      .value;
+    const password = (document.getElementById("password") as HTMLInputElement).value;
 
-    if (!email || !password) {
+    if (!email || !password || (!isSignIn && !name)) {
       alert("Please fill in all fields");
       return;
     }
@@ -57,6 +57,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
 
       // Store user email
       localStorage.setItem("userEmail", email);
+      localStorage.setItem("userName", data.name);
       router.push("/profile");
     } else {
       // handle sign up
@@ -64,7 +65,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
         const response = await fetch(`${BASE_URL}/api/user/update`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user: { email, password, preferences: {} } }), // Empty preferences for now
+          body: JSON.stringify({ user: { name, email, password, preferences: {} } }),
           cache: "no-store",
         });
 
@@ -103,6 +104,19 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
             {isSignIn ? "Sign In" : "Sign Up"}
           </h2>
           <form onSubmit={handleFormSubmit} className="space-y-4">
+            {!isSignIn && (
+              <div>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-darkBlue"
+                  required
+                />
+              </div>
+            )}
             <div>
               <label htmlFor="email">Email</label>
               <input
