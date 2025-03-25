@@ -51,16 +51,3 @@ def parse_query(query: str) -> str:
     tokens = [lemmatizer.lemmatize(token) for token in tokens]
 
     return " ".join(tokens)
-
-# testing
-if __name__ == '__main__':
-
-    # result: happening israel hamas war
-
-    print(parse_query("what is happening in the israel hamas war?"))
-
-    # result: trump election
-    print(parse_query("what will trump do after the election?"))
-
-    # result: biggest election issue US
-    print(parse_query("what are the biggest election issues in the US?"))

@@ -95,7 +95,7 @@ def filter_topics(article_data, topic_model):
         # eliminate topics where most articles are from same source
         articles_in_topic = article_data[article_data["topic"] == topic]
         source_counts = articles_in_topic["source"].value_counts(normalize=True)
-        if source_counts.max() >= 0.5:
+        if source_counts.max() >= 0.6:
             print(f"Removed topic: {topic} due to same source bias")
             continue
 

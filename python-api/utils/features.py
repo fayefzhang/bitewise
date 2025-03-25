@@ -1,4 +1,3 @@
-import re
 import pandas as pd
 import os
 
@@ -18,6 +17,7 @@ source_mapping = {
     "https://fortune.com/": "Fortune",
     "https://mashable.com/": "Mashable",
     "https://nationalgeographic.com/": "National Geographic",
+    "https://news.nationalgeographic.com/" : "National Geographic",
     "https://www.vice.com/": "Vice",
     "https://nymag.com/": "New York Magazine",
     "https://techcrunch.com/": "TechCrunch",

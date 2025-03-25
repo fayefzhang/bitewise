@@ -30,9 +30,6 @@ def fetch_search_results(query=None, from_date=None, to_date=None, language=None
         "sortBy": sort_by,
         "pageSize": page_size,
         "page": page,
-        # WILL DO THIS USING FILTERING 
-        "domains": domains,
-        # "excludeDomains": exclude_domains,
     }
     return make_request(url, params)
 
@@ -103,42 +100,14 @@ def estimate_reading_time(char_length):
     else:
         return 2
 
-def aggregate_eliminate_dups(responses, user_pref=None):
+def aggregate_eliminate_dups(responses):
     """
     Aggregate results from multiple API responses, separating articles in preferred user domains
     """
     seen_urls = set()
     general_articles = []
-    preferred_articles = []
-    id = 0
 
-    # Add articles from user preferences (news dashboard and search)
-    if user_pref and "articles" in user_pref:
-        for article in user_pref["articles"]:
-            article_url = article.get("url")
-            if article_url and article_url not in seen_urls:
-                if (article.get("name") == "[Removed]"):
-                    continue
-
-                # unique ID
-                article["id"] = id
-                id += 1
-
-                article["userPref"] = True
-
-                # bias rating
-                source_name = article.get("source", {}).get("name", None)
-                article["biasRating"] = bias_translation[bias_lookup.get(source_name, "Unknown")]
-
-                # add char length and read time
-                chars = char_length(article.get("content", None))
-                article["charLength"] = chars
-                article["readTime"] = estimate_reading_time(chars)
-
-                seen_urls.add(article_url)
-                preferred_articles.append(article)
-
-    # Add articles from general search results
+    # Add articles from search results
     for response in responses:
         if response and "articles" in response:
             for article in response["articles"]:
@@ -153,12 +122,7 @@ def aggregate_eliminate_dups(responses, user_pref=None):
 
                 # Mark URL as seen and add the article to the list
                 seen_urls.add(article_url)
-                article["userPref"] = False
                 
-                # unique ID
-                article["id"] = id
-                id += 1
-
                 # bias rating
                 source_name = article.get("source", {}).get("name", None)
                 article["biasRating"] = bias_translation[bias_lookup.get(source_name, 'Unknown')]
@@ -169,7 +133,7 @@ def aggregate_eliminate_dups(responses, user_pref=None):
                 article["readTime"] = estimate_reading_time(chars)
                 general_articles.append(article)
 
-    return general_articles + preferred_articles
+    return general_articles
 
 
 ### SEARCH PROCEDURE ###
@@ -182,23 +146,20 @@ def user_search(question, user_preferences):
     # step 2: set API args
     from_date = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d') # results in past week
     language = "en" # defaulting english
-    domains = user_preferences.get("domains", None)
 
     # step 3: make API requests
     response_popularity = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity")
     response_relevancy = fetch_search_results(question, from_date=from_date, language=language, sort_by="relevancy")
-    response_domains = None
-    if domains:
-        response_domains = fetch_search_results(question, from_date=from_date, language=language, sort_by="popularity", domains=domains)
+    
     # step 4: aggregate results
     responses = [response_popularity, response_relevancy]
-    aggregated_results = aggregate_eliminate_dups(responses, response_domains)
+    aggregated_results = aggregate_eliminate_dups(responses)
 
     return aggregated_results
 
 ### GET SOURCES ###
 # these correspond to top headlines (in US) but we can probably use them too for filt/pref in search page
-def get_sources(filename):
+def get_sources():
     response_sources = fetch_sources(country='us')
     return response_sources
 
