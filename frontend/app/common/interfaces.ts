@@ -11,6 +11,14 @@ export interface AdvancedSearchPreferences {
   clustering: boolean;
 }
 
+// AIPreferences Interface
+export interface AISummaryPreferences {
+  length: string; // options: {"short", "medium", "long"}
+  tone: string; // options: {"formal", "conversational", "technical", "analytical"}
+  format: string; // options: {"highlights", "bullets", "analysis", "quotes"}
+  jargon_allowed: boolean; // options: {True, False}
+}
+
 // Article Interface
 export interface Article {
   id: Key | null | undefined;

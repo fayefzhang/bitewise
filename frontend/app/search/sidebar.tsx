@@ -10,6 +10,7 @@ import Spinner from "../common/Spinner";
 import { fetchArticleSummary } from "./searchUtils";
 import { defaultAIPreferences } from "../common/utils";
 import { biasRatingLabels, readTimeLabels, difficultyLabels } from "../common/utils";
+import ReactMarkdown from "react-markdown";
 
 type SidebarProps = {
   selectedArticle: Article | null;
@@ -53,6 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   }, [aiPreferences, userEmail]);
 
   useEffect(() => {
+    console.log("fetchArticleSummary: ", aiPreferences)
     fetchArticleSummary(selectedArticle, setSelectedArticle, aiPreferences);
   }, [aiPreferences]);
 
@@ -61,6 +63,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const applyPreferences = () => {
+    if (selectedArticle) {
+      selectedArticle.summaries = [];
+    }
     setAIPreferences(tempPreferences);
   };
 
@@ -242,9 +247,13 @@ const Sidebar: React.FC<SidebarProps> = ({
               Your browser does not support the audio element.
             </audio>
           ) : (
-            <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
-              <Spinner/> Generating summary audio...
-            </p>
+            selectedArticle?.summaries &&
+            selectedArticle.summaries.length > 0 &&
+            selectedArticle.summaries[0] !== '{"error":"Internal server error","details":"Request failed with status code 500"}' && (
+              <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
+                <Spinner /> Generating summary audio...
+              </p>
+            )
           )}
           <ul className="mt-6 list-disc space-y-2 mb-8">
           {selectedArticle?.summaries && selectedArticle.summaries.length > 0 ? (
@@ -268,7 +277,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   .split("- ")
                   .map((part, index) => (
                     <p key={index} className="text-sm">
-                      {part.trim().replace(/^-+/, "").trim()}
+                      <ReactMarkdown>{part.trim().replace(/^-+/, "").trim()}</ReactMarkdown>
                     </p>
                   ))
               )

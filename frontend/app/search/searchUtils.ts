@@ -1,4 +1,4 @@
-import { Article, Summary, AdvancedSearchPreferences } from "../common/interfaces";
+import { Article, Summary, AdvancedSearchPreferences, AISummaryPreferences } from "../common/interfaces";
 import { defaultAIPreferences, toTitleCase } from "../common/utils";
 
 const BASE_URL = "http://localhost:3000";
@@ -43,6 +43,7 @@ export async function fetchArticleSummary(selectedArticle: Article | null, setSe
 export async function handleSearch(
   term: string,
   headerPreferences: AdvancedSearchPreferences,
+  aiPreferences: AISummaryPreferences,
   setArticles: Function,
   setSummary: Function,
   setIsLoading: Function,
@@ -68,7 +69,7 @@ export async function handleSearch(
     });
     const searchData = await articlesResponse.json();
 
-    console.log("Raw search results: ", searchData);
+    // console.log("Raw search results: ", searchData);
 
     let filteredArticles = searchData.articles || [];
 
@@ -88,10 +89,10 @@ export async function handleSearch(
 
       const filteredData = await filterResponse.json();
       filteredArticles = filteredData.articles;
-      console.log("Filtered search results: ", filteredArticles);
+      // console.log("Filtered search results: ", filteredArticles);
     }
 
-    const articlesData = filteredArticles.map((entry: any) => ({
+    let articlesData = filteredArticles.map((entry: any) => ({
       id: entry.id,
       url: entry.url,
       authors: entry.authors,
@@ -107,17 +108,23 @@ export async function handleSearch(
       cluster: entry.cluster,
     }));
 
+    // Move articles with empty content to the end of the array
+    articlesData = [
+      ...articlesData.filter(article => article.content && article.content.trim() !== ""),
+      ...articlesData.filter(article => !article.content || article.content.trim() === ""),
+    ];
+
     setArticles(articlesData); // updates the articles on the frontend
     setIsLoading(false)
 
     if (articlesData.length > 4) {
-      fetchSummariesForFirstFive(articlesData, setArticles);
+      fetchSummariesForFirstFive(articlesData, setArticles, aiPreferences);
     }
 
     const summaryRequestBody = { // passing in the first 5 articles
-        articles: articlesData.slice(0, 5),
-            ai_preferences: defaultAIPreferences,
-      };
+      articles: articlesData.slice(0, 5),
+      ai_preferences: defaultAIPreferences,
+    };
 
     const summaryResponse = await fetch(`${BASE_URL}/api/search/query-summary`, {
         method: "POST",
@@ -136,18 +143,20 @@ export async function handleSearch(
   }
 }
 
-export async function fetchSummariesForFirstFive(articlesToProcess: Article[], setArticles: Function) {
+export async function fetchSummariesForFirstFive(articlesToProcess: Article[], setArticles: Function, aiPreferences: AISummaryPreferences) {
+
   const updatedArticles = [...articlesToProcess];
 
   const requests = updatedArticles.slice(0, 5).map(async (article, index) => {
-    if (article.summaries.length === 0) {
+    // if (article.summaries.length === 0) {
       try {
+        console.log("fetching summaries for first 5")
         const response = await fetch(`${BASE_URL}/api/summarize/article`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             article: { title: article.title, content: article.content, url: article.url },
-            ai_preferences: defaultAIPreferences,
+            ai_preferences: aiPreferences,
           }),
         });
 
@@ -160,7 +169,7 @@ export async function fetchSummariesForFirstFive(articlesToProcess: Article[], s
       } catch (error) {
         console.error("Error processing article summary request", error);
       }
-    }
+    // }
   });
 
   await Promise.all(requests);

@@ -27,6 +27,7 @@ const SearchPage: React.FC = () => {
     null
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
+
   const [headerPreferences, setHeaderPreferences] = useState<AdvancedSearchPreferences>(
     defaultSearchPreferences
   );
@@ -101,11 +102,11 @@ const SearchPage: React.FC = () => {
     try {
       // console.log("headerPreferences in handleSearchWithLoading():, ", headerPreferences);
       if (preferences) {
-        await handleSearch(term, preferences, setArticles, setSummary, setIsLoading, () =>
+        await handleSearch(term, preferences, aiPreferences, setArticles, setSummary, setIsLoading, () =>
           closePanel()
         );
       } else {
-        await handleSearch(term, headerPreferences, setArticles, setSummary, setIsLoading, () =>
+        await handleSearch(term, headerPreferences, aiPreferences, setArticles, setSummary, setIsLoading, () =>
           closePanel()
         );
       }
