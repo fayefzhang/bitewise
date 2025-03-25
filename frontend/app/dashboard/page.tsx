@@ -309,15 +309,15 @@ const DashboardPage: React.FC = () => {
           {/* Main Section */}
           <div className="flex-1 flex-col">
             <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold">
+                <h1 className="text-2xl font-bold">
                 Good{" "}
                 {new Date().getHours() < 12
                   ? "morning"
                   : new Date().getHours() < 18
                   ? "afternoon"
                   : "evening"}
-                , {name}!
-              </h1>
+                {name ? `, ${name}` : ""}!
+                </h1>
               <div className="flex justify-end">
                 <DatePicker
                   selected={selectedDate}
