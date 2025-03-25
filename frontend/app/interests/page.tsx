@@ -4,7 +4,7 @@ import { interests } from "../common/utils";
 const InterestsPage = () => {
   return (
     <StepSelection
-      title="Step 2 of 3: Choose interests"
+      title="Select Topics to Follow"
       options={interests}
       nextPage="/sources"
       stepNo={2}

@@ -4,7 +4,7 @@ import { sources } from "../common/utils";
 const SourcesPage = () => {
   return (
     <StepSelection
-      title="Step 3 of 3: Choose sources"
+      title="Select Sources to Follow or Exclude"
       options={sources}
       nextPage="/profile"
       stepNo={3}

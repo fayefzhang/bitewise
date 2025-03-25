@@ -76,7 +76,7 @@ const SignInSignUpPopup: React.FC<SignInSignUpPopupProps> = ({
         const data = await response.json();
         console.log("User created/updated:", data);
         localStorage.setItem("userEmail", email);
-        router.push("/interests"); // Redirect to interests page
+        router.push("/sign-up"); // Redirect to interests page
       } catch (error) {
         console.error("Error signing up:", error);
         alert("An error occurred. Please try again.");
