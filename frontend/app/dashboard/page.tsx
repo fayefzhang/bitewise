@@ -80,6 +80,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
           {/* Scrollable Articles Section */}
           <div className="w-2/3 flex flex-col space-y-2 overflow-y-auto max-h-[15rem]">
             {articles.map((article, index) => (
+              article && (
               <div
                 key={index}
                 className="bg-white p-1 px-4  rounded-md shadow cursor-pointer hover:bg-veryLightBlue"
@@ -111,7 +112,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                   </Tooltip>
                 </div>
                 </div>
-              </div>
+              </div>)
             ))}
           </div>
         </div>
