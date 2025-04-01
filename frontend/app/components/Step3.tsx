@@ -81,6 +81,7 @@ const Step3: React.FC<Step3Props> = ({ title, options, nextPage }) => {
           <div className="flex flex-col items-center mb-8">
             <ProgressSteps currentStep={3} totalSteps={3} />
             <h1 className="text-3xl font-bold text-gray-700">{title}</h1>
+            <p className="text-gray-600 text-sm mt-2">Click once to include a source, click twice to exclude it.</p>
           </div>
           <div className="flex flex-row items-center gap-4 mb-4">
             <input

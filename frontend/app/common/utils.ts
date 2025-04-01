@@ -94,7 +94,6 @@ export const interests = [
   "Parenting",
   "Education",
   "World News",
-  "Local News",
   "Wildlife",
 ];
 

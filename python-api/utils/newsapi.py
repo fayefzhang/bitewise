@@ -163,6 +163,22 @@ def get_sources():
     response_sources = fetch_sources(country='us')
     return response_sources
 
+def get_top_unique_sources(results, max_results=5):
+    unique_sources = set()
+    filtered_results = []
+
+    for result in results:
+        source = result.get("source")["name"]
+        if source not in unique_sources:
+            unique_sources.add(source)
+            if result not in filtered_results:
+                filtered_results.append(result)
+        
+        if len(filtered_results) == max_results:
+            break
+
+    return filtered_results
+
 ### GETS DAILY ARTICLES BASED ON USER'S TOPICS OF INTEREST ###
 def get_topics_articles(topics, search_preferences):
 
@@ -172,7 +188,7 @@ def get_topics_articles(topics, search_preferences):
         topic_search_results = user_search(topic, search_preferences)
         topic_result = {
             "topic": topic,
-            "results": random.sample(topic_search_results, min(3, len(topic_search_results)))
+            "results": random.sample(get_top_unique_sources(topic_search_results), 3)
         }
     
         results.append(topic_result)
