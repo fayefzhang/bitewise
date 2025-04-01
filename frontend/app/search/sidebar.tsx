@@ -242,7 +242,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
           {/* Article Content */}
           {selectedArticle?.s3Url ? (
-            <audio controls className="mt-2 w-full">
+            <audio key={selectedArticle.s3Url} controls className="mt-2 w-full">
               <source src={selectedArticle.s3Url} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>

@@ -139,6 +139,32 @@ const SearchPage: React.FC = () => {
     setIsPanelOpen(false); // Close panel
   }
 
+  function formatTime(articleTime: Date): string {
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+
+    const timeDiff = now.getTime() - articleTime.getTime();
+    const hoursDiff = timeDiff / (1000 * 60 * 60);
+    const minutesDiff = timeDiff / (1000 * 60);
+
+    // check if the time is within 24 hours of the same time yesterday
+    if (articleTime >= yesterday && articleTime <= now) {
+        if (minutesDiff < 60) {
+            return `${Math.floor(minutesDiff)} minutes ago`;
+        } else {
+            return `${Math.floor(hoursDiff)} hours ago`;
+        }
+    }
+
+    // format as "Month XX"
+    return articleTime.toLocaleString("en-US", { 
+        month: "long", 
+        day: "2-digit", 
+        year: "numeric"
+    });
+  }
+
   return (
     <div className="w-full min-h-screen mx-auto bg-veryLightBlue">
       <Header
@@ -192,7 +218,7 @@ const SearchPage: React.FC = () => {
                     <div className="flex-grow">
                     <div className="flex justify-between mt-1">
                       <p className="text-xs">{article.source}</p>
-                      <p className="text-xs">{article.authors[0]}</p>
+                      <p className="text-xs">{formatTime(new Date(article.time))}</p>
                     </div>
                     <p className="text-sm font-bold">{article.title}</p>
                     <div>
