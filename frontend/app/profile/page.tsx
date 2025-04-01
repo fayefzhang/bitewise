@@ -2,7 +2,10 @@
 
 import Header from "../components/header";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
+import config from "../../config";
+
 import {
   interests,
   sources,
@@ -35,6 +38,36 @@ const ProfilePage: React.FC = () => {
   const [isLocationEdited, setIsLocationEdited] = useState<boolean>(false);
   const [includedSources, setIncludedSources] = useState<string[]>([]);
   const [excludedSources, setExcludedSources] = useState<string[]>([]);
+
+  const libraries: ["places"] = ["places"];
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: config.googleMapsApiKey,
+    libraries,
+  });
+
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (isLoaded && inputRef.current) {
+      autocompleteRef.current = new google.maps.places.Autocomplete(inputRef.current, {
+        types: ["(cities)"]
+      });
+
+      autocompleteRef.current.addListener("place_changed", handlePlaceSelect);
+    }
+  }, [isLoaded]);
+
+  const handlePlaceSelect = () => {
+    if (autocompleteRef.current) {
+      const place = autocompleteRef.current.getPlace();
+      if (place?.name) {
+        setUserPreferences({ ...userPreferences, location: place.name });
+        setIsLocationEdited(true);
+      }
+    }
+  };
 
   // Fetch user preferences on page load
   useEffect(() => {
@@ -331,27 +364,37 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Location */}
-        <div className="flex flex-col items-center mb-4">
-          <h1 className="text-xl font-bold">Local News Location</h1>
-        </div>
-        <div className="flex flex-row items-center gap-4 mb-4">
-          <label>
-            Location {isLocationEdited && <span className="text-red-500">*</span>}
-          </label>
-          <input
-            type="text"
-            value={userPreferences.location}
-            onChange={(e) => handleLocationChange(e.target.value)}
-            className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
-            placeholder="Enter your location"
-          />
-          <button
-            className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
-            onClick={handleLocationSet}
-          >
-            Set
-          </button>
-        </div>
+      <div className="flex flex-col items-center mb-4">
+        <h1 className="text-xl font-bold">Local News Location</h1>
+      </div>
+      <div className="flex flex-row items-center gap-4 mb-4">
+        <label>
+          Location {isLocationEdited && <span className="text-red-500">*</span>}
+        </label>
+
+        {/* Autocomplete Input Field */}
+        <input
+          type="text"
+          ref={(el) => {
+            if (el && isLoaded && !autocompleteRef.current) {
+              autocompleteRef.current = new window.google.maps.places.Autocomplete(el);
+              autocompleteRef.current.addListener("place_changed", handlePlaceSelect);
+            }
+          }}
+          value={userPreferences.location}
+          onChange={(e) => handleLocationChange(e.target.value)}
+          className="border-2 rounded-full px-4 py-2 text-darkBlue font-medium"
+          placeholder="Enter your location"
+        />
+
+        {/* Set Button */}
+        <button
+          className="bg-darkBlue hover:bg-mediumBlue text-white font-semibold py-2 px-6 rounded-full focus:outline-none"
+          onClick={handleLocationSet}
+        >
+          Set
+        </button>
+      </div>
 
         {/* Sources Section */}
         <div className="flex flex-col items-center mb-4">
