@@ -115,9 +115,20 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
                 const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
                 const { title, summary, enriched_articles } = summaryResponse.data;
+
+                let sourceFilteredArticles = articles;
+                const beforeCount = articles.length;
+                if (search_preferences && (search_preferences.sources || search_preferences.exclude_domains)) {
+                    console.log("Applying source preferences");
+                    sourceFilteredArticles = applySourcePreferences(articles, search_preferences);
+                    const afterCount = sourceFilteredArticles.length;
+                    console.log(`Filtered articles from ${beforeCount} articles to ${afterCount} articles based on excluded sources.`);
+
+                } 
+
                 // create and return response
                 const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
-                    articles: articles,
+                    articles: sourceFilteredArticles,
                     summary: {
                         title: query,
                         summary: summary,
@@ -328,7 +339,7 @@ function applySourcePreferences(
   
     // Filter out excluded sources
     const filtered = articles.filter(article => {
-      const source = article.source?.name?.toLowerCase() || "";
+      const source = article.source?.toLowerCase() || "";
       return !excludedSources.includes(source);
     });
   

@@ -14,6 +14,7 @@
     "@headlessui/react": "^2.2.0",
     "@mui/icons-material": "^6.4.8",
     "@mui/material": "^6.4.8",
+    "@react-google-maps/api": "^2.20.6",
     "headlessui": "^0.0.0",
     "mongodb": "^6.13.0",
     "next": "^15.0.2",
