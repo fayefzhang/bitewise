@@ -320,7 +320,7 @@ const ProfilePage: React.FC = () => {
               key={interest}
               className={`border-2 rounded-full px-4 py-2 text-darkBlue font-medium hover:bg-darkBlue hover:text-white focus:outline-none ${
                 userPreferences.topics.includes(interest)
-                  ? (interests.includes(interest) ? "bg-darkBlue text-white" : "bg-darkBlue text-blue-100")
+                  ? (interests.includes(interest) ? "bg-darkBlue text-white" : "bg-darkBlue text-white")
                   : "bg-white"
               }`}
               onClick={() => handleOptionClick(interest, true)}

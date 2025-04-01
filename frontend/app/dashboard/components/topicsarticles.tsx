@@ -166,7 +166,8 @@ const ArticleEntry: React.FC<ArticleEntryProps> = ({
   source,
 }) => {
   return (
-    <div className="bg-white p-4 rounded-md shadow mb-4 hover:bg-veryLightBlue">
+    <div className="bg-white p-4 rounded-md shadow mb-2 hover:bg-veryLightBlue">
+      <p className="text-xs">{source}</p>
       {link && (<Link
           href={link}
           className="text-sm mt-2 block hover:underline"
