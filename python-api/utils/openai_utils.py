@@ -217,15 +217,24 @@ def generate_summary_collection(input_text, user_preferences):
 
     return response.choices[0].message.content.strip()
 
+# Extracts the summary text from the full summary response (removes **Summary** and **Reading Difficulty** labels)
+def extract_summary_text(full_summary):
+    pattern = r"\*\*Summary\*\*:\s*(.+?)\s*\*\*Reading Difficulty\*\*:"
+    match = re.search(pattern, full_summary, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    return full_summary.strip()  # fallback to full text if pattern not found
+
 # Generates audio file based on given text using TTS
 def generate_audio_from_article(text: str, filename: str = "text-to-speech.mp3"):
     
     audio_dir = Path(__file__).parent.parent / "data/tts"
     speech_file_path = str(audio_dir / filename)
+    summary_text = extract_summary_text(text)
     response = client.audio.speech.create(
         model="tts-1",
         voice="echo",
-        input=text,
+        input=summary_text,
     )
     
     # TODO: change to stream to buffer instead of saving locally
