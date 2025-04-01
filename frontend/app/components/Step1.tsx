@@ -44,7 +44,7 @@ const Step1: React.FC<Step1Props> = ({ nextPage }) => {
       <div className="bg-white w-full max-w-7xl rounded-xl shadow-lg p-16 flex flex-col items-center">
         <div className="flex flex-col items-center mb-6">
             <ProgressSteps currentStep={1} totalSteps={3} />
-            <h1 className="text-3xl font-bold text-gray-700">Hello, {name}!</h1>
+            <h1 className="text-3xl font-bold text-gray-700">Hello{name ? `, ${name}` : ""}!</h1>
         </div>
         <p className="text-lg text-gray-600">
           Let's set up your Bitewise experience.
