@@ -1,329 +1,682 @@
 [
     {
-        "url": "https://www.wired.com/story/q-day-apocalypse-quantum-computers-encryption/",
-        "title": "The Quantum Apocalypse Is Coming. Be Very Afraid",
+        "url": "https://www.wired.com/story/thermodynamic-computing-ai-guillaume-verdon-based-beff-jezos/",
+        "title": "Hot New Thermodynamic Chips Could Trump Classical Computers",
         "source": "Wired",
-        "content": "One day soon, at a research lab near Santa Barbara or Seattle or a secret facility in the Chinese mountains, it will begin: the sudden unlocking of the worlds secrets. Your secrets.\r\nCybersecurity an… [+3447 chars]",
-        "imageUrl": "https://media.wired.com/photos/67dad4c691fcdb9ee3fd1224/191:100/w_1280,c_limit/WIRED-FOC-HappyQ-Day-NicholasLaw-01.jpg",
+        "content": "Guillaume Verdon stands before me with a new kind of computer chip in his handa piece of hardware he believes is so important to the future of humanity that hes asked me not to reveal our exact locat… [+3636 chars]",
+        "imageUrl": "https://media.wired.com/photos/67dc60348b6656749fbf9d0a/191:100/w_1280,c_limit/Thermo_BeffJezos_Copy-of-Extropic-8166.jpg",
         "authors": [
-            "Amit Katwala"
+            "Will Knight"
         ],
         "time": "2025-03-24T10:00:00Z"
     },
     {
-        "url": "https://www.bbc.com/news/articles/cly67j35y99o",
-        "title": "Welsh tourist in US was chained like Hannibal Lecter, says family",
-        "source": "BBC News",
-        "content": "Becky Burke has been reunited with her family and dog, Bo Jangles\r\nA tourist held in the US for 19 days was removed in chains like Hannibal Lecter, according to her parents.\r\nBecky Burke, 28, arrived… [+3291 chars]",
-        "imageUrl": "https://ichef.bbci.co.uk/news/1024/branded_news/fd04/live/bf557190-04f2-11f0-97d3-37df2b293ed1.jpg",
-        "authors": [],
-        "time": "2025-03-20T06:58:13Z"
-    },
-    {
-        "url": "https://www.businessinsider.com/asked-cpa-need-know-before-filing-my-taxes-jointly-2025-3",
-        "title": "I'm filing jointly for the first time this year, so I asked a CPA what I need to know before filing",
-        "source": "Business Insider",
-        "content": "My wife and I got married in July 2024, but this isn't when we started being open about our finances. Throughout our relationship, we have discussed how much we contribute to our 401(k) and Roth IRA,… [+5469 chars]",
-        "imageUrl": "https://i.insider.com/67db40c0585f1dff88b2a8f3?width=1200&format=jpeg",
+        "url": "https://gizmodo.com/crowds-turn-out-across-the-u-s-for-tesla-takedown-protests-2000582579",
+        "title": "Crowds Turn Out Across the U.S. for ‘Tesla Takedown’ Protests",
+        "source": "Gizmodo.com",
+        "content": "Hundreds of Tesla dealerships across the United States, Canada, and Europe saw protesters descend upon their lots on Saturday as part of a global day of action organized by the Tesla Takedown protest… [+4445 chars]",
+        "imageUrl": "https://gizmodo.com/app/uploads/2025/03/GettyImages-2206922352.jpg",
         "authors": [
-            "insider@insider.com ( Aleenah Ansari)"
+            "AJ Dellinger and Matt Novak"
         ],
-        "time": "2025-03-21T11:18:01Z"
+        "time": "2025-03-29T23:23:17Z"
     },
     {
-        "url": "https://www.npr.org/2025/03/17/nx-s1-5325273/heat-accelerates-aging-new-study-finds",
-        "title": "Heat can age you as much as smoking, a new study finds",
+        "url": "https://gizmodo.com/humans-could-orbit-earths-poles-for-the-first-time-today-what-took-so-long-2000582235",
+        "title": "Humans Could Orbit Earth’s Poles for the First Time Today. What Took So Long?",
+        "source": "Gizmodo.com",
+        "content": "Launching rockets from the ground is one thing, but deciding on a route to follow around Earth is a different story. Earth has a set of specific orbits, and space missions travel around the planet on… [+3877 chars]",
+        "imageUrl": "https://gizmodo.com/app/uploads/2025/03/SpaceX-Falcon9-Fram2.jpg",
+        "authors": [
+            "Passant Rabie"
+        ],
+        "time": "2025-03-31T13:45:41Z"
+    },
+    {
+        "url": "https://www.businessinsider.com/guides/streaming/how-to-watch-ucla-vs-lsu-march-madness-2025",
+        "title": "How to watch UCLA vs. LSU: Live stream the women's Elite Eight March Madness game",
+        "source": "Business Insider",
+        "content": "The women's Elite Eight March Madness games tip-off today. Below, you can find everything you need to know about how to watch UCLA vs. LSU, including live streaming options for cord-cutters.\r\nTwo of … [+6772 chars]",
+        "imageUrl": "https://i.insider.com/67e7f4a463d72727e198a364?width=1200&format=jpeg",
+        "authors": [
+            "insider@insider.com (Lillian Brown)"
+        ],
+        "time": "2025-03-30T16:00:01Z"
+    },
+    {
+        "url": "https://www.businessinsider.com/guides/streaming/how-to-watch-grand-prix-of-the-americas-motogp-2025",
+        "title": "How to watch MotoGP USA: Live stream Grand Prix of the Americas free from anywhere",
+        "source": "Business Insider",
+        "content": "MotoGP returns to the United States this weekend for the Grand Prix of the Americas. We've compiled everything you need to know about how to watch MotoGP USA, including free global live streaming opt… [+5868 chars]",
+        "imageUrl": "https://i.insider.com/67e6ac7a69253ccddf9a9310?width=1200&format=jpeg",
+        "authors": [
+            "insider@insider.com (Lillian Brown)"
+        ],
+        "time": "2025-03-30T16:00:02Z"
+    },
+    {
+        "url": "https://www.npr.org/2025/03/29/nx-s1-5344440/alysa-liu-womens-figure-skating-world-championships",
+        "title": "Alysa Liu ends long U.S. drought at women's figure skating world championships",
         "source": "NPR",
-        "content": "Phoenix heat is notorious for the harm it causes in the short-term, like heat stroke and heart problems. Just last year, temperatures there topped 90 degrees Fahrenheit for a record-breaking 188 days… [+6314 chars]",
-        "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x1688+0+142/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fdf%2F07%2Fdb3baf3d47bdbea9e996a95dc9fc%2Fap556741723944.jpg",
+        "content": "BOSTON Alysa Liu skated around the ice in disbelief, her golden dress shimmering in the lights of TD Garden, and the appreciative roar from a sellout crowd reminded her why she had returned to the sp… [+4340 chars]",
+        "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3543x1993+0+0/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F22%2F9f%2F9f19e1e0465fbcbe7909e361a29e%2Fap25088071215446.jpg",
         "authors": [
-            "Alejandra Borunda"
+            "The Associated Press"
         ],
-        "time": "2025-03-17T13:00:00Z"
+        "time": "2025-03-29T13:37:29Z"
     },
     {
-        "url": "https://www.businessinsider.com/elon-musk-responds-tesla-vandalism-protests-2025-3",
-        "title": "Elon Musk says he's shocked at the level of Tesla hate and vandalism happening: 'I've never done anything harmful'",
+        "url": "https://www.npr.org/2025/03/27/g-s1-56398/deja-vu-all-over-again-dodgers-are-mlb-favorite-as-2025-season-begins",
+        "title": "Deja vu all over again? Dodgers are MLB favorite as 2025 season begins",
+        "source": "NPR",
+        "content": "LOS ANGELES The 2025 Major League Baseball season gets fully underway Thursday, with 14 games. One team is the overwhelming favorite to win the World Series the Los Angeles Dodgers. The Dodgers, who … [+3549 chars]",
+        "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4558x2564+0+428/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F2f%2F1a%2F40d79efd412fb680d20e72e77f57%2Fdodgers-shohei-getty.jpg",
+        "authors": [
+            "Steve Futterman"
+        ],
+        "time": "2025-03-27T09:00:00Z"
+    },
+    {
+        "url": "https://www.npr.org/2025/03/28/g-s1-56863/up-first-newsletter-visas-student-activism-health-human-services-job-cuts",
+        "title": "U.S. revokes hundreds of visas to repress student activism. And, HHS cuts jobs",
+        "source": "NPR",
+        "content": "Good morning. You're reading the Up First newsletter. Subscribe here to get it delivered to your inbox, and listen to the Up First podcast for all the news you need to start your day.\r\nToday's top st… [+5899 chars]",
+        "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/6000x3375+0+313/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F6c%2F20%2F019cb34544dfbf6130a398546822%2Fgettyimages-2199338434.jpg",
+        "authors": [
+            "Brittney Melton"
+        ],
+        "time": "2025-03-28T10:47:48Z"
+    },
+    {
+        "url": "https://www.npr.org/2025/03/29/nx-s1-5343493/green-card-holders-rights-visa-detained-cbp",
+        "title": "What green card and visa holders should know before traveling abroad",
+        "source": "NPR",
+        "content": "Traveling or returning to the U.S. from abroad has become increasingly risky for some even for people with valid visas and green cards.\r\nIn recent weeks, international tourists, visa holders and lawf… [+6804 chars]",
+        "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/5344x3006+0+278/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fbb%2Fc9%2Fe2f6a9474b619a440da66003fe09%2Fgettyimages-1864644866.jpg",
+        "authors": [
+            "Juliana Kim"
+        ],
+        "time": "2025-03-29T10:00:00Z"
+    },
+    {
+        "url": "https://www.npr.org/2025/03/30/nx-s1-5304236/police-say-ice-tactics-are-eroding-public-trust-in-local-law-enforcement",
+        "title": "Police say ICE tactics are eroding public trust in local law enforcement",
+        "source": "NPR",
+        "content": "In Santa Fe County, N.M., last month, local police leaders stood before a packed auditorium and showed photos of their uniforms so residents would know what they look like and, more pointedly, what I… [+6565 chars]",
+        "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/6000x3375+0+132/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F12%2F80%2F2081abcc4ad9b9af766828bb8f10%2Fgettyimages-2195915158.jpg",
+        "authors": [
+            "Meg Anderson"
+        ],
+        "time": "2025-03-30T09:00:00Z"
+    },
+    {
+        "url": "https://www.businessinsider.com/locations-qubit-county-quantum-computing-silicon-valley-economy-ecosystem-2025-3",
+        "title": "Call it 'Qubit County': The 5 locations poised to become the Silicon Valley of quantum computing",
         "source": "Business Insider",
-        "content": "Elon Musk expressed shock at the vandalism and \"hatred\" against Tesla in a recent Fox News interview.Samuel Corum/Getty Images\r\n<ul><li>Elon Musk weighed in on anti-Tesla vandalism in a recent interv… [+4310 chars]",
-        "imageUrl": "https://i.insider.com/67daebf2b8b41a9673fb195d?width=1200&format=jpeg",
+        "content": "As the quantum computing era begins, five locations are poised to become the next tech hot spot, driving economic growth like Silicon Valley did for the Bay Area in the 1970s.Business Wire/Associated… [+7959 chars]",
+        "imageUrl": "https://i.insider.com/67e3547e69253ccddf9a4b1e?width=1200&format=jpeg",
         "authors": [
-            "Jordan Hart"
+            "Katherine Tangalakis-Lippert"
         ],
-        "time": "2025-03-19T17:55:37Z"
+        "time": "2025-03-27T08:35:02Z"
     },
     {
-        "url": "https://www.businessinsider.com/law-firms-fight-trump-attack-big-law-unprecedented-2025-3",
-        "title": "The fight against Trump's 'unprecedented' attack on Big Law is on",
+        "url": "https://www.businessinsider.com/primark-ceo-steps-down-after-inappropriate-behavior-claim-2025-3",
+        "title": "Primark's CEO resigned over an allegation of inappropriate behavior, which was an 'error of judgment,' company says",
         "source": "Business Insider",
-        "content": "President Donald Trump has targeted law firms that have challenged him in court with punitive executive action, like stripping lawyers' security clearances.Chip Somodevilla/Getty Images\r\n<ul><li>Dona… [+7723 chars]",
-        "imageUrl": "https://i.insider.com/67df3bf469253ccddf9a0f93?width=1200&format=jpeg",
+        "content": "Paul Marchant has resigned as CEO of Primark after an investigation.Brian Lawless - PA Images/PA Images via Getty Images\r\n<ul><li>Fashion retailer Primark's CEO Paul Marchant resigned after an allega… [+2418 chars]",
+        "imageUrl": "https://i.insider.com/67ea537469253ccddf9ab985?width=1200&format=jpeg",
         "authors": [
-            "Katherine Tangalakis-Lippert,Jacob Shamsian,Katie Balevic,Jack Newsham"
+            "Lindsay Dodgson"
         ],
-        "time": "2025-03-24T15:31:39Z"
+        "time": "2025-03-31T09:36:03Z"
     },
     {
-        "url": "https://www.businessinsider.com/the-top-defense-tech-vc-investors-to-know",
-        "title": "31 of the top defense tech venture capitalists to know",
+        "url": "https://www.businessinsider.com/former-point72-exec-kirk-mckeown-startup-carbon-arc-alternative-data-2025-3",
+        "title": "A former Point72 exec's new data startup hopes to strip away big funds' deep-pocketed advantage",
         "source": "Business Insider",
-        "content": "From left: Larsen Jensen of Harpoon Ventures; Dan Gwak of Point72 Private Investments; Katherine Boyle of Andreessen Horowitz; Raj Shah of Shield Capital.Harpoon Ventures, Point72 Private Investments… [+31973 chars]",
-        "imageUrl": "https://i.insider.com/67d896ba69253ccddf998109?width=1200&format=jpeg",
+        "content": "Kirk McKeown is the cofounder of Carbon Arc.Carbon Arc\r\n<ul><li>Carbon Arc, a startup from former Point72 executive Kirk McKeown, launched Thursday.</li><li>The data platform allows small funds and b… [+3183 chars]",
+        "imageUrl": "https://i.insider.com/5ceea65411e20512575e1b74?width=1200&format=jpeg",
         "authors": [
-            "Julia Hornstein,Vishal Persaud,Ben Bergman,Leena Rao,Melia Russell,Samantha Stokes"
+            "Bradley Saacks"
         ],
-        "time": "2025-03-18T09:00:02Z"
+        "time": "2025-03-24T09:02:01Z"
     },
     {
-        "url": "https://time.com/7269362/tesla-attacks-musk-protests-trump-administration-crackdown/",
-        "title": "Trump Administration Vows Crackdown on Anti-Tesla Attacks",
-        "source": "Time",
-        "content": "SEATTLE Cybertrucks set ablaze. Bullets and Molotov cocktails aimed at Tesla showrooms.\r\nAttacks on property carrying the logo of Elon Musks electric-car company are cropping up across the U.S. and o… [+7420 chars]",
-        "imageUrl": "https://api.time.com/wp-content/uploads/2025/03/tesla-vandalism.jpg?quality=85&w=1024&h=628&crop=1",
+        "url": "https://www.businessinsider.com/used-tesla-listings-elon-musk-2025-3",
+        "title": "Tesla owners are offloading their cars in droves",
+        "source": "Business Insider",
+        "content": "After a brutal few weeks for Tesla, used model listings are up 33%, according to Cox Automotive.Justin Sullivan/Getty Images\r\n<ul><li>Used Tesla listings increased 33% this year so far, according to … [+2757 chars]",
+        "imageUrl": "https://i.insider.com/67e5780469253ccddf9a787f?width=1200&format=jpeg",
         "authors": [
-            "JONATHAN J. COOPER and GENE JOHNSON / AP"
+            "Kenneth Niemeyer"
         ],
-        "time": "2025-03-19T06:00:00Z"
+        "time": "2025-03-27T17:49:10Z"
     },
     {
-        "url": "https://time.com/7270096/blizzard-conditions-midwest-wildfires-tornadoes-threat-central-us/",
-        "title": "Blizzard Conditions Hit the Midwest While Wildfires and Tornadoes Threaten Central U.S.",
-        "source": "Time",
-        "content": "OMAHA, Neb. Another storm system affected millions of people in the middle of the U.S. on Wednesday, leaving parts of the Midwest and Great Plains under blizzard conditions and a broad swath of neigh… [+5598 chars]",
-        "imageUrl": "https://api.time.com/wp-content/uploads/2025/03/AP25078664624516.jpg?quality=85&w=1200&h=628&crop=1",
+        "url": "https://www.businessinsider.com/the-bachelor-grant-winner-juliana-finale-engaged-interview-2025-3",
+        "title": "'The Bachelor' star Juliana Pasquarosa says it actually wasn't hard to watch that controversial finale back",
+        "source": "Business Insider",
+        "content": "\"The Bachelor\" season 29 stars Juliana and Grant during the \"After the Final Rose\" segment.Christopher Willard/Disney\r\n<ul><li>\"The Bachelor\" season 29 stars Grant Ellis and Juliana Pasquarosa spoke … [+3378 chars]",
+        "imageUrl": "https://i.insider.com/67e4232169253ccddf9a5764?width=1200&format=jpeg",
         "authors": [
-            "HANNAH FINGERHUT and MARGERY A. BECK / AP"
+            "Olivia Singh"
         ],
-        "time": "2025-03-20T12:16:56Z"
+        "time": "2025-03-26T21:01:10Z"
     },
     {
-        "url": "https://www.polygon.com/news/543331/nintendo-switch-2-mlb-seattle-mariners",
-        "title": "Nintendo’s Switch 2 marketing blitz includes a big deal with MLB",
-        "source": "Polygon",
-        "content": "Get ready to see a lot of Nintendo logos this summer, especially if you’re a fan of Major League Baseball. The Seattle Mariners announced Thursday that they’ve partnered with Nintendo as the team’s “… [+1787 chars]",
-        "imageUrl": "https://platform.polygon.com/wp-content/uploads/sites/2/2025/03/mariners_switch_2.jpg?quality=90&strip=all&crop=0%2C3.4613147178592%2C100%2C93.077370564282&w=1200",
+        "url": "https://www.businessinsider.com/delays-for-us-aircraft-carrier-problem-for-industrial-base-workers-2025-3",
+        "title": "The shipbuilding industrial base is warning that the US Navy's aircraft carrier delay could be a disaster",
+        "source": "Business Insider",
+        "content": "USS Gerald R. Ford sails alongside two destroyers in the Atlantic Ocean.U.S. Navy photo by Mass Communication Specialist 2nd Class Jacob Mattingly\r\n<ul><li>A delay in procuring the next US Navy aircr… [+5756 chars]",
+        "imageUrl": "https://i.insider.com/67e594a9b8b41a9673fbe5df?width=1200&format=jpeg",
         "authors": [
-            "Michael McWhertor"
+            "Chris Panella"
         ],
-        "time": "2025-03-20T14:25:52Z"
+        "time": "2025-03-27T19:19:49Z"
     },
     {
-        "url": "https://www.espn.com/nfl/story/_/id/44309037/seahawks-kupp-pushes-real-tough-situation-rams",
-        "title": "Kupp ready for his 'new adventure' with Seahawks",
-        "source": "ESPN",
-        "content": "RENTON, Wash. -- Cooper Kupp attended one Seahawks game as a kid while growing up about 140 miles southeast of Seattle in Yakima, Washington. It was a 2006 win over the Green Bay Packers on a snowy M… [+5265 chars]",
-        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0319%2Fr1466227_1296x729_16%2D9.jpg",
+        "url": "https://www.businessinsider.com/day-in-the-life-poppi-cofounder-cbo-allison-ellsworth-2025-3",
+        "title": "I'm Poppi's cofounder and chief brand officer. I love chaos and never take a lunch break — here's what a day in my life looks like.",
+        "source": "Business Insider",
+        "content": "Allison Ellsworth, the cofounder and chief brand officer of Poppi.Courtesy of Poppi\r\n<ul><li>PepsiCo announced on March 17 that it will acquire prebiotic soda brand Poppi for $1.95 billion.</li><li>A… [+5936 chars]",
+        "imageUrl": "https://i.insider.com/67e5822569253ccddf9a7b7f?width=1200&format=jpeg",
         "authors": [
-            "Brady Henderson"
+            "Kimanzi Constable"
         ],
-        "time": "2025-03-19T01:38:41Z"
+        "time": "2025-03-28T09:05:01Z"
     },
     {
-        "url": "https://www.espn.com/mens-college-basketball/story/_/id/44378618/derik-queen-buzzer-beater-lifts-maryland-sweet-16",
-        "title": "Queen's buzzer-beater lifts Maryland over CSU",
-        "source": "ESPN",
-        "content": "Mar 23, 2025, 09:41 PM ET\r\nSEATTLE -- Derik Queen banked in a fadeaway jumper at the buzzer and Maryland advanced to the Sweet 16 in a thriller, beating Colorado State 72-71 in the second round of th… [+964 chars]",
-        "imageUrl": "https://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0324%2Fr1468393_1024x576_16%2D9.jpg",
+        "url": "https://www.businessinsider.com/tesla-elon-musk-identity-crisis-doge-2025-3",
+        "title": "Tesla has flirted with disaster before. This time feels different.",
+        "source": "Business Insider",
+        "content": "Earlier this month, standing on the White House driveway, President Donald Trump hawked a fleet of gleaming Teslas with the kind of gusto normally reserved for his campaign rallies. Clutching handwri… [+12179 chars]",
+        "imageUrl": "https://i.insider.com/67dc7fd569253ccddf99e3ac?width=1200&format=jpeg",
+        "authors": [
+            "Grace Kay,Ana Altchek,Tom Carter,Matthew Fox,Jennifer Sor"
+        ],
+        "time": "2025-03-25T08:17:01Z"
+    },
+    {
+        "url": "https://www.businessinsider.com/trump-family",
+        "title": "Trump family tree: Meet Donald Trump's parents, siblings, wives, and children",
+        "source": "Business Insider",
+        "content": "Donald Trump has a sprawling family including multiple siblings, wives, children, and grandchildren.Chip Somodevilla/Getty Images\r\n<ul><li>Donald Trump's family is large and often in the spotlight.</… [+30189 chars]",
+        "imageUrl": "https://i.insider.com/67e579e6b8b41a9673fbdfde?width=1200&format=jpeg",
+        "authors": [
+            "Jenny McGrath"
+        ],
+        "time": "2025-03-29T09:17:02Z"
+    },
+    {
+        "url": "https://hbr.org/podcast/2025/03/how-to-prepare-for-and-lead-through-a-crisis",
+        "title": "How to Prepare For—and Lead Through—a Crisis",
+        "source": "Harvard Business Review",
+        "content": "HANNAH BATES: Welcome to HBR On Leadership—case studies and conversations with the world’s top business and management experts, hand-selected to help you unlock the best in those around you.\r\nOver he… [+21879 chars]",
+        "imageUrl": "https://hbr.org/resources/images/article_assets/2024/11/wide-hbr-on-leadership-24.png",
         "authors": [],
-        "time": "2025-03-24T01:53:57Z"
+        "time": "2025-03-26T12:02:00Z"
     },
     {
-        "url": "https://www.espn.com/soccer/story/_/id/44384421/mls-power-rankings-charlotte-fc-sneaking-league-best",
-        "title": "MLS: Charlotte sneaking up on league's best",
-        "source": "ESPN",
-        "content": "Mar 24, 2025, 09:56 AM ET\r\nThe 2025 MLS season is now firmly underway, which means it's time for ESPN's Power Rankings.\r\nWho's climbing the table? Who's in free fall? Our writers studied the action f… [+8298 chars]",
-        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0324%2Fr1468537_1296x729_16%2D9.jpg",
+        "url": "https://www.yahoo.com/news/turkish-student-tufts-university-detained-190621089.html",
+        "title": "Turkish student at Tufts University detained, video shows masked people handcuffing her",
+        "source": "Yahoo Entertainment",
+        "content": "A Turkish national who is a doctoral student at Tufts University has been detained by federal agents without explanation, her lawyer said on Wednesday. Rumeysa Ozturk, 30, had just left her home in S… [+186 chars]",
+        "imageUrl": "https://s.yimg.com/ny/api/res/1.2/efDkOYFPF8uCfgk9ekwFdQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://cf-images.us-east-1.prod.boltdns.net/v1/jit/6415665815001/549bc5ec-ac13-48ca-848d-b8eaac86cddc/main/1280x720/57s578ms/match/image.jpg",
         "authors": [
-            "Ryan Rosenblatt"
+            "Associated Press Videos"
         ],
-        "time": "2025-03-24T14:20:06Z"
+        "time": "2025-03-26T19:06:21Z"
     },
     {
-        "url": "https://www.espn.com/fantasy/womens-basketball/story/_/id/44281881/fantasy-women-basketball-march-madness-starts-kiki-iriafen-paige-bueckers",
-        "title": "Six March Madness stars to watch",
-        "source": "ESPN",
-        "content": "March is finally here and women's college basketball is heating up. As the NCAA Tournament approaches, there are a number of can't-miss stars that are poised for a bright future in the WNBA. Fantasy … [+4237 chars]",
-        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0316%2Fr1465320_1296x729_16%2D9.jpg",
+        "url": "https://www.yahoo.com/news/kills-morale-students-mass-town-132855228.html",
+        "title": "‘Teacher started crying’: Students in Mass. town hold walkout in protest of staffing cuts",
+        "source": "Yahoo Entertainment",
+        "content": "Students in a Massachusetts town walked out of class on Monday in protest of brutal job cuts and a temporary school closure, impacting dozens of staff members come the next school year.\r\nThe North An… [+3993 chars]",
+        "imageUrl": "https://media.zenfs.com/en/wfxt_cox_articles_703/5c46c0b105127c25c10ddb21b7e76683",
         "authors": [
-            "Eric Moody"
+            "Ryan Breslin"
         ],
-        "time": "2025-03-17T15:50:08Z"
+        "time": "2025-03-24T14:43:37Z"
     },
     {
-        "url": "https://www.espn.com/college-sports/story/_/id/44384637/college-baseball-top-25-rankings-week-6-2025",
-        "title": "Top 25 rankings, play of the week and what to watch",
+        "url": "https://www.amarillo.com/story/news/2025/03/26/amarillo-is-one-of-the-windiest-cities-in-the-us-see-rankings-texas-lubbock-corpus-christi-abilene/82653197007/",
+        "title": "Amarillo is one of the windiest cities in the US: See where it falls in the ranking",
+        "source": "Amarillo.com",
+        "content": "Everyone knows Amarillo is a windy city. But just how windy? A new study says it's the breeziest city in the nation.\r\nThat might not come as a surprise, as recent high winds brought fire weather to t… [+1902 chars]",
+        "imageUrl": "https://s.yimg.com/ny/api/res/1.2/YzZ4BBl90aO1DLwEfFnYOw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://media.zenfs.com/en/amarillo-globe-news/25e74b080597aa2b28f4f44e03f6e7c7",
+        "authors": [
+            "Jana Hayes, The Oklahoman"
+        ],
+        "time": "2025-03-26T08:06:31Z"
+    },
+    {
+        "url": "https://time.com/7271931/turkish-student-at-tufts-university-detained-masked-agents/",
+        "title": "Turkish Student at Tufts University Handcuffed, Detained by Masked Agents",
+        "source": "Time",
+        "content": "BOSTON A Turkish national who is a doctoral student at Tufts University has been detained by federal agents without explanation, her lawyer said on Wednesday.\r\nRumeysa Ozturk, 30, had just left her h… [+4978 chars]",
+        "imageUrl": "https://api.time.com/wp-content/uploads/2025/03/AP25085626945900.jpg?quality=85&w=1200&h=628&crop=1",
+        "authors": [
+            "JAKE OFFENHARTZ, KATHY McCORMACK and MICHAEL CASEY / AP"
+        ],
+        "time": "2025-03-26T20:00:39Z"
+    },
+    {
+        "url": "https://time.com/7272849/vaccine-official-peter-marks-resigns-from-fda-criticizes-rfk-jr/",
+        "title": "Top Vaccine Official Resigns From FDA, Criticizes RFK Jr. for Promoting “Misinformation and Lies”",
+        "source": "Time",
+        "content": "WASHINGTON The top vaccine official with the Food and Drug Administration has resigned and criticized the nations top health official for allowing misinformation and lies to guide his thinking behind… [+4882 chars]",
+        "imageUrl": "https://api.time.com/wp-content/uploads/2025/03/AP25088576254588.jpg?quality=85&w=1200&h=628&crop=1",
+        "authors": [
+            "MICHAEL CASEY and MATTHEW PERRONE / AP"
+        ],
+        "time": "2025-03-29T18:46:22Z"
+    },
+    {
+        "url": "https://time.com/7272355/faa-chief-testifies-deadly-d-c-air-collision/",
+        "title": "FAA Chief Says ‘We Have to Do Better’ After Deadly D.C. Air Collision",
+        "source": "Time",
+        "content": "The head of the Federal Aviation Administration told Congress during a hearing Thursday about a midair collision over Washington, D.C., that killed 67 people that the agency must do more to ensure fl… [+4810 chars]",
+        "imageUrl": "https://api.time.com/wp-content/uploads/2025/03/AP25085677266127.jpg?quality=85&w=1200&h=628&crop=1",
+        "authors": [
+            "JOSH FUNK / AP"
+        ],
+        "time": "2025-03-27T20:51:55Z"
+    },
+    {
+        "url": "https://time.com/7272060/international-students-targeted-trump-ice-detention-deport-campus-palestinian-activism/",
+        "title": "These Are the Students Targeted by Trump’s Immigration Enforcement Over Campus Activism",
+        "source": "Time",
+        "content": "A husband and expectant father; a former high school valedictorian; an architect and adjunct professor of urban planning, and a former Fulbright Scholar with a passion for child education. All legall… [+17471 chars]",
+        "imageUrl": "https://api.time.com/wp-content/uploads/2025/03/international-students-ice-detention-deportation.jpg?quality=85&crop=0px%2C0px%2C1024px%2C536px&resize=1200%2C628&strip",
+        "authors": [
+            "Miranda Jeyaretnam"
+        ],
+        "time": "2025-03-27T09:55:00Z"
+    },
+    {
+        "url": "https://www.polygon.com/the-witcher/547069/witcher-4-release-date-2026-2027-cd-projekt",
+        "title": "Don’t expect The Witcher 4 until 2027 at the earliest",
+        "source": "Polygon",
+        "content": "Tucked in amongst a lot of dry business talk about sales milestones and long-term perspectives, CD Projekt recently confirmed to investors The Witcher 4 won’t be released by 2026, pushing its potenti… [+1691 chars]",
+        "imageUrl": "https://platform.polygon.com/wp-content/uploads/sites/2/2025/03/witcher4-ciri-close.jpg?quality=90&strip=all&crop=0%2C3.4613147178592%2C100%2C93.077370564282&w=1200",
+        "authors": [
+            "Ian Walker"
+        ],
+        "time": "2025-03-26T16:46:00Z"
+    },
+    {
+        "url": "https://www.espn.com/mlb/story/_/id/44462261/rafael-devers-first-open-year-10-strikeouts-3-games",
+        "title": "Devers first to open year with 10 K's in 3 games",
         "source": "ESPN",
-        "content": "Mar 24, 2025, 11:35 AM ET\r\nTennessee finally suffered its first loss of the 2025 season last week, but with plenty of other losses across the entire top 25, the Volunteers remain in top spot after a … [+5629 chars]",
-        "imageUrl": "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0324%2Fr1468583_1296x729_16%2D9.jpg",
+        "content": "Mar 29, 2025, 11:46 PM ET\r\nARLINGTON, Texas -- Boston Red Sox designated hitter Rafael Devers became the first major league player to strike out 10 times in the first three games of a season.\r\nDevers… [+1250 chars]",
+        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0330%2Fr1471206_1024x576_16%2D9.jpg",
+        "authors": [],
+        "time": "2025-03-30T04:08:03Z"
+    },
+    {
+        "url": "https://www.espn.com/college-sports/story/_/id/44388573/boston-college-hockey-gaudreaus-voce-close-hearts",
+        "title": "Top seed Boston College plays with Gaudreaus, Voce close to hearts",
+        "source": "ESPN",
+        "content": "NEWTON, Massachusetts -- There is a prayer board in the Boston College Eagles' hockey dressing room. Before this season, three names were written on it and remain there.\r\nTony Voce\r\nJohnny Gaudreau\r\n… [+5891 chars]",
+        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0324%2Fr1468665_1296x729_16%2D9.jpg",
+        "authors": [
+            "Jeremy Schaap"
+        ],
+        "time": "2025-03-26T12:20:35Z"
+    },
+    {
+        "url": "https://www.espn.com/nba/story/_/id/44394502/celtics-star-jayson-tatum-leaves-game-left-ankle-sprain",
+        "title": "Celtics star Tatum exits with left ankle sprain",
+        "source": "ESPN",
+        "content": "SACRAMENTO, Calif. -- Boston Celtics coach Joe Mazzulla is optimistic that star forward Jayson Tatum won't be out long after taking a hard foul and spraining his left ankle during the third quarter o… [+1200 chars]",
+        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0325%2Fr1468885_1296x729_16%2D9.jpg",
+        "authors": [],
+        "time": "2025-03-25T12:37:15Z"
+    },
+    {
+        "url": "https://www.espn.com/nba/story/_/page/nbapowerrankings44403347/nba-power-rankings-30-teams-pacers-nuggets-playoffs",
+        "title": "Power Rankings: Pacers push toward playoffs, Nuggets hold on",
+        "source": "ESPN",
+        "content": "Mar 26, 2025, 07:00 AM ET\r\nIn the final weeks of the 2024-25 NBA regular season, we're coming down to the wire with the race for the postseason becoming tighter in the East and West.\r\nIn the West, th… [+21681 chars]",
+        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0325%2Fnba_power%2Drankings%2Dweek21_16x9.jpg",
+        "authors": [
+            "NBA insiders"
+        ],
+        "time": "2025-03-26T12:20:35Z"
+    },
+    {
+        "url": "https://www.espn.com/nhl/story/_/id/44460333/nhl-playoffs-bracket-standings-2025-wild-card-bracket-games-matchups",
+        "title": "NHL playoff watch: Who will win the Atlantic Division crown?",
+        "source": "ESPN",
+        "content": "Many playoff races are coming right down to the wire. And while the three top teams in the Atlantic Division are expected to qualify for the postseason, the order in which they'll finish remains a my… [+9978 chars]",
+        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0330%2Fr1471105_1296x729_16%2D9.jpg",
+        "authors": [
+            "ESPN Staff"
+        ],
+        "time": "2025-03-30T12:20:05Z"
+    },
+    {
+        "url": "https://www.espn.com/espn/betting/story/_/id/44358952/inside-incredibly-high-risk-low-reward-lebron-james-10-points-bet",
+        "title": "Inside the incredibly high-risk, low-reward LeBron James bet",
+        "source": "ESPN",
+        "content": "Professional sports bettor David J. spends his nights staring at updating box scores on his computer, rather than watching the actual games that determine his income. He is confident in his edge and … [+7747 chars]",
+        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0313%2Fchalk_lebron_bettor_16x9.jpg",
+        "authors": [
+            "David Purdum"
+        ],
+        "time": "2025-03-24T13:35:04Z"
+    },
+    {
+        "url": "https://www.espn.com/olympics/story/_/id/44390067/2025-world-figure-skating-championships-preview-ilia-malinin-amber-glenn",
+        "title": "Everything to know for the 2025 world figure skating championships",
+        "source": "ESPN",
+        "content": "Mar 25, 2025, 12:12 PM ET\r\nThe 2025 ISU World Figure Skating Championships get underway on Wednesday in Boston as the sport's best look to make their mark with less than a year to go before the Milan… [+8769 chars]",
+        "imageUrl": "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0324%2Fr1468759_1296x729_16%2D9.jpg",
+        "authors": [
+            "D'Arcy Maine"
+        ],
+        "time": "2025-03-25T16:20:42Z"
+    },
+    {
+        "url": "https://www.espn.com/college-football/story/_/id/44386996/florida-state-mike-norvell-gus-malzahn-2025-season",
+        "title": "Can Florida State bounce back from its disastrous 2024 season?",
+        "source": "ESPN",
+        "content": "TALLAHASSEE, Fla. -- When Mike Norvell evaluated what happened last season at Florida State, he took a long, hard look at himself.\r\nThe same processes that worked so well in building the Seminoles in… [+10277 chars]",
+        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0324%2Fr1468634_1296x729_16%2D9.jpg",
+        "authors": [
+            "Andrea Adelson"
+        ],
+        "time": "2025-03-25T12:05:08Z"
+    },
+    {
+        "url": "https://www.espn.com/mlb/story/_/id/44385785/mlb-opening-day-2025-juan-soto-new-york-mets-arrival-new-era",
+        "title": "'I feel like I have everything in front of me': Inside the $765 million marriage of Juan Soto and the Mets",
+        "source": "ESPN",
+        "content": "IN THE BACKYARD of his 11,540-square-foot Beverly Hills mansion, next to the saltwater pool with an underwater sound system, Steve Cohen was talking about building things. Trying to construct somethi… [+22841 chars]",
+        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0325%2Fr1469134_1296x729_16%2D9.jpg",
+        "authors": [
+            "Jeff Passan"
+        ],
+        "time": "2025-03-27T11:22:33Z"
+    },
+    {
+        "url": "https://www.espn.com/mlb/story/_/id/44417839/mlb-opening-day-2025-storylines-lineups-live-updates-takeaways-analysis",
+        "title": "MLB Opening Day is here! What we're watching, lineups and live updates from every game",
+        "source": "ESPN",
+        "content": "Mar 27, 2025, 07:00 AM ET\r\nMLB Opening Day has finally arrived!\r\nTwenty-eight of 30 teams will be in action Thursday, with the opening matchup between the Colorado Rockies and Tampa Bay Rays schedule… [+23913 chars]",
+        "imageUrl": "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0327%2Fr1469958_1296x729_16%2D9.jpg",
         "authors": [
             "ESPN"
         ],
-        "time": "2025-03-24T15:50:07Z"
+        "time": "2025-03-27T11:22:33Z"
     },
     {
-        "url": "https://www.espn.com/mlb/story/_/id/44304347/mlb-2025-starting-pitching-kansas-city-royals-managing-rotation",
-        "title": "'An out in three pitches': What the rest of MLB can learn from the Royals' old-school rotation",
-        "source": "ESPN",
-        "content": "WHEN A TEAM finds a successful strategy in pro sports, it has long been the expectation that its competition will shift toward that strategy. The typical refrain: \"It's a copycat league.\"\r\nIf that's … [+15345 chars]",
-        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0321%2Fr1467365_2_1296x729_16%2D9.jpg",
-        "authors": [
-            "Bradford Doolittle"
-        ],
-        "time": "2025-03-22T11:20:38Z"
-    },
-    {
-        "url": "https://www.espn.com/womens-college-basketball/story/_/id/44347220/womens-college-basketball-legends-ncaa-tournament-title-history",
-        "title": "NCAA title test: Which women's icons got it done -- and is Paige Bueckers next?",
-        "source": "ESPN",
-        "content": "March Madness is the ultimate stage for college basketball stars to cement their legacies. Some of the game's greatest players have shined in the NCAA tournament -- but not all have walked away as ch… [+9026 chars]",
-        "imageUrl": "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0321%2Fr1467415_2_1296x729_16%2D9.jpg",
-        "authors": [
-            "Brianna Williams"
-        ],
-        "time": "2025-03-22T15:21:51Z"
-    },
-    {
-        "url": "https://abcnews.go.com/Politics/trump-suggests-tesla-vandals-prison-el-salvador/story?id=120019715",
-        "title": "Trump suggests Tesla vandals should be sent to prison in El Salvador",
-        "source": "ABC News",
-        "content": "President Donald Trump seemed to issue a warning to individuals who participate in Tesla vandalisms, as reports of destruction to vehicles, dealerships and charging stations surge across the country.… [+3169 chars]",
-        "imageUrl": "https://i.abcnewsfe.com/a/93562009-f5ef-4acc-a077-7be1ef8792bf/donald-trump-1-gty-gmh-250312_1741783875135_hpMain_16x9.jpg?w=1600",
-        "authors": [
-            "Megan Forrester"
-        ],
-        "time": "2025-03-21T19:41:33Z"
-    },
-    {
-        "url": "https://www.fastcompany.com/91270226/urban-development-real-estate-most-innovative-companies-2025",
-        "title": "The most innovative urban development and real estate companies for 2025",
-        "source": "Fast Company",
-        "content": "Defining the future doesnt happen in sudden bursts, and thats especially the case in real estate. Change remains a fluid process, with innovation, investment, and even chance slowly shaping the way d… [+16677 chars]",
-        "imageUrl": "https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit/wp-cms-2/2025/03/p-1a-2025_MIC_urban-dev-and-real-estate.png",
-        "authors": [
-            "Patrick Sisson"
-        ],
-        "time": "2025-03-18T11:00:00Z"
-    },
-    {
-        "url": "https://www.fastcompany.com/91269908/retail-most-innovative-companies-2025",
-        "title": "The most innovative companies in retail for 2025",
-        "source": "Fast Company",
-        "content": "As generative AI advanced at warp speed over the past year, innovative retail companies continued to find practical ways to incorporate the technology, helping shoppers to efficiently find what they … [+15037 chars]",
-        "imageUrl": "https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit/wp-cms-2/2025/03/p-1a-2025_MIC_retail.png",
-        "authors": [
-            "Yasmin Gagne"
-        ],
-        "time": "2025-03-18T11:00:00Z"
-    },
-    {
-        "url": "https://www.ign.com/articles/kaiserpunk-review",
-        "title": "Kaiserpunk Review",
-        "source": "IGN",
-        "content": "Kaiserpunk has an immediately interesting premise: rebuilding society from the ashes of an alternate timeline World War I that raged so much longer and more mercilessly that it left the survivors in … [+6931 chars]",
-        "imageUrl": "https://assets-prd.ignimgs.com/2025/03/20/kaiserpunk-blogroll-1742511285912.jpg?width=1280",
-        "authors": [
-            "Tom Marks"
-        ],
-        "time": "2025-03-21T13:00:00Z"
-    },
-    {
-        "url": "https://www.digitaltrends.com/cars/byd-claims-its-made-a-major-ev-charging-breakthrough/",
-        "title": "BYD claims it’s made a major EV charging breakthrough",
-        "source": "Digital Trends",
-        "content": "BYD, a Chinese EV (electric vehicle) manufacturer, has announced a new battery and charging system it claims can top-up an EV almost as quickly as it takes to fill a traditional combustion engine car… [+6023 chars]",
-        "imageUrl": "https://www.digitaltrends.com/wp-content/uploads/2025/03/BYD-megawatt-charger.jpg?resize=1200%2C630&p=1",
-        "authors": [
-            "John McCann"
-        ],
-        "time": "2025-03-18T11:20:24Z"
-    },
-    {
-        "url": "https://www.theatlantic.com/family/archive/2025/03/e-bike-family-parenthood/682052/",
-        "title": "An Ode to My Family’s E-Bike",
+        "url": "https://www.theatlantic.com/magazine/archive/2025/05/ringo-starr-beatles-look-up/682115/",
+        "title": "Ringo Starr’s Enduring Optimism",
         "source": "The Atlantic",
-        "content": "On a chilly morning last October, my 8-year-old daughter and I took our new e-bike, which she had named Toby, on its maiden voyage to school. We admired trees exploding in vibrant golds and flocks of… [+7802 chars]",
-        "imageUrl": "https://cdn.theatlantic.com/thumbor/Ib0aWbJ15z6wvfHUToXB0YYjgPQ=/0x0:2000x1042/1200x625/media/img/mt/2025/03/E_Bike_Colour.HJ/original.jpg",
+        "content": "Photographs by Dina LitovskyLet’s start with something that I’m not proud of but feels important to disclose up front. Last spring, I was interviewing Ringo Starr at the Sunset Marquis hotel, in West… [+38826 chars]",
+        "imageUrl": "https://cdn.theatlantic.com/thumbor/aikcmuUyzzX0GZew2W-h0lExHeA=/0x245:2000x1287/1200x625/media/img/2025/03/WEL_Leibovich_Ringo_Opener/original.jpg",
         "authors": [
-            "Elizabeth Endicott"
+            "Mark Leibovich"
         ],
-        "time": "2025-03-17T13:00:00Z"
+        "time": "2025-03-31T12:00:00Z"
     },
     {
-        "url": "https://nautil.us/when-the-animals-went-electric-1198482/",
-        "title": "When the Animals Went Electric",
-        "source": "Nautil.us",
-        "content": "One moment a flounder lies hidden in the sandy bottom of the ocean, the next it vanishes in the bloody frenzy of a sharks dinner. The shark didnt see or hear the fish; it pinpointed it from the infin… [+6244 chars]",
-        "imageUrl": "https://assets.nautil.us/sites/3/nautilus/Wiggenhorn_HERO.png?auto=compress&fm=png&ixlib=php-3.3.1",
-        "authors": [
-            "Severin Wiggenhorn"
-        ],
-        "time": "2025-03-18T10:07:27Z"
+        "url": "https://www.mattkeeter.com/projects/prospero/",
+        "title": "The Prospero Challenge",
+        "source": "Mattkeeter.com",
+        "content": "prospero.vm\r\n is a plain-text file containing 7866 math expressions.\r\nIt begins as follows:\r\n# Text of a monologue from The Tempest\r\n_0 const 2.95\r\n_1 var-x\r\n_2 const 8.13008\r\n_3 mul _1 _2\r\n_4 add _0… [+7797 chars]",
+        "imageUrl": "https://mattkeeter.com/projects/prospero/hero.png",
+        "authors": [],
+        "time": "2025-03-24T09:04:43Z"
     },
     {
-        "url": "https://www.bbc.com/future/article/20250321-the-people-who-still-use-typewriters",
-        "title": "In some parts of the US, the clack of typewriter keys can still be heard",
-        "source": "BBC News",
-        "content": "Computers and smartphones might be where most writing is done these days, but typewriters still have work to do in the US.\r\nPretty much every day, another customer clutching an old typewriter will wa… [+15123 chars]",
-        "imageUrl": "https://ychef.files.bbci.co.uk/624x351/p0kzmf41.jpg",
-        "authors": [
-            "Chris Baraniuk"
-        ],
-        "time": "2025-03-23T09:19:08Z"
-    },
-    {
-        "url": "https://worldhistory.substack.com/p/battling-the-blaze",
-        "title": "Battling the Blaze: Artifacts from the history of firefighting",
+        "url": "https://christinapagel.substack.com/p/trumps-attacks-on-universities-get",
+        "title": "Trump's attacks on universities get darker, with shadows reaching our shores",
         "source": "Substack.com",
-        "content": "Welcome to Looking Through the Past! At its heart, this is a project in which I find a bunch of cool stuff every week and share it with you. It takes hours of research and writing to produce. If your… [+10390 chars]",
-        "imageUrl": "https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fba101a36-ba87-4dd7-87e2-6bcaa75c887e_5168x3322.jpeg",
+        "content": "Darkness descends\r\nA colleague and I would like to write an academic paper on the potential impact of US funding cuts to global health programmes. Our ideal co-author is an international expert newly… [+7233 chars]",
+        "imageUrl": "https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8eff6593-7fbf-427a-aedb-9d3b8dd64313_5348x3301.png",
         "authors": [
-            "George Dillard"
+            "Christina Pagel"
         ],
-        "time": "2025-03-23T13:46:24Z"
+        "time": "2025-03-29T08:29:27Z"
     },
     {
-        "url": "https://taylor.town/napkin-math",
-        "title": "Napkin Math Tool",
-        "source": "Taylor.town",
-        "content": "taylor.townaboutspamrss\r\nQuantity\r\n<table><tr><th></th><th></th></tr>\r\n<tr><td>0</td><td>individual person</td></tr><tr><td>1</td><td>nuclear family, small friend group, car pool, small team</td></tr… [+30632 chars]",
+        "url": "https://britishartjournal.co.uk/recovery-of-a-stolen-van-dyck/",
+        "title": "The theft and recovery of a grisaille by Anthony Van Dyck (1599–1641)",
+        "source": "Britishartjournal.co.uk",
+        "content": "Meredith M Hale\r\n1 Anthony van Dyck (15991641), Portrait of Wolfgang Wilhelm of Pfalz-Neuburg, Boughton House, Northamptonshire\r\nIn July 1951 Anthony van Dycks Portrait of Wolfgang Wilhelm of Pfalz-N… [+84967 chars]",
+        "imageUrl": null,
+        "authors": [],
+        "time": "2025-03-26T18:27:12Z"
+    },
+    {
+        "url": "https://www.calculatedriskblog.com/2025/03/case-shiller-national-house-price-index.html",
+        "title": "Case-Shiller: National House Price Index Up 4.1% year-over-year in January",
+        "source": "Calculatedriskblog.com",
+        "content": "S&P/Case-Shiller released the monthly Home Price Indices for January (\"January\" is a 3-month average of November, December and January closing prices).\n\nThis release includes prices for 20 individual… [+3705 chars]",
+        "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHpLiC-fyE5Oms_hO7S9bT2jXWjrHw2L7IvTSbB2YCwco5Xn12n9TP9kJhPKr_xzU0Nv0eQhoCq3rDSItblxB2VKdI-AT_4SAMCpYiJBZVmUKbUVzw9KDf3M8KeUGZilGyW-wIM3W0qdmqDEQ2muM7R8pb9FYYoMaLhlj7HYcIOCemKQMuwkP7/w1200-h630-p-k-no-nu/CSJan2025.PNG",
+        "authors": [
+            "Calculated Risk"
+        ],
+        "time": "2025-03-25T13:00:00Z"
+    },
+    {
+        "url": "https://subscriber.politicopro.com/article/eenews/2025/03/28/were-on-the-list-of-targets-climate-researchers-wait-for-the-ax-to-fall-00254374",
+        "title": "Amid Trump Cuts, Climate Researchers Wait for the Ax to Fall",
+        "source": "Politicopro.com",
+        "content": "CLIMATEWIRE | The National Institutes of Health has canceled grants for research on diversity, Covid-19 and vaccines. Climate scientists are hoping their work won’t be next — but fear it could be.\r\n“… [+5427 chars]",
+        "imageUrl": "https://static.scientificamerican.com/dam/m/3e596be2df91103c/original/NIH-Building.jpg?m=1743183349.708&w=1200",
+        "authors": [
+            "Ariel Wittenberg, Chelsea Harvey, E&E News"
+        ],
+        "time": "2025-03-28T18:00:00Z"
+    },
+    {
+        "url": "https://www.scientificamerican.com/article/see-strange-deep-sea-creatures-from-sea-pigs-to-disco-worms/",
+        "title": "See Strange Deep-Sea Creatures, from ‘Sea Pigs’ to ‘Disco Worms’",
+        "source": "Scientific American",
+        "content": "An entire world lives deep under the ocean’s surface, far from human notice and as bustling as any city. Animals such as tubeworms and clams live crowded around plumes of methane that bubble up throu… [+5831 chars]",
+        "imageUrl": "https://static.scientificamerican.com/dam/m/218ff7c1d9163367/original/mystery-mollusk.gif?m=1742850804.277&w=1200",
+        "authors": [
+            "Ashley Balzer Vigil"
+        ],
+        "time": "2025-03-25T10:30:00Z"
+    },
+    {
+        "url": "https://www.scientificamerican.com/article/supersymmetrys-long-fall-from-grace/",
+        "title": "Supersymmetry’s Long Fall from Grace",
+        "source": "Scientific American",
+        "content": "Supersymmetry, a theory that posits every known elementary particle has a heavier “superpartner” particle, has been the superstar of theoretical physics for the past half century. Its proponents have… [+9832 chars]",
+        "imageUrl": "https://static.scientificamerican.com/dam/m/51dc0ebee9f8b5a3/original/large_hadron_collider_cms_detector_cern.jpg?m=1742917896.883&w=1200",
+        "authors": [
+            "Eleni Petrakou"
+        ],
+        "time": "2025-03-25T16:00:00Z"
+    },
+    {
+        "url": "https://www.yahoo.com/news/trump-seeks-even-more-aggressive-173026720.html",
+        "title": "Trump seeks even more aggressive tariffs to fundamentally transform the US economy and eyes a single universal duty, report says",
+        "source": "Yahoo Entertainment",
+        "content": "<ul><li>President Donald Trump is pressing his staff to take a harder stance on tariffs as part of an effort to transform the US economy, sources told the Washington Post. That could include a univer… [+3928 chars]",
+        "imageUrl": "https://s.yimg.com/ny/api/res/1.2/9QpEeQJFVo5ZvvSCi9IOjA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://media.zenfs.com/en/fortune_175/ea3b50940bab2d9e4d26610dee3013f8",
+        "authors": [
+            "Jason Ma"
+        ],
+        "time": "2025-03-29T17:30:26Z"
+    },
+    {
+        "url": "https://abduzeedo.com/node/88783",
+        "title": "1910 Genetics: Strong Biotech Branding and Visual Identity",
+        "source": "Abduzeedo.com",
+        "content": "Discover how 1910 Genetics established a compelling branding  and visual identity, reflecting their innovative approach to AI-driven drug discovery.\r\n1910 Genetics is focused on developing AI-driven … [+2247 chars]",
         "imageUrl": null,
         "authors": [
-            "Taylor Troesh"
+            "abduzeedo"
         ],
-        "time": "2025-03-17T15:16:03Z"
+        "time": "2025-03-27T01:18:05Z"
     },
     {
-        "url": "https://www.windowscentral.com/microsoft/best-microsoft-classic-games",
-        "title": "I picked 7 of the best Microsoft games of all time to celebrate its 50th anniversary — disagree with these classics if you dare",
-        "source": "Windows Central",
-        "content": "Next month, Microsoft will be turning 50, and that's made me wax nostalgic over the various Microsoft games that have come out leading up to this semicentennial celebration (you don't use that word e… [+14681 chars]",
-        "imageUrl": "https://cdn.mos.cms.futurecdn.net/NuHyQf6nWmkkaEeCG6T5ib-1200-80.jpg",
+        "url": "https://www.cnet.com/science/space/solar-eclipse-for-saturday-sunrise-will-bring-pac-man-sun-how-to-watch/",
+        "title": "Solar Eclipse for Saturday Sunrise Will Bring 'Pac-Man Sun': How to Watch",
+        "source": "CNET",
+        "content": "Hot on the tail of the \"blood moon\" total lunar eclipse earlier this month comes a rise-and-shine special: a partial solar eclipse that will be visible at sunrise on March 29 in some parts of the US.… [+4702 chars]",
+        "imageUrl": "https://www.cnet.com/a/img/resize/98e0a3a31a486f3a45548b4018721d7198ca1e0c/hub/2022/04/26/a03dd688-9268-4fcb-b16a-27486f6ad35e/2220-eclipse-panel-1280x900.jpg?auto=webp&fit=crop&height=675&width=1200",
         "authors": [
-            "rebecca.spear@futurenet.com (Rebecca Spear)"
+            "Amanda Kooser"
         ],
-        "time": "2025-03-17T13:00:00Z"
+        "time": "2025-03-28T15:05:57Z"
     },
     {
-        "url": "https://blog.playstation.com/2025/03/20/the-last-of-us-part-ii-remastered-pc-features-and-new-no-return-content-detailed/",
-        "title": "The Last of Us Part II Remastered PC features and new No Return content detailed",
-        "source": "Playstation.com",
-        "content": "Were just a few weeks away from The Last of Us Part II Remastered arriving on PC on April 3, and we here at Naughty Dog wanted to make sure players were prepared for the journey ahead. Whether its yo… [+5884 chars]",
-        "imageUrl": "https://blog.playstation.com/tachyon/2025/03/237b0226c17d6847186b67a79408ae8836ca8a41.jpg",
+        "url": "https://www.cnet.com/science/space/sunrise-solar-eclipse-graces-the-sky-saturday-night-how-to-watch/",
+        "title": "Sunrise Solar Eclipse Graces the Sky Saturday Night: How to Watch",
+        "source": "CNET",
+        "content": "Hot on the tail of the \"blood moon\" total lunar eclipse earlier this month comes a rise-and-shine special: a partial solar eclipse that will be visible at sunrise on March 29 in some parts of the US.… [+4702 chars]",
+        "imageUrl": "https://www.cnet.com/a/img/resize/98e0a3a31a486f3a45548b4018721d7198ca1e0c/hub/2022/04/26/a03dd688-9268-4fcb-b16a-27486f6ad35e/2220-eclipse-panel-1280x900.jpg?auto=webp&fit=crop&height=675&width=1200",
         "authors": [
-            "Jonathon Dornbush"
+            "Amanda Kooser"
         ],
-        "time": "2025-03-20T17:00:02Z"
+        "time": "2025-03-24T18:28:00Z"
     },
     {
-        "url": "https://flowingdata.com/2025/03/17/living-82-year-old-social-security-recipient-erroneously-marked-as-dead/",
-        "title": "Living 82-year-old Social Security recipient erroneously marked as dead",
-        "source": "Flowingdata.com",
-        "content": "Pam Johnson got an email from her bank about her husband’s death. The Social Security Administration deducted funds from their account. The problem: her husband, Ned Johnson, is still alive. From Dan… [+1018 chars]",
-        "imageUrl": "https://flowingdata.com/wp-content/uploads/2025/01/logo-lone-square512x512.png",
+        "url": "https://www.cnet.com/tech/services-and-software/inside-the-reacher-season-3-finales-bone-breaking-brawl-the-dutch-giant-speaks/",
+        "title": "Inside the 'Reacher' Season 3 Finale's Bone-Breaking Brawl: The Dutch Giant Speaks",
+        "source": "CNET",
+        "content": "Another round of Prime Video's Reacher is in the books, and if I were to place my vote, it feels as if season 3 has been the most riveting. A considerable part of that has been the addition of Olivie… [+6117 chars]",
+        "imageUrl": "https://www.cnet.com/a/img/resize/859149dab6b5d4683482761dbb3a57dfd4a95264/hub/2025/03/27/d24bd5f4-caf1-4203-a522-9cb591eeb1f2/reacher-season-3-fight-olivier-richters.jpg?auto=webp&fit=crop&height=675&width=1200",
         "authors": [
-            "Nathan Yau"
+            "Aaron Pruner"
         ],
-        "time": "2025-03-17T10:04:20Z"
+        "time": "2025-03-27T20:47:00Z"
+    },
+    {
+        "url": "https://www.cnet.com/tech/services-and-software/lost-toenails-and-broken-bones-inside-the-reacher-season-3-finales-dutch-giant-brawl/",
+        "title": "Lost Toenails and Broken Bones: Inside the 'Reacher' Season 3 Finale's Dutch Giant Brawl",
+        "source": "CNET",
+        "content": "Another round of Prime Video's Reacher is in the books, and if I were to place my vote, it feels as if season 3 has been the most riveting. A considerable part of that has been the addition of Olivie… [+6024 chars]",
+        "imageUrl": "https://www.cnet.com/a/img/resize/859149dab6b5d4683482761dbb3a57dfd4a95264/hub/2025/03/27/d24bd5f4-caf1-4203-a522-9cb591eeb1f2/reacher-season-3-fight-olivier-richters.jpg?auto=webp&fit=crop&height=675&width=1200",
+        "authors": [
+            "Aaron Pruner"
+        ],
+        "time": "2025-03-27T16:24:50Z"
+    },
+    {
+        "url": "https://www.cnet.com/tech/services-and-software/mlb-2025-how-to-watch-the-major-league-baseball-season-without-cable/",
+        "title": "MLB 2025: How to Watch the Major League Baseball Season Without Cable",
+        "source": "CNET",
+        "content": "Like starting pitchers who throw 200 innings or more in a season, blackout restrictions in baseball are dwindling and may soon be a thing of the past. In this era of bullpens filled with flame-throwi… [+8154 chars]",
+        "imageUrl": "https://www.cnet.com/a/img/resize/e3aba1a1acaf8b5e90fcd370c66e32979b9cf13b/hub/2025/03/26/deb415dc-7fb9-450e-84b5-d416eeab88e7/gettyimages-2205312810.jpg?auto=webp&fit=crop&height=675&width=1200",
+        "authors": [
+            "Matt Elliott"
+        ],
+        "time": "2025-03-27T09:00:06Z"
+    },
+    {
+        "url": "https://www.yankodesign.com/2025/03/29/5-best-inspiration-that-unleash-the-potential-of-fruit-inspired-product-design/",
+        "title": "5 Best Inspiration That Unleash the Potential of Fruit-Inspired Product Design",
+        "source": "Yanko Design",
+        "content": "In the realm of product design, nature’s bounty – particularly fruits, offers boundless inspiration. These natural wonders provide a perfect blend of vibrant colors, unique textures, and organic shap… [+9301 chars]",
+        "imageUrl": "https://www.yankodesign.com/images/design_news/2025/03/fruit-inspired-product-design-a-blend-of-nature-and-innovation/Fruit-Inspired-Designs_Fun_9.jpg",
+        "authors": [
+            "Pooja Khanna Tyagi"
+        ],
+        "time": "2025-03-29T19:15:46Z"
+    },
+    {
+        "url": "https://www.sciencedaily.com/releases/2025/03/250326221649.htm",
+        "title": "Scientists uncover key mechanism in evolution: Whole-genome duplication drives long-term adaptation",
+        "source": "Science Daily",
+        "content": "Sometimes, the most significant scientific discoveries happen by accident.Scientists have long known that whole-genome duplication (WGD) -- the process by which organisms copy all their genetic mater… [+5543 chars]",
+        "imageUrl": "https://www.sciencedaily.com/images/scidaily-icon.png",
+        "authors": [],
+        "time": "2025-03-27T02:16:49Z"
+    },
+    {
+        "url": "https://www.core77.com/posts/136114/Industrial-Design-Case-Study-A-Better-Looking-Brain-Computer-Interface",
+        "title": "Industrial Design Case Study: A Better-Looking Brain-Computer Interface",
+        "source": "Core77.com",
+        "content": "When you think of technology that connects your brain to a computer, you probably picture something like this:\r\nA startup called Neurable had the technology, but wanted better design for their first … [+3442 chars]",
+        "imageUrl": "https://s3files.core77.com/blog/images/lead_n_spotlight/1667424_lead_400_136114_.jpeg",
+        "authors": [
+            "Rain Noe"
+        ],
+        "time": "2025-03-28T14:00:00Z"
+    },
+    {
+        "url": "https://www.sciencedaily.com/releases/2025/03/250328173532.htm",
+        "title": "Discrimination-related depression, anxiety pronounced among multiracial, White, Asian populations",
+        "source": "Science Daily",
+        "content": "A new study found that more than half of US adults encounter some form of discrimination, and that this mistreatment may fuel higher chances of depression and/or anxiety among specific racial and eth… [+5472 chars]",
+        "imageUrl": "https://www.sciencedaily.com/images/scidaily-icon.png",
+        "authors": [],
+        "time": "2025-03-28T21:35:32Z"
+    },
+    {
+        "url": "https://pitchfork.com/news/autechre-expand-2025-north-american-tour/",
+        "title": "Autechre Expand 2025 North American Tour",
+        "source": "Pitchfork",
+        "content": "Tickets went fast for Autechres highly anticipated North American tour, so theyre making their return to the United States and Canada even bigger. The English electronic music duo has added shows in … [+1962 chars]",
+        "imageUrl": "https://media.pitchfork.com/photos/67e5b20b8807ad7b658407d1/16:9/w_1280,c_limit/Autechre.jpeg",
+        "authors": [
+            "Madison Bloom"
+        ],
+        "time": "2025-03-28T15:34:21Z"
+    },
+    {
+        "url": "https://pitchfork.com/news/yung-lean-announces-forever-yung-tour/",
+        "title": "Yung Lean Announces Forever Yung Tour",
+        "source": "Pitchfork",
+        "content": "Yung Lean has announced the Forever Yung Tour. The Swedish musicians begins his tour in North America in October. Hell then play shows in Europe and the United Kingdom in November. See Yung Leans tou… [+1206 chars]",
+        "imageUrl": "https://media.pitchfork.com/photos/67e2d3149788271224319161/16:9/w_1280,c_limit/Yung-Lean.jpeg",
+        "authors": [
+            "Matthew Strauss"
+        ],
+        "time": "2025-03-25T16:38:22Z"
+    },
+    {
+        "url": "https://pitchfork.com/news/st-vincent-adds-us-tour-dates-shares-new-song-doa-listen/",
+        "title": "St. Vincent Adds U.S. Tour Dates, Shares New Song “DOA”: Listen",
+        "source": "Pitchfork",
+        "content": "St. Vincent has released DOA, a new song that she made for the new A24 movie Death of a Unicorn. Listen to the track, which was mixed by Cian Riordan, below.\r\nDeath of a Unicorn is in theaters now. T… [+2673 chars]",
+        "imageUrl": "https://media.pitchfork.com/photos/67e61af1242024712ac2456d/16:9/w_1280,c_limit/St-Vincent.jpeg",
+        "authors": [
+            "Matthew Strauss"
+        ],
+        "time": "2025-03-28T04:03:21Z"
+    },
+    {
+        "url": "https://pitchfork.com/news/garbage-announce-north-american-tour/",
+        "title": "Garbage Announce North American Tour",
+        "source": "Pitchfork",
+        "content": "Garbage have announced a huge North American tour of more than 30 cities, set to kick off in September. The alt-rockers will bring new album Let All That We Imagine Be the Light on the road after its… [+1598 chars]",
+        "imageUrl": "https://media.pitchfork.com/photos/67e2c9817e543a7d6b9c04f5/16:9/w_1280,c_limit/Garbage.jpeg",
+        "authors": [
+            "Jazz Monroe"
+        ],
+        "time": "2025-03-25T15:00:06Z"
+    },
+    {
+        "url": "https://pitchfork.com/news/model-actriz-add-tour-dates-share-new-song-doves-listen/",
+        "title": "Model/Actriz Add Tour Dates, Share New Song “Doves”: Listen",
+        "source": "Pitchfork",
+        "content": "Model/Actriz have shared a new song. Doves is the second single from the New York bands forthcoming album, Pirouette, following last months Cinderella. Listen to it below.\r\nDoves was the first song o… [+2125 chars]",
+        "imageUrl": "https://media.pitchfork.com/photos/67e1ac81fbd7a11b4d53b53a/16:9/w_1280,c_limit/Model-Actriz.jpeg",
+        "authors": [
+            "Walden Green"
+        ],
+        "time": "2025-03-25T14:03:12Z"
+    },
+    {
+        "url": "https://pitchfork.com/news/pup-and-jeff-rosenstock-announce-tour-share-video-for-new-song-get-dumber-watch/",
+        "title": "PUP and Jeff Rosenstock Announce Tour, Share Video for New Song “Get Dumber”: Watch",
+        "source": "Pitchfork",
+        "content": "PUP have shared the third preview from the new album Who Will Look After the Dogs?Get Dumber is a collaboration with fellow pop-punk stalwart Jeff Rosenstock, and it comes with a music video written,… [+2701 chars]",
+        "imageUrl": "https://media.pitchfork.com/photos/67e2d3d34511c56035882305/16:9/w_1280,c_limit/PUP-Jeff-Rosenstock.jpeg",
+        "authors": [
+            "Matthew Strauss"
+        ],
+        "time": "2025-03-25T16:31:02Z"
     },
     {
         "url": "https://pitchfork.com/news/ethel-cain-announces-tour-dates-and-new-album-willoughby-tucker-i-will-always-love-you/",
@@ -337,1137 +690,726 @@
         "time": "2025-03-24T14:27:49Z"
     },
     {
-        "url": "https://hypebeast.com/2025/3/nike-air-griffey-max-1-freshwater-dm8311-00-release-info",
-        "title": "Nike Air Griffey Max 1 \"Freshwater\" Set For a Return",
+        "url": "https://www.mentalfloss.com/historical-figures-you-probably-didnt-know-were-spies",
+        "title": "7 Historical Figures You Probably Didn’t Know Were Spies",
+        "source": "Mental Floss",
+        "content": "What do Julia Child, Paul Revere, and Harriet Tubman all have in common? Each played a crucial role in the clandestine world of espionage and intelligence. Though we might know them for their shows, … [+9792 chars]",
+        "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_303,w_4255,h_2393/c_fill,w_1440,ar_1440:810,f_auto,q_auto,g_auto/images/GettyImages/mmsport/mentalfloss/01jptmf0w5heg28tdt57.jpg",
+        "authors": [
+            "Colin Scanlon"
+        ],
+        "time": "2025-03-31T11:57:00Z"
+    },
+    {
+        "url": "https://www.mentalfloss.com/columns/greatest-escapes/greatest-escapes-with-arturo-castro-episode-1-el-chapos-first-escape-transcript",
+        "title": "‘Greatest Escapes With Arturo Castro’ Episode 1: El Chapo’s First Escape",
+        "source": "Mental Floss",
+        "content": "Mental Floss is partnering with FilmNation and iHeartPodcasts to bring you the transcripts forGreatest Escapes, a podcast hosted by Arturo Castro about some of the wildest escape stories across histo… [+49184 chars]",
+        "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_3838,h_2158/c_fill,w_1440,ar_1440:810,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/mentalfloss/01jq4p5rembb18pdsp8r.jpg",
+        "authors": [
+            "Greatest Escapes with Arturo Castro"
+        ],
+        "time": "2025-03-24T23:01:00Z"
+    },
+    {
+        "url": "https://hypebeast.com/2025/3/new-balance-1000-surfaces-in-dark-olivine",
+        "title": "New Balance 1000 Surfaces in \"Dark Olivine\"",
         "source": "HYPEBEAST",
-        "content": "Name: Nike Air Griffey Max 1 “Freshwater”Colorway: Black/Multi-Color-Fresh Water-White-Varsity Red-Metallic SilverSKU: DM8311-001MSRP: $130 USDRelease Date: Holiday 2025Where to Buy: Nike\r\nFollowing … [+925 chars]",
-        "imageUrl": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2025%2F03%2F20%2Fnike-air-griffey-max-1-freshwater-dm8311-00-release-info-tw.jpg?w=1080&cbr=1&q=90&fit=max",
+        "content": "Name: New Balance 1000 “Dark Olivine”Colorway: Dark Olivine/SailSKU: M1000MEOMSRP: $150 USDRelease Date: Available NowWhere to Buy: Extra Butter\r\nThe New Balance 1000 is proving to be one of the more… [+421 chars]",
+        "imageUrl": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2025%2F03%2F25%2Fnew-balance-1000-surfaces-in-dark-olivine-tw.jpg?w=1080&cbr=1&q=90&fit=max",
         "authors": [
             "info@hypebeast.com (Hypebeast)"
         ],
-        "time": "2025-03-21T06:33:52Z"
+        "time": "2025-03-25T08:07:26Z"
     },
     {
-        "url": "https://www.space.com/entertainment/robots-and-androids-and-drones-oh-my-is-netflixs-the-electric-state-a-sci-fi-retelling-of-the-wizard-of-oz",
-        "title": "Is Netflix's 'The Electric State' a sci-fi retelling of 'The Wizard of Oz'?",
+        "url": "https://hypebeast.com/2025/3/devin-booker-phoenix-suns-nike-book-1-70-point-hyperdunk-pe",
+        "title": "Devin Booker Honors 70-Point Game With Nike Book 1 \"Hyperdunk\" PE",
+        "source": "HYPEBEAST",
+        "content": "Eight years ago, on March 24, 2017, Devin Booker made NBA history by becoming the youngest player to ever score 70 points in one game. In the match-up against Boston Celtics, Book, who was 20 years o… [+659 chars]",
+        "imageUrl": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2025%2F03%2F26%2Fdevin-booker-phoenix-suns-nike-book-1-70-point-hyperdunk-pe-tw.jpg?w=1080&cbr=1&q=90&fit=max",
+        "authors": [
+            "info@hypebeast.com (Hypebeast)"
+        ],
+        "time": "2025-03-26T02:22:50Z"
+    },
+    {
+        "url": "https://hypebeast.com/2025/3/yung-lean-babyface-maniacs-music-video",
+        "title": "Yung Lean Plays a Fallen Hero in \"Babyface Maniacs\" Visual",
+        "source": "HYPEBEAST",
+        "content": "A few weeks off his performance at Stockholm’s Avicii Arena earlier in the month, Yung Lean has unearthed the second official single from his upcoming project Jonatan. Due out on May 2, Lean’s immine… [+2081 chars]",
+        "imageUrl": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2025%2F03%2F28%2Fyung-lean-babyface-maniacs-music-video-tw.jpg?w=1080&cbr=1&q=90&fit=max",
+        "authors": [
+            "info@hypebeast.com (Hypebeast)"
+        ],
+        "time": "2025-03-28T23:07:43Z"
+    },
+    {
+        "url": "https://hypebeast.com/2025/3/best-sneaker-releases-march-2025-week-4-nike-new-balance",
+        "title": "A Ma Maniére and Nike's \"For The Love\" Collection Brings Appreciation to This Week's Best Footwear Drops",
+        "source": "HYPEBEAST",
+        "content": "After five days of nonstop hoops, the stage is now set for the Sweet 16 of the men’s and women’s college basketball tournaments. Before play resumes this Thursday, we’ve got an exciting lineup of lau… [+8386 chars]",
+        "imageUrl": "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2025%2F03%2F25%2Fbest-sneaker-releases-march-2025-week-4-nike-new-balance-tw.jpg?w=1080&cbr=1&q=90&fit=max",
+        "authors": [
+            "info@hypebeast.com (Hypebeast)"
+        ],
+        "time": "2025-03-25T18:24:02Z"
+    },
+    {
+        "url": "https://www.space.com/entertainment/the-monster-will-come-for-us-all-mon-mothma-rouses-the-rebels-in-new-andor-season-2-trailer",
+        "title": "\"The monster will come for us all!” Mon Mothma rouses the rebels in new 'Andor' Season 2 trailer",
         "source": "Space.com",
-        "content": "The Russo Brothers, those money-making MCU maestros and their mega-budgeted sci-fi adventure, \"The Electric State,\" are receiving much unkind criticism from fans and pundits, some of it possibly dese… [+6533 chars]",
-        "imageUrl": "https://cdn.mos.cms.futurecdn.net/FCAqkPyKE6dGRSK6jvCXpj-1200-80.png",
+        "content": "We're a mere month away from the climactic second season of Disney+'s \"Andor: A Star Wars Story\" that will take us straight up to the beginning of \"Rogue One: A Star Wars Story.\" A fresh Disney-deliv… [+3349 chars]",
+        "imageUrl": "https://cdn.mos.cms.futurecdn.net/Xz5CcukkWWfLGT442eC6Gh-1200-80.jpg",
         "authors": [
             "stingrayghost@gmail.com (Jeff Spry)"
         ],
-        "time": "2025-03-21T22:00:00Z"
+        "time": "2025-03-25T22:00:00Z"
     },
     {
-        "url": "https://www.tmz.com/2025/03/21/naked-and-afraid-contestant-butt-stitches-removed/",
-        "title": "'Naked and Afraid' Contestant Has Stitches Removed From Butt",
-        "source": "TMZ",
-        "content": "\"Naked and Afraid\" contestant Jarrell Banks had to go all the way to a remote wilderness in the Philippines to find his G-spot ... getting more than a dozen stitches removed from his rear in the midd… [+978 chars]",
-        "imageUrl": "https://imagez.tmz.com/image/bb/16by9/2025/03/21/bbf1a4739b774a949ecf7c46f7b0b2a9_xl.jpg",
+        "url": "https://www.space.com/best-places-us-canada-rare-double-sunrise-partial-solar-eclipse-march-29",
+        "title": "Best places in the US and Canada to see rare 'double sunrise' during partial solar eclipse on March 29",
+        "source": "Space.com",
+        "content": "It may not be a total solar eclipse, but the partial solar eclipse on March 29, 2025\r\n, will bring some very unusual views of the sun and moon to some observers in North America.\r\nSeen as a run-of-th… [+4305 chars]",
+        "imageUrl": "https://cdn.mos.cms.futurecdn.net/b94cKY44wAxXDPZeT7QPkY-1200-80.jpg",
         "authors": [
-            "TMZ Staff"
+            "Jamie Carter"
         ],
-        "time": "2025-03-21T23:00:05Z"
+        "time": "2025-03-25T14:00:00Z"
     },
     {
-        "url": "http://www.rollingstone.com/music/music-news/jonas-brothers-20th-anniversary-living-the-dream-tour-dates-1235301619/",
-        "title": "Jonas Brothers Detail 20th Anniversary Living the Dream Tour",
+        "url": "https://www.space.com/what-will-happen-partial-solar-eclipse-march-2025",
+        "title": "What will happen during the partial solar eclipse of March 2025?",
+        "source": "Space.com",
+        "content": "What a difference a year makes!\r\nJust a year ago, countless millions across North America were anxiously awaiting the \"great North American total eclipse of the sun\"\r\n on April 8. Now, less than a ye… [+9577 chars]",
+        "imageUrl": "https://cdn.mos.cms.futurecdn.net/DVNp9oNywHTxsHSaRPBqsS-1200-80.jpg",
+        "authors": [
+            "Joe Rao"
+        ],
+        "time": "2025-03-26T20:00:00Z"
+    },
+    {
+        "url": "https://www.space.com/the-universe/moon/the-new-moon-of-march-2025-creates-a-partial-solar-eclipse-this-weekend",
+        "title": "The new moon of March 2025 creates a partial solar eclipse this weekend",
+        "source": "Space.com",
+        "content": "This new moon of March 2025 will create a partial solar eclipse visible in the northeastern part of North America, much of Europe and Russia; one will even be able to see the moon cover a sliver of t… [+10554 chars]",
+        "imageUrl": "https://cdn.mos.cms.futurecdn.net/Qigia9QMiYrRmFVuh3UU4R-1200-80.jpg",
+        "authors": [
+            "Jesse Emspak"
+        ],
+        "time": "2025-03-26T10:00:10Z"
+    },
+    {
+        "url": "https://petapixel.com/2025/03/31/herb-greene-legendary-photographer-of-1960s-rock-icons-dies/",
+        "title": "Herb Greene, Legendary Photographer of 1960s Rock Icons, Dies",
+        "source": "PetaPixel",
+        "content": "Photographer Herb Greene (left) and his image on the cover of Jefferson Airplane’s album ‘Surrealistic Pillow’ (right)\r\nPhotographer Herb Greene, who captured iconic images of the rock superstars of … [+2844 chars]",
+        "imageUrl": "https://petapixel.com/assets/uploads/2025/03/herb-greene.jpg",
+        "authors": [
+            "Pesala Bandara"
+        ],
+        "time": "2025-03-31T13:15:40Z"
+    },
+    {
+        "url": "https://www.slashfilm.com/1819042/mrs-columbo-spin-off-phased-out-existence/",
+        "title": "The Columbo Spin-Off That Slowly Phased Him Out Of Existence",
+        "source": "/FILM",
+        "content": "For every successful spin-off like \"Frasier,\" there are 10 of them like \"Mrs. Columbo.\" When, for example, \"Frasier\" was spun off from the 11-season comedy smash \"Cheers,\" it was a risk, but the Bost… [+1546 chars]",
+        "imageUrl": "https://www.slashfilm.com/img/gallery/the-columbo-spin-off-that-slowly-phased-him-out-of-existence/l-intro-1742920878.jpg",
+        "authors": [
+            "staff@slashfilm.com (Josh Spiegel)"
+        ],
+        "time": "2025-03-30T14:00:00Z"
+    },
+    {
+        "url": "https://www.vox.com/donald-trump/406199/ice-rumeysa-ozturk-tufts-logoff",
+        "title": "ICE’s viral arrest of a Tufts University student, briefly explained",
+        "source": "Vox",
+        "content": "This story appeared in The Logoff, a daily newsletter that helps you stay informed about the Trump administration without letting political news take over your life. Subscribe here.\r\nWelcome to The L… [+2967 chars]",
+        "imageUrl": "https://platform.vox.com/wp-content/uploads/sites/2/2025/03/gettyimages-2206554115.jpg?quality=90&strip=all&crop=0%2C10.753005716116%2C100%2C78.493988567768&w=1200",
+        "authors": [
+            "Patrick Reis"
+        ],
+        "time": "2025-03-27T21:50:26Z"
+    },
+    {
+        "url": "https://www.vox.com/policy/405158/trump-deportation-detention-visa-green-card-airport-travel",
+        "title": "How worried should legal immigrants be about Trump’s deportations?",
+        "source": "Vox",
+        "content": "The Newark Liberty International Airport in Newark. | Nicolas Economou/NurPhoto via Getty Images\r\n\n\nThese are uncertain times for many immigrants in the US. \n\nThere have been reports of individual vi… [+6701 chars]",
+        "imageUrl": "https://platform.vox.com/wp-content/uploads/sites/2/2025/03/gettyimages-2191665363.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+        "authors": [
+            "Nicole Narea"
+        ],
+        "time": "2025-03-26T22:30:31Z"
+    },
+    {
+        "url": "http://www.rollingstone.com/music/music-features/larry-tamblyn-tribute-standells-dirty-water-1235303168/",
+        "title": "The Everlasting Cool of My Uncle, Garage Rock Trailblazer Larry Tamblyn",
         "source": "Rolling Stone",
-        "content": "Jonas Brothers have detailed their upcoming 20th anniversary Living the Dream tour, a stretch of 10 stadium shows followed by an extensive arena jaunt.\r\n“We’re beyond excited to hit the road and cele… [+3619 chars]",
-        "imageUrl": "https://www.rollingstone.com/wp-content/uploads/2025/03/Shot_08_Piano_JpegShot_08_Piano_121.jpg?w=1600&h=900&crop=1",
+        "content": "I grew up in a bohemian household in Southern California where icons of the literary, film, and music worlds would often converge. On any given evening, there might be a noted author in our living ro… [+7035 chars]",
+        "imageUrl": "https://www.rollingstone.com/wp-content/uploads/2025/03/larry-tamblyn-the-standells.jpg?w=1600&h=900&crop=1",
         "authors": [
-            "Daniel Kreps"
+            "Simon Vozick-Levinson"
         ],
-        "time": "2025-03-23T13:30:35Z"
+        "time": "2025-03-26T14:11:14Z"
     },
     {
-        "url": "https://thepointsguy.com/news/delta-air-lines-new-hawaii-flights/",
-        "title": "Delta Air Lines announces new Hawaii route from its Salt Lake City hub and more flights next winter",
+        "url": "http://www.rollingstone.com/tv-movies/tv-movie-features/studio-ike-barinholtz-interview-1235300691/",
+        "title": "Ike Barinholtz Has Been an Unsung Comedy Hero for Decades. ‘The Studio’ Will Change That",
+        "source": "Rolling Stone",
+        "content": "As Ike Barinholtz approaches the register at Farm Boy Produce, the cashier regards the 48-year-old comic-actor-writer-director with a gimlet-eyed skepticism, as if he’s a shoplifter or worse. “Are yo… [+11142 chars]",
+        "imageUrl": "https://www.rollingstone.com/wp-content/uploads/2025/03/Nasseri-RS-Ike-27710026.jpg?w=1600&h=900&crop=1",
+        "authors": [
+            "Maria Fontoura"
+        ],
+        "time": "2025-03-24T13:00:00Z"
+    },
+    {
+        "url": "https://thepointsguy.com/news/delta-flight-museum-renovation/",
+        "title": "Atlanta’s Delta Flight Museum set to reopen after multi-million dollar facelift",
         "source": "The Points Guy",
-        "content": "Delta Air Lines is adding a 17th route from the U.S. mainland to Hawaii this coming winter and is connecting its Salt Lake City International Airport (SLC) hub with a new Hawaiian island in the proce… [+3539 chars]",
-        "imageUrl": "https://thepointsguy.global.ssl.fastly.net/us/originals/2021/07/Delta-Boeing-767-300-Retrofit-One-Premium-Select-Zach-Griff-94.jpg",
+        "content": "Lie-flat suites with sliding privacy doors. Wraparound 4K screens.Bluetooth connectivity and high-speed internet.\r\nWhen we talk about the latest, most significant innovations in air travel today, it … [+7017 chars]",
+        "imageUrl": "https://thepointsguy.global.ssl.fastly.net/us/originals/2025/03/20250325_Delta-Flight-Museum_SCudahy_58.jpg",
         "authors": [
             "Sean Cudahy"
         ],
-        "time": "2025-03-21T20:30:08Z"
+        "time": "2025-03-26T10:00:11Z"
     },
     {
-        "url": "https://thepointsguy.com/news/reagan-national-airport-delays-up-passenger-traffic-down/",
-        "title": "Delays up, passenger traffic down at DCA following Jan. 29 crash, government layoffs",
-        "source": "The Points Guy",
-        "content": "About four in 10 flights were delayed or canceled last month at Ronald Reagan Washington National Airport (DCA) as disruptions persisted in the wake of the deadliest U.S. commercial airline crash in … [+5356 chars]",
-        "imageUrl": "https://thepointsguy.global.ssl.fastly.net/us/originals/2024/12/20241220_Plane-Spotting-Assorted_SCudahy-26.jpg",
-        "authors": [
-            "Sean Cudahy"
-        ],
-        "time": "2025-03-22T12:00:40Z"
-    },
-    {
-        "url": "https://www.indiewire.com/news/trailers/the-wedding-banquet-trailer-andrew-ahn-1235103939/",
-        "title": "‘The Wedding Banquet’ Trailer: Bowen Yang and Kelly Marie Tran Conspire for the Sake of Love",
-        "source": "IndieWire",
-        "content": "If hearing him on “Las Culturistas” and seeing him in “Wicked” and on “Saturday Night Live” wasn’t enough, Bowen Yang is headed back to the big screen alongside Academy Award-nominee Lily Gladstone, … [+2814 chars]",
-        "imageUrl": "https://www.indiewire.com/wp-content/uploads/2025/01/Wedding-Banquet.jpg?w=650",
-        "authors": [
-            "Harrison Richlin"
-        ],
-        "time": "2025-03-17T16:00:00Z"
-    },
-    {
-        "url": "https://www.nybooks.com/articles/2025/04/10/trump-antisemitism-academia-christopher-browning/",
-        "title": "Trump, Antisemitism & Academia",
-        "source": "The New York Review of Books",
-        "content": "On March 10, three days after the Trump administration canceled federal grants and contracts worth $400 million at Columbia University, the Department of Education sent a letter to sixty universities… [+5578 chars]",
-        "imageUrl": "https://www.nybooks.com/wp-content/uploads/2025/03/DP882208.jpg",
-        "authors": [
-            "Christopher R. Browning"
-        ],
-        "time": "2025-03-18T12:00:00Z"
-    },
-    {
-        "url": "https://www.itsnicethat.com/articles/taylor-barron-illustration-discover-170325",
-        "title": "These surreal illustrations express “the general absurdity of being alive”",
-        "source": "Itsnicethat.com",
-        "content": "Taylor Barron describes her illustrations as a set of Escher stairs. They somehow connect the different parts of my identity, my perception of others, and the underlying quest for both understanding … [+1288 chars]",
-        "imageUrl": "https://admin.itsnicethat.com/images/C-djHrapEa_kleXYy1t87GurI20=/262505/width-1440/Taylor-Barron-Illustration-ItsNiceThat-18.jpg",
-        "authors": [
-            "Marigold Warner"
-        ],
-        "time": "2025-03-17T09:00:00Z"
-    },
-    {
-        "url": "https://www.eurogamer.net/the-last-of-us-part-2-remastereds-pc-specs-and-features-detailed-as-sony-reiterates-no-psn-account-required",
-        "title": "The Last of Us Part 2 Remastered's PC specs and features detailed, as Sony reiterates no PSN account required",
-        "source": "Eurogamer.net",
-        "content": "With The Last of Us Part 2 Remastered now exactly two weeks away from its PC release, Sony has rolled up its sleeves and detailed the platform-specific features it's implementing - and in the case of… [+2519 chars]",
-        "imageUrl": "https://assetsio.gnwcdn.com/the-last-of-us-part-2-heretic-prophet-jacket.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp",
-        "authors": [
-            "Matt Wales"
-        ],
-        "time": "2025-03-20T19:13:36Z"
-    },
-    {
-        "url": "https://www.pcworld.com/article/582746/how-to-watch-baseball-online.html",
-        "title": "Streaming Major League Baseball games: A how-to guide",
-        "source": "PCWorld",
-        "content": "Skip to contentType your search and hit enter\r\nWhen you purchase through links in our articles, we may earn a small commission. This doesn't affect our editorial independence\r\n.\r\nBaseball fans have m… [+7808 chars]",
-        "imageUrl": "https://www.pcworld.com/wp-content/uploads/2025/03/friday-night-baseball.jpg?quality=50&strip=all&w=1024",
-        "authors": [
-            "Michael Ansaldo"
-        ],
-        "time": "2025-03-17T17:00:00Z"
-    },
-    {
-        "url": "https://www.the-sun.com/money/13810674/dennys-closures-camillus-new-york/",
-        "title": "DENNY'S next victim of restaurant apocalypse...",
-        "source": "The-sun.com",
-        "content": "A FAN favorite restaurant has closed down after 26 years - with the chain eyeing 150 low performing locations for closure this year.\r\nIt comes as the industry buckles under the weight of economic pre… [+8682 chars]",
-        "imageUrl": "https://www.the-sun.com/wp-content/uploads/sites/6/2025/03/newspress-collage-3snehaank-1742325796521.jpg?1742311411&strip=all&quality=100&w=1920&h=1080&crop=1",
-        "authors": [
-            "James Evenden"
-        ],
-        "time": "2025-03-18T21:16:42Z"
-    },
-    {
-        "url": "https://www.boredpanda.com/dad-refuses-care-for-hospitalized-baby/",
-        "title": "Dad Goes Back To Work While Newborn Battles Pneumonia, Blames Fiance For Baby Getting Sick",
-        "source": "Boredpanda.com",
-        "content": "Having a new baby can be a rollercoaster ride. You’re tired, you’re recovering, your hormones are raging, you’re learning to care for a tiny human. You can be happy, sad, anxious, scared and overwhel… [+4380 chars]",
-        "imageUrl": "https://www.boredpanda.com/blog/wp-content/uploads/2025/03/dad-refuses-care-for-hospitalized-baby-fb.png",
-        "authors": [
-            "Indrė Lukošiūtė"
-        ],
-        "time": "2025-03-20T05:15:49Z"
-    },
-    {
-        "url": "https://www.boredpanda.com/plus-size-influencer-hits-back-fatphobic-plane-seat-fees/",
-        "title": "“Not My Job To Shrink”: Plus-Size Woman Hits Back At Trolls Who Want Her To Pay Extra To Fly",
-        "source": "Boredpanda.com",
-        "content": "A plus-sized activist, who has been “fighting for fat liberation,” clapped back at critics for comparing her body to luggage and demanding she pay extra to fly.\r\nJaelynn Chaney, 28, said it was “dehu… [+5402 chars]",
-        "imageUrl": "https://www.boredpanda.com/blog/wp-content/uploads/2025/03/fb_image_67dacc9ba53fd.png",
-        "authors": [
-            "Lei RV"
-        ],
-        "time": "2025-03-19T14:33:13Z"
-    },
-    {
-        "url": "https://www.espn.com/nfl/story/_/id/44314606/sources-vikings-roll-mccarthy-not-pursuing-rodgers",
-        "title": "Sources: Vikes to roll with McCarthy, not Rodgers",
-        "source": "ESPN",
-        "content": "The Minnesota Vikings are moving past their discussions with free agent quarterback Aaron Rodgers, leaving second-year player J.J. McCarthy atop the quarterback depth chart as offseason practices app… [+1959 chars]",
-        "imageUrl": "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0810%2Fr1371842_1296x729_16%2D9.jpg",
-        "authors": [
-            "Kevin Seifert"
-        ],
-        "time": "2025-03-19T13:40:29Z"
-    },
-    {
-        "url": "https://www.espn.com/nfl/story/_/id/44237510/las-vegas-raiders-offseason-free-agency-draft-2025",
-        "title": "From finding WR1 to upgrading the run game: Four keys Raiders need to address",
-        "source": "ESPN",
-        "content": "HENDERSON, Nev. -- Even though the Las Vegas Raiders went into free agency with plenty of money to spend, they didn't break the bank on any of their signings during the first week.\r\nLas Vegas watched… [+5480 chars]",
-        "imageUrl": "https://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0313%2Fr1463759_1296x729_16%2D9.jpg",
-        "authors": [
-            "Ryan McFadden"
-        ],
-        "time": "2025-03-17T11:53:37Z"
-    },
-    {
-        "url": "https://www.espn.com/nfl/story/_/id/44288689/2026-nfl-free-agency-early-look-top-players-quarterbacks-available",
-        "title": "Way-too-early look at 2026 NFL free agents: Which playmakers could be available next March?",
-        "source": "ESPN",
-        "content": "We're still waiting to see where veteran quarterbacks Aaron Rodgers and Russell Wilson land, but other than that, the major moves of the 2025 NFL free agency cycle are pretty much complete. We're get… [+14187 chars]",
-        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0319%2Fr1466592_1296x729_16%2D9.jpg",
-        "authors": [
-            "Matt Bowen"
-        ],
-        "time": "2025-03-21T11:09:13Z"
-    },
-    {
-        "url": "https://www.espn.com/nfl/story/_/id/44330376/seahawks-uchenna-nwosu-agree-reworked-contract",
-        "title": "Nwosu agrees to paycut to stay with Seahawks",
-        "source": "ESPN",
-        "content": "SEATTLE -- The Seahawks and outside linebacker Uchenna Nwosu have agreed to a reworked contract that will lower his 2025 salary cap number and keep one of the team's best edge defenders in Seattle fo… [+3395 chars]",
-        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2023%2F1003%2Fr1233149_1296x729_16%2D9.jpg",
-        "authors": [
-            "Brady Henderson"
-        ],
-        "time": "2025-03-20T17:22:18Z"
-    },
-    {
-        "url": "https://www.espn.com/nfl/story/_/id/44319507/new-orleans-saints-free-agency-2025-draft",
-        "title": "Saints, new coach Kellen Moore still to address roster gaps after quiet free agency",
-        "source": "ESPN",
-        "content": "NEW ORLEANS - New Orleans Saints tight end Juwan Johnson said he hasn't gotten to know new coach Kellen Moore yet.Moore's relationship with Johnson and most Saints players likely won't form until the… [+6235 chars]",
-        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0319%2Fr1466547_1296x729_16%2D9.jpg",
-        "authors": [
-            "Katherine Terrell"
-        ],
-        "time": "2025-03-21T11:00:04Z"
-    },
-    {
-        "url": "https://newatlas.com/tiny-houses/whidbey-puzzle-prefab/",
-        "title": "Tiny home packs a huge punch in sustainability and flexibility",
-        "source": "New Atlas",
-        "content": "Wittman Estes, an architecture studio based in Seattle, has unveiled the Whidbey Puzzle Prefab, an innovative take on sustainable modular housing. This 600-sq-ft (55.75-sqm) tiny prototype, located o… [+2796 chars]",
-        "imageUrl": "https://assets.newatlas.com/dims4/default/74c58fe/2147483647/strip/true/crop/1000x525+0+44/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2F25%2Fa7%2F9e5fc3604a23968f1c21e1ca2589%2Fwhidbey-puzzle-prefab-7.jpg&na.image_optimisation=0",
-        "authors": [
-            "Bridget Borgobello"
-        ],
-        "time": "2025-03-23T12:33:00Z"
-    },
-    {
-        "url": "https://www.universetoday.com/articles/a-new-company-plans-to-prospect-the-moon",
-        "title": "A New Company Plans to Prospect the Moon",
-        "source": "Universe Today",
-        "content": "Helium-3 (He-3) on the Moon's surface has drawn attention for decades. In 1939, a paper first noted the presence of Helium-3 on the Moon. Still, it really came into the collective consciousness of sp… [+4689 chars]",
-        "imageUrl": "https://www.universetoday.com/assets/screenshot-2025-03-17-124800.png",
+        "url": "https://www.bbc.com/sport/videos/cr5dnm4lje5o",
+        "title": "Fear & Gibson win GB's first world figure skating medal since 1984",
+        "source": "BBC News",
+        "content": "Up Next. A small, great revolution: Samuele and Michal take to the slopes. Video, 00:03:33A small, great revolution: Samuele and Michal take to the slopes",
+        "imageUrl": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/b2af/live/05418730-0ce5-11f0-ac9f-c37d6fd89579.jpg",
         "authors": [],
-        "time": "2025-03-17T19:32:00Z"
+        "time": "2025-03-29T21:32:42Z"
     },
     {
-        "url": "https://www.nakedcapitalism.com/2025/03/links-3-23-2025.html",
-        "title": "Links 3/23/2025",
-        "source": "Nakedcapitalism.com",
-        "content": "Ocean Census Expeditions Discover More Than 800 New Marine Species Colossal\r\nWhile everyone is looking for aliens in space, real aliens are right here with us!\r\n“Lampocteis Cruentiventer” is the only… [+5789 chars]",
-        "imageUrl": "https://www.nakedcapitalism.com/wp-content/uploads/2025/03/Red-panda.jpg",
+        "url": "https://www.bbc.com/sport/articles/c99n9yn2v40o",
+        "title": "Figure skating body apologises for Taiwan flag error",
+        "source": "BBC News",
+        "content": "Organisers of the World Figure Skating Championships have apologised after displaying the flag of Taiwan in place of the Chinese Taipei emblem. \r\nTaiwan competes at most international sports events a… [+880 chars]",
+        "imageUrl": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/e112/live/f107d4d0-0baf-11f0-b234-07dc7691c360.jpg",
         "authors": [
-            "Haig Hovaness"
+            "BBC Sport"
         ],
-        "time": "2025-03-23T10:55:03Z"
+        "time": "2025-03-28T10:00:28Z"
     },
     {
-        "url": "https://www.psychologytoday.com/us/blog/mad-woman-out-of-the-attic/202503/a-mind-greater-than-an-alpine-mountain",
-        "title": "A Mind Greater Than an Alpine Mountain",
-        "source": "Psychology Today",
-        "content": "Christof Koch was the second neuroscientist to make me stop and wonder at my own mind. He said, The world is transcendent and beautiful, and consciousness is a fundamental aspect of the universe.\r\nTh… [+5885 chars]",
-        "imageUrl": "https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/field_blog_entry_images/2025-03/Mt%20Baker.jpg?itok=dRapd7_x",
+        "url": "https://www.bbc.com/sport/basketball/articles/ckgn7d48g8vo",
+        "title": "James scores late as Lakers end losing streak",
+        "source": "BBC News",
+        "content": "LeBron James scored the match winner with time almost up as the Los Angeles Lakers ended their losing streak with victory against the Indiana Pacers.\r\nThe Pacers held a one-point lead with 42 seconds… [+1624 chars]",
+        "imageUrl": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/cdbd/live/2df7b750-0adb-11f0-8a9e-8585b0f1521a.jpg",
         "authors": [
-            "Susanne Paola Antonetta"
+            "BBC Sport"
         ],
-        "time": "2025-03-20T13:30:01Z"
+        "time": "2025-03-27T07:34:44Z"
     },
     {
-        "url": "https://www.ign.com/articles/sony-wants-the-last-of-us-2-remastered-pc-players-to-sign-into-psn-offers-intergalactic-the-heretic-prophet-skin-for-ellie-as-an-incentive",
-        "title": "Sony Wants The Last of Us 2 Remastered PC Players to Sign Into PSN, Offers Intergalactic: The Heretic Prophet Skin for Ellie as an Incentive",
-        "source": "IGN",
-        "content": "Sony has confirmed The Last of Us Part II Remastered PC specs ahead of its April 3 release date, PSN sign-in incentives, and announced new content coming to No Return Mode across PC and PlayStation 5… [+5533 chars]",
-        "imageUrl": "https://assets-prd.ignimgs.com/2025/03/20/ellie-1742492286092.jpg?width=1280",
+        "url": "https://www.bbc.com/sport/articles/cj92gn3zlk4o",
+        "title": "Torvill & Dean hoping to pass mantle to Fear & Gibson",
+        "source": "BBC News",
+        "content": "What do you get British skating royalty as a retirement gift when they have been ice dancing together for 50 years? A successor would be nice.\r\nJayne Torvill and Christopher Dean, who won Olympic gol… [+2531 chars]",
+        "imageUrl": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/a3c2/live/599ee040-04c8-11f0-9d42-fd1949512f9c.png",
         "authors": [
-            "Wesley Yin-Poole"
+            "Sonia Oxley"
         ],
-        "time": "2025-03-20T17:38:37Z"
+        "time": "2025-03-24T06:22:35Z"
     },
     {
-        "url": "https://www.forbes.com/sites/jackmagruder/2025/03/19/ncaa-west-regional-florida-opens-as-slight-favorite-to-win-it-all/",
-        "title": "NCAA West Regional: Florida Opens As Slight Favorite To Win It All",
+        "url": "https://qz.com/the-5-most-dynamic-cities-in-the-world-1851772128",
+        "title": "The 5 most dynamic cities in the world",
+        "source": "Quartz India",
+        "content": "In a rapidly changing world, it can be challenging to determine which cities are poised for ongoing success and which might soon fade out of relevance.\r\nWhen choosing where to live, raise a family, g… [+1913 chars]",
+        "imageUrl": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/aa5aa3b5407487f91d9e128b5773d866.webp",
+        "authors": [
+            "Madeline Fitzgerald"
+        ],
+        "time": "2025-03-25T13:30:00Z"
+    },
+    {
+        "url": "https://www.bbc.com/sport/articles/cj92mrn7zrdo",
+        "title": "Skaters who died in plane crash mourned at Worlds",
+        "source": "BBC News",
+        "content": "A ceremony was held at the World Figure Skating Championships to pay tribute to the skaters and coaches who died in a plane crash in January.\r\nAn American Airlines plane and Army Black Hawk helicopte… [+1149 chars]",
+        "imageUrl": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/abd2/live/99fb2a70-0add-11f0-8a9e-8585b0f1521a.jpg",
+        "authors": [
+            "BBC Sport"
+        ],
+        "time": "2025-03-27T07:47:28Z"
+    },
+    {
+        "url": "https://www.aljazeera.com/news/2025/3/26/trump-administration-arrests-turkish-student-at-tufts-revokes-visa",
+        "title": "Trump administration arrests Turkish student at Tufts, revokes visa",
+        "source": "Al Jazeera English",
+        "content": "United States immigration authorities have arrested and revoked the visa of a Turkish doctoral student at Tufts University near Boston who had voiced support for Palestinians during Israels war in Ga… [+5385 chars]",
+        "imageUrl": "https://www.aljazeera.com/wp-content/uploads/2025/03/2025-03-26T112529Z_1856765177_RC2YKDAR36NX_RTRMADP_3_USA-MIGRATION-TUFTS-1743022615.jpg?resize=1920%2C1440",
+        "authors": [
+            "Al Jazeera"
+        ],
+        "time": "2025-03-26T21:39:05Z"
+    },
+    {
+        "url": "https://www.aljazeera.com/news/2025/3/27/who-are-the-students-trump-wants-to-deport",
+        "title": "Who are the students Trump wants to deport?",
+        "source": "Al Jazeera English",
+        "content": "On Tuesday, US authorities detained and revoked the student visa of Tufts University student, Rumeysa Ozturk, a Turkish national who had voiced her support for Palestinians affected by the Gaza war.\r… [+14098 chars]",
+        "imageUrl": "https://www.aljazeera.com/wp-content/uploads/2025/03/2025-03-27T001332Z_1135271863_RC28LDAU0RQD_RTRMADP_3_USA-TRUMP-MIGRATION-PROTEST-1743055249_88ba7d-1743072914.jpg?resize=1200%2C630&quality=80",
+        "authors": [
+            "Al Jazeera Staff"
+        ],
+        "time": "2025-03-27T14:00:54Z"
+    },
+    {
+        "url": "https://www.itsnicethat.com/articles/warby-parker-greene-st-redesign-illustration-sponsored-content-260325",
+        "title": "How Warby Parker turned its flagship SoHo store into a living gallery",
+        "source": "Itsnicethat.com",
+        "content": "From day one, Warby Parker wanted to make its stores not just retail spaces but experiences. The Greene Street store, for instance, originally drew inspiration from the New York Public Library, compl… [+1190 chars]",
+        "imageUrl": "https://admin.itsnicethat.com/images/Y2AxQfue0Zh5pZE8gVNTBj0j9u4=/262985/width-1440/Abbot_Kinney__Geoff_McFetridge_-_Alia_Penner.jpeg",
+        "authors": [
+            "Sponsored Content"
+        ],
+        "time": "2025-03-26T10:00:00Z"
+    },
+    {
+        "url": "https://www.pcworld.com/article/2491836/every-nba-streaming-option-in-one-place.html",
+        "title": "Every NBA streaming option in one place",
+        "source": "PCWorld",
+        "content": "Skip to contentType your search and hit enter\r\nWhen you purchase through links in our articles, we may earn a small commission. This doesn't affect our editorial independence\r\n.\r\nJust like with hocke… [+8557 chars]",
+        "imageUrl": "https://www.pcworld.com/wp-content/uploads/2025/03/markus-spiske-BfphcCvhl6E-unsplash.jpg?quality=50&strip=all&w=1024",
+        "authors": [
+            "Jared Newman"
+        ],
+        "time": "2025-03-27T17:00:00Z"
+    },
+    {
+        "url": "https://www.businessinsider.com/guides/streaming/how-to-watch-argentina-vs-brazil-fifa-qualifier-2025-3",
+        "title": "How to watch Argentina vs. Brazil free: Live stream World Cup qualifier anywhere",
+        "source": "Business Insider",
+        "content": "The FIFA World Cup qualifying matches continue with a much-anticipated face-off between Argentina and Brazil. We'll show you everything you need to know about how to watch Argentina vs. Brazil, inclu… [+6369 chars]",
+        "imageUrl": "https://i.insider.com/67e3029869253ccddf9a4440?width=1200&format=jpeg",
+        "authors": [
+            "insider@insider.com (Lillian Brown)"
+        ],
+        "time": "2025-03-25T21:01:01Z"
+    },
+    {
+        "url": "http://deadline.com/2025/03/shonda-rhimes-greys-anatomy-scandal-spinoffs-1236352432/",
+        "title": "Shonda Rhimes On The ‘Grey’s Anatomy’ & ‘Scandal’ Spinoffs That Never Materialized: “We Thought About A Lot Of Things”",
+        "source": "Deadline",
+        "content": "Shonda Rhimes has produced some of the most successful television series, like Grey’s Anatomy, Scandal, and Bridgerton.\r\nGrey’s Anatomy yielded two spinoffs with 2007’s Private Practice and 2018’s St… [+1478 chars]",
+        "imageUrl": "https://deadline.com/wp-content/uploads/2025/03/greys-anatomy-scandal-spinoffs.jpg?w=1024",
+        "authors": [
+            "Armando Tinoco"
+        ],
+        "time": "2025-03-27T17:46:24Z"
+    },
+    {
+        "url": "http://deadline.com/2025/03/denis-arndt-dead-basic-instinct-tony-nominee-heisenberg-1236354049/",
+        "title": "Denis Arndt Dies: ‘Basic Instinct’ Actor And Tony Nominee Was 86",
+        "source": "Deadline",
+        "content": "Character actor Denis Arndt, who appeared in Basic Instinct, a slate of David E. Kelley shows and earned a Tony nomination for his role in Broadway’s two-hander Heisenberg, has died at the age of 86,… [+2455 chars]",
+        "imageUrl": "https://deadline.com/wp-content/uploads/2025/03/denis-arndt.jpg?w=1024",
+        "authors": [
+            "Natalie Oganesyan"
+        ],
+        "time": "2025-03-29T22:19:38Z"
+    },
+    {
+        "url": "http://deadline.com/2025/03/watson-renewed-season-2-cbs-1236351509/",
+        "title": "‘Watson’ Renewed For Season 2 At CBS",
+        "source": "Deadline",
+        "content": "Two months after launch, Watson is getting more cases.\r\nCBS has renewed the Morris Chestnut-fronted drama series for a second season.\r\nThis comes after the Paramount-owned network said that the premi… [+2078 chars]",
+        "imageUrl": "https://deadline.com/wp-content/uploads/2025/03/3028358_0848bc.jpg?w=1024",
+        "authors": [
+            "peterdeadline"
+        ],
+        "time": "2025-03-26T19:36:00Z"
+    },
+    {
+        "url": "http://deadline.com/2025/03/chandler-kinney-gabrielle-policano-jacob-moskovitz-elle-1236351957/",
+        "title": "Chandler Kinney, Gabrielle Policano & Jacob Moskovitz Join ‘Legally Blonde’ Prequel Series",
+        "source": "Deadline",
+        "content": "EXCLUSIVE: Gabrielle Policano (Baby Girl), Jacob Moskovitz (Y2K) and Chandler Kinney (Pretty Little Liars: Original Sin) have joined the series regular cast of Prime Video‘s Legally Blonde prequel se… [+3069 chars]",
+        "imageUrl": "https://deadline.com/wp-content/uploads/2025/03/ELLE-Series-Regulars.jpg?w=1000",
+        "authors": [
+            "Rosy Cordero"
+        ],
+        "time": "2025-03-27T19:00:00Z"
+    },
+    {
+        "url": "http://digiday.com/marketing/cmos-are-winning-trust-but-still-falling-short-in-transforming-companies-according-to-ceos/",
+        "title": "CMOs are winning trust but still falling short in transforming companies, according to CEOs",
+        "source": "Digiday",
+        "content": "This article is part of a special research series on where CMOs are investing. More from the series →Bostons Charles River may be famous for rowing, but it can be a single-person or multi-person spor… [+4558 chars]",
+        "imageUrl": "https://digiday.com/wp-content/uploads/sites/3/2023/06/magic-eight-digiday.png",
+        "authors": [
+            "Michael Bürgi"
+        ],
+        "time": "2025-03-25T04:01:00Z"
+    },
+    {
+        "url": "http://digiday.com/media/traffic-referrals-from-threads-surge-for-some-publishers-this-year/",
+        "title": "Traffic referrals from Threads surge for some publishers this year",
+        "source": "Digiday",
+        "content": "Social as an audience driver is back.Thats what Josh Awtry, svp of audience development at Newsweek, told Digiday after last Wednesday, when the publisher saw the most social referral traffic to its … [+6289 chars]",
+        "imageUrl": "https://digiday.com/wp-content/uploads/sites/3/2023/11/threads-meta-digiday.png",
+        "authors": [
+            "Sara Guaglione"
+        ],
+        "time": "2025-03-24T04:01:00Z"
+    },
+    {
+        "url": "https://www.forbes.com/sites/giacomotognini/2025/03/29/meet-the-other-billionaire-behind-the-winning-bid-for-the-boston-celtics/",
+        "title": "Meet The Other Billionaire Behind The Winning Bid For The Boston Celtics",
         "source": "Forbes",
-        "content": "Florida coach Todd Golden hoists the SEC championship trophy as confetti rains down. (AP ... [+] Photo/George Walker IV)\r\nCopyright 2025 The Associated Press. All rights reserved\r\nNCAA West Region to… [+5207 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67da466709814f743eed3046/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
+        "content": "Bruce Beal Jr.\r\nSports Illustrated via Getty Images\r\nWhen the owners of the NBAs Boston Celtics announced on March 20 that they were selling the team for $6.1 billion to a group of investors led by p… [+8014 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e6e1e0b2b3f7c18ec6b2fe/0x0.jpg?format=jpg&crop=3900,2193,x0,y167,safe&height=900&width=1600&fit=bounds",
         "authors": [
-            "Jack Magruder, Contributor, \n Jack Magruder, Contributor\n https://www.forbes.com/sites/jackmagruder/"
+            "Giacomo Tognini, Forbes Staff, \n Giacomo Tognini, Forbes Staff\n https://www.forbes.com/sites/giacomotognini/"
         ],
-        "time": "2025-03-19T05:06:30Z"
+        "time": "2025-03-29T10:30:00Z"
     },
     {
-        "url": "https://www.forbes.com/sites/jackmagruder/2025/03/20/ncaa-east-regional-ncaa-tournament-success-is-in-dukes-dna/",
-        "title": "NCAA East Regional: NCAA Tournament Success Is In Duke’s DNA",
+        "url": "https://www.forbes.com/sites/carolschram/2025/03/30/the-nhls-boston-bruins-are-in-freefall-what-happens-next/",
+        "title": "The NHL’s Boston Bruins Are In Freefall. What Happens Next?",
         "source": "Forbes",
-        "content": "Cooper Flagg displays a piece of the net after Duke beat Louisville to win the ACC tournament. (AP ... [+] Photo/Chris Carlson)\r\nCopyright 2025 The Associated Press. All rights reserved\r\nPrecocious f… [+4977 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67db90cae8ecc8d3ab8ddd26/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Jack Magruder, Contributor, \n Jack Magruder, Contributor\n https://www.forbes.com/sites/jackmagruder/"
-        ],
-        "time": "2025-03-20T05:53:25Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/chuckmurr/2025/03/21/shortstop-jacob-wilson-will-be-a-hit-wherever-athletics-may-play/",
-        "title": "Shortstop Jacob Wilson Will Be A Hit Wherever Athletics May Play",
-        "source": "Forbes",
-        "content": "Jacob Wilson got to the Major Leagues at age 22 with the Athletics in Oakland in 2024. He likely will be a mainstay at shortstop in 2025 as the A's now call Sacramento home and eventually move to Las… [+5919 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67ddcd258f88e3746363ad0f/0x0.jpg?format=jpg&crop=3011,1692,x0,y44,safe&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Chuck Murr, Contributor, \n Chuck Murr, Contributor\n https://www.forbes.com/sites/chuckmurr/"
-        ],
-        "time": "2025-03-21T20:55:50Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/pamdanziger/2025/03/19/zulily-changes-hands-again-as-beyond-sells-it-to-fashion-discount-e-tailer-proozy/",
-        "title": "Zulily Changes Hands Again As Beyond Sells It To Fashion Discount E-tailer Proozy",
-        "source": "Forbes",
-        "content": "St. Paul-based Lyons Trading Company, which operates the off-price fashion e-commerce retailer Proozy, has acquired majority ownership of fashion flash-sale site Zulily after only one year under Beyo… [+4582 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67daacc475bfc916210b7748/0x0.jpg?format=jpg&crop=3169,1781,x0,y163,safe&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Pamela N. Danziger, Senior Contributor, \n Pamela N. Danziger, Senior Contributor\n https://www.forbes.com/sites/pamdanziger/"
-        ],
-        "time": "2025-03-19T12:32:32Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/laurabegleybloom/2025/03/24/the-best-and-most-affordable-places-to-live-in-america-2025-report/",
-        "title": "The Best (And Most Affordable) Places To Live In America: 2025 Report",
-        "source": "Forbes",
-        "content": "The skyline of Cambridge, Massachusettswhich was named the best city for young professionals in 2025 in Niche's list of the best (and most affordable) places to live in America.\r\ngetty\r\nLooking for t… [+11819 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/64160acae70aac103e76a1f6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Laura Begley Bloom, Senior Contributor, \n Laura Begley Bloom, Senior Contributor\n https://www.forbes.com/sites/laurabegleybloom/"
-        ],
-        "time": "2025-03-24T10:00:53Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/danfreedman/2025/03/21/alex-verdugo-signed-a-one-year-deal-with-the-atlanta-braves/",
-        "title": "Alex Verdugo Signed A One-Year Deal With The Atlanta Braves",
-        "source": "Forbes",
-        "content": "Alex Verdugo waited the entire off-season to find a job. The Atlanta Braves signed him to a ... More one-year, $1.5 million deal. (Photo by Alex Slitz/Getty Images)\r\nGetty Images\r\nJon Heyman of the N… [+4875 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67dd9e785549537545cdd1d0/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Dan Freedman, Contributor, \n Dan Freedman, Contributor\n https://www.forbes.com/sites/danfreedman/"
-        ],
-        "time": "2025-03-21T17:30:31Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/anthonystitt/2025/03/19/phillies-giants-and-as-fans-can-get-in-market-streaming-with-no-blackouts/",
-        "title": "Fans Of Phillies, Giants And A’s Can Stream With No Blackouts",
-        "source": "Forbes",
-        "content": "Fans of the Phillies, Athletics Giants and will get to stream their games on a direct-to-consumer ... [+] basis this season through MLB.tv. (Photo by Mitchell Leff/Getty Images)\r\nGetty Images\r\nMajor … [+2324 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67db2d588e8a3763efb12a89/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Anthony Stitt, Contributor, \n Anthony Stitt, Contributor\n https://www.forbes.com/sites/anthonystitt/"
-        ],
-        "time": "2025-03-19T21:00:37Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/dougmelville/2025/03/17/do-boycotts-work-as-targets-traffic-declines-tesla--others-see-shifts-with-consumers/",
-        "title": "Do Boycotts Work? As Target’s Traffic Declines, Tesla & Others See Shifts With Consumers",
-        "source": "Forbes",
-        "content": "There is strength in numbers.\r\nAs some of Americas biggest and most recognizable companies, CEOs and board of directors continue to speak out both for and against certain social and geopolitical issu… [+7353 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d6923fc87ac66027cff100/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Doug Melville, Contributor, \n Doug Melville, Contributor\n https://www.forbes.com/sites/dougmelville/"
-        ],
-        "time": "2025-03-17T05:16:02Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/darrynking/2025/03/22/loss-and-laughter-collide-in-abe-kooglers-deep-blue-sound/",
-        "title": "Loss And Laughter Collide In Abe Koogler’s ‘Deep Blue Sound’",
-        "source": "Forbes",
-        "content": "Maryann Plunkett and Mia Katigbak in Clubbed Thumb's 'Deep Blue Sound'\r\n© Maria Baranova\r\nLately my plays have been about how fragile the world is, and what it feels like when something you love disa… [+3215 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67ddaf26e6cd1a0e194ad71c/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Darryn King, Contributor, \n Darryn King, Contributor\n https://www.forbes.com/sites/darrynking/"
-        ],
-        "time": "2025-03-22T16:08:16Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/emmakershaw/2025/03/20/nobu-hospitality-has-announced-its-first-uk-residential-project/",
-        "title": "Nobu Hospitality Has Announced Its First UK Residential Project",
-        "source": "Forbes",
-        "content": "Nobu brings its world-class hospitality to Manchester.\r\ngetty\r\nNobu Hospitality is expanding to the North West of England with the UKs first-ever Nobu Residences.\r\nThe development is set to transform… [+2774 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67dc2b2fc1d951869ddc23dc/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Emma Kershaw, Contributor, \n Emma Kershaw, Contributor\n https://www.forbes.com/sites/emmakershaw/"
-        ],
-        "time": "2025-03-20T15:32:07Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/katharinabuchholz/2025/03/21/us-consolidates-position-among-highest-spending-cities/",
-        "title": "U.S. Consolidates Position Among Highest-Spending Cities",
-        "source": "Forbes",
-        "content": "TOPSHOT - The Manhattan skyline is seen at sunrise from the 86th floor observatory of the Empire ... More State Building on April 3, 2021, in New York City. - The Empire State Building, a 102-story A… [+3405 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67dd682ec23b695cbcddb25e/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Katharina Buchholz, Contributor, \n Katharina Buchholz, Contributor\n https://www.forbes.com/sites/katharinabuchholz/"
-        ],
-        "time": "2025-03-21T15:43:01Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/cereal-entrepreneurs/2025/03/18/why-upstart-athleisure-brand-vuori-is-opening-so-many-stores/",
-        "title": "Why Upstart Athleisure Brand Vuori Is Opening So Many Stores",
-        "source": "Forbes",
-        "content": "The athleisure market is, in a word, crowded. Upstarts like Alo and Vuori are busy fighting Under Armour and Lululemon for market share. (In an effort to appeal to more menthe fastest growing sector … [+13992 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67c75bc5ccb8f1c5269ce77e/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Eric Ryan, Contributor, \n Eric Ryan, Contributor\n https://www.forbes.com/sites/cereal-entrepreneurs/"
-        ],
-        "time": "2025-03-18T15:00:00Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/carolschram/2025/03/17/nhl-defenseman-ryan-mcdonagh-asks-fans-to-get-body-checked-for-cancer/",
-        "title": "NHL Defenseman Ryan McDonagh Asks Fans To Get ‘Body Checked’ For Cancer",
-        "source": "Forbes",
-        "content": "Defenseman Ryan McDonagh of the Tampa Bay Lightning. (Photo by Brian Fluharty/Getty Images)\r\nGetty Images\r\nWhen the Tampa Bay Lightning acquired Ryan McDonagh from the New York Rangers in 2018, the M… [+5176 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d85f805d0eda9c32efb94d/0x0.jpg?format=jpg&crop=2675,1503,x0,y37,safe&height=900&width=1600&fit=bounds",
+        "content": "Brad Marchand's trade and Jeremy Swayman's struggles have been just two of the lowlights for the ... More Boston Bruins in 2024-25. (Photo by Len Redkoles/NHLI via Getty Images)\r\nNHLI via Getty Image… [+6861 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e9943ff1e0671e69a228d8/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
         "authors": [
             "Carol Schram, Senior Contributor, \n Carol Schram, Senior Contributor\n https://www.forbes.com/sites/carolschram/"
         ],
-        "time": "2025-03-17T21:31:46Z"
+        "time": "2025-03-31T00:20:20Z"
     },
     {
-        "url": "https://www.forbes.com/sites/janicegassam/2025/03/23/from-campus-to-corporate-protest-strategies-employees-can-use-for-workplace-justice/",
-        "title": "From Campus To Corporate: Protest Strategies Employees Can Use For Workplace Justice",
-        "source": "Forbes",
-        "content": "For those seeking to challenge and change oppressive systems and structures, there is a lot that can ... [+] be learned from student-led activism.\r\ngetty\r\nThere is a long legacy of student-led resist… [+5185 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e0a916bd97fcb2a41815ec/0x0.jpg?format=jpg&crop=2090,1174,x0,y0,safe&height=900&width=1600&fit=bounds",
+        "url": "https://www.espn.com/nba/story/_/id/44394502/celtics-star-jayson-tatum-leaves-game-taking-hard-foul",
+        "title": "Celtics star Tatum exits after taking hard foul",
+        "source": "ESPN",
+        "content": "Mar 25, 2025, 12:25 AM ET\r\nSACRAMENTO, Calif. -- Boston Celtics star Jayson Tatum left Monday's 113-95 win to the Sacramento Kings in the third quarter after taking a hard foul.\r\nTatum was leading th… [+497 chars]",
+        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0325%2Fr1468875_1024x576_16%2D9.jpg",
+        "authors": [],
+        "time": "2025-03-25T04:36:43Z"
+    },
+    {
+        "url": "https://www.espn.com/nba/story/_/id/44394502/celtics-star-jayson-tatum-leaves-game-let-ankle-sprain",
+        "title": "Celtics star Tatum exits with left ankle sprain",
+        "source": "ESPN",
+        "content": "Mar 25, 2025, 12:25 AM ET\r\nSACRAMENTO, Calif. -- Boston Celtics star Jayson Tatum left Monday's 113-95 win over the Sacramento Kings in the third quarter due to a left ankle sprain.\r\nTatum was leadin… [+575 chars]",
+        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0325%2Fr1468875_1024x576_16%2D9.jpg",
+        "authors": [],
+        "time": "2025-03-25T04:50:12Z"
+    },
+    {
+        "url": "http://deadline.com/2025/03/boston-blue-sheriff-countrys-premiere-fall-2025-promoc-cbs-1236350814/",
+        "title": "CBS Starts 2025-26 Promo Campaign, Confirms ‘Boston Blue’ & ‘Sheriff Country’ Fall Launches",
+        "source": "Deadline",
+        "content": "Spring only officially started last week but CBS brass already have fall on their mind. The network once again is using its March Madness coverage to launch the promo campaign for its new fall shows.… [+1353 chars]",
+        "imageUrl": "https://deadline.com/wp-content/uploads/2025/03/Donnie-Wahlberg-in-Blue-Bloods-and-Morena-Baccarin-in-Fire-Country.jpg?w=1024",
         "authors": [
-            "Janice Gassam Asare, Senior Contributor, \n Janice Gassam Asare, Senior Contributor\n https://www.forbes.com/sites/janicegassam/"
+            "Nellie Andreeva"
         ],
-        "time": "2025-03-24T00:45:58Z"
+        "time": "2025-03-27T01:15:12Z"
     },
     {
-        "url": "https://www.forbes.com/councils/forbesbusinesscouncil/2025/03/21/the-2025-local-seo-shift-seven-simple-changes-every-business-can-make/",
-        "title": "The 2025 Local SEO Shift: Seven Simple Changes Every Business Can Make",
+        "url": "https://www.forbes.com/sites/daniellechemtob/2025/03/24/forbes-daily-23andme-files-for-bankruptcy-ceo-exits-to-pursue-bid/",
+        "title": "Forbes Daily: 23andMe Files For Bankruptcy, CEO Exits To Pursue Bid",
         "source": "Forbes",
-        "content": "Oleg Levitas, a visionary SEO Expert, founded Pravda SEO to revolutionize how local businesses dominate search rankings.\r\ngetty\r\nIf your business isnt showing up where customers are looking, youre mi… [+5887 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67dc126c7faf941090859eac/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Oleg Levitas, Forbes Councils Member, \n Oleg Levitas, Forbes Councils Member\n https://www.forbes.com/councils/forbesbusinesscouncil/people/oleglevitas/"
-        ],
-        "time": "2025-03-21T12:15:00Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/virgietovar/2025/03/23/now-you-can-shop-universal-standard-in-20-nordstrom-stores/",
-        "title": "Now You Can Shop Universal Standard In 20 Nordstrom Stores",
-        "source": "Forbes",
-        "content": "Today Universal Standard launches sizes 12 through 32 online and in 20 Nordstrom stores nationwide\r\nUniversal Standard\r\nNow shoppers can try on and purchase a curated assortment of the brands beloved… [+5208 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67ddcf2f671b47115287758a/0x0.jpg?format=jpg&crop=2266,1699,x0,y718,safe&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Virgie Tovar, Contributor, \n Virgie Tovar, Contributor\n https://www.forbes.com/sites/virgietovar/"
-        ],
-        "time": "2025-03-23T13:00:00Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/ceciliarodriguez/2025/03/19/natures-best-photography-international-awards-winners-25-stunning-photos/",
-        "title": "Nature’s Best Photography International Awards Winners: 25 Stunning Photos",
-        "source": "Forbes",
-        "content": "Tough Lesson, Grand Prize winner, Endangered Tadoba Andhari Tiger Reserve, Maharashtra, India\r\nMangesh Ratnakar Desai, India - Natures Best Photography International Awards \r\nThe Natures Best Photogr… [+13418 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d94a8b6749da4a20e0bd8e/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Cecilia Rodriguez, Senior Contributor, \n Cecilia Rodriguez, Senior Contributor\n https://www.forbes.com/sites/ceciliarodriguez/"
-        ],
-        "time": "2025-03-19T12:00:53Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/conormurray/2025/03/20/tesla-protests-and-vandalism-surge-fbi-says-its-investigating-incidents-including-las-vegas-fires/",
-        "title": "Tesla Protests And Vandalism Surge: FBI Says It’s Investigating Incidents—Including Las Vegas Fires",
-        "source": "Forbes",
-        "content": "The FBI says it is investigating acts of vandalism that have in recent weeks targeted Tesla stores and vehicles as a form of protest against company CEO and DOGE chief Elon Musk, including an attack … [+10389 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d1be99c3ec9425c703c9ae/0x0.jpg?format=jpg&crop=2830,1593,x0,y2,safe&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Conor Murray, Forbes Staff, \n Conor Murray, Forbes Staff\n https://www.forbes.com/sites/conormurray/"
-        ],
-        "time": "2025-03-20T13:13:46Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/conormurray/2025/03/19/surge-in-tesla-protests-musk-blames-mental-illness-and-baselessly-claims-larger-forces-funding-vandals/",
-        "title": "Surge In Tesla Protests And Vandalism: Teslas Set On Fire In Las Vegas—As Musk Baselessly Blames ‘Larger Forces’",
-        "source": "Forbes",
-        "content": "Tesla CEO and DOGE chief Elon Musk slammed the growing Tesla protests and vandalism in an appearance on Fox News Tuesday night, calling the protests deranged and stating theres some kind of mental il… [+9775 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d1be99c3ec9425c703c9ae/0x0.jpg?format=jpg&crop=2830,1593,x0,y2,safe&height=900&width=1600&fit=bounds",
-        "authors": [
-            "Conor Murray, Forbes Staff, \n Conor Murray, Forbes Staff\n https://www.forbes.com/sites/conormurray/"
-        ],
-        "time": "2025-03-19T13:13:52Z"
-    },
-    {
-        "url": "https://www.forbes.com/sites/daniellechemtob/2025/03/18/forbes-daily-as-markets-rebound-teslas-slump-continues/",
-        "title": "Forbes Daily: As Markets Rebound, Tesla’s Slump Continues",
-        "source": "Forbes",
-        "content": "Elon Musks most valuable asset is no longer Tesla, which has hit a speed bump on Wall Street lately. Its his rocket company SpaceX.\r\nForbes estimates that Musks 42% stake in SpaceX is now worth $147 … [+8631 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d89a74f4709c4b4697fdb3/0x0.jpg?format=jpg&crop=2830,1593,x0,y236,safe&height=900&width=1600&fit=bounds",
+        "content": "Tesla IS Elon Musk. But with his government workload at DOGE, on top of five other companies he leads, its worth asking: Who could run it better?\r\nIts unlikely Musk would step down. And if he did, th… [+9607 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e142e10a3e5edd3c1288df/0x0.jpg?format=jpg&crop=3152,1772,x0,y130,safe&height=900&width=1600&fit=bounds",
         "authors": [
             "Danielle Chemtob, Forbes Staff, \n Danielle Chemtob, Forbes Staff\n https://www.forbes.com/sites/daniellechemtob/"
         ],
-        "time": "2025-03-18T12:21:28Z"
+        "time": "2025-03-24T12:23:55Z"
     },
     {
-        "url": "https://www.forbes.com/sites/stuartanderson/2025/03/18/companies-may-face-h-1b-visa-restrictions-in-an-immigration-bill/",
-        "title": "Companies May Face H-1B Visa Restrictions In An Immigration Bill",
+        "url": "https://www.forbes.com/sites/hunterfelt/2025/03/27/the-boston-celtics-sale-may-have-already-hit-its-first-hurdle/",
+        "title": "Why The Boston Celtics Sale May Have Already Hit Its First Hurdle",
         "source": "Forbes",
-        "content": "The Capitol dome is illuminated on January 6, 2023, at the U.S. Capitol in Washington D.C. ... [+] Companies will welcome an immigration bill, but not if it includes new restrictions that make H-1B v… [+8874 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d440cf54ced42929a9def5/0x0.jpg?format=jpg&crop=6375,3587,x0,y0,safe&height=900&width=1600&fit=bounds",
+        "content": "The Boston Celtics' Derrick White attempts a three point shot against the Phoenix Suns during what ... More was to be their seventh-consecutive win. NOTE TO USER: User expressly acknowledges and agre… [+3914 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e58d84025e55aa5c5ab083/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
         "authors": [
-            "Stuart Anderson, Senior Contributor, \n Stuart Anderson, Senior Contributor\n https://www.forbes.com/sites/stuartanderson/"
+            "Hunter Felt, Contributor, \n Hunter Felt, Contributor\n https://www.forbes.com/sites/hunterfelt/"
         ],
-        "time": "2025-03-18T13:45:21Z"
+        "time": "2025-03-27T18:08:44Z"
     },
     {
-        "url": "https://www.forbes.com/sites/conormurray/2025/03/18/surge-in-tesla-protests-5-teslas-damaged-in-targeted-attack-in-las-vegas/",
-        "title": "Surge In Tesla Protests: 5 Teslas Damaged In ‘Targeted Attack’ In Las Vegas",
+        "url": "https://www.forbes.com/sites/hunterfelt/2025/03/31/under-new-management-the-boston-celtics-head-to-an-uncertain-future/",
+        "title": "Under New Management, The Boston Celtics Head To An Uncertain Future",
         "source": "Forbes",
-        "content": "Five Tesla vehicles were damaged in what Las Vegas police say was a targeted attack on a Tesla facility Tuesday morning, the latest incident in a series of protests against company CEO and DOGE chief… [+9026 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d1be99c3ec9425c703c9ae/0x0.jpg?format=jpg&crop=2830,1593,x0,y2,safe&height=900&width=1600&fit=bounds",
+        "content": "The Boston Celtics' Jaylen Brown and Jayson Tatum high five during the 2024 Eastern Conference ... More Finals. (Photo by Dylan Buell/Getty Images)\r\nGetty Images\r\nOnly one thing is for certain: shoul… [+4950 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/66cb96a06ae3c932abb7715b/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
         "authors": [
-            "Conor Murray, Forbes Staff, \n Conor Murray, Forbes Staff\n https://www.forbes.com/sites/conormurray/"
+            "Hunter Felt, Contributor, \n Hunter Felt, Contributor\n https://www.forbes.com/sites/hunterfelt/"
         ],
-        "time": "2025-03-18T18:23:48Z"
+        "time": "2025-03-31T13:00:00Z"
     },
     {
-        "url": "https://www.forbes.com/sites/moorinsights/2025/03/21/softbank-is-acquiring-ampere-what-are-the-implications/",
-        "title": "Softbank Is Acquiring Ampere: What Are The Implications?",
-        "source": "Forbes",
-        "content": "Softbank's planned acquisition of Ampere raises some interesting questions about the market for ... More hyperscaler and custom CPUs. (Photo by PHILIP FONG/AFP via Getty Images)\r\nAFP via Getty Images… [+8458 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67dd9eb1d12d7390e2330de6/0x0.jpg?format=jpg&crop=4420,2074,x0,y433,safe&height=900&width=1600&fit=bounds",
+        "url": "http://skift.com/2025/03/27/uber-expands-shuttle-service-to-jfk/",
+        "title": "Uber Expands Shuttle Service to JFK",
+        "source": "Skift",
+        "content": "Uber announced Thursday that it is expanding its shuttle service in New York to JFK, months after it launched rides to LaGuardia Airport. \r\nThe service will shuttle passengers from Manhattan and Broo… [+1928 chars]",
+        "imageUrl": "https://skift.com/wp-content/uploads/2025/03/54367476185_676c030c6c_o-e1743017150998.jpg",
         "authors": [
-            "Matt Kimball, Contributor, \n Matt Kimball, Contributor\n https://www.forbes.com/sites/moorinsights/people/mattkimball/"
+            "Meghna Maharishi"
         ],
-        "time": "2025-03-21T17:27:41Z"
+        "time": "2025-03-27T10:00:00Z"
     },
     {
-        "url": "https://www.forbes.com/sites/daphneewingchow/2025/03/18/these-are-the-latest-ai-trends-transforming-the-food-industry/",
-        "title": "These Are The Latest AI Trends Transforming The Food Industry",
-        "source": "Forbes",
-        "content": "Some apps, like MyNetDiary, WeightWatchers and Simple feature AI photo scanners that help users to ... [+] track nutrition and calories in their food.\r\ngetty\r\nAI trends are revolutionizing the food i… [+15951 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d925ea4dfdbea80abfb738/0x0.jpg?format=jpg&crop=4230,2379,x0,y132,safe&height=900&width=1600&fit=bounds",
+        "url": "http://deadline.com/2025/03/william-moseley-mark-valley-luca-elmi-film-hostage-1236351574/",
+        "title": "William Moseley & Mark Valley To Lead New Luca Elmi Thriller ‘Hostage’",
+        "source": "Deadline",
+        "content": "EXCLUSIVE:William Moseley (The Chronicles of Narnia franchise) and Mark Valley (Boston Legal) are leading Luca Elmi‘s new film Hostage, a thriller that will soon wrap principal photography this week … [+3112 chars]",
+        "imageUrl": "https://deadline.com/wp-content/uploads/2025/03/William-Moseley-and-Mark-Valley.jpg?w=1024",
         "authors": [
-            "Daphne Ewing-Chow, Senior Contributor, \n Daphne Ewing-Chow, Senior Contributor\n https://www.forbes.com/sites/daphneewingchow/"
+            "Rosy Cordero"
         ],
-        "time": "2025-03-18T07:59:15Z"
+        "time": "2025-03-26T20:35:40Z"
     },
     {
-        "url": "https://www.forbes.com/sites/conormurray/2025/03/21/tesla-protests-and-vandalism-surge-trump-says-vandals-should-serve-20-year-sentences-in-el-salvador/",
-        "title": "Tesla Protests And Vandalism Surge: Trump Says Vandals Should Serve 20-Year Sentences In El Salvador",
-        "source": "Forbes",
-        "content": "President Donald Trump slammed the vandalism targeting Tesla stores and vehicles that has swept the country in recent weeks, suggesting in a Truth Social post vandals should serve 20 years in prison … [+12020 chars]",
-        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67d1be99c3ec9425c703c9ae/0x0.jpg?format=jpg&crop=2830,1593,x0,y2,safe&height=900&width=1600&fit=bounds",
+        "url": "https://www.r-bloggers.com/2025/03/conformalize-improved-prediction-intervals-and-simulations-any-r-machine-learning-model-with-miscconformalize/",
+        "title": "Conformalize (improved prediction intervals and simulations) any R Machine Learning model with misc::conformalize",
+        "source": "R-bloggers.com",
+        "content": "In the new version of misc, we introduce the conformalize function (work in progress, along with predict and simulate S3 methods), which allows you to perform conformal prediction with any R machine … [+11771 chars]",
+        "imageUrl": "https://thierrymoudiki.github.io/images/2025-03-24/2025-03-24-image1.png",
         "authors": [
-            "Conor Murray, Forbes Staff, \n Conor Murray, Forbes Staff\n https://www.forbes.com/sites/conormurray/"
+            "T. Moudiki"
         ],
-        "time": "2025-03-21T13:53:00Z"
+        "time": "2025-03-25T00:00:00Z"
     },
     {
-        "url": "https://coolmaterial.com/lifestyle/travel/helsinki-finland-guide/",
-        "title": "This Finnish City Deserves to Be Your Next Euro Trip",
-        "source": "Coolmaterial.com",
-        "content": "Finnair, Finlands flagship carrier, is your best bet for getting to the Finnish capital with minimal layovers. It offers flights from several U.S. cities, including New York (JFK), Dallas-Fort Worth … [+741 chars]",
-        "imageUrl": "https://coolmaterial.com/wp-content/uploads/2025/03/helsinki-header-scaled.jpg",
+        "url": "https://newrepublic.com/post/193142/trump-border-czar-tom-homan-ice-arrests",
+        "title": "Trump’s Border Czar Makes Shocking Confession on Scope of ICE Arrests",
+        "source": "The New Republic",
+        "content": "Chung is a model student, maintaining a 3.99 grade point average and making it onto the deans list every semester. She is also part of the Columbia Undergraduate Law Review. But thats not enough for … [+1005 chars]",
+        "imageUrl": "https://images.newrepublic.com/072df785ce3f8a09d5afc6cb7f84783f278c0add.jpeg?w=1200&h=630&crop=faces&fit=crop&fm=jpg",
         "authors": [
-            "Brett Braley"
+            "Malcolm Ferguson"
         ],
-        "time": "2025-03-18T12:59:13Z"
+        "time": "2025-03-25T15:47:09Z"
     },
     {
-        "url": "http://longreads.com/2025/03/21/going-soft/",
-        "title": "Going Soft",
-        "source": "Longreads.com",
-        "content": "Want to master the art of conversation? Just think of a brass nameplate in front of a white house from whose chimney a yellow work glove extends, holding an airplane with tennis rackets for propeller… [+2596 chars]",
-        "imageUrl": null,
+        "url": "https://www.houzz.com/magazine/kitchen-of-the-week-timeless-blend-of-old-and-new-stsetivw-vs~180810703",
+        "title": "Kitchen of the Week: Timeless Blend of Old and New (9 photos)",
+        "source": "Houzz.com",
+        "content": "The existing kitchen didnt have an eat-in area. They have a formal dining room, but my clients are not formal people, Tate says. Its nice to have a cozy spot for a family to eat breakfast, have a cof… [+970 chars]",
+        "imageUrl": "https://st.hzcdn.com/simgs/a071cb2707b7c21f_4-8939/transitional-kitchen.jpg",
         "authors": [
-            "Brendan Fitzgerald"
+            "editor@houzz.com (Becky Harris)"
         ],
-        "time": "2025-03-21T11:00:00Z"
+        "time": "2025-03-27T10:01:23Z"
     },
     {
-        "url": "https://www.neowin.net/news/the-last-of-us-part-ii-remastered-pc-system-requirements-and-exclusive-features-announced/",
-        "title": "The Last of Us Part II Remastered PC system requirements and exclusive features announced",
-        "source": "Neowin",
-        "content": "Naughty Dog, Nixxes Software, and Iron Galaxy are soon bringing The Last of Us Part II Remastered to PC, and today, a blog post went up with details on what kind of hardware it will require as well a… [+2865 chars]",
-        "imageUrl": "https://cdn.neowin.com/news/images/uploaded/2023/11/1700285596_fc8367d1a9564bc9fcf09069efe0ba5e005acbe1-scaled_story.jpg",
-        "authors": [
-            "Pulasthi Ariyasinghe"
-        ],
-        "time": "2025-03-20T23:00:01Z"
+        "url": "https://www.eonline.com/news/1415333/matt-damon-debuts-body-transformation-on-the-odyssey-set",
+        "title": "Shirtless Matt Damon Is Unrecognizable on The Odyssey Set With Zendaya",
+        "source": "Eonline.com",
+        "content": "Before Kathy Bates was cast in Matlock, she set out on a personal journey.\r\n\"Ive lost 100 pounds, and it all just coincided beautifully so that physically Im capable of doing this show,\" she told Peo… [+1115 chars]",
+        "imageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/2024630/rs_1200x1200-240730124046-mattdamon.jpg?fit=around%7C1080:1080&output-quality=90&crop=1080:1080;center,top",
+        "authors": [],
+        "time": "2025-03-27T18:00:00Z"
     },
     {
-        "url": "https://www.pcgamer.com/gaming-industry/shadow-of-mordors-beloved-nemesis-system-exists-because-the-publisher-threw-a-tantrum-about-second-hand-sales/",
-        "title": "Shadow of Mordor's beloved nemesis system exists because the publisher threw a tantrum about second-hand sales",
-        "source": "PC Gamer",
-        "content": "Remember that weird time about 15 years back when the videogame industry filled its nappy over the existence of second-hand games? Activision-Blizzard clamped down on them, following EA and THQ's lea… [+3953 chars]",
-        "imageUrl": "https://cdn.mos.cms.futurecdn.net/pp8RQanUKjvZdxVy4hojHZ-1200-80.jpg",
-        "authors": [
-            "Jody Macgregor"
-        ],
-        "time": "2025-03-24T02:29:40Z"
+        "url": "https://www.eonline.com/news/1415318/karen-read-murder-trial-saga-what-to-know",
+        "title": "Unpacking Karen Read's Murder Trial Saga",
+        "source": "Eonline.com",
+        "content": "In a lengthy Aug. 25, 2023, video statement, Norfolk District Attorney Michael Morrissey denied that any fight occurred within the Albert home on the night OKeefe died. Eleven people had given statem… [+1192 chars]",
+        "imageUrl": "https://akns-images.eonline.com/eol_images/Entire_Site/20250328/214b7e47-b47b-4ab7-ae12-cc2f0178a522_1743220930.jpg?fit=around%7C1080:1080&output-quality=90&crop=1080:1080;center,top",
+        "authors": [],
+        "time": "2025-03-29T12:00:00Z"
     },
     {
-        "url": "https://www.espn.com/soccer/story/_/id/44207067/when-did-nwsl-teams-begin-playing-key-years-know",
-        "title": "When did NWSL teams begin playing? Key years to know",
+        "url": "https://consequence.net/2025/03/andrea-bocelli-expands-2025-tour/",
+        "title": "Andrea Bocelli Adds 13 North American Dates to 2025 Tour",
+        "source": "Consequence.net",
+        "content": "Andrea Bocelli has just announced 13 additional dates for his extensive 2025-2026 tour.\r\nThe new North American run will kick off on October 9th in Orlando and make subsequent stops in cities includi… [+2830 chars]",
+        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/Andrea-Bocelli-Expands-2025-Tour.jpg",
+        "authors": [
+            "Jaeden Pinder"
+        ],
+        "time": "2025-03-26T14:33:35Z"
+    },
+    {
+        "url": "https://www.espn.com/nba/story/_/id/44407287/celtics-say-jayson-tatum-ankle-sprain-doubtful-face-suns",
+        "title": "Tatum doubtful for Celtics' next game in Phoenix",
         "source": "ESPN",
-        "content": "The National Women's Soccer League is the premier women's professional league sanctioned by the United States Soccer Federation. The NWSL, which features top players from around the world, held its i… [+1530 chars]",
-        "imageUrl": "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2022%2F1101%2Fr1084376_1296x729_16%2D9.jpg",
-        "authors": [
-            "Keith Jenkins"
-        ],
-        "time": "2025-03-17T16:05:35Z"
+        "content": "Mar 25, 2025, 08:01 PM ET\r\nBoston Celtics star Jayson Tatum is doubtful for the team's game at Phoenix on Wednesday night.\r\nThe team updated Tatum's status Tuesday, a night after he suffered a sprain… [+780 chars]",
+        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0325%2Fr1468885_1296x729_16%2D9.jpg",
+        "authors": [],
+        "time": "2025-03-26T00:08:00Z"
     },
     {
-        "url": "https://www.livescience.com/health/cancer/simple-blood-tests-could-be-the-future-of-cancer-diagnosis",
-        "title": "Simple blood tests could be the future of cancer diagnosis",
-        "source": "Live Science",
-        "content": "Around four years ago, now 77-year-old John Gormly went for what was supposed to be a routine blood test. But the results were life-changing.\r\nThe test suggested Gormly had colon cancer, which a colo… [+12487 chars]",
-        "imageUrl": "https://cdn.mos.cms.futurecdn.net/hXF3G6qG9ARcriM65EFnm-1200-80.jpg",
+        "url": "https://www.forbes.com/sites/carolineprice/2025/03/26/alysa-liu-stuns-field-to-lead-isu-world-figure-skating-championships/",
+        "title": "Alysa Liu Stuns Field To Lead ISU World Figure Skating Championships",
+        "source": "Forbes",
+        "content": "BOSTON, MASSACHUSETTS - MARCH 26: Alysa Liu of the United States competes in the Women's Short ... More Program during the ISU World Figure Skating Championships at the TD Garden on March 26, 2025 in… [+4677 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e46de60c14dd8aef9cb557/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
         "authors": [
-            "emily.cooke@futurenet.com (Emily Cooke)"
+            "Caroline Price, Contributor, \n Caroline Price, Contributor\n https://www.forbes.com/sites/carolineprice/"
         ],
-        "time": "2025-03-21T16:00:10Z"
+        "time": "2025-03-26T22:51:57Z"
     },
     {
-        "url": "https://consequence.net/2025/03/the-jesus-lizard-fall-2025-us-tour-dates/",
-        "title": "The Jesus Lizard Announce Fall 2025 US Tour Dates",
-        "source": "Consequence.net",
-        "content": "The Jesus Lizard have expanded their 2025 tour itinerary, adding four Midwest headlining shows in November.\r\nThe new dates include stops in Nashville (November 17th), Chicago (November 19th), Milwauk… [+1770 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/the-jesus-lizard-november-2025-tour-dates.jpg",
+        "url": "https://www.foxsports.com/stories/mlb/best-bet-boston-red-sox-win-al-east",
+        "title": "2025 MLB odds: Boston Red Sox best bet to win AL East",
+        "source": "Fox Sports",
+        "content": "The 2018 Boston Red Sox were one of the best teams in recent memory, going 108-54 in the regular season, en route to an AL East title and ultimately, a World Series championship.\r\nAs impressive as th… [+3121 chars]",
+        "imageUrl": "https://a57.foxsports.com/statics.foxsports.com/www.foxsports.com/content/uploads/2025/03/1408/814/devers-321.jpg?ve=1&tl=1",
         "authors": [
-            "Jon Hadusek"
+            "Will Hill"
         ],
-        "time": "2025-03-19T16:13:26Z"
+        "time": "2025-03-24T15:37:14Z"
     },
     {
-        "url": "https://consequence.net/2025/03/ethel-cain-new-album-willoughby-tucker-i-will-always-love-you-2025-tour/",
-        "title": "Ethel Cain Announces New Album Willoughby Tucker, I Will Always Love You, Maps Out Major 2025 Tour",
-        "source": "Consequence.net",
-        "content": "On the heels of her experimental drone project Perverts, Ethel Cain has revealed plans to release her next album, Willoughby Tucker, I Will Always Love You. She’s also announced her largest headlinin… [+3971 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/Ethel-Cain-2025-Tour-New-Album-Willoughby-Tucker-I-will-Always-Love-You.jpg",
+        "url": "https://biztoc.com/x/77fc58c0e7cd54dd",
+        "title": "Boston Fed president says tariff-induced inflation ‘looks inevitable.’ She suspects the central bank will hold rates steady for longer",
+        "source": "Biztoc.com",
+        "content": "In her first public remarks since the central bank left interest rates unchanged, Boston Federal Reserve President Susan Collins said tariffs would fuel inflation, but it might not be felt for long. … [+143 chars]",
+        "imageUrl": "https://biztoc.com/cdn/77fc58c0e7cd54dd_s.webp",
         "authors": [
-            "Paolo Ragusa"
+            "fortune.com"
         ],
-        "time": "2025-03-24T14:32:54Z"
+        "time": "2025-03-28T17:14:13Z"
     },
     {
-        "url": "https://consequence.net/2025/03/311-summer-2025-us-tour/",
-        "title": "311 Announce Summer 2025 US Tour",
-        "source": "Consequence.net",
-        "content": "311 have announced an extensive Summer 2025 US tour with support from Badflower and Sitting on Saturn.\r\nContinuing 311’s ongoing “Unity Tour,” the headlining dates kick off June 20th in Atlantic City… [+2745 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/311-2025-tour-dates.jpg",
-        "authors": [
-            "Jon Hadusek"
-        ],
-        "time": "2025-03-18T16:07:10Z"
+        "url": "https://www.dealcatcher.com/?offer=998425087",
+        "title": "Boston Proper - 30% Off Everything + Free Shipping",
+        "source": "Dealcatcher.com",
+        "content": "Enjoy 30% off everything plus free shipping during the Friends &amp; Family Sale! Valid for one week only.\r\n Added 13 min ago. By clicking a link and making a purchase, Dealcatcher may earn a commiss… [+3 chars]",
+        "imageUrl": "https://c1.dc-cdn.com/merchant_images/large/boston_proper262.gif",
+        "authors": [],
+        "time": "2025-03-26T22:11:12Z"
     },
     {
-        "url": "https://consequence.net/2025/03/men-i-trust-equus-asinus-stream/",
-        "title": "Men I Trust Release Equus Asinus, First of Two New Albums: Stream",
-        "source": "Consequence.net",
-        "content": "Men I Trust have released Equus Asinus, the first of their two new albums due this spring.\r\nSpanning 14 new tracks, Equus Asinus offers a contemplative, nuanced version of the Montreal band’s signatu… [+1677 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/Men-I-Trust.jpeg",
+        "url": "https://www.forbes.com/sites/giovannimalloy/2025/03/26/frozen-four-2025-analyzing-conference-tournaments-and-betting-odds/",
+        "title": "Frozen Four 2025: Analyzing Conference Tournaments And Betting Odds",
+        "source": "Forbes",
+        "content": "BOSTON, MA - APRIL 07: TD Garden ice resurfacer decked out in the Frozen Four logo for 2023 during a ... More Frozen Four semifinal between the Michigan Wolverines and the Denver Pioneers on April 7,… [+6651 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e460d723528d00ac6fade3/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
         "authors": [
-            "Jo Vito"
+            "Giovanni Malloy, Contributor, \n Giovanni Malloy, Contributor\n https://www.forbes.com/sites/giovannimalloy/"
         ],
-        "time": "2025-03-19T12:50:23Z"
+        "time": "2025-03-27T01:29:16Z"
     },
     {
-        "url": "https://consequence.net/2025/03/dua-lipa-covers-ac-dc-highway-to-hell-australian-concert/",
-        "title": "Dua Lipa Covers AC/DC’s “Highway to Hell” During Australian Concert: Watch",
-        "source": "Consequence.net",
-        "content": "Who doesn’t love those Aussie rockers AC/DC? Dua Lipa certainly seems to be a fan, as she covered the group’s classic song “Highway to Hell” while performing in Australia today.\r\nThe pop star busted … [+1455 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/dua-lipa-highway-to-hell.jpg",
+        "url": "https://www.nbcnews.com/news/us-news/federal-judge-blocks-trump-administration-fast-tracking-deportations-rcna198654",
+        "title": "Federal judge blocks Trump administration from fast-tracking deportations",
+        "source": "NBC News",
+        "content": "BOSTON A federal judge on Friday blocked President Donald Trumps administration from deporting migrants to countries with which they had no existing relationship without giving them a chance to raise… [+2972 chars]",
+        "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2022-02/220202-ice-officer-se-1057a-d5f116.jpg",
         "authors": [
-            "Jonah Krueger"
+            "Reuters"
         ],
-        "time": "2025-03-17T21:20:25Z"
+        "time": "2025-03-28T20:49:46Z"
     },
     {
-        "url": "https://consequence.net/2025/03/swans-2025-north-american-tour/",
-        "title": "Swans Announce 2025 North American Tour",
-        "source": "Consequence.net",
-        "content": "Swans have announced a 2025 North American tour ahead of their forthcoming 17th album, Birthing, out May 30th.\r\nThe late-summer/early-fall trek kicks off September 4th in Philadelphia and runs throug… [+2005 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/Swans.jpg",
+        "url": "https://www.nbcnews.com/pop-culture/celebrity/betty-whites-new-stamp-hidden-details-story-full-heart-rcna198424",
+        "title": "Betty White’s new stamp has hidden details — and a story full of heart",
+        "source": "NBC News",
+        "content": "The chance to draw Betty White for a U.S. postage stamp was an easy yes for Boston-based illustrator Dale Stephanos.\r\n\"I said 'yes' before they finished the sentence,\" he recalls in an interview with… [+3583 chars]",
+        "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2024-11/241117-betty-white-wm-332p-55e65d.jpg",
         "authors": [
-            "Jon Hadusek"
+            "Alex Portée, TODAY"
         ],
-        "time": "2025-03-18T17:07:11Z"
+        "time": "2025-03-27T17:44:58Z"
     },
     {
-        "url": "https://consequence.net/2025/03/pigs-pigs-pigs-pigs-pigs-pigs-2025-tour-glib-tongued/",
-        "title": "Pigs Pigs Pigs Pigs Pigs Pigs Pigs Announce 2025 North American Tour, Unveil “Glib Tongued” Featuring El-P: Stream",
-        "source": "Consequence.net",
-        "content": "Pigs Pigs Pigs Pigs Pigs Pigs Pigs (aka Pigs x7) have announced a 2025 North American tour in support of the UK band’s forthcoming album Death Hilarious, out April 4th.\r\nThe tour will be split into t… [+2352 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/pigs-x7-el-p.jpg",
-        "authors": [
-            "Jon Hadusek"
-        ],
-        "time": "2025-03-19T14:25:27Z"
-    },
-    {
-        "url": "https://consequence.net/2025/03/jensen-mcrae-savannah-stream/",
-        "title": "Jensen McRae Packs Her Bags on Stirring New Single “Savannah”: Stream",
-        "source": "Consequence.net",
-        "content": "Singer-songwriter Jensen McRae has unveiled her new song, “Savannah,” the latest single from her forthcoming album, I Don’t Know How But They Found Me! Stream it below.\r\nThe tender exploration of mov… [+1924 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/jensen-mcrae-savannah.jpg",
-        "authors": [
-            "Mary Siroky"
-        ],
-        "time": "2025-03-20T20:59:00Z"
-    },
-    {
-        "url": "https://consequence.net/2025/03/john-legend-get-lifted-anniversary-tour-dates/",
-        "title": "John Legend Announces Get Lifted 20th Anniversary Tour",
-        "source": "Consequence.net",
-        "content": "John Legend has announced a 2025 tour celebrating the 20th anniversary of his debut album, Get Lifted.\r\nStopping in over 40 cities, the “Get Lifted 20th Anniversary World Tour” kicks off on May 27th … [+3010 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/john-legend-2025-get-lifted-anniversary-tour.jpg",
-        "authors": [
-            "Eddie Fu"
-        ],
-        "time": "2025-03-18T15:08:55Z"
-    },
-    {
-        "url": "https://consequence.net/2025/03/fontaines-d-c-like-a-version-bring-me-the-horizon-can-you-feel-my-heart-nirvana-heart-shaped-box-cover-watch/",
-        "title": "Fontaines D.C. Mix Bring Me the Horizon’s “Can You Feel My Heart” with Nirvana’s “Heart Shaped Box” for Like a Version: Watch",
-        "source": "Consequence.net",
-        "content": "Fontaines D.C. were on the road in Australia last week, and they stopped by the Aussie radio station triple j to offer the platform a signature Like a Version cover. They opted for a dreamy rendition… [+3060 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/FOntaines-DC-Triple-J.jpg",
-        "authors": [
-            "Paolo Ragusa"
-        ],
-        "time": "2025-03-21T14:33:27Z"
-    },
-    {
-        "url": "https://consequence.net/2025/03/the-jonas-brothers-jonas20-living-the-dream-tour/",
-        "title": "The Jonas Brothers Announce 20th Anniversary Stadium Tour",
-        "source": "Consequence.net",
-        "content": "The Jonas Brothers have revealed the details for “JONAS20: LIVING THE DREAM,” a massive North American tour celebrating the band’s 20th anniversary.\r\nTaking place this summer, the tour kicks off in A… [+3034 chars]",
-        "imageUrl": "https://consequence.net/wp-content/uploads/2025/03/Jonas-Brothers.jpeg",
-        "authors": [
-            "Scoop Harrison"
-        ],
-        "time": "2025-03-23T12:59:20Z"
-    },
-    {
-        "url": "https://www.thefader.com/2025/03/24/ethel-cain-willoughby-tucker-tour",
-        "title": "Ethel Cain announces new album and 2025 tour details",
-        "source": "The FADER",
-        "content": "August 12 - Seattle, WA - Paramount TheatreAugust 13 - Seattle, WA - Paramount TheatreAugust 15 - Vancouver, BC - Queen Elizabeth TheatreAugust 16 - Portland, OR - EdgefieldAugust 18 - Berkeley, CA -… [+1858 chars]",
-        "imageUrl": "https://thefader-res.cloudinary.com/private_images/c_limit,w_1024/c_crop,h_533,w_1024,x_0,y_51,f_auto,q_auto:eco/GettyImages-2167318109_ynqwxf/GettyImages-2167318109_ynqwxf.jpg",
-        "authors": [
-            "David Renshaw"
-        ],
-        "time": "2025-03-24T13:59:04Z"
-    },
-    {
-        "url": "https://www.snopes.com//fact-check/ned-johnson-social-security/",
-        "title": "Social Security falsely declared 82-year-old man dead, stopped benefits",
-        "source": "Snopes.com",
-        "content": "Claim:\r\nIn early 2025, an 82-year-old man named Ned Johnson in Seattle was declared \"dead\" by the U.S. Social Security and deprived of his benefits.\r\nIn March 2025, in the first weeks after U.S. Pres… [+3955 chars]",
-        "imageUrl": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2025/03/ssa_sign.png",
-        "authors": [
-            "Anna Rascouët-Paz"
-        ],
-        "time": "2025-03-17T20:30:00Z"
-    },
-    {
-        "url": "https://www.insidehighered.com/news/quick-takes/2025/03/20/seattle-university-ax-cornish-staff-merger",
-        "title": "Seattle University to Ax Cornish Staff in Merger",
+        "url": "https://www.insidehighered.com/news/quick-takes/2025/03/27/tufts-graduate-student-taken-ice-custody",
+        "title": "Tufts Graduate Student Taken Into ICE Custody",
         "source": "Inside Higher Ed",
-        "content": "Seattle University and Cornish College of the Arts are one step closer to what is essentially an acquisition after reaching a formal agreement for Seattle to absorb the arts school, officials announc… [+1226 chars]",
+        "content": "Federal immigration authorities arrested a Tufts Ph.D. student Tuesday as part of the Trump administrations ongoing attempts to deport pro-Palestinian activists, The Boston Globereported. \r\nThe stude… [+1490 chars]",
         "imageUrl": "https://www.insidehighered.com/modules/custom/ihe_custom/img/ihe-logo-no-wordmark.png",
         "authors": [
-            "Josh Moody"
+            "Sara Weissman"
         ],
-        "time": "2025-03-20T07:00:00Z"
+        "time": "2025-03-27T07:00:00Z"
     },
     {
-        "url": "https://www.insidehighered.com/news/quick-takes/2025/03/20/seattle-university-absorb-cornish-college-arts",
-        "title": "Seattle University to Absorb Cornish College of the Arts",
-        "source": "Inside Higher Ed",
-        "content": "Seattle University and Cornish College of the Arts are one step closer to what is essentially an acquisition after reaching a formal agreement for Seattle to absorb the arts school, officials announc… [+1226 chars]",
-        "imageUrl": "https://www.insidehighered.com/modules/custom/ihe_custom/img/ihe-logo-no-wordmark.png",
+        "url": "https://www.forbes.com/sites/nicholascrain/2025/03/26/chasing-greatness-the-significance-of-okc-thunders-60-win-milestone/",
+        "title": "Chasing Greatness: The Significance Of OKC Thunder’s 60-Win Milestone",
+        "source": "Forbes",
+        "content": "Boston, MA - March 12: Boston Celtics SG Jaylen Brown is guarded by Oklahoma City Thunder C Chet ... More Holmgren and SG Shai Gilgeous-Alexander in the first quarter. (Photo by Erin Clark/The Boston… [+3233 chars]",
+        "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/67e4c378327b5524d9d06799/0x0.jpg?format=jpg&crop=2156,1437,x0,y129,safe&height=900&width=1600&fit=bounds",
         "authors": [
-            "Josh Moody"
+            "Nick Crain, Contributor, \n Nick Crain, Contributor\n https://www.forbes.com/sites/nicholascrain/"
         ],
-        "time": "2025-03-20T07:00:00Z"
+        "time": "2025-03-27T03:22:00Z"
     },
     {
-        "url": "https://www.metafilter.com/208139/Seattles-Draw-Bridges",
-        "title": "Seattle's Draw Bridges",
-        "source": "Metafilter.com",
-        "content": "MetaFilter is a weblog that anyone can contribute a link or a comment to. A typical weblog is one person posting their thoughts on the unique things they find on the web. This website exists to break… [+120 chars]",
-        "imageUrl": "https://cdn.mefi.us/images/mefi/apple-touch-icon.png",
+        "url": "https://www.infoq.com/news/2025/03/ids-boston-2025-talks/",
+        "title": "InfoQ Dev Summit Boston 2025: Real-World AI, Platform Engineering & DevEx Strategies",
+        "source": "InfoQ.com",
+        "content": "InfoQ Dev Summit Boston 2025 (June 9-10, 2025) is where senior software developers, architects, and engineering leaders come together to tackle today’s most pressing challenges in AI adoption, platfo… [+7298 chars]",
+        "imageUrl": "https://res.infoq.com/news/2025/03/ids-boston-2025-talks/en/headerimage/IDS-BOSTON-2025-social-media-card-1742827465520.jpg",
         "authors": [
-            "ShooBoo"
+            "Artenisa Chatziou"
         ],
-        "time": "2025-03-23T08:37:37Z"
+        "time": "2025-03-25T11:30:00Z"
     },
     {
-        "url": "https://www.siliconera.com/nintendo-shows-seattle-mariners-jersey-patch/",
-        "title": "Nintendo Shows Seattle Mariners Jersey Patch",
-        "source": "Siliconera",
-        "content": "Nintendo announced a patch with the companys logo will appear on Seattle Mariners team jerseys starting in 2025. A trailer highlighted how these will look. It also confirmed they will show up for the… [+1601 chars]",
-        "imageUrl": "https://www.siliconera.com/wp-content/uploads/2025/03/nintendo-shows-seattle-mariners-jersey-patch.jpg",
-        "authors": [
-            "Jenni Lada"
-        ],
-        "time": "2025-03-20T14:00:00Z"
-    },
-    {
-        "url": "https://www.fark.com/comments/13602558/Seattle-man-caught-in-missing-cat-scam-For-those-not-up-on-current-medical-terminology-a-cat-scam-is-like-an-MRI-only-with-a-lot-more-scratching",
-        "title": "Seattle man caught in missing cat scam. For those not up on current medical terminology, a cat scam is like an MRI only with a lot more scratching [Sick]",
-        "source": "Fark.com",
-        "content": "<li>Links are submitted by members of the Fark community.\r\n</li><li>When community members submit a link, they also write a custom headline for the story.\r\n</li><li>Other Farkers comment on the links… [+177 chars]",
-        "imageUrl": "https://img.fark.net/images/2013/site/farkLogo2Big.gif",
-        "authors": [],
-        "time": "2025-03-20T03:01:00Z"
-    },
-    {
-        "url": "https://www.siliconera.com/one-piece-seattle-mariners-baseball-game-event-set-for-april/",
-        "title": "One Piece Seattle Mariners Baseball Game Event Set for April",
-        "source": "Siliconera",
-        "content": "Toei announced yet another One Piece night for a US team, and this time itll involve the Seattle Mariners and Houston Astros baseball game on April 8, 2025. The event will be designed to highlight th… [+1708 chars]",
-        "imageUrl": "https://www.siliconera.com/wp-content/uploads/2025/03/one-piece-seattle-mariners-baseball-game-event-set-for-april-a.jpg",
-        "authors": [
-            "Jenni Lada"
-        ],
-        "time": "2025-03-18T18:00:00Z"
-    },
-    {
-        "url": "https://www.mlbtraderumors.com/2025/03/mariners-release-drew-pomeranz-jesse-hahn.html",
-        "title": "Mariners Release Drew Pomeranz, Jesse Hahn",
-        "source": "MLB Trade Rumors",
-        "content": "The Mariners announced that right-hander Jesse Hahn and left-hander Drew Pomeranz were both released from their minor league contracts.  Ryan Divish of the Seattle Times notes that both pitchers had … [+1817 chars]",
-        "imageUrl": "https://cdn.mlbtraderumors.com/files/2020/08/USATSI_14725111-1024x715.jpg",
-        "authors": [
-            "Mark Polishuk"
-        ],
-        "time": "2025-03-23T23:00:32Z"
-    },
-    {
-        "url": "https://www.mlbtraderumors.com/2025/03/rowdy-tellez-has-opt-out-in-mariners-deal-this-weekend.html",
-        "title": "Rowdy Tellez Has Opt-Out In Mariners Deal This Weekend",
-        "source": "MLB Trade Rumors",
-        "content": "First baseman Rowdy Tellez has an opt-out opportunity in his minor league deal with the Mariners this weekend, reports Ryan Divish of the Seattle Times. He’ll be able to ask for his release on March … [+1806 chars]",
-        "imageUrl": "https://cdn.mlbtraderumors.com/files/2025/03/rowdy-tellez-mariners-spring-1024x683.jpg",
-        "authors": [
-            "Steve Adams"
-        ],
-        "time": "2025-03-19T19:10:12Z"
-    },
-    {
-        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-kupp-facing-rams-a-nice-little-thing-about-joining-seahawks",
-        "title": "Cooper Kupp: Facing Rams \"a nice little thing\" about joining Seahawks",
+        "url": "https://www.nbcsports.com/betting/nba/news/celtics-vs-grizzlies-odds-predictions-recent-stats-trends-and-best-bets-for-march-31",
+        "title": "Celtics vs. Grizzlies Odds, predictions, recent stats, trends and Best bets for March 31",
         "source": "NBCSports.com",
-        "content": "Wide receiver Cooper Kupp spent a lot of time talking about coming home in his first comments to the media since signing with the Seahawks, but the Washington native also talked about the circumstanc… [+1128 chars]",
-        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/025fe01/2147483647/strip/true/crop/7285x4098+0+0/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fc9%2F0b%2Fbfdce15947368e200b6d5375e76a%2Fhttps-api-imagn.com%2Frest%2Fdownload%2FimageID%3D25180734",
+        "content": "Boston Celtics vs. Memphis Grizzlies Preview \r\nThe Boston Celtics (55-19) and Memphis Grizzlies (44-30) are all set to square off from FedExForum in Memphis.\r\nThe Celtics continue to play great baske… [+4571 chars]",
+        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/8720563/2147483647/strip/true/crop/3543x1993+0+185/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F40%2F0b%2F5cac457546f683e30201e5170733%2Fhttps-delivery-gettyimages.com%2Fdownloads%2F2207031171",
         "authors": [
-            "Josh Alper"
+            "NBC Sports Bet Staff"
         ],
-        "time": "2025-03-19T11:17:24Z"
+        "time": "2025-03-31T15:11:01Z"
     },
     {
-        "url": "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_ee3f9627-7160-4e6c-a0e8-bfd03720ba7c",
-        "title": "Former Seattle tech worker sentenced to prison, lived lavishly before fraud unraveled",
-        "source": "Yahoo Entertainment",
-        "content": "If you click 'Accept all', we and our partners, including 239 who are part of the IAB Transparency &amp; Consent Framework, will also store and/or access information on a device (in other words, use … [+702 chars]",
-        "imageUrl": null,
-        "authors": [],
-        "time": "2025-03-23T19:43:10Z"
-    },
-    {
-        "url": "https://www.espn.com/gaming/story/_/id/44330467/seattle-mariners-nintendo-jerseys",
-        "title": "The Mariners are getting a Nintendo-themed makeover with new jerseys",
-        "source": "ESPN",
-        "content": "Mar 20, 2025, 01:20 PM ET\r\nNintendo of America and the Seattle Mariners have announced an expansion of their decades-long partnership, with the Mariners getting their first-ever jersey sleeve partner… [+1004 chars]",
-        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0320%2Fr1466832_1296x729_16%2D9.jpg",
-        "authors": [
-            "Oliver Brandt"
-        ],
-        "time": "2025-03-20T17:35:38Z"
-    },
-    {
-        "url": "https://www.espn.com/mlb/story/_/id/44295916/chicago-white-sox-infielder-josh-rojas-dealing-hairline-fracture-right-big-toe",
-        "title": "White Sox's Rojas has hairline fracture in big toe",
-        "source": "ESPN",
-        "content": "Mar 17, 2025, 08:32 PM ET\r\nGLENDALE, Ariz. -- Chicago White Sox infielder Josh Rojas has a hairline fracture in his right big toe, putting his availability for opening day in question.\r\nRojas is batt… [+974 chars]",
-        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0318%2Fr1465797_1296x729_16%2D9.jpg",
-        "authors": [],
-        "time": "2025-03-18T00:38:56Z"
-    },
-    {
-        "url": "https://www.theflightdeal.com/2025/03/21/united-seattle-dubai-united-arab-emirates-701-roundtrip-including-all-taxes/",
-        "title": "United: Seattle – Dubai, United Arab Emirates. $701. Roundtrip, including all Taxes",
-        "source": "Theflightdeal.com",
-        "content": "A good sale to Dubai.\r\nSign up for our Real Time Newsletter to receive economy class deals for your city about an hour before they are even posted on our website and social media channels - all for a… [+3434 chars]",
-        "imageUrl": "https://www.theflightdeal.com/wp-content/uploads/2017/01/dubai_january-640x390.jpg",
-        "authors": [
-            "The Flight Deal"
-        ],
-        "time": "2025-03-21T16:25:41Z"
-    },
-    {
-        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-safety-and-special-teamer-danthony-bell",
-        "title": "Seahawks sign safety and special teamer D'Anthony Bell",
+        "url": "https://www.nbcsports.com/betting/nba/news/celtics-vs-kings-predictions-odds-recent-stats-trends-and-best-bets-for-march-24",
+        "title": "Celtics vs. Kings Predictions: Odds, recent stats, trends and, best bets for March 24",
         "source": "NBCSports.com",
-        "content": "The Seahawks are adding some depth to their secondary and special teams.\r\nDAnthony Bell is signing a one-year deal in Seattle, according to Jordan Schultz of Fox Sports.\r\nBell was undrafted in 2022 a… [+527 chars]",
-        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/eee67ad/2147483647/strip/true/crop/4537x2552+0+236/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fb0%2F18%2F444b7c2f463fb89b50f04a30919d%2Fhttps-delivery-gettyimages.com%2Fdownloads%2F2149894324",
+        "content": "Boston Celtics vs. Sacramento Kings Preview \r\nThe Boston Celtics (52-19) and Sacramento Kings (35-35) are all set to square off from Golden 1 Center in Sacramento.\r\nThe Celtics are second in the East… [+4132 chars]",
+        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/132d249/2147483647/strip/true/crop/4730x2661+0+246/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F4e%2F47%2F9b3b26ae4648835db443acfe64c4%2Fhttps-delivery-gettyimages.com%2Fdownloads%2F2206580678",
         "authors": [
-            "Michael David Smith"
+            "NBC Sports Bet Staff"
         ],
-        "time": "2025-03-21T17:58:56Z"
+        "time": "2025-03-24T16:58:34Z"
     },
     {
-        "url": "https://www.metalsucks.net/2025/03/19/six-more-dates-added-to-minus-the-bears-menos-el-oso-tour/",
-        "title": "Six More Dates Added to Minus The Bear’s ‘Menos El Oso’ Tour",
-        "source": "MetalSucks",
-        "content": "One week after announcing a huge 20th anniversary tour for their seminal album Menos El Oso, apparently Minus The Bear got enough interest and traction that they added another half dozen shows to the… [+2529 chars]",
-        "imageUrl": "https://cdn-p.smehost.net/sites/2ed48fdcc3904f548299cd86d78e9885/wp-content/uploads/2025/03/Minus-The-Bear-2025.png",
+        "url": "https://archinect.com/news/article/150472086/federal-judge-upholds-nyc-s-ban-on-natural-gas-in-buildings",
+        "title": "Federal judge upholds NYC's ban on natural gas in buildings",
+        "source": "Archinect",
+        "content": "A ruling in the Southern District of New York, which covers New York City, has upheld the city’s 2021 ban on natural gas heating and appliances in new buildings. The decision will have consequences f… [+486 chars]",
+        "imageUrl": "https://archinect.gumlet.io/uploads/12/127a81e8241472730bbb05491a0c7604.jpg?fit=crop&auto=compress%2Cformat&enlarge=true&crop=faces&w=1200&h=707",
         "authors": [
-            "Hesher Keenan"
+            "Josh Niland"
         ],
-        "time": "2025-03-19T14:18:00Z"
+        "time": "2025-03-28T16:10:00Z"
     },
     {
-        "url": "https://www.espn.com/mlb/story/_/id/44294392/top-international-mlb-matchups",
-        "title": "Cubs-Dodgers tilt in Tokyo could be the latest memorable international MLB game",
-        "source": "ESPN",
-        "content": "Ohtani's much-anticipated debut for the Dodgers came when the club opened its 2024 season abroad, with Los Angeles splitting a two-game set with NL West rival San Diego in Seoul.The second game of th… [+2648 chars]",
-        "imageUrl": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0305%2Fr1459819_1296x729_16%2D9.jpg",
+        "url": "https://www.adweek.com/tvspy/kyle-grimes-named-evp-of-hearst-television/",
+        "title": "Kyle Grimes Named EVP of Hearst Television",
+        "source": "Adweek",
+        "content": "Kyle I. Grimes has been promoted to executive vice president of Hearst Television.\r\nGrimes has served as both president and general manager of WCVB-TV, Hearst Televisions flagship Boston station, and… [+1945 chars]",
+        "imageUrl": "https://www.adweek.com/wp-content/uploads/2025/03/Kyle_Grimes_HearstTV_2025-copy.png?w=600&h=315&crop=1",
         "authors": [
-            "J.J. Post"
+            "kevineck"
         ],
-        "time": "2025-03-18T04:00:00Z"
+        "time": "2025-03-26T16:32:00Z"
     },
     {
-        "url": "https://ahouseinthehills.com/why-you-need-a-skilled-structural-engineer-in-seattle-city/",
-        "title": "Why You Need a Skilled Structural Engineer in Seattle",
-        "source": "Ahouseinthehills.com",
-        "content": "Are you a building owner or planning a construction project in Seattle? Hiring a skilled structural engineer is crucial for your project’s success. Seattles unique geography, including its hills, hea… [+4016 chars]",
-        "imageUrl": "https://ahouseinthehills.com/wp-content/uploads/2025/03/word-image-124030-1.png",
+        "url": "https://tvline.com/previews/blue-bloods-spinoff-premiere-date-boston-blue-fall-2025-1235422453/",
+        "title": "Blue Bloods Offshoot Boston Blue Set for Fall Premiere — Watch ‘Promo’",
+        "source": "TVLine",
+        "content": "Fans of CBS‘ cancelled Blue Bloods will only have to wait another six months or so to get their next fix of Danny Reagan. \r\nFranchise vet Donnie Wahlberg — who of course played Danny for all of Blue … [+1646 chars]",
+        "imageUrl": "https://tvline.com/wp-content/uploads/2025/02/blue-bloods-spinoff-donnie-wahlberg.jpg?w=650",
         "authors": [
-            "Charles Spencer"
+            "Matt Webb Mitovich"
         ],
-        "time": "2025-03-18T06:41:01Z"
+        "time": "2025-03-25T21:53:03Z"
     },
     {
-        "url": "https://www.espn.com/mlb/story/_/id/44373604/mariners-release-veteran-outfielder-mitch-haniger",
-        "title": "M's cut Haniger, laud 'significant' impact on team",
-        "source": "ESPN",
-        "content": "Mar 23, 2025, 02:54 PM ET\r\nThe Seattle Mariners released veteran outfielder Mitch Haniger on Sunday.\r\nAn All-Star with the club in 2018, he spent parts of six seasons in Seattle.\r\n\"Putting on a Marin… [+1723 chars]",
-        "imageUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0323%2Fr1468199_1296x729_16%2D9.jpg",
+        "url": "https://www.neatorama.com/2025/03/30/Dr-Bucklands-Scotch-Oats-Essence-Was-Not-What-It-Seemed/",
+        "title": "Dr. Buckland’s Scotch Oats Essence Was Not What It Seemed",
+        "source": "Neatorama.com",
+        "content": "With all the medicines, remedies, and supplements available to cure what ails ya, the name Dr. Buckland’s Scotch Oats Essence stands out as being particularly benign and natural. What could be more w… [+887 chars]",
+        "imageUrl": "https://uploads.neatorama.com/images/posts/262/126/126262/1743386903-0.jpg",
         "authors": [
-            "Field Level Media"
+            "Miss Cellania"
         ],
-        "time": "2025-03-23T19:05:05Z"
-    },
-    {
-        "url": "https://www.q13fox.com/news/caught-video-driver-cuts-off-harasses-tesla-owner-lynnwood",
-        "title": "Caught on video: Driver cuts off, harasses Tesla owner in Lynnwood, WA",
-        "source": "Q13 News Seattle",
-        "content": "The Brief\r\n<ul><li>A mother says she was harassed and cut off by another driver in Lynnwood for driving a Tesla.\r\n</li><li>Video captured a white SUV swerve in front of the Tesla, stop in the middle … [+4464 chars]",
-        "imageUrl": "https://s.yimg.com/ny/api/res/1.2/fzKG3T7_KZs8_1U910SEWQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://media.zenfs.com/en/kcpq_fox_local_articles_135/82411f9b5cf37e2d4f8598debb0fa906",
-        "authors": [
-            "Alejandra Guzman"
-        ],
-        "time": "2025-03-21T03:14:57Z"
-    },
-    {
-        "url": "https://dailyhive.com/vancouver/toronto-blue-jays-fans-skip-canadian-invasion-seattle",
-        "title": "Toronto Blue Jays fans' annual invasion of U.S. city might not happen amid trade war",
-        "source": "Daily Hive",
-        "content": "The invasion of Seattle by Canadian baseball fans cheering on the Toronto Blue Jays is an annual tradition.\r\nBut this year's series against the Seattle Mariners at T-Mobile Park, taking place May 9-1… [+2101 chars]",
-        "imageUrl": "https://display.blogto.com/articles/20250317-toronto-blue-jays.jpg?w=1200&cmd=resize_then_crop&height=630&quality=70",
-        "authors": [
-            "Colton Pankiw, Offside"
-        ],
-        "time": "2025-03-17T13:02:24Z"
-    },
-    {
-        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-visiting-with-ol-dillon-radunz-this-week",
-        "title": "Seahawks visiting with OL Dillon Radunz this week",
-        "source": "NBCSports.com",
-        "content": "The Seahawks are looking at some help for their offensive line. \r\nPer Mike Garafolo of NFL Media, Dillon Radunz is taking a free-agent visit with Seattle on Tuesday and Wednesday.\r\nRadunz, 26, just c… [+437 chars]",
-        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/576e9e5/2147483647/strip/true/crop/4772x2684+0+0/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F2b%2Fdd%2F686aa2e44039ad49fb1e4d3869e3%2Fhttps-delivery-gettyimages.com%2Fdownloads%2F2178449453",
-        "authors": [
-            "Myles Simmons"
-        ],
-        "time": "2025-03-18T16:53:01Z"
-    },
-    {
-        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-agree-to-one-year-deal-with-wr-david-moore",
-        "title": "Panthers agree to one-year deal with WR David Moore",
-        "source": "NBCSports.com",
-        "content": "The Panthers are bringing back one of their offensive free agents.\r\nCarolina has agreed to terms on a one-year deal with receiver David Moore, the team announced on Tuesday.\r\nMoore, 30, spent last se… [+422 chars]",
-        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/be978ce/2147483647/strip/true/crop/5141x2892+0+0/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F5f%2F13%2Fe4e41aa3426cbf7b19b6f6758e0e%2Fhttps-api-imagn.com%2Frest%2Fdownload%2FimageID%3D24667478",
-        "authors": [
-            "Myles Simmons"
-        ],
-        "time": "2025-03-18T18:31:39Z"
-    },
-    {
-        "url": "https://www.newsweek.com/alarm-raised-over-seattle-missing-cat-scam-2047751",
-        "title": "Alarm Raised Over 'Cruel' Seattle Missing Cat Scam",
-        "source": "Newsweek",
-        "content": "Seattle residents are raising the alarm about a missing cat scam which caused one man to almost lose $2,800.\r\nCat owner Justin Hills lost his cat, Little Wayne Shorter, in November, and two weeks lat… [+5011 chars]",
-        "imageUrl": "https://d.newsweek.com/en/full/2611056/missing-cats-seattle.png",
-        "authors": [
-            "Sophie Clark"
-        ],
-        "time": "2025-03-20T15:04:07Z"
-    },
-    {
-        "url": "https://www.cbssports.com/college-basketball/news/2025-ncaa-tournament-bracket-college-basketball-scores-march-madness-sweet-16-tv-schedule-streaming/",
-        "title": "2025 NCAA Tournament bracket: College basketball scores, March Madness Sweet 16 TV schedule, streaming",
-        "source": "CBS Sports",
-        "content": "The final eight teams punched their tickets to the Sweet 16 on Sunday as the first weekend of the NCAA Tournament came to a close with a series of quality showdowns between teams fighting to keep the… [+2588 chars]",
-        "imageUrl": "https://sportshub.cbsistatic.com/i/r/2025/03/17/f5f5640e-7ed5-439f-8e76-c86952875d0f/thumbnail/1200x675/f09cf5701329119c4146bf43e6bbc776/march-madness-logo-glass-basket-2024-g.jpg",
-        "authors": [
-            "David Cobb"
-        ],
-        "time": "2025-03-24T13:30:21Z"
-    },
-    {
-        "url": "https://www.newsweek.com/seattle-hospital-prioritizes-excellence-care-citys-most-vulnerable-2044264",
-        "title": "Seattle Hospital Prioritizes Excellence in Care for City's Most Vulnerable",
-        "source": "Newsweek",
-        "content": "The measure of a great hospital goes beyond the latest technology and cutting-edge research. At Seattle's Virginia Mason Medical Center, the renowned cancer experts and robust cardiology department s… [+9043 chars]",
-        "imageUrl": "https://d.newsweek.com/en/full/2607785/vmmc.jpg",
-        "authors": [
-            "Lauren Giella"
-        ],
-        "time": "2025-03-17T17:59:27Z"
-    },
-    {
-        "url": "https://www.newsweek.com/seattle-man-loses-social-security-mistakenly-declared-dead-2045837",
-        "title": "Seattle Man Loses Social Security After Being Mistakenly Declared 'Dead'",
-        "source": "Newsweek",
-        "content": "A Seattle man is trying to reclaim back his welfare benefits after he was mistakenly declared \"deceased\" by the Social Security Administration (SSA).\r\nNed Johnson, 82, first learned of his \"death\" wh… [+5369 chars]",
-        "imageUrl": "https://d.newsweek.com/en/full/2608680/social-security.jpg",
-        "authors": [
-            "Jasmine Laws"
-        ],
-        "time": "2025-03-17T16:41:32Z"
-    },
-    {
-        "url": "https://www.cbssports.com/nfl/news/2025-nfl-free-agency-dolphins-add-veteran-cornerback-by-signing-former-steelers-first-round-pick-per-report/",
-        "title": "2025 NFL free agency: Dolphins add veteran cornerback by signing former Steelers first-round pick, per report",
-        "source": "CBS Sports",
-        "content": "The Miami Dolphins are signing a former first-round pick to help bolster their secondary for the 2025 season. Miami has reached an agreement on a one-year deal with veteran cornerback and former Pitt… [+1710 chars]",
-        "imageUrl": "https://sportshub.cbsistatic.com/i/r/2025/03/17/08950bff-3898-46d6-9b62-7446f717304e/thumbnail/1200x675/8b6006f342191b91c6ac4f1a6337351f/artie-burns-g.jpg",
-        "authors": [
-            "Bryan DeArdo"
-        ],
-        "time": "2025-03-17T17:12:24Z"
-    },
-    {
-        "url": "https://www.cbssports.com/nfl/news/2025-nfl-free-agency-dolphins-add-veteran-cornerback-by-signing-ex-steelers-first-round-pick-per-report/",
-        "title": "2025 NFL free agency: Dolphins add veteran cornerback by signing ex-Steelers first-round pick, per report",
-        "source": "CBS Sports",
-        "content": "The Miami Dolphins are signing a former first-round pick to help bolster their secondary for the 2025 season. Miami has reached an agreement on a one-year deal with veteran cornerback and former Pitt… [+1710 chars]",
-        "imageUrl": "https://sportshub.cbsistatic.com/i/r/2025/03/17/08950bff-3898-46d6-9b62-7446f717304e/thumbnail/1200x675/8b6006f342191b91c6ac4f1a6337351f/artie-burns-g.jpg",
-        "authors": [
-            "Bryan DeArdo"
-        ],
-        "time": "2025-03-17T17:00:41Z"
-    },
-    {
-        "url": "https://www.capitolhillseattle.com/2025/03/there-has-been-a-second-seattle-soda-zone-order-issued-not-on-capitol-hill-this-time/",
-        "title": "There has been a second Seattle SODA zone order issued — not on Capitol Hill this time",
-        "source": "CHS Capitol Hill Seattle News",
-        "content": "Zone 4\r\nCapitol Hill’s “Stay Out of Drug Area” is no longer the only SODA zone in Seattle with an active exclusion order.\r\nSeattle Municipal Court filings show an order was issued for Seattle SODA Zo… [+2253 chars]",
-        "imageUrl": "https://www.capitolhillseattle.com/wp-content/uploads/2025/03/chs-1016-400x402.jpg",
-        "authors": [
-            "jseattle"
-        ],
-        "time": "2025-03-18T00:07:02Z"
-    },
-    {
-        "url": "https://www.espn.com/gaming/story/_/id/44316514/mlb-show-25-launch-update",
-        "title": "MLB The Show 25 gets launch update to fix crashes and AI behavior",
-        "source": "ESPN",
-        "content": "Sony San Diego has used player feedback from the Advanced Access version of MLB The Show 25 to concoct a major update for the game's full release this week on PS5, Xbox Series X|S and Nintendo Switch… [+1060 chars]",
-        "imageUrl": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0319%2Fr1466395_1080x607_16%2D9.jpg",
-        "authors": [
-            "Marco Wutz"
-        ],
-        "time": "2025-03-19T18:09:54Z"
-    },
-    {
-        "url": "https://metalinjection.net/tour-dates/minus-the-bear-adds-six-dates-to-their-menos-el-oso-20th-anniversary-tour",
-        "title": "MINUS THE BEAR Adds Six Dates To Their Menos El Oso 20th Anniversary Tour",
-        "source": "Metal Injection.net",
-        "content": "The recently-reunited Minus The Bear will hit the road this October and November for a 20th anniversary tour around their Menos el Oso album. The tour now includes five new stops, which are:\r\n10/16 A… [+2177 chars]",
-        "imageUrl": "https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2025/03/Minus-The-Bear-2025.png",
-        "authors": [
-            "Greg Kennelty"
-        ],
-        "time": "2025-03-18T20:59:58Z"
-    },
-    {
-        "url": "https://www.newsweek.com/man-loses-social-security-medicare-after-being-declared-dead-seattle-2046573",
-        "title": "Man Loses Social Security, Medicare After Being Declared Dead",
-        "source": "Newsweek",
-        "content": "A Seattle man was declared dead by the Social Security Administration (SSA) and subsequently lost access to his Social Security and Medicare benefits.\r\nWhile President Donald Trump's newly formed Dep… [+6691 chars]",
-        "imageUrl": "https://d.newsweek.com/en/full/2609526/social-security.jpg",
-        "authors": [
-            "Suzanne Blake"
-        ],
-        "time": "2025-03-18T18:16:18Z"
-    },
-    {
-        "url": "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_c6868062-9b5a-4567-a453-dc8ab30d395a",
-        "title": "Seattle Mariners release veteran outfielder Mitch Haniger",
-        "source": "Yahoo Entertainment",
-        "content": "If you click 'Accept all', we and our partners, including 239 who are part of the IAB Transparency &amp; Consent Framework, will also store and/or access information on a device (in other words, use … [+702 chars]",
-        "imageUrl": null,
-        "authors": [],
-        "time": "2025-03-23T21:23:47Z"
-    },
-    {
-        "url": "https://earmilk.com/2025/03/17/maxwell-macey-captures-the-pain-of-moving-away-from-your-past-on-need-to-leave/",
-        "title": "Maxwell Macey captures the pain of moving away from your past on \"Need to Leave\"",
-        "source": "Earmilk.com",
-        "content": "Seattle-based singer-songwriter Maxwell Macey makes debut with emotional offering Need to Leave, expressing the pain of solitude and navigating distances. Inspired by a difficult period of personal t… [+699 chars]",
-        "imageUrl": null,
-        "authors": [
-            "Malvika Padin"
-        ],
-        "time": "2025-03-17T17:00:34Z"
-    },
-    {
-        "url": "https://www.nbcsports.com/mlb/news/seattle-mariners-release-veteran-outfielder-mitch-haniger",
-        "title": "Seattle Mariners release veteran outfielder Mitch Haniger",
-        "source": "NBCSports.com",
-        "content": "PEORIA, Ariz. The Seattle Mariners have released Mitch Haniger after the veteran outfielder was hampered by left shoulder soreness during spring training.\r\nHaniger, 34, was in his second stint with S… [+1517 chars]",
-        "imageUrl": "https://nbcsports.brightspotcdn.com/dims4/default/84a04e7/2147483647/strip/true/crop/8640x4860+0+119/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F90%2F2f%2Fcb485cb846a88ed8914a0c3fbcb4%2Fusatsi-24055696.jpg",
-        "authors": [
-            "Associated Press"
-        ],
-        "time": "2025-03-24T00:04:23Z"
-    },
-    {
-        "url": "http://9to5toys.com/2025/03/20/the-seattle-mariners-will-wear-a-nintendo-switch-2-logo-this-season-debuts-march-27/",
-        "title": "The Seattle Mariners will wear a Nintendo Switch 2 logo this season, debuts March 27",
-        "source": "9to5Toys",
-        "content": "The hype and marketing train towards the launch of Nintendo Switch 2 rolls on today as Nintendo and the Seattle Marines have announced expansion of their long-standing relationship the 2025 Mariners … [+2064 chars]",
-        "imageUrl": "https://i0.wp.com/9to5toys.com/wp-content/uploads/sites/5/2025/03/Seattle-Marines-Nintendo-Switch-2-01.jpeg?resize=1200%2C628&ssl=1",
-        "authors": [
-            "Justin Kahn"
-        ],
-        "time": "2025-03-20T14:08:12Z"
+        "time": "2025-03-31T02:08:22Z"
     }
 ]

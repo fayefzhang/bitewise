@@ -339,7 +339,7 @@ function applySourcePreferences(
   
     // Filter out excluded sources
     const filtered = articles.filter(article => {
-      const source = article.source?.toLowerCase() || "";
+      const source = article.source?.name?.toLowerCase() || "";
       return !excludedSources.includes(source);
     });
   
@@ -741,7 +741,8 @@ router.post('/summarize/articles', async (req: Request, res: Response): Promise<
     try {
         const { articles, ai_preferences, is_dashboard} = req.body;
         if (!articles) {
-            res.status(400).json({ message: 'Articles are required' });
+            // res.status(400).json({ message: 'Articles are required' });
+            return;
         }
         if (!ai_preferences) {
             res.status(400).json({ message: 'AI preferences are required' });

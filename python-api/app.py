@@ -223,7 +223,8 @@ def summarize_articles():
     if not ai_preferences:
         return jsonify({"error": "AI preferences are required"}), 400
     if not articles:
-        return jsonify({"error": "Articles are required"}), 400
+        return
+        # return jsonify({"error": "Articles are required"}), 400
     
     # dict mapping urls to summary
     is_dashboard = data.get('is_dashboard', False)
