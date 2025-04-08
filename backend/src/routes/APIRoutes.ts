@@ -116,6 +116,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
                 const { title, summary, enriched_articles } = summaryResponse.data;
 
+                console.log("Search preferences:", search_preferences);
                 let sourceFilteredArticles = articles;
                 const beforeCount = articles.length;
                 if (search_preferences && (search_preferences.sources || search_preferences.exclude_domains)) {
@@ -337,19 +338,20 @@ function applySourcePreferences(
     const preferredSources = search_preferences?.sources?.map(s => s.toLowerCase()) || [];
     const excludedSources = search_preferences?.exclude_domains?.map(s => s.toLowerCase()) || [];
   
+    console.log("Excluded sources:", excludedSources);
     // Filter out excluded sources
     const filtered = articles.filter(article => {
-      const source = article.source?.name?.toLowerCase() || "";
+      const source = article.source?.toLowerCase() || "";
       return !excludedSources.includes(source);
     });
   
     // Prioritize preferred sources
     const preferred = filtered.filter(article =>
-      preferredSources.includes(article.source?.name?.toLowerCase())
+      preferredSources.includes(article.source?.toLowerCase())
     );
-    console.log("Preferred sources:", preferred.map(a => a.source?.name));
+    console.log("Preferred sources:", preferred.map(a => a.source));
     const nonPreferred = filtered.filter(article =>
-      !preferredSources.includes(article.source?.name?.toLowerCase())
+      !preferredSources.includes(article.source?.toLowerCase())
     );
   
     return [...preferred, ...nonPreferred];
