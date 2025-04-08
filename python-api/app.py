@@ -223,8 +223,7 @@ def summarize_articles():
     if not ai_preferences:
         return jsonify({"error": "AI preferences are required"}), 400
     if not articles:
-        return
-        # return jsonify({"error": "Articles are required"}), 400
+        return jsonify({"error": "Articles are required"}), 400
     
     # dict mapping urls to summary
     is_dashboard = data.get('is_dashboard', False)
@@ -270,6 +269,7 @@ def summarize_articles():
             print("Warning: '**Summary**:' keyword not found in the response.")
     except Exception as e:
         print(f"Error processing summary output: {e}")
+        return 
 
     print(f"Title: {title}\nSummary: {summary}")
     return jsonify({
