@@ -328,6 +328,7 @@ router.post("/search/filter", async (req: Request, res: Response): Promise<void>
     }
 });
 
+
 // Helper function
 // @description Applies user preferences to a list of articles
 // @returns list of articles sorted by user preferences
@@ -363,8 +364,38 @@ function applySourcePreferences(
             !preferredSources.includes(article.source?.toLowerCase())
         );
     }
+
+    let reordered = [...preferred, ...nonPreferred]
+
+    // If no preferred sources, promote source diversity
+    if (preferred.length === 0) {
+        console.log("Reordering articles for source diversity");
+        const TOP_N = 7;
+        const seenSources = new Set();
+        const diverseTop: any[] = [];
+        const remaining: any[] = [];
+
+        for (const article of reordered) {
+            const source = article.source?.toLowerCase() || "";
+            if (diverseTop.length < TOP_N && !seenSources.has(source)) {
+                diverseTop.push(article);
+                seenSources.add(source);
+            } else {
+                remaining.push(article);
+            }
+        }
+
+        reordered = [...diverseTop, ...remaining];
+    } 
+
+    const withContent = reordered.filter(
+        article => article.content && article.content.trim() !== ""
+      );
+      const withoutContent = reordered.filter(
+        article => !article.content || article.content.trim() === ""
+      );
     
-    return [...preferred, ...nonPreferred];
+      return [...withContent, ...withoutContent];
   }
 
 // Helper function

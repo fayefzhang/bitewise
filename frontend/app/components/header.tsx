@@ -14,6 +14,7 @@ interface HeaderProps {
   setPreferences?: (preferences: AdvancedSearchPreferences) => void;
   placeholder?: string;
   isSearchPage?: boolean;
+  isProfilePage?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -21,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({
   setPreferences,
   placeholder = "Search for articles...",
   isSearchPage = false,
+  isProfilePage = false,
 }) => {
   // SEARCH FUNCTIONAL SETUP
   const [searchTerm, setSearchTerm] = useState("");
@@ -128,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </Link>
       </div>
-
+      {!isProfilePage ? (
       <div className="flex items-center space-x-2 bg-white p-2 rounded-md h-12">
         <span className="text-xl">🔍</span>
         <input
@@ -149,6 +151,9 @@ const Header: React.FC<HeaderProps> = ({
           </button>
         {/* )} */}
       </div>
+      ) : (
+        <div className="flex items-center space-x-2 p-2 rounded-md h-12"/>
+      )}
       
       <div className="flex space-x-4 absolute right-4">
         {isSignedIn && ( // only show profile if user is signed in

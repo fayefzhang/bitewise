@@ -232,7 +232,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header onSearch={handleSearch} placeholder="Search topic..." />
+      <Header onSearch={handleSearch} placeholder="Search topic..." isProfilePage={true} />
       <div className="w-[80%] min-h-screen mx-auto text-black">
       <div className="flex-grow flex flex-col items-start bg-white p-8">
         {/* Topics Section */}
