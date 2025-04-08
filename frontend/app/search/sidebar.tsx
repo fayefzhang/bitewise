@@ -329,12 +329,16 @@ const Sidebar: React.FC<SidebarProps> = ({
 
                   {/* Report Inaccurate AI Summary Button */}
                   <div className="mt-4">
-                    <button
-                      className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none"
-                      onClick={() => setReportAcknowledged(true)}
+                    <a
+                      href="#"
+                      className="text-red-500 hover:underline text-sm"
+                      onClick={(e) => {
+                      e.preventDefault();
+                      setReportAcknowledged(true);
+                      }}
                     >
                       Report Inaccurate AI Summary
-                    </button>
+                    </a>
                     {reportAcknowledged && (
                       <p className="text-sm text-gray-600 mt-2">
                         The Bitewise team has been notified and will review this
