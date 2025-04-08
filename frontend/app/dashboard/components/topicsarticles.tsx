@@ -17,7 +17,7 @@ const TopicsArticles = () => {
   const [topicArticles, setTopicArticles] = useState<TopicArticles>();
 
   useEffect(() => {
-    const userEmail = localStorage.getItem("userEmail");
+    const userEmail = typeof window !== "undefined" ? localStorage.getItem("userEmail") : null;
 
     const getUserPreferences = async () => {
       try {
@@ -153,6 +153,28 @@ const TopicsArticles = () => {
       <div className="sticky top-0 z-10">
         <h2 className="text-xl font-bold mb-2 px-2">Your Topics</h2>
         <div className="border-b-2 border-veryLightBlue mb-4 w-full"></div>
+        {!preferences.topics || preferences.topics.length === 0 ? (
+            <div className="text-center mt-4">
+              {localStorage.getItem("userEmail") ? (
+                <Link
+                  href="/profile"
+                  className="text-blue-500 hover:underline"
+                >
+                  Select topics to follow.
+                </Link>
+              ) : (
+                <p>
+                  <Link
+                    href="/login"
+                    className="text-blue-500 hover:underline"
+                  >
+                    Sign in or Sign Up
+                  </Link>{" "}
+                  to see your followed topics.
+                </p>
+              )}
+            </div>
+          ) : null}
       </div>
       {renderArticles()}
     </aside>

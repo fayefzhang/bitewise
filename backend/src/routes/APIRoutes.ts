@@ -103,6 +103,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
 
                 // get existing articles from database and resummarize
                 const articles = await ArticleModel.find({ url: { $in: existingQuery.articles } }); 
+                console.log("EXISTING QUERY SEARCH, articles: ", articles)
                 const summaryRequestBody = {
                     articles: Object.fromEntries(
                         articles.slice(0, 5).map((article: any) => [
@@ -113,8 +114,20 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                     ai_preferences,
                 };
 
-                const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
-                const { title, summary, enriched_articles } = summaryResponse.data;
+                let title = "";
+                let summary = "";
+                let enriched_articles = [];
+
+                try {
+                    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
+
+                    ({ title, summary, enriched_articles } = summaryResponse.data);
+                } catch (error: any) {
+                    console.error("Failure calling python summarize-articles");
+                    if (error.response) {
+                        console.warn("Python responded with error:", error.response.status, error.response.data);
+                    }
+                }
 
                 console.log("Search preferences:", search_preferences);
                 let sourceFilteredArticles = articles;
