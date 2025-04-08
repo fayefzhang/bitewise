@@ -101,33 +101,8 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
             if (timeDifference < 24 * 60 * 60 * 1000) {
                 console.log("search: using cached response for existing query");
 
-                // get existing articles from database and resummarize
+                // get existing articles from database
                 const articles = await ArticleModel.find({ url: { $in: existingQuery.articles } }); 
-                console.log("EXISTING QUERY SEARCH, articles: ", articles)
-                const summaryRequestBody = {
-                    articles: Object.fromEntries(
-                        articles.slice(0, 5).map((article: any) => [
-                            article.url,
-                            { title: article.title, content: article.content }
-                        ])
-                    ),
-                    ai_preferences,
-                };
-
-                let title = "";
-                let summary = "";
-                let enriched_articles = [];
-
-                try {
-                    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
-
-                    ({ title, summary, enriched_articles } = summaryResponse.data);
-                } catch (error: any) {
-                    console.error("Failure calling python summarize-articles");
-                    if (error.response) {
-                        console.warn("Python responded with error:", error.response.status, error.response.data);
-                    }
-                }
 
                 console.log("Search preferences:", search_preferences);
                 let sourceFilteredArticles = articles;
@@ -137,17 +112,19 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                     sourceFilteredArticles = applySourcePreferences(articles, search_preferences);
                     const afterCount = sourceFilteredArticles.length;
                     console.log(`Filtered articles from ${beforeCount} articles to ${afterCount} articles based on excluded sources.`);
-
                 } 
 
                 // create and return response
-                const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
-                    articles: sourceFilteredArticles,
-                    summary: {
-                        title: query,
-                        summary: summary,
-                    },
+                const result: { articles: any; clusters?: any } = {
+                    articles: sourceFilteredArticles
                 };
+                // const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
+                //     articles: sourceFilteredArticles,
+                //     summary: {
+                //         title: query,
+                //         summary: summary,
+                //     },
+                // };
                 res.json(result);
                 return;
 
@@ -261,8 +238,20 @@ router.post("/search/query-summary", async (req: Request, res: Response): Promis
         ai_preferences,
     };
 
-    const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
-    const { title, summary, enriched_articles } = summaryResponse.data;
+    let title = "";
+    let summary = "";
+    let enriched_articles = [];
+
+    try {
+        const summaryResponse = await axios.post(`${BASE_URL}/summarize-articles`, summaryRequestBody);
+
+        ({ title, summary, enriched_articles } = summaryResponse.data);
+    } catch (error: any) {
+        console.error("Failure calling python summarize-articles (query-summary)");
+        if (error.response) {
+            console.warn("Python responded with error:", error.response.status, error.response.data);
+        }
+    }
 
     // update articles with scraped content in database
     const bulkOperations = enriched_articles.map((article: any) => ({
@@ -284,7 +273,8 @@ router.post("/search/query-summary", async (req: Request, res: Response): Promis
         console.log("No articles required content update.");
     }
 
-    const result: { summary: string } = {
+    const result: { title: string, summary: string } = {
+        title: title,
         summary: summary,
     };
 
@@ -353,20 +343,27 @@ function applySourcePreferences(
   
     console.log("Excluded sources:", excludedSources);
     // Filter out excluded sources
-    const filtered = articles.filter(article => {
-      const source = article.source?.toLowerCase() || "";
-      return !excludedSources.includes(source);
-    });
+    let filtered = articles
+    if (excludedSources.length != 0) {
+        filtered = articles.filter(article => {
+            const source = article.source?.toLowerCase() || "";
+            return !excludedSources.includes(source);
+        });
+    }
   
+    let preferred = []
+    let nonPreferred = filtered
     // Prioritize preferred sources
-    const preferred = filtered.filter(article =>
-      preferredSources.includes(article.source?.toLowerCase())
-    );
-    console.log("Preferred sources:", preferred.map(a => a.source));
-    const nonPreferred = filtered.filter(article =>
-      !preferredSources.includes(article.source?.toLowerCase())
-    );
-  
+    if (preferredSources.length != 0) {
+        preferred = filtered.filter(article =>
+            preferredSources.includes(article.source?.toLowerCase())
+        );
+        console.log("Preferred sources:", preferred.map(a => a.source));
+        nonPreferred = filtered.filter(article =>
+            !preferredSources.includes(article.source?.toLowerCase())
+        );
+    }
+    
     return [...preferred, ...nonPreferred];
   }
 
