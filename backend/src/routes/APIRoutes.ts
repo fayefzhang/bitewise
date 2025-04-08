@@ -108,7 +108,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 let sourceFilteredArticles = articles;
                 const beforeCount = articles.length;
                 if (search_preferences && (search_preferences.sources || search_preferences.exclude_domains)) {
-                    console.log("Applying source preferences");
+                    console.log("Applying source preferences (existing query)");
                     sourceFilteredArticles = applySourcePreferences(articles, search_preferences);
                     const afterCount = sourceFilteredArticles.length;
                     console.log(`Filtered articles from ${beforeCount} articles to ${afterCount} articles based on excluded sources.`);
@@ -118,16 +118,9 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
                 const result: { articles: any; clusters?: any } = {
                     articles: sourceFilteredArticles
                 };
-                // const result: { articles: any; summary: { title: any; summary: any; }; clusters?: any } = {
-                //     articles: sourceFilteredArticles,
-                //     summary: {
-                //         title: query,
-                //         summary: summary,
-                //     },
-                // };
+                
                 res.json(result);
                 return;
-
             } else {
                 // delete existing query
                 await QueryModel.deleteOne({ query: query });
@@ -149,7 +142,7 @@ router.post("/search", async (req: Request, res: Response): Promise<void> => {
         console.log("SEARCH PREFS", search_preferences);
 
         if (search_preferences && (search_preferences.sources || search_preferences.exclude_domains)) {
-            console.log("Applying source preferences");
+            console.log("Applying source preferences (non-existing query)");
             sourceFilteredArticles = applySourcePreferences(filteredArticles, search_preferences);
             const afterCount = sourceFilteredArticles.length;
             console.log(`Filtered articles from ${beforeCount} articles to ${afterCount} articles based on excluded sources.`);
@@ -341,7 +334,8 @@ function applySourcePreferences(
   ): any[] {
     const preferredSources = search_preferences?.sources?.map(s => s.toLowerCase()) || [];
     const excludedSources = search_preferences?.exclude_domains?.map(s => s.toLowerCase()) || [];
-  
+    
+    console.log("Articles.length in applysourcepreferences:", articles.length)
     console.log("Excluded sources:", excludedSources);
     // Filter out excluded sources
     let filtered = articles
@@ -376,7 +370,12 @@ function applySourcePreferences(
         const remaining: any[] = [];
 
         for (const article of reordered) {
-            const source = article.source?.toLowerCase() || "";
+            let source = ""
+            if (article.source.name) {
+                source = article.source.name.toLowerCase();
+            } else {
+                source = article.source?.toLowerCase();
+            }
             if (diverseTop.length < TOP_N && !seenSources.has(source)) {
                 diverseTop.push(article);
                 seenSources.add(source);
