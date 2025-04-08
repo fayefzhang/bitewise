@@ -115,24 +115,6 @@ export async function handleSearch(
     if (articlesData.length > 4) {
       fetchSummariesForFirstFive(articlesData, setArticles, aiPreferences);
     }
-
-    const summaryRequestBody = { // passing in the first 5 articles
-      articles: articlesData.slice(0, 5),
-      ai_preferences: defaultAIPreferences,
-    };
-
-    const summaryResponse = await fetch(`${BASE_URL}/api/search/query-summary`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(summaryRequestBody),
-      });
-
-    const summaryData = await summaryResponse.json()
-
-    setSummary({ // updates the summary on the frontend
-      title: toTitleCase(term),
-      summary: summaryData.summary,
-    });
   } catch (error) {
     console.error("Error processing search request", error);
   }
@@ -177,7 +159,6 @@ export async function fetchSummariesForFirstFive(
         }
       : article;
   });
-
 
   console.log("✅ Final article order sent to frontend:");
     updatedArticles.slice(0, 7).forEach((a, i) =>

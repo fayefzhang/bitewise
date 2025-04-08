@@ -58,6 +58,42 @@ const SearchPage: React.FC = () => {
     }
   }, [selectedArticle]);
 
+  useEffect(() => {
+    if (articles.length >= 5 && summary == null) {
+      console.log("FETCHING NEW SUMMARY")
+      const fetchSummary = async () => {
+        const summaryRequestBody = {
+          articles: articles.slice(0, 5),
+          ai_preferences: defaultAIPreferences,
+        };
+  
+        try {
+          const summaryResponse = await fetch(`${BASE_URL}/api/search/query-summary`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(summaryRequestBody),
+          });
+  
+          if (!summaryResponse.ok) {
+            throw new Error(`Error: ${summaryResponse.status}`);
+          }
+  
+          const summaryData = await summaryResponse.json();
+  
+          setSummary({
+            title: summaryData.title || "",
+            summary: summaryData.summary || "",
+          });
+        } catch (err) {
+          console.error("Failed to fetch summary:", err);
+          setSummary({ title: "", summary: "" }); // fallback values
+        }
+      };
+  
+      fetchSummary(); // call the inner async function
+    }
+  }, [articles]);
+
   // programatic search by entering a specific url
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
