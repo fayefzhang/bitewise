@@ -340,8 +340,14 @@ function applySourcePreferences(
     // Filter out excluded sources
     let filtered = articles
     if (excludedSources.length != 0) {
+        
         filtered = articles.filter(article => {
-            const source = article.source?.toLowerCase() || "";
+            let source = ""
+            if (article.source.name) {
+                source = article.source.name.toLowerCase();
+            } else {
+                source = article.source?.toLowerCase();
+            }
             return !excludedSources.includes(source);
         });
     }
@@ -350,13 +356,25 @@ function applySourcePreferences(
     let nonPreferred = filtered
     // Prioritize preferred sources
     if (preferredSources.length != 0) {
-        preferred = filtered.filter(article =>
-            preferredSources.includes(article.source?.toLowerCase())
-        );
+        preferred = filtered.filter(article => {
+            let source = ""
+            if (article.source.name) {
+                source = article.source.name.toLowerCase();
+            } else {
+                source = article.source?.toLowerCase();
+            }
+            return preferredSources.includes(source)
+        });
         console.log("Preferred sources:", preferred.map(a => a.source));
-        nonPreferred = filtered.filter(article =>
-            !preferredSources.includes(article.source?.toLowerCase())
-        );
+        nonPreferred = filtered.filter(article => {
+            let source = ""
+            if (article.source.name) {
+                source = article.source.name.toLowerCase();
+            } else {
+                source = article.source?.toLowerCase();
+            }
+            return !preferredSources.includes(source)
+        });
     }
 
     let reordered = [...preferred, ...nonPreferred]
@@ -376,6 +394,7 @@ function applySourcePreferences(
             } else {
                 source = article.source?.toLowerCase();
             }
+            console.log("source:", source)
             if (diverseTop.length < TOP_N && !seenSources.has(source)) {
                 diverseTop.push(article);
                 seenSources.add(source);

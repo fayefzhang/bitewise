@@ -160,7 +160,6 @@ export async function fetchSummariesForFirstFive(
       : article;
   });
 
-
   console.log("✅ Final article order sent to frontend:");
     updatedArticles.slice(0, 7).forEach((a, i) =>
       console.log(`${i + 1}. ${a.title} - ${a.source}`)

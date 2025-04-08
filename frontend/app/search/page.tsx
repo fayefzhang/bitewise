@@ -59,7 +59,7 @@ const SearchPage: React.FC = () => {
   }, [selectedArticle]);
 
   useEffect(() => {
-    if (articles.length >= 5) {
+    if (articles.length >= 5 && summary == null) {
       console.log("FETCHING NEW SUMMARY")
       const fetchSummary = async () => {
         const summaryRequestBody = {
