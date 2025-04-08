@@ -43,6 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const [tempPreferences, setTempPreferences] = useState(aiPreferences);
   const [isPreferencesPanelOpen, setIsPreferencesPanelOpen] = useState(false);
+  const [reportAcknowledged, setReportAcknowledged] = useState(false);
 
   useEffect(() => {
     if (userEmail) {
@@ -282,6 +283,20 @@ const Sidebar: React.FC<SidebarProps> = ({
                   ))
               )
             )
+            {/* Report Inaccurate AI Summary Button */}
+            <div className="mt-4">
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none"
+                onClick={() => setReportAcknowledged(true)}
+              >
+                Report Inaccurate AI Summary
+              </button>
+              {reportAcknowledged && (
+                <p className="text-sm text-gray-600 mt-2">
+                  The Bitewise team has been notified and will review this summary.
+                </p>
+              )}
+            </div>
           ) : (
             <p className="text-gray-500 text-center mt-16 flex items-center justify-center">
               <Spinner /> Generating summary...
