@@ -69,6 +69,7 @@ export async function handleSearch(
     });
     const searchData = await articlesResponse.json();
 
+
     // console.log("Raw search results: ", searchData);
 
     let filteredArticles = searchData.articles || [];
@@ -108,12 +109,6 @@ export async function handleSearch(
       cluster: entry.cluster,
     }));
 
-    // Move articles with empty content to the end of the array
-    articlesData = [
-      ...articlesData.filter(article => article.content && article.content.trim() !== ""),
-      ...articlesData.filter(article => !article.content || article.content.trim() === ""),
-    ];
-
     setArticles(articlesData); // updates the articles on the frontend
     setIsLoading(false)
 
@@ -143,14 +138,14 @@ export async function handleSearch(
   }
 }
 
-export async function fetchSummariesForFirstFive(articlesToProcess: Article[], setArticles: Function, aiPreferences: AISummaryPreferences) {
-
-  const updatedArticles = [...articlesToProcess];
-
-  const requests = updatedArticles.slice(0, 5).map(async (article, index) => {
-    // if (article.summaries.length === 0) {
+export async function fetchSummariesForFirstFive(
+  articlesToProcess: Article[],
+  setArticles: Function,
+  aiPreferences: AISummaryPreferences
+) {
+  const updates = await Promise.all(
+    articlesToProcess.slice(0, 5).map(async (article) => {
       try {
-        console.log("fetching summaries for first 5")
         const response = await fetch(`${BASE_URL}/api/summarize/article`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -162,16 +157,32 @@ export async function fetchSummariesForFirstFive(articlesToProcess: Article[], s
 
         const data = await response.json();
 
-        updatedArticles[index] = {
-          ...article,
-          summaries: [...article.summaries, data.summary || data],
+        return {
+          url: article.url,
+          summary: data.summary || data,
         };
       } catch (error) {
         console.error("Error processing article summary request", error);
+        return null;
       }
-    // }
+    })
+  );
+
+  const updatedArticles = articlesToProcess.map((article) => {
+    const update = updates.find((u) => u && u.url === article.url);
+    return update
+      ? {
+          ...article,
+          summaries: [...article.summaries, update.summary],
+        }
+      : article;
   });
 
-  await Promise.all(requests);
+
+  console.log("✅ Final article order sent to frontend:");
+    updatedArticles.slice(0, 7).forEach((a, i) =>
+      console.log(`${i + 1}. ${a.title} - ${a.source}`)
+    );
   setArticles(updatedArticles);
 }
+
