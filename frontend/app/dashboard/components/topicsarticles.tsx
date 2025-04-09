@@ -166,7 +166,7 @@ const TopicsArticles = () => {
                 <p>
                   <Link
                     href="/login"
-                    className="text-blue-500 hover:underline"
+                    className="text-darkBlue hover:underline"
                   >
                     Sign in or Sign Up
                   </Link>{" "}

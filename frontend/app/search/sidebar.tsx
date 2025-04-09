@@ -328,10 +328,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                   )}
 
                   {/* Report Inaccurate AI Summary Button */}
-                  <div className="mt-4">
+                    <div className="mt-8 text-right">
                     <a
                       href="#"
-                      className="text-red-500 hover:underline text-sm"
+                      className="text-darkBlue hover:underline text-sm"
                       onClick={(e) => {
                       e.preventDefault();
                       setReportAcknowledged(true);

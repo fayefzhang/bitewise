@@ -204,7 +204,10 @@ const SearchPage: React.FC = () => {
   return (
     <div className="w-full min-h-screen mx-auto bg-veryLightBlue">
       <Header
-        onSearch={(term) => handleSearchWithLoading(term)}
+        onSearch={(term) => {
+          handleSearchWithLoading(term); 
+          setSearchTerm(term.replace(/\b\w/g, (char) => char.toUpperCase()));
+        }}
         setPreferences={setPreferences}
         placeholder="Search topic..."
         isSearchPage={true}
@@ -221,7 +224,7 @@ const SearchPage: React.FC = () => {
           <section className="mb-8">
             {summary ? (
               <>
-                <h1 className="text-2xl font-bold">{summary.title}</h1>
+                <h1 className="text-2xl font-bold">{searchTerm}</h1>
                 <p className="mt-6 mb-8 text-sm">{summary.summary}</p>
               </>
             ) : articles.length > 0 && (

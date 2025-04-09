@@ -1,5 +1,4 @@
 https://abcnews.go.com
-https://news.nationalgeographic.com
 https://news.vice.com
 https://nymag.com/
 https://thehill.com
@@ -30,7 +29,6 @@ https://www.wsj.com
 https://news.yahoo.com
 https://www.foreignpolicy.com
 https://www.theatlantic.com
-https://www.vox.com
 https://www.nature.com/news
 https://www.pbs.org/newshour
 https://www.esquire.com/news-politics/
